@@ -1,0 +1,2 @@
+3.0
+{'neobundle.vim': {'checked_time': 1442778930, 'installed_uri': 'https://github.com/Shougo/neobundle.vim.git', 'installed_path': '/root/.vim/bundle/neobundle.vim', 'revisions': {}, 'updated_time': '1442697401'}, 'vim-airline': {'checked_time': 1442778930, 'installed_uri': 'https://github.com/bling/vim-airline.git', 'installed_path': '/root/.vim/bundle/vim-airline', 'revisions': {'1436408908': 'cdc6d98a09db60d3dda58815616f78338cbdaa9d'}, 'updated_time': '1436408908'}}

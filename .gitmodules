@@ -1,0 +1,9 @@
+[submodule ".dotbot"]
+	path = .dotbot
+	url = https://github.com/anishathalye/dotbot
+[submodule "zsh/antigen"]
+	path = zsh/antigen
+	url = https://github.com/zsh-users/antigen
+[submodule "fonts"]
+	path = fonts
+	url = https://github.com/powerline/fonts

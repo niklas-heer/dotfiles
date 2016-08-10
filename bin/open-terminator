@@ -1,0 +1,14 @@
+#!/bin/sh
+PIDNAME="terminator"
+
+show_window()
+{
+    if WID=$(xdotool search --desktop 0 --class "^${PIDNAME}$"); then
+        xdotool windowactivate "${WID}"
+        return 0
+    else
+        return 1
+    fi
+}
+
+! show_window

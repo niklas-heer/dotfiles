@@ -1,0 +1,29 @@
+<metapackage xmlns:os="http://opensuse.org/Standards/One_Click_Install" xmlns="http://opensuse.org/Standards/One_Click_Install">
+  <group>
+    <repositories>
+      <repository recommended="true">
+        <name>home:marceloatie</name>
+        <summary>Atie's Home Project</summary>
+        <description></description>
+        <url>http://download.opensuse.org/repositories/home:/marceloatie/openSUSE_Factory/</url>
+      </repository>
+      <repository recommended="false">
+        <name>openSUSE:Factory</name>
+        <summary>The next openSUSE distribution</summary>
+        <description>Any user who wishes to have the newest packages that include, but are not limited to, the Linux kernel, SAMBA, git, desktops, office applications and many other packages, will want Tumbleweed. Tumbleweed appeals to Power Users, Software Developers and openSUSE Contributors. If you require the latest software stacks and Integrated Development Environment or need a stable platform closest to bleeding edge Linux, Tumbleweed is the best choice for you.
+
+Staging dashboard is located at: https://build.opensuse.org/project/dashboard/openSUSE:Factory
+
+Have a look at http://en.opensuse.org/Portal:Factory for more details.</description>
+        <url>http://download.opensuse.org/tumbleweed/repo/oss/</url>
+      </repository>
+    </repositories>
+    <software>
+      <item>
+        <name>telegram</name>
+        <summary>Official Telegram Messenger app</summary>
+        <description>Telegram is a cloud-based mobile and desktop messaging app with a focus on security and speed.</description>
+      </item>
+    </software>
+  </group>
+</metapackage>
