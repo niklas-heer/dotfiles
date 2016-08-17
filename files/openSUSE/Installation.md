@@ -17,6 +17,7 @@ At the moment it is in German, but I'll translate it when it's done.
 - [x] Ghostwriter (markdown editor)
 - [x] PHPStorm
 - [x] Rambox
+- [ ] Keybase
 - [ ] caffeine-ng
 - [ ] Gitkraken
 - [ ] Teamspeak 3 
