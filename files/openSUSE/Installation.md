@@ -206,6 +206,7 @@ In openSUSE you'll receive system mail. Do get it just use the `mail`-command. D
 ## Sublime
 - Install Sublime form: https://software.opensuse.org/package/sublime-text-beta
 - Install Package Control: https://packagecontrol.io/installation
+- Font: http://input.fontbureau.com/
 - Use configs below:
 
 __Preferences.sublime-settings__:
