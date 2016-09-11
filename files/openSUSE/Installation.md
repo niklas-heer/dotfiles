@@ -17,6 +17,8 @@ At the moment it is in German, but I'll translate it when it's done.
 - [x] Ghostwriter (markdown editor)
 - [x] PHPStorm
 - [x] Rambox
+- [x] Sublime
+- [ ] Keybase
 - [ ] caffeine-ng
 - [ ] Gitkraken
 - [ ] Teamspeak 3 
@@ -200,3 +202,92 @@ In openSUSE you'll receive system mail. Do get it just use the `mail`-command. D
     - Haken bei Belegungen einrichten
     - Hinzufügen drücken
     - Englisch, Englisch (USA), Englisch (USA international, AltGr-Unicode-Kombination)
+
+## Sublime
+- Install Sublime form: https://software.opensuse.org/package/sublime-text-beta
+- Install Package Control: https://packagecontrol.io/installation
+- Font: http://input.fontbureau.com/, https://github.com/tonsky/FiraCode
+- Use configs below:
+
+__Preferences.sublime-settings__:
+```
+{
+	"always_show_minimap_viewport": true,
+	"bold_folder_labels": true,
+	"caret_extra_bottom": 2,
+	"caret_extra_top": 12,
+	"caret_extra_width": 2,
+	"caret_style": "phase",
+	"color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
+	"default_encoding": "UTF-8",
+	"detect_indentation": true,
+	"ensure_newline_at_eof_on_save": true,
+	"fade_fold_buttons": false,
+	"find_selected_text": true,
+	"font_face": "Fira Code",
+	"font_options": "subpixel_antialias",
+	"font_size": 11,
+	"highlight_line": true,
+	"highlight_modified_tabs": true,
+	"ignored_packages":
+	[
+	],
+	"indent_guide_options":
+	[
+		"draw_normal",
+		"draw_active"
+	],
+	"line_padding_bottom": 2,
+	"line_padding_top": 12,
+	"overlay_scroll_bars": "enabled",
+	"rulers":
+	[
+		120
+	],
+	"tab_size": 4,
+	"theme": "Material-Theme.sublime-theme",
+	"material_theme_small_tab": true,
+	"material_theme_tabs_autowidth": true,
+	"material_theme_compact_panel": true,
+	"material_theme_small_statusbar": true,
+	"material_theme_compact_sidebar": true,
+	"material_theme_tabs_separator": true,
+	"translate_tabs_to_spaces": false,
+	"trim_trailing_white_space_on_save": true,
+	"word_separators": "./\\()\"'-:,.;<>~!@#%^&*|+=[]{}`~?",
+	"word_wrap": true,
+	"wrap_width": 120
+}
+```
+
+__Package Control.sublime-settings__:
+```
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"Alignment",
+		"ApplySyntax",
+		"Block Cursor Everywhere",
+		"BracketHighlighter",
+		"DocBlockr",
+		"Emmet",
+		"Facebook Material Theme",
+		"GitGutter",
+		"Markdown Preview",
+		"MarkdownEditing",
+		"Material Theme",
+		"Material Theme - Appbar",
+		"Modific",
+		"Package Control",
+		"SideBarEnhancements",
+		"SmartMarkdown",
+		"SublimeCodeIntel",
+		"TrailingSpaces",
+		"WordCount"
+	]
+}
+```

@@ -20,7 +20,7 @@ Software needed
 * `vim`
 * `python3-devel`, `python3-pip` for https://github.com/nvbn/thefuck
 * `gcc` (for openSUSE: `sudo zypper in -t pattern devel_basis`)
-
+* `ksshaskpass`
 
 Making Local Customizations
 ---------------------------
