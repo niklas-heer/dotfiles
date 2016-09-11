@@ -11,9 +11,10 @@
     ~/.dotfiles: ''
     ~/.gitconfig: gitconfig
     ~/.gitignore_global: gitignore_global
+    ~/.config/plasma-workspace/env/ssh-add.sh: config/KDE/ssh-add.sh
     ~/.vim: vim
     ~/.vimrc: vimrc
-    ~/.zsh: zsh    
+    ~/.zsh: zsh
     ~/.zshrc:
       force: true
       path: zshrc

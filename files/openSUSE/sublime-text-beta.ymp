@@ -1,0 +1,31 @@
+<metapackage xmlns:os="http://opensuse.org/Standards/One_Click_Install" xmlns="http://opensuse.org/Standards/One_Click_Install">
+  <group>
+    <repositories>
+      <repository recommended="true">
+        <name>home:datamaan</name>
+        <summary></summary>
+        <description></description>
+        <url>http://download.opensuse.org/repositories/home:/datamaan/openSUSE_Leap_42.1/</url>
+      </repository>
+      <repository recommended="true">
+        <name>devel:tools:building</name>
+        <summary>Tools for building software</summary>
+        <description>Tools for building software</description>
+        <url>http://download.opensuse.org/repositories/devel:/tools:/building/openSUSE_Leap_42.1/</url>
+      </repository>
+      <repository recommended="false">
+        <name>openSUSE:Leap:42.1</name>
+        <summary>openSUSE Leap 42.1</summary>
+        <description></description>
+        <url>http://download.opensuse.org/distribution/leap/42.1/repo/oss/</url>
+      </repository>
+    </repositories>
+    <software>
+      <item>
+        <name>sublime-text-beta</name>
+        <summary>Sophisticated text editor for code, markup and prose</summary>
+        <description>Sublime Text is a sophisticated text editor for code, markup and prose.</description>
+      </item>
+    </software>
+  </group>
+</metapackage>
