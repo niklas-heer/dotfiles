@@ -3,6 +3,9 @@ if [ -f ~/.zshrc_local_before ]; then
     source ~/.zshrc_local_before
 fi
 
+# VTE support
+source /etc/profile.d/vte.sh
+
 # Load main configuration
 source ~/.zsh/conf/main.zsh
 
