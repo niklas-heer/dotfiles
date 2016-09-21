@@ -11,7 +11,6 @@
     ~/.dotfiles: ''
     ~/.gitconfig: gitconfig
     ~/.gitignore_global: gitignore_global
-    ~/.config/plasma-workspace/env/ssh-add.sh: config/KDE/ssh-add.sh
     ~/.vim: vim
     ~/.vimrc: vimrc
     ~/.zsh: zsh
@@ -25,6 +24,3 @@
     - ['git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf; ~/.fzf/install --all', 'Install fuzzy command-line finder (fzf)... ']
     - ['sudo -H pip install thefuck', 'Install "thefuck"... ']
     - ['fonts/install.sh', 'Install powerline fonts... ']
-    - ['~/Bilder/BitDay/install_cron.sh', 'Install cron jobs for BitDay... ']
-    - ['rsync -rtuvP ~/.dotfiles/configs/konsole/ ~/.local/share/konsole/', 'Sync "Konsole" configs... ']
-
