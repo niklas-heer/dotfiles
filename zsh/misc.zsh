@@ -28,9 +28,18 @@ wea()
 }
 
 alias wea_gdf="wea Gaildorf"
-alias wea_an="wea Ansbach" 
+alias wea_an="wea Ansbach"
 
 ###################
 # School shortcuts
 ###################
 newdir() { mkdir $(date +"%Y-%m-%d"); cd $(date +"%Y-%m-%d") }
+
+###################
+# Hugo
+###################
+blog_serve() { hugo server -w -t "nh" }
+blog_new() {
+	name=$(echo "$*" | awk '{print tolower($0)}')
+	hugo new post/$(date +"%Y-%m-%d")-${name// /-}.md
+}

@@ -21,7 +21,7 @@ At the moment it is in German, but I'll translate it when it's done.
 - [ ] Keybase
 - [ ] caffeine-ng
 - [ ] Gitkraken
-- [ ] Teamspeak 3 
+- [ ] Teamspeak 3
 - [ ] LAMP Stack (PHP7)
 - [ ] Apache-Config Tool (Yast)
 - [ ] Cryptomator

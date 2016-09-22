@@ -23,15 +23,6 @@ alias jrm="umark"
 alias jls="marks"
 
 ###################
-# System
-###################
-
-# Manjaro/Arch
-#alias pacman-clean="sudo pacman -Sc && sudo pacman-optimize; yaourt -Syua"
-#install() { yaourt --noconfirm -S "$@"; }
-#update() { yaourt --noconfirm --aur -Syu; }
-
-###################
 # Clipboard
 ###################
 alias pbcopy='xclip -selection clipboard'
@@ -53,4 +44,4 @@ tma()
 ###################
 # additional stuff
 ###################
-count() { echo -n "$1" | wc -c } # count characters 
+count() { echo -n "$1" | wc -c } # count characters

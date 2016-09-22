@@ -33,6 +33,11 @@ source ~/.zsh/hash.zsh
 # Miscellaneous shortcuts/tools
 source ~/.zsh/misc.zsh
 
+# Special commands for arch/manjaro/antergos
+if [ -f /etc/arch-release ]; then
+    source ~/.zsh/arch.zsh
+fi
+
 # Allow local customizations in the ~/.zshrc_local_after file
 if [ -f ~/.zshrc_local_after ]; then
     source ~/.zshrc_local_after
