@@ -7,3 +7,6 @@
 [submodule "fonts"]
 	path = fonts
 	url = https://github.com/powerline/fonts
+[submodule "tmux"]
+	path = tmux
+	url = https://github.com/gpakosz/.tmux.git

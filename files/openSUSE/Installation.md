@@ -283,11 +283,9 @@ __Package Control.sublime-settings__:
 		"Material Theme - Appbar",
 		"Modific",
 		"Package Control",
-		"SideBarEnhancements",
 		"SmartMarkdown",
 		"SublimeCodeIntel",
 		"TrailingSpaces",
-		"WordCount"
 	]
 }
 ```
