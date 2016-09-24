@@ -43,4 +43,7 @@
     path = ~/.gitconfig_local
  
 [user]
-	username = niklas-heer
+    username = niklas-heer
+    name = Niklas Heer
+    email = niklas.heer@gmail.com
+
