@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Prevent the automatic suspend from kicking in. 
+# Prevent the automatic suspend from kicking in.
 # see: http://askubuntu.com/questions/222289/how-to-inhibit-suspend-temporarily
 function inhibit_suspend()
 {
@@ -43,18 +43,18 @@ while [ "x$keypress" = "x" ]; do
 		let run=0
 	fi
 
-	if [ "$run" = 1 ]; then 
+	if [ "$run" = 1 ]; then
 		let count+=1
 		inhibit_suspend
 	fi
-	
+
 	# display the time the script is executed
 	display_time=`date -u -d @${runtime} +"%T"`
 	echo -ne 'Runtime: '$display_time'\r'
-	
+
 	# sleep a while to prevent the script from running to many times
 	sleep 0.5
-	
+
 	# capture the keypress
 	keypress="`cat -v`"
 done

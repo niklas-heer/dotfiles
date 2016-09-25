@@ -1,3 +1,0 @@
-#!/usr/bin/env ruby
-
-puts %x{gnome-screenshot -af /home/nh/Bilder/gs.jpg}

@@ -3,7 +3,7 @@
 // @dustyfresh
 // 2014
 error_reporting(0);
-require "simple_html_dom.php";
+require "vendor/simple_html_dom.php";
 $host = $argv[1] or die("Please specify a host to check\n");
 
 function isup($host){

@@ -48,4 +48,4 @@ sha256_check()
 	else
 		echo "[SHA256 CHECK] failed!"
 	fi
-} 
+}

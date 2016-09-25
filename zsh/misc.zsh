@@ -22,24 +22,29 @@ akill()
 	echo "21-day rule\n====================\n\nStart: $NOW\nZiel: $THEN"
 }
 
-wea()
-{
+# Weather
+weather() {
     curl http://wttr\.in/$1
 }
 
-alias wea_gdf="wea Gaildorf"
-alias wea_an="wea Ansbach"
+wea() {
+	case "$1" in
+		"gdf")
+			weather Gaildorf
+			;;
+		"an")
+			weather Ansbach
+			;;
+		*)
+			weather $1
+			;;
+	esac
+}
+
+# count characters
+count() { echo -n "$1" | wc -c }
 
 ###################
 # School shortcuts
 ###################
 newdir() { mkdir $(date +"%Y-%m-%d"); cd $(date +"%Y-%m-%d") }
-
-###################
-# Hugo
-###################
-blog_serve() { hugo server -w -t "nh" }
-blog_new() {
-	name=$(echo "$*" | awk '{print tolower($0)}')
-	hugo new post/$(date +"%Y-%m-%d")-${name// /-}.md
-}

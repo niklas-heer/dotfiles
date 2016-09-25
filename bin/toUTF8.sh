@@ -8,7 +8,7 @@
 # cannot be recognized. In that case you should load the corresponding file into a development editor like Netbeans
 # or Komodo and apply the UTF-8 charset manually.
 #
-# This is free software. Use and distribute but do it at your own risk. 
+# This is free software. Use and distribute but do it at your own risk.
 # We will not take any responsibilities for failures and do not provide any support.
 
 #checking Parameters
@@ -101,7 +101,7 @@ exit 0
 } #end function convert()
 
 # Check if a value exists in an array
-# @param $1 mixed  Needle  
+# @param $1 mixed  Needle
 # @param $2 array  Haystack
 # @return  Success (0) if value exists, Failure (1) otherwise} #end function in_array()
 # Usage: in_array "$needle" "${haystack[@]}"

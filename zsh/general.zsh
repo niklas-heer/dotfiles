@@ -40,8 +40,3 @@ tma()
 {
     tmux attach -t $1
 }
-
-###################
-# additional stuff
-###################
-count() { echo -n "$1" | wc -c } # count characters
