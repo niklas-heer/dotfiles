@@ -1,0 +1,11 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Categories=Programming;
+Comment=Prepros is great
+Exec=/opt/Prepros-linux-64/Prepros
+Hidden=false
+Icon=/opt/Prepros-linux-64/prepros.png
+Name=Prepros
+Terminal=false
+Type=Application
+Version=5.10.2
