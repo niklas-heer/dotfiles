@@ -3,3 +3,12 @@ ggl
 
 # git reset HEAD --hard
 grhh
+
+# git commit -v
+gc
+
+# git commit -v -a
+gca
+
+# git add --all
+gaa
