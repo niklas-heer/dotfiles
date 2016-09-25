@@ -1,0 +1,14 @@
+- yaourt:
+  - vim
+  - neovim
+  - vlc
+  - hub
+  - git
+  - gitg
+  - tig
+  - tree
+  - tmux
+  - shutter
+  - wget
+  - putty
+  - tk # git-gui
