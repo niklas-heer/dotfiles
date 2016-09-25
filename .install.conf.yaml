@@ -17,6 +17,7 @@
     ~/.tmux.conf.local: tmux.conf
     ~/.vimrc: vimrc
     ~/.zsh: zsh
+    ~/.local/share/applications/Prepros.desktop: files/Prepros/Prepros.desktop
     ~/.zshrc:
       force: true
       path: zshrc
@@ -27,3 +28,4 @@
     - ['git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf; ~/.fzf/install --all', 'Install fuzzy command-line finder (fzf)... ']
     - ['sudo -H pip install -r pip.conf --upgrade', 'Install pip packages... ']
     - ['fonts/install.sh', 'Install powerline fonts... ']
+    - ['files/Prepros/install.sh', 'Installing Prepros...']
