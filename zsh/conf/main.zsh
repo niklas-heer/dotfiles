@@ -6,3 +6,9 @@ export PATH="$PATH:$GOPATH/bin:$(ruby -e "print Gem.user_dir")/bin"
 # setting for https://github.com/chrisallenlane/cheat
 export CHEATPATH="$CHEATPATH:$HOME/.dotfiles/cheat"
 export CHEATCOLORS=true
+
+# Autocompletion files
+fpath=($HOME/.zsh/autocompletion $fpath)
+
+# VTE support
+source /etc/profile.d/vte.sh
