@@ -11,5 +11,7 @@
   - shutter
   - wget
   - putty
+  - python-pip
+  - base-devel
   - tk # git-gui
   - mosh

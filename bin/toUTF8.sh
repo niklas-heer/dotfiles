@@ -27,7 +27,7 @@ fi
 # Reason: Sometimes it happens that .htm(l), .php, .tpl files etc. have a binary charset type. This script
 # does not convert binary file types into utf-8 because it might destroy your data. So we need to include these file types
 # into the conversion system manually to tell the conversion that binary files with these special extensions may be converted anyway.
-filestoconvert=(htm html php txt tpl asp css js cpp h)
+filestoconvert=(htm html php txt tpl asp css js cpp h csv)
 
 # define colors
 # default color
