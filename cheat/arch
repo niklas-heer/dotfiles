@@ -1,0 +1,7 @@
+# custom arch commands
+
+* in <app1, app2, ...>       - install an app
+* up                         - update system
+* se <app>                   - search an app
+* pacman-clean               - clean pacman cache
+* pacman-fix                 - unlock pacman if it is locked

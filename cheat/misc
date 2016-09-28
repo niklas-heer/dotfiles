@@ -1,0 +1,5 @@
+# size of a folder
+du -hs <folder>
+
+# password generation
+pwgen <number>

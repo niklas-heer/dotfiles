@@ -44,6 +44,9 @@ wea() {
 # count characters
 count() { echo -n "$1" | wc -c }
 
+# password generator
+pwgen() { < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-21} | cut -d '=' -f 2 | sed 's/;$//' }
+
 ###################
 # School shortcuts
 ###################

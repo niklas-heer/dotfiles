@@ -12,3 +12,4 @@
   - wget
   - putty
   - tk # git-gui
+  - mosh
