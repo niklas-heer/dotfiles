@@ -24,6 +24,9 @@ antigen bundle composer
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
 
+# Set the right font: https://github.com/gabrielelana/awesome-terminal-fonts
+POWERLEVEL9K_MODE='awesome-patched'
+
 # Load the theme.
 antigen theme bhilburn/powerlevel9k powerlevel9k
 
