@@ -15,3 +15,5 @@
   - base-devel
   - tk # git-gui
   - mosh
+  - crystal
+  - shards
