@@ -12,3 +12,6 @@ gca
 
 # git add --all
 gaa
+
+# git status -sb
+gsb
