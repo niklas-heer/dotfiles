@@ -3,3 +3,6 @@ du -hs <folder>
 
 # password generation
 pwgen <number>
+
+# tree show only directories and only 2 deep
+tree -d -L 2
