@@ -5,6 +5,9 @@ alias utf8="~/.dotfiles/bin/toUTF8.sh"
 alias zshrc="vim ~/.zshrc"
 alias starwars="telnet towel.blinkenlights.nl"
 alias cow_fortune="exec fortune | cowsay -n"
+alias random_word="sort -R /usr/share/dict/usa | head -1"
+
+random_string() { cat /dev/urandom | tr -dc 'a-z' | fold -w "$1" | head -n 1 }
 
 # kill processes, if you only know the name
 akill()
