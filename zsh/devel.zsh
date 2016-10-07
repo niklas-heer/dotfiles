@@ -98,6 +98,11 @@ EOIPFW"
 			# cd $web_directory
 			caddy
 			;;
+		"start")
+			echo "\nStarting caddy..."
+			sudo systemctl restart php-fpm.service
+			caddy
+			;;
 		"list")
 			echo "TODO: needs to be implemented"
 			;;
