@@ -87,7 +87,7 @@ web() {
 :80 {
 	root .
 	tls off
-	fastcgi / 127.0.0.1:9000 php
+	fastcgi / 127.0.0.1:9001 php
 }
 EOIPFW"
 			# echo "\n\nVisit your website: http://$web_name (copied to clipboard)"
