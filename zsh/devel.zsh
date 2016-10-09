@@ -11,13 +11,45 @@ gDiscard() { git stash save --keep-index; git stash drop }
 
 NIH_REPO_DIR="$HOME/REPOS"
 repos() {
-	 ~/REPOS
 	case "$1" in
 		"goto")
 			cd "$NIH_REPO_DIR"
 			;;
 		"show")
 			tree -d -L 2 "$NIH_REPO_DIR"
+			;;
+		"status")
+			echo "$NIH_REPO_DIR"
+
+			cd "$NIH_REPO_DIR"
+
+			bold=$(tput bold)
+			normal=$(tput sgr0)
+
+			all_dirs=0;
+			up_dirs=0;
+
+			for file in */*; do
+				if [[ -d "$file" && ! -L "$file" ]]; then
+					((all_dirs++))
+					output="$(git -c color.status=always -C $file status -s -u)"
+
+					if [ ! -z "$output" ]; then
+
+						((up_dirs++))
+
+						folder="${file%%/*}";
+						subfolder="${file#*/}";
+						output="${output/$'\n'/\n│         }";
+						echo "├── $folder";
+						echo "│   └──$subfolder";
+						echo "│         $output\n│";
+					fi;
+				fi;
+			done;
+
+			echo "│\n└── ${bold}$up_dirs${normal} out of ${bold}$all_dirs${normal} have changes.";
+			cd $OLDPWD
 			;;
 		*)
 			echo "Function not defined."
