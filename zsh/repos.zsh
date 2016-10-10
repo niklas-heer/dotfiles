@@ -51,7 +51,12 @@ nih_repo_status() {
 		fi;
 	done;
 
-	echo "│\n└── ${bold}$up_dirs${normal} out of ${bold}$all_dirs${normal} have changes.";
+	if [ "$up_dirs" -eq "0" ]; then
+		echo "└── ${bold}Everything is okay. :)${normal}";
+	else
+		echo "│\n└── ${bold}$up_dirs${normal} out of ${bold}$all_dirs${normal} have changes.";
+	fi
+
 	cd $OLDPWD
 }
 
