@@ -24,6 +24,9 @@ source ~/.zsh/general.zsh
 # Development Shortcuts
 source ~/.zsh/devel.zsh
 
+# Repo Shortcuts
+source ~/.zsh/repos.zsh
+
 # Hashing Shortcuts
 source ~/.zsh/hash.zsh
 
