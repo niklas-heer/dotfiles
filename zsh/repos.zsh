@@ -10,7 +10,7 @@ nih_repo_display_help() {
 	echo "   -h, help           Displays this help page."
 	echo "   -l, list           Displays a tree of all repos."
 	echo "   -s, status         Displays all repos with uncommited changes."
-	echo "   -g, goto <int>     Jumps into the repo main dir. ($NIH_REPO_DIR)"
+	echo "   -j, jump <int>     Jumps into the repo main dir. ($NIH_REPO_DIR)"
 	echo "              └────── Jumps into the repo which number is provided by \"status\"."
 	echo
 }
@@ -61,7 +61,7 @@ repos() {
 		-h | help)
 			nih_repo_display_help  # Call your function
 			;;
-		-g | goto)
+		-j | jump)
 			if [ -z "$2" ]; then
 				cd "$NIH_REPO_DIR"
 			else
