@@ -10,10 +10,15 @@ alias lar_dev="composer require laravel/homestead --dev; php vendor/bin/homestea
 gDiscard() { git stash save --keep-index; git stash drop }
 
 NIH_REPO_DIR="$HOME/REPOS"
+NIH_UPDATABLE_DIRS=()
 repos() {
 	case "$1" in
 		"goto")
-			cd "$NIH_REPO_DIR"
+			if [ -z "$2" ]; then
+				cd "$NIH_REPO_DIR"
+			else
+				cd "$NIH_REPO_DIR/${NIH_UPDATABLE_DIRS[$2]}"
+			fi
 			;;
 		"show")
 			tree -d -L 2 "$NIH_REPO_DIR"
@@ -22,6 +27,8 @@ repos() {
 			echo "$NIH_REPO_DIR"
 
 			cd "$NIH_REPO_DIR"
+
+			NIH_UPDATABLE_DIRS=()
 
 			bold=$(tput bold)
 			normal=$(tput sgr0)
@@ -38,11 +45,13 @@ repos() {
 
 						((up_dirs++))
 
+						NIH_UPDATABLE_DIRS+="$file"
+
 						folder="${file%%/*}";
 						subfolder="${file#*/}";
 						output="${output/$'\n'/\n│         }";
 						echo "├── $folder";
-						echo "│   └──$subfolder";
+						echo "│   └── ($up_dirs) $subfolder";
 						echo "│         $output\n│";
 					fi;
 				fi;
