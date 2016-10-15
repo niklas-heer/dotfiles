@@ -6,6 +6,9 @@
 - clean: ['~', '~/.config']
 
 - link:
+    ~/.bashrc:
+        force: true
+        path: bashrc
     ~/.bash_profile: bash_profile
     ~/Bilder/BitDay: files/BitDay
     ~/.dotfiles: ''
@@ -16,6 +19,10 @@
     ~/.tmux.conf: tmux/.tmux.conf
     ~/.tmux.conf.local: tmux.conf
     ~/.vimrc: vimrc
+    ~/.config/termite:
+        force: true
+        path: termite
+    ~/.Xdefaults: Xdefaults
     ~/.zsh: zsh
     ~/.local/share/applications/Prepros.desktop: files/Prepros/Prepros.desktop
     ~/.zshrc:
@@ -28,4 +35,4 @@
     - ['git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf; ~/.fzf/install --all', 'Install fuzzy command-line finder (fzf)... ']
     - ['sudo -H pip install -r pip.conf --upgrade', 'Install pip packages... ']
     - ['fonts/install.sh', 'Install powerline fonts... ']
-    - ['files/Prepros/install.sh', 'Installing Prepros...']
+    # - ['files/Prepros/install.sh', 'Installing Prepros...']

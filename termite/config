@@ -1,0 +1,70 @@
+# vim: set ft=config
+[options]
+resize_grip             = false
+scroll_on_output        = false
+scroll_on_keystroke     = true
+audible_bell            = false
+visible_bell            = false
+mouse_autohide          = false
+allow_bold              = false
+dynamic_title           = true
+urgent_on_bell          = false
+browser                 = chromium
+clickable_url           = true
+font                    = Droid Sans Mono Awesome 10
+# font 					= SourceCodePro+Powerline+Awesome Regular 10
+#font                    = SauceCode 10
+#font 					= FontAwesome 10
+#font                    = inconsolata-g 7
+#font                    = EnvyCodeR 8
+#font                    = PragmataPro 9
+scrollback_lines        = 5000
+search_wrap             = true
+geometry                = 400x400
+
+# "system", "on" or "off"
+cursor_blink = system
+
+# "block", "underline" or "ibeam"
+cursor_shape = underline
+
+[colors]
+# from: https://terminal.sexy (Solarized dark)
+# special
+foreground      = #93a1a1
+foreground_bold = #93a1a1
+cursor          = #93a1a1
+background      = #002b36
+
+# black
+color0  = #002b36
+color8  = #657b83
+
+# red
+color1  = #dc322f
+color9  = #dc322f
+
+# green
+color2  = #859900
+color10 = #859900
+
+# yellow
+color3  = #b58900
+color11 = #b58900
+
+# blue
+color4  = #268bd2
+color12 = #268bd2
+
+# magenta
+color5  = #6c71c4
+color13 = #6c71c4
+
+# cyan
+color6  = #2aa198
+color14 = #2aa198
+
+# white
+color7  = #93a1a1
+color15 = #fdf6e3
+
