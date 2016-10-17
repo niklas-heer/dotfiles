@@ -54,3 +54,9 @@ pwgen() { < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-21} | cut -d '=' -f 2
 # School shortcuts
 ###################
 newdir() { mkdir $(date +"%Y-%m-%d"); cd $(date +"%Y-%m-%d") }
+
+###################
+# File transfer
+###################
+download() { rsync -r -v --progress -e ssh $1 . }
+upload() { rsync -r -v --progress -e ssh $2 $1 }
