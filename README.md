@@ -9,6 +9,8 @@ multiple times.
 
 Dotfiles uses [Dotbot][dotbot] for installation.
 
+This dotfiles are intended to run under an Arch based distro like Antergos or Manjaro.
+
 These dotfiles are inspired by [anishs dotfiles](https://github.com/anishathalye/dotfiles).
 
 ## Interesting Links
