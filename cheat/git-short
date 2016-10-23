@@ -1,17 +1,20 @@
-# git pull
-ggl
+# ggl
+git pull
 
-# git reset HEAD --hard
-grhh
+# grhh
+git reset HEAD --hard
 
-# git commit -v
-gc
+# gc
+git commit -v
 
-# git commit -v -a
-gca
+# gca
+git commit -v -a
 
-# git add --all
-gaa
+# gaa
+git add --all
 
-# git status -sb
-gsb
+# gsb
+git status -sb
+
+# gss
+git status -s
