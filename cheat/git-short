@@ -1,20 +1,9 @@
-# ggl
-git pull
+# Git Shortcuts
 
-# grhh
-git reset HEAD --hard
-
-# gc
-git commit -v
-
-# gca
-git commit -v -a
-
-# gaa
-git add --all
-
-# gsb
-git status -sb
-
-# gss
-git status -s
+* ggl         - git pull
+* grhh        - git reset HEAD --hard
+* gc          - git commit -v
+* gca         - git commit -v -a
+* gaa         - git add --all
+* gsb         - git status -sb
+* gss         - git status -s

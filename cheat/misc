@@ -1,8 +1,5 @@
-# size of a folder
-du -hs <folder>
+# Miscellaneous
 
-# password generation
-pwgen <number>
-
-# tree show only directories and only 2 deep
-tree -d -L 2
+* du -hs <folder>      - size of a folder
+* pwgen <number>       - password generation
+* tree -d -L 2         - tree show only directories and only 2 deep
