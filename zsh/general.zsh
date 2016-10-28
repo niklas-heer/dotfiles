@@ -7,7 +7,7 @@ alias -- -="popd"  # pop first directory from the stack
 alias \?="dirs -v" # display the directory stack
 zsh_reload() { source ~/.zshrc }
 reload() { zsh_reload }
-alias open="xdg-open ."
+open() { xdg-open $1 }
 alias o=open
 alias ssh_conf="vim ~/.ssh/config"
 eval $(thefuck --alias)
