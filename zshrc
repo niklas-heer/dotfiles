@@ -33,6 +33,9 @@ source ~/.zsh/hash.zsh
 # Miscellaneous shortcuts/tools
 source ~/.zsh/misc.zsh
 
+# Scripts
+source ~/.zsh/scripts/*.zsh
+
 # Special commands for arch/manjaro/antergos
 if [ -f /etc/arch-release ]; then
     source ~/.zsh/arch.zsh
