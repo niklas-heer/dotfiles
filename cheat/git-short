@@ -7,3 +7,5 @@
 * gaa         - git add --all
 * gsb         - git status -sb
 * gss         - git status -s
+* glog        - git log --oneline --decorate --graph
+* glol        - pretty git log
