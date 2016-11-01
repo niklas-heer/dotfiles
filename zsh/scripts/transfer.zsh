@@ -8,7 +8,6 @@
 #
 
 transfer() {
-
 	# check if curl is installed
 	curl --version 2>&1 > /dev/null
 	if [ $? -ne 0 ]; then

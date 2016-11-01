@@ -12,6 +12,9 @@ source ~/.zsh/conf/antigen.zsh
 # Configure Powerlevel9k
 source ~/.zsh/conf/powerlevel9k.zsh
 
+# Load helper functions
+source ~/.zsh/conf/helpers.zsh
+
 ####################################
 #
 #       Aliases and Functions
