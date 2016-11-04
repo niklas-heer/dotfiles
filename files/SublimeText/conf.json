@@ -29,10 +29,11 @@
         120
     ],
     "tab_size": 4,
-    "theme": "ayu.sublime-theme",
-    "color_scheme": "Packages/ayu/ayu.tmTheme",
+    "theme": "ayu-mirage.sublime-theme",
+    "color_scheme": "Packages/ayu/ayu-mirage.tmTheme",
     "ui_separator":       true, // separators between panels
     "ui_font_size_small": true, // smaller UI font size(sidebar, statusbar etc)
+    "ui_fix_tab_labels":  true,
     "translate_tabs_to_spaces": false,
     "trim_trailing_white_space_on_save": true,
     "word_separators": "./\\()\"'-:,.;<>~!@#%^&*|+=[]{}`~?",
