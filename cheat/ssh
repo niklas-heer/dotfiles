@@ -1,6 +1,0 @@
-# see logged in users
-
-* who
-* who -a
-* netstat -tnpa | grep 'ESTABLISHED.*sshd'
-* ps ax | grep sshd

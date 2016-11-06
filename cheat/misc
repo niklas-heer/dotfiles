@@ -4,3 +4,10 @@
 * pwgen <number>       - password generation
 * tree -d -L 2         - tree show only directories and only 2 deep
 * crunch 5 5 xyz       - generate wordlist with min length 5, max length 5 and containing only xyz
+
+# SSH
+* see logged in users:
+    - who
+    - who -a
+    - netstat -tnpa | grep 'ESTABLISHED.*sshd'
+    - ps ax | grep sshd
