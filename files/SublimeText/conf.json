@@ -3,7 +3,7 @@
     "bold_folder_labels": true,
     "caret_extra_bottom": 2,
     "caret_extra_top": 12,
-    "caret_extra_width": 2,
+    "caret_extra_width": 1,
     "caret_style": "phase",
     "default_encoding": "UTF-8",
     "detect_indentation": true,
