@@ -4,6 +4,7 @@
 * pwgen <number>       - password generation
 * tree -d -L 2         - tree show only directories and only 2 deep
 * crunch 5 5 xyz       - generate wordlist with min length 5, max length 5 and containing only xyz
+* fix_caddy            - fixes permissions for caddy
 
 # SSH
 * see logged in users:
