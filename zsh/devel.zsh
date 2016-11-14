@@ -72,3 +72,10 @@ EOIPFW"
 			;;
 	esac
 }
+
+###################
+# Exercism
+###################
+alias e="exercism"
+alias ef="exercism fetch"
+alias es="exercism submit"
