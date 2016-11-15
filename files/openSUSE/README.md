@@ -4,6 +4,8 @@ This is a guide to install all software I need on openSUSE Tumbleweed.
 
 At the moment it is in German, but I'll translate it when it's done.
 
+__Edit:__ _As of 2016-11-15 this project is **abandoned**. I'm now a happy Arch user. (again)_
+
 
 ## Todo
 
