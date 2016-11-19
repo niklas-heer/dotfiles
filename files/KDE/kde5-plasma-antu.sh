@@ -2,7 +2,7 @@
 
 # kde5-plasma-antu.sh: install/update Antü Plasma Suite [1], an
 # "elegant Alternative Suite for Plasma 5" by Fabián Alexis.
-# 
+#
 # The installation is made inside $HOME/.local/share.
 #
 # This script was tested only in:
