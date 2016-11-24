@@ -83,7 +83,7 @@ repos() {
 			echo "Error: Unknown option: $1" >&2
 			;;
 		*)  # No more options
-			break
+			tree -d -L 2 "$NIH_REPO_DIR"
 			;;
 	esac
 }
