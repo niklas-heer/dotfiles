@@ -31,12 +31,5 @@ alias pbpaste='xclip -selection clipboard -o'
 ###################
 # Tmux
 ###################
-tm()
-{
-    tmux new -s $1
-}
-
-tma()
-{
-    tmux attach -t $1
-}
+tm()  { tmux new -s $1 }
+tma() { tmux attach -t $1 }
