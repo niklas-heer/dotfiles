@@ -1,0 +1,4 @@
+# Caddy
+
+- Download Caddy with all plugins: curl https://getcaddy.com | bash -s git,filemanager,cors,hugo,ipfilter,locale,mailout,minify,ratelimit,realip,search,upload
+- Set systemd permissions: sudo setcap cap_net_bind_service=+ep /usr/local/bin/caddy &>/dev/null
