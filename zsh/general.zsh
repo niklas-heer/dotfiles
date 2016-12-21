@@ -1,7 +1,9 @@
 ###################
 # General
 ###################
-alias subl=subl3
+if ! type "subl" > /dev/null 2>&1; then
+	alias subl=subl3
+fi
 alias -- +="pushd" # add current diretory to the stack
 alias -- -="popd"  # pop first directory from the stack
 alias \?="dirs -v" # display the directory stack
