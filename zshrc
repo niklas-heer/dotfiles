@@ -39,10 +39,8 @@ source ~/.zsh/misc.zsh
 # Scripts
 source ~/.zsh/scripts/*.zsh
 
-# Special commands for arch/manjaro/antergos
-if [ -f /etc/arch-release ]; then
-    source ~/.zsh/arch.zsh
-fi
+# Special commands for the current os
+source ~/.zsh/os/main.zsh
 
 # Allow local customizations in the ~/.zshrc_local_after file
 if [ -f ~/.zshrc_local_after ]; then
