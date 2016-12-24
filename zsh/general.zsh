@@ -15,6 +15,7 @@ alias ssh_conf="vim ~/.ssh/config"
 eval $(thefuck --alias)
 isup() { php ~/.dotfiles/bin/isitup.php $1 }
 alias dotf="cd ~/.dotfiles"
+mkd () { mkdir $@ && cd $_ }
 
 ###################
 # Jump
