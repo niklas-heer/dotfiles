@@ -24,6 +24,9 @@
     ~/.config/termite:
         force: true
         path: termite
+    ~/.profile:
+        force: true
+        path: profile
     ~/.Xdefaults: Xdefaults
     ~/.zsh: zsh
     ~/.zshrc:
@@ -32,6 +35,7 @@
 
 - shell:
     - ['mkdir -p ~/REPOS/{lsw,private,school,github,work,projects}', 'Setting up REPO directories... ']
+    - ['mkdir ~/go', 'Setting up $GOPATH...']
     - ['git submodule update --init --recursive', 'Installing submodules... ']
     - ['git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf; ~/.fzf/install --all', 'Install fuzzy command-line finder (fzf)... ']
     - ['sudo -H pip install -r pip.conf --upgrade', 'Install pip packages... ']
