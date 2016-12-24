@@ -12,7 +12,9 @@
     ~/.bash_profile: bash_profile
     ~/Bilder/BitDay: files/BitDay
     ~/.dotfiles: ''
-    ~/.gitconfig: gitconfig
+    ~/.gitconfig:
+        force: true
+        path: gitconfig
     ~/.gitignore_global: gitignore_global
     ~/.vim: vim
     ~/.tmux: tmux
