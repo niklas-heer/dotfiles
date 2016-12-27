@@ -13,3 +13,6 @@
 [submodule "dotbot-yaourt"]
 	path = dotbot-yaourt
 	url = https://github.com/niklas-heer/dotbot-yaourt
+[submodule "dotbot-eopkg"]
+	path = dotbot-eopkg
+	url = https://github.com/niklas-heer/dotbot-eopkg
