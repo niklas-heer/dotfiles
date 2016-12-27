@@ -43,6 +43,12 @@ Clone this repo and cd into the directory. Execute this command:
 
 `./install -p dotbot-yaourt/yaourt.py -c .yaourt.conf.yaml`
 
+## Install all needed software on Solus
+
+Clone this repo and cd into the directory. Execute this command:
+
+`./install -p dotbot-eopkg/eopkg.py -c .eopkg.conf.yaml`
+
 
 License
 -------
