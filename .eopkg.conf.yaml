@@ -1,0 +1,12 @@
+- eopkg:
+  - vim
+  - vlc
+  - hub
+  - pip
+  - git
+  - gitg
+  - tree
+  - tmux
+  - wget
+  - tk # git-gui
+  - mosh
