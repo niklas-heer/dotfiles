@@ -1,6 +1,8 @@
 - eopkg:
   - vim
   - vlc
+  - mpv
+  - htop
   - hub
   - pip
   - php
