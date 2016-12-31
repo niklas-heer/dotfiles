@@ -8,5 +8,5 @@ alias pacman-fix="sudo rm /var/lib/pacman/db.lck"
 
 # Software Management
 in() { yaourt --noconfirm -S "$@"; }
-up() { yaourt --noconfirm --aur -Syu; }
 se() { yaourt --noconfirm "$1"; }
+update() { yaourt --noconfirm --aur -Syu; }
