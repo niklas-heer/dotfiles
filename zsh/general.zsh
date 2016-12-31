@@ -17,6 +17,9 @@ isup() { php ~/.dotfiles/bin/isitup.php $1 }
 alias dotf="cd ~/.dotfiles"
 mkd () { mkdir $@ && cd $_ }
 cdb(){ for i in `seq $1`; do cd ..; done;} # go back n folders
+# Use gg in the terminal where you want to go. Then go to the new terminal and use hh.
+gg() { pwd > /tmp/last_path; }
+hh() { cd $(cat /tmp/last_path); }
 
 ###################
 # Jump
