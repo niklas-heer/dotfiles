@@ -1,5 +1,9 @@
 ###################
 # Misc
+#
+# Some of sources:
+#    - https://github.com/cep21/jackbash/blob/master/bashrc
+#    - http://askubuntu.com/a/379282
 ###################
 alias utf8="~/.dotfiles/bin/toUTF8.sh"
 alias zshrc="vim ~/.zshrc"
