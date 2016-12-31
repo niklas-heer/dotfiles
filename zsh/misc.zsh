@@ -73,6 +73,22 @@ bz2 () {
   tar cvpjf "$1.tar.bz2" "$1"
 }
 
+
+# Using gcalccmd
+# You can also make the function call gcalccmd (from gnome-calculator) like so:
+#
+# = 'sqrt(2)' # Returns 1.4142135623
+# = '4^4'     # Returns 256
+#
+# list of funtions: https://sourcecodebrowser.com/gcalctool/5.29.2/mp-equation_8c.html#a2c1b83394ed2fe6da08e1538b65fd29b
+=() {
+    calc="$@"
+    # Uncomment the below for (p → +) and (x → *)
+    #calc="${calc//p/+}"
+    #calc="${calc//x/*}"
+    echo -ne "$calc\n quit" | gcalccmd | sed 's:^> ::g'
+}
+
 # Repeat a command N times.  You can do something like
 #  repeat 3 echo 'hi'
 repeat()
