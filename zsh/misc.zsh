@@ -73,7 +73,7 @@ ex() {
 }
 
 # Compress with tar + bzip2
-bz2 () {
+bz2() {
   tar cvpjf "$1.tar.bz2" "$1"
 }
 
@@ -81,21 +81,21 @@ bz2 () {
 # you're running.  For example
 #   ps awxxx | grep java
 # will show "grep java", which is probably not what you want
-psgrep(){
+psgrep() {
   OUTFILE=$(mktemp /tmp/psgrep.XXXXX)
   ps awxxx > "$OUTFILE"
   grep "$@" "$OUTFILE"
   rm "$OUTFILE"
 }
 
-# Using gcalccmd
+# Equations using gcalccmd
 # You can also make the function call gcalccmd (from gnome-calculator) like so:
 #
-# = 'sqrt(2)' # Returns 1.4142135623
-# = '4^4'     # Returns 256
+# eq 'sqrt(2)' # Returns 1.4142135623
+# eq '4^4'     # Returns 256
 #
 # list of funtions: https://sourcecodebrowser.com/gcalctool/5.29.2/mp-equation_8c.html#a2c1b83394ed2fe6da08e1538b65fd29b
-=() {
+eq() {
     calc="$@"
     # Uncomment the below for (p → +) and (x → *)
     #calc="${calc//p/+}"
@@ -105,8 +105,7 @@ psgrep(){
 
 # Repeat a command N times.  You can do something like
 #  repeat 3 echo 'hi'
-repeat()
-{
+function repeat() {
     local i max
     max=$1; shift;
     for ((i=1; i <= max ; i++)); do
@@ -116,8 +115,7 @@ repeat()
 
 # Lets you ask a command.  Returns '0' on 'yes'
 #  ask 'Do you want to rebase?' && git svn rebase || echo 'Rebase aborted'
-ask()
-{
+ask() {
     echo -n "$@" '[y/n] ' ; read -r ans
     case "$ans" in
         y*|Y*) return 0 ;;
