@@ -73,6 +73,31 @@ bz2 () {
   tar cvpjf "$1.tar.bz2" "$1"
 }
 
+# Repeat a command N times.  You can do something like
+#  repeat 3 echo 'hi'
+repeat()
+{
+    local i max
+    max=$1; shift;
+    for ((i=1; i <= max ; i++)); do
+        eval "$@";
+    done
+}
+
+# Lets you ask a command.  Returns '0' on 'yes'
+#  ask 'Do you want to rebase?' && git svn rebase || echo 'Rebase aborted'
+ask()
+{
+    echo -n "$@" '[y/n] ' ; read -r ans
+    case "$ans" in
+        y*|Y*) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
+# awesome!  CD AND LA. I never use 'cd' anymore...
+cl(){ cd "$@" && la; }
+
 # count characters
 count() { echo -n "$1" | wc -c }
 
