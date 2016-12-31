@@ -9,3 +9,5 @@
 * gss         - git status -s
 * glog        - git log --oneline --decorate --graph
 * glol        - pretty git log
+* gdis        - discard local changes
+* glcd         - git clone --recursive & cd
