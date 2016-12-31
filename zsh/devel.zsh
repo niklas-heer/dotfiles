@@ -9,6 +9,7 @@ alias lar_dev="composer require laravel/homestead --dev; php vendor/bin/homestea
 ###################
 gdis() { git stash save --keep-index; git stash drop }
 glcd() {
+	# source: https://gist.github.com/azu/8205567
     if [ ! -n "$1" ]; then
         echo "Usage: gcd git://example.com/repo.git"
         return;
