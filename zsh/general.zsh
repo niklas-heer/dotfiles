@@ -16,6 +16,7 @@ eval $(thefuck --alias)
 isup() { php ~/.dotfiles/bin/isitup.php $1 }
 alias dotf="cd ~/.dotfiles"
 mkd () { mkdir $@ && cd $_ }
+cdb(){ for i in `seq $1`; do cd ..; done;} # go back n folders
 
 ###################
 # Jump
