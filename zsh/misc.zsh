@@ -77,6 +77,16 @@ bz2 () {
   tar cvpjf "$1.tar.bz2" "$1"
 }
 
+# Grep for a process while at the same time ignoring the grep that
+# you're running.  For example
+#   ps awxxx | grep java
+# will show "grep java", which is probably not what you want
+psgrep(){
+  OUTFILE=$(mktemp /tmp/psgrep.XXXXX)
+  ps awxxx > "$OUTFILE"
+  grep "$@" "$OUTFILE"
+  rm "$OUTFILE"
+}
 
 # Using gcalccmd
 # You can also make the function call gcalccmd (from gnome-calculator) like so:
