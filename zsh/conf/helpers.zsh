@@ -44,3 +44,13 @@ ask() {
 
     done
 }
+
+# Lets you ask a command.  Returns '0' on 'yes'
+#  ask 'Do you want to rebase?' && git svn rebase || echo 'Rebase aborted'
+ask_short() {
+    echo -n "$@" '[y/n] ' ; read -r ans
+    case "$ans" in
+        y*|Y*) return 0 ;;
+        *) return 1 ;;
+    esac
+}

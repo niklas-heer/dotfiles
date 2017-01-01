@@ -113,16 +113,6 @@ function repeat() {
     done
 }
 
-# Lets you ask a command.  Returns '0' on 'yes'
-#  ask 'Do you want to rebase?' && git svn rebase || echo 'Rebase aborted'
-ask() {
-    echo -n "$@" '[y/n] ' ; read -r ans
-    case "$ans" in
-        y*|Y*) return 0 ;;
-        *) return 1 ;;
-    esac
-}
-
 # awesome!  CD AND LA. I never use 'cd' anymore...
 cl(){ cd "$@" && la; }
 
