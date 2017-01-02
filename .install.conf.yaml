@@ -23,7 +23,7 @@
     ~/.config/base16-gnome-terminal: config/base16-gnome-terminal
     ~/.config/termite:
         force: true
-        path: termite
+        path: config/termite
     ~/.profile:
         force: true
         path: profile
