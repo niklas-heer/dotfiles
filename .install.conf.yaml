@@ -10,7 +10,6 @@
         force: true
         path: bashrc
     ~/.bash_profile: bash_profile
-    ~/Bilder/BitDay: files/BitDay
     ~/.dotfiles: ''
     ~/.gitconfig:
         force: true
