@@ -1,18 +1,51 @@
 - eopkg:
-  - vim
-  - vlc
-  - mpv
-  - htop
-  - hub
-  - nodejs
-  - pip
-  - php
-  - neofetch
-  - gnome-multi-writer
+  - albert
+  - atom
+  - budgie-screenshot-applet
+  - calibre
+  - clipit
   - git
   - gitg
-  - tree
-  - tmux
-  - wget
-  - tk # git-gui
+  - gnome-calendar
+  - gnome-contacts
+  - gnome-dictionary
+  - gnome-disk-utility
+  - gnome-multi-writer
+  - gnome-pomodoro
+  - gnome-screenshot
+  - gnome-tweak-tool
+  - gnome-weather
+  - go-for-it
+  - golang
+  - handbrake
+  - htop
+  - hub
+  - libreoffice-writer
+  - meld
   - mosh
+  - mpv
+  - mumble
+  - n1
+  - neofetch
+  - nodejs
+  - obs-studio
+  - openjdk-8
+  - paper-icon-theme
+  - php
+  - pinta
+  - pip
+  - ranger
+  - redshift
+  - ruby
+  - steam
+  - telegram
+  - tilda
+  - tk # git-gui
+  - tmux
+  - tree
+  - vim
+  - vlc
+  - wget
+  - xclip
+  - zeal
+  - zsh
