@@ -42,10 +42,6 @@ up () {
     fi
 }
 
-# Use gg in the terminal where you want to go. Then go to the new terminal and use hh.
-gg() { pwd > /tmp/last_path; }
-hh() { cd $(cat /tmp/last_path); }
-
 ###################
 # Jump
 ###################
