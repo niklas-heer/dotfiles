@@ -1,5 +1,5 @@
 # Exercism
 
-* e             - shortcut for exersicm
-* ef <lang>     - fetches the next available exercise on the track for the provided language. (or for all)
-* es <file>     - submits a new iteration or a completely new solution to an exercise.
+* ec             - shortcut for exersicm
+* ecf <lang>     - fetches the next available exercise on the track for the provided language. (or for all)
+* ecs <file>     - submits a new iteration or a completely new solution to an exercise.

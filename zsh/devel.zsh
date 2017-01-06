@@ -100,6 +100,6 @@ EOIPFW"
 ###################
 # Exercism
 ###################
-alias e="exercism"
-alias ef="exercism fetch"
-alias es="exercism submit"
+alias ec="exercism"
+alias ecf="exercism fetch"
+alias ecs="exercism submit"
