@@ -18,6 +18,16 @@ isup() { php ~/.dotfiles/bin/isitup.php $1 }
 alias dotf="cd ~/.dotfiles"
 mkd () { mkdir $@ && cd $_ }
 
+e() {
+  if echo -n >> "$1"; then
+    $EDITOR $@
+  else
+    echo -n "sudo [Y/n]? "
+    read sudo
+    [[ ${sudo:-y} == y ]] && sudo $EDITOR $@ || $EDITOR $@
+  fi 2> /dev/null
+}
+
 # Climb directory tree easylly
 # Go up directory tree X number of directories
 up () {
