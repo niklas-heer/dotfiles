@@ -1,6 +1,7 @@
 - eopkg:
   - albert
   - atom
+  - bind-utils
   - budgie-screenshot-applet
   - calibre
   - clipit
