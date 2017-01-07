@@ -198,6 +198,16 @@ function repeat() {
     done
 }
 
+# List all files/folders only 1 deep
+lr() {
+  tree -L 2
+}
+
+# Where/What is this binary? Shows extended ls output
+function what() {
+    which $1 | xargs ls -la
+}
+
 # awesome!  CD AND LA. I never use 'cd' anymore...
 cl(){ cd "$@" && la; }
 

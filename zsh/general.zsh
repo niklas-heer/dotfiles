@@ -8,6 +8,7 @@ alias grep="grep --color=auto"
 alias -- +="pushd" # add current diretory to the stack
 alias -- -="popd"  # pop first directory from the stack
 alias \?="dirs -v" # display the directory stack
+alias lss="ls --sort=size -hs"
 zsh_reload() { source ~/.zshrc }
 reload() { zsh_reload }
 open() { xdg-open $1 }
