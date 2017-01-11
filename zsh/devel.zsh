@@ -32,6 +32,7 @@ glcd() {
     echo "\033[31m=>\033[0m \033[036m$reponame\033[0m"
     cd $reponame
 }
+alias gsync="~/.dotfiles/bin/gsync.py"
 
 ###################
 # Symfony

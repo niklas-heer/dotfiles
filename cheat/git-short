@@ -11,3 +11,4 @@
 * glol        - pretty git log
 * gdis        - discard local changes
 * glcd        - git clone --recursive & cd
+* gsync       - syncs a fork with the upstream repo using a python script
