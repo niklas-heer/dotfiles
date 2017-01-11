@@ -1,6 +1,6 @@
 [alias]
-	update-submodules = submodule update --init --recursive
-	upgrade-submodules = submodule update --init --remote
+    update-submodules = submodule update --init --recursive
+    upgrade-submodules = submodule update --init --remote
 
     # one-line log
     l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
@@ -27,40 +27,40 @@
     la = "!git config -l | grep alias | cut -c 7-"
 
 [web]
-	browser = google-chrome
+    browser = google-chrome
 
 [color]
-	ui = auto
+    ui = auto
 
 [color "branch"]
-	current = yellow bold
-	local = green bold
-	remote = cyan bold
+    current = yellow bold
+    local = green bold
+    remote = cyan bold
 
 [color "diff"]
-	meta = yellow bold
-	frag = magenta bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
 
 [color "status"]
-	added = green bold
-	changed = yellow bold
-	untracked = red bold
+    added = green bold
+    changed = yellow bold
+    untracked = red bold
 
 [pretty]
-	line = "%C(auto)%h%d %s %C(yellow)by %C(blue)%an %C(green)%ar"
-	compact = "%C(auto)%h %s %C(green)%ar%n %C(auto)%d%n"
+    line = "%C(auto)%h%d %s %C(yellow)by %C(blue)%an %C(green)%ar"
+    compact = "%C(auto)%h %s %C(green)%ar%n %C(auto)%d%n"
     detail = "%C(auto)%h %s%n %C(yellow)by %C(blue)%an %C(magenta)<%ae> [%G?] %C(green)%ar%n %C(auto)%d%n"
 
 [push]
-	default = simple
+    default = simple
 
 [core]
-	editor = vim
-	autocrlf = input
-	excludesfile = ~/.gitignore_global
+    editor = vim
+    autocrlf = input
+    excludesfile = ~/.gitignore_global
 
 # Allow local customizations in the .gitconfig_local file
 [include]
