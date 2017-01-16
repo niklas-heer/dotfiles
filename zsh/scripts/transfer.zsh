@@ -8,12 +8,12 @@
 #
 
 transfer() {
-	# check if curl is installed
-	curl --version 2>&1 > /dev/null
-	if [ $? -ne 0 ]; then
-	  echo "Could not find curl."
-	  return 1
-	fi
+    # check if curl is installed
+    curl --version 2>&1 > /dev/null
+    if [ $? -ne 0 ]; then
+      echo "Could not find curl."
+      return 1
+    fi
 
     # check arguments
     if [ $# -eq 0 ];

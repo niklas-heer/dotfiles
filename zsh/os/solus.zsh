@@ -9,5 +9,5 @@ update() { sudo eopkg -y up; }
 
 # Alias git with hub
 if [ -f /usr/bin/hub ]; then
-	alias git=hub
+    alias git=hub
 fi
