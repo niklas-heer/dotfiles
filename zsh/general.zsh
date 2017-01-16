@@ -2,7 +2,7 @@
 # General
 ###################
 if ! type "subl" > /dev/null 2>&1; then
-	alias subl=subl3
+    alias subl=subl3
 fi
 alias grep="grep --color=auto"
 alias -- +="pushd" # add current diretory to the stack

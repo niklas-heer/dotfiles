@@ -35,41 +35,41 @@ sha1()
 # verify md5
 md5_check()
 {
-	file_md5=`md5 $1`
-	check_md5=`echo $2`
+    file_md5=`md5 $1`
+    check_md5=`echo $2`
 
-	if [ "$file_md5" = "$check_md5" ]
-	then
-	    echo "[MD5 CHECK] File is okay!"
-	else
-		echo "[MD5 CHECK] File is corrupted!"
-	fi
+    if [ "$file_md5" = "$check_md5" ]
+    then
+        echo "[MD5 CHECK] File is okay!"
+    else
+        echo "[MD5 CHECK] File is corrupted!"
+    fi
 }
 
 # verify sha256
 sha256_check()
 {
-	file_sha256=`sha256 $1`
-	check_sha256=`echo $2`
+    file_sha256=`sha256 $1`
+    check_sha256=`echo $2`
 
-	if [ "$file_sha256" = "$check_sha256" ]
-	then
-	    echo "[SHA256 CHECK] File is okay!"
-	else
-		echo "[SHA256 CHECK] File is corrupted!"
-	fi
+    if [ "$file_sha256" = "$check_sha256" ]
+    then
+        echo "[SHA256 CHECK] File is okay!"
+    else
+        echo "[SHA256 CHECK] File is corrupted!"
+    fi
 }
 
 # verify sha256
 sha1_check()
 {
-	file_sha1=`sha1 $1`
-	check_sha1=`echo $2`
+    file_sha1=`sha1 $1`
+    check_sha1=`echo $2`
 
-	if [ "$file_sha1" = "$check_sha1" ]
-	then
-	    echo "[SHA1 CHECK] File is okay!"
-	else
-		echo "[SHA1 CHECK] File is corrupted!"
-	fi
+    if [ "$file_sha1" = "$check_sha1" ]
+    then
+        echo "[SHA1 CHECK] File is okay!"
+    else
+        echo "[SHA1 CHECK] File is corrupted!"
+    fi
 }
