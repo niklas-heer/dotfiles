@@ -1,0 +1,4 @@
+# Snippets
+
+find . -name '*.zsh' ! -type d -exec bash -c 'expand --initial -t 4 "$0" > /tmp/e && mv /tmp/e "$0"' {} \;
+> Convert tabs to spaces
