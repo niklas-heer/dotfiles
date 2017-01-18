@@ -1,0 +1,6 @@
+# Vim
+
+## Toggle Comment
+Deleting: Put your cursor on the first # character, press Ctrl+V and go down until the last commented line and press x, that will delete all the # characters vertically.
+
+Commenting: First, go to the first line you want to comment, press Ctrl+V, and select until the last line. Second, press Shift+I+#+Esc. (for debian/ubuntu: s/^/#)
