@@ -13,6 +13,7 @@ zsh_reload() { source ~/.zshrc }
 reload() { zsh_reload }
 open() { xdg-open $1 }
 alias o=open
+alias catn="cat -n" # Concatenate and print content of files (add line numbers)
 alias ssh_conf="vim ~/.ssh/config"
 eval $(thefuck --alias)
 isup() { php ~/.dotfiles/bin/isitup.php $1 }
