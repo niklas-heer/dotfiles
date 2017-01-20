@@ -6,12 +6,6 @@
 #    - http://askubuntu.com/a/379282
 #    - https://github.com/darnir/dotfiles/blob/master/Packages/Bash/bash_functions
 ###################
-alias utf8="~/.dotfiles/bin/toUTF8.sh"
-alias zshrc="vim ~/.zshrc"
-alias starwars="telnet towel.blinkenlights.nl"
-alias cow_fortune="exec fortune | cowsay -n"
-alias random_word="sort -R /usr/share/dict/usa | head -1"
-alias fix_caddy="sudo setcap cap_net_bind_service=+ep /usr/sbin/caddy &>/dev/null"
 
 random_string() { cat /dev/urandom | tr -dc 'a-z' | fold -w "$1" | head -n 1 }
 

@@ -24,6 +24,9 @@ source ~/.zsh/conf/helpers.zsh
 # General Shortcuts
 source ~/.zsh/general.zsh
 
+# Aliases
+source ~/.zsh/aliases.zsh
+
 # Development Shortcuts
 source ~/.zsh/devel.zsh
 
