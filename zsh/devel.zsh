@@ -1,12 +1,8 @@
 ###################
-# Laravel
-###################
-alias lar_new="composer create-project laravel/laravel"
-alias lar_dev="composer require laravel/homestead --dev; php vendor/bin/homestead make"
-
-###################
 # Git shortcuts
 ###################
+alias gsync="~/.dotfiles/bin/gsync.py"
+
 gdis() { git stash save --keep-index; git stash drop }
 glcd() {
     # source: https://gist.github.com/azu/8205567
@@ -32,12 +28,6 @@ glcd() {
     echo "\033[31m=>\033[0m \033[036m$reponame\033[0m"
     cd $reponame
 }
-alias gsync="~/.dotfiles/bin/gsync.py"
-
-###################
-# Symfony
-###################
-alias s_up="php app/console server:run"
 
 ###################
 # Hugo
@@ -97,10 +87,3 @@ EOIPFW"
             ;;
     esac
 }
-
-###################
-# Exercism
-###################
-alias ec="exercism"
-alias ecf="exercism fetch"
-alias ecs="exercism submit"

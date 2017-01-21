@@ -1,7 +1,6 @@
 ###################
 # General
 ###################
-
 zsh_reload() { source ~/.zshrc }
 reload() { zsh_reload }
 open() { xdg-open $1 }
