@@ -2,6 +2,7 @@
 # Aliases
 ###################
 alias grep="grep --color=auto"
+alias tree='tree -C'
 alias -- +="pushd" # add current diretory to the stack
 alias -- -="popd"  # pop first directory from the stack
 alias \?="dirs -v" # display the directory stack
