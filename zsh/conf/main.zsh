@@ -14,5 +14,20 @@ export CHEATCOLORS=true
 # Autocompletion files
 fpath=($HOME/.zsh/autocompletion $fpath)
 
+# Load more configuration
+source ~/.zsh/conf/antigen.zsh           # Load and configure Antigen
+source ~/.zsh/conf/powerlevel9k.zsh      # Configure Powerlevel9k
+source ~/.zsh/conf/helpers.zsh           # Load helper functions
+
+# Aliases and Functions
+source ~/.zsh/general.zsh                # General Shortcuts
+source ~/.zsh/aliases.zsh                # Aliases
+source ~/.zsh/devel.zsh                  # Development Shortcuts
+source ~/.zsh/repos.zsh                  # Repo Shortcuts
+source ~/.zsh/hash.zsh                   # Hashing Shortcuts
+source ~/.zsh/misc.zsh                   # Miscelaneous shortcuts/tools
+source ~/.zsh/scripts/*.zsh              # Scripts
+source ~/.zsh/os/main.zsh                # Special commands for the current os
+
 # VTE support
 source /etc/profile.d/vte.sh
