@@ -1,16 +1,17 @@
 ###################
 # Aliases
 ###################
+alias -- +="pushd" # add current diretory to the stack
+alias -- -="popd"  # pop first directory from the stack
+
 alias grep="grep --color=auto"
 alias tree="tree -C"
 alias mkdir="mkdir -p"
-alias -- +="pushd" # add current diretory to the stack
-alias -- -="popd"  # pop first directory from the stack
-alias \?="dirs -v" # display the directory stack
-alias lss="ls --sort=size -hs"
-alias dotf="cd ~/.dotfiles"
 alias o=open
+alias lss="ls --sort=size -hs"
 alias catn="cat -n" # Concatenate and print content of files (add line numbers)
+
+alias dotf="cd ~/.dotfiles"
 alias ssh_conf="vim ~/.ssh/config"
 
 if ! type "subl" > /dev/null 2>&1; then
@@ -37,17 +38,6 @@ alias pbpaste='xclip -selection clipboard -o'
 alias ec="exercism"
 alias ecf="exercism fetch"
 alias ecs="exercism submit"
-
-###################
-# Symfony
-###################
-alias s_up="php app/console server:run"
-
-###################
-# Laravel
-###################
-alias lar_new="composer create-project laravel/laravel"
-alias lar_dev="composer require laravel/homestead --dev; php vendor/bin/homestead make"
 
 ##################
 # Misc
