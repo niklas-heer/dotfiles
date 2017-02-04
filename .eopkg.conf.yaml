@@ -51,6 +51,7 @@
   - tk # git-gui
   - tmux
   - tree
+  - vagrant
   - vim
   - vlc
   - vscode
