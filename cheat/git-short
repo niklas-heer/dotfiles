@@ -12,4 +12,4 @@
 * gdis        - discard local changes
 * glcd        - git clone --recursive & cd
 * gsync       - syncs a fork with the upstream repo using a python script
-* git recall  - git recall -d 5 -a "all" (https://github.com/Fakerr/git-recall)
+* grec        - git recall -d 5 -a "all" (https://github.com/Fakerr/git-recall)

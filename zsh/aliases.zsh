@@ -19,6 +19,12 @@ if ! type "subl" > /dev/null 2>&1; then
 fi
 
 ###################
+# Git shortcuts
+###################
+alias gsync="~/.dotfiles/bin/gsync.py"
+alias grec="git recall -d 5 -a \"all\""
+
+###################
 # Jump
 ###################
 alias j="jump"

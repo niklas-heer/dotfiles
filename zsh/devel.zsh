@@ -1,8 +1,6 @@
 ###################
 # Git shortcuts
 ###################
-alias gsync="~/.dotfiles/bin/gsync.py"
-
 gdis() { git stash save --keep-index; git stash drop }
 glcd() {
     # source: https://gist.github.com/azu/8205567
