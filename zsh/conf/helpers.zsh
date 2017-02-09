@@ -1,3 +1,14 @@
+# Loop through directory and source all files
+source_files_in_dir() {
+    for file in "$@"; do
+        source "$file"
+    done
+}
+
+# No ouput variant of pushd and popd
+jump_in() { pushd "$@" > /dev/null }
+jump_out() {popd "$@" > /dev/null}
+
 # General-purpose function to ask Yes/No questions in Bash.
 #
 # Example:
