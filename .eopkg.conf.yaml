@@ -44,9 +44,14 @@
   - php
   - pinta
   - pip
+  - pycrypto
   - ranger
   - redshift
   - ruby
+  - sqlcipher
+  - sqlcipher-devel
+  - sqlite3
+  - sqlite3-devel
   - steam
   - telegram
   - tilda
