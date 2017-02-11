@@ -17,7 +17,6 @@ antigen bundle sudo
 antigen bundle man
 antigen bundle systemd
 antigen bundle zsh-navigation-tools
-antigen bundle web-search
 antigen bundle composer
 #antigen bundle autojump # https://github.com/wting/autojump
 
