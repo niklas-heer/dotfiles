@@ -15,9 +15,10 @@ export CHEATCOLORS=true
 fpath=($HOME/.zsh/autocompletion $fpath)
 
 # Load more configuration
-source ~/.zsh/conf/antigen.zsh           # Load and configure Antigen
-source ~/.zsh/conf/powerlevel9k.zsh      # Configure Powerlevel9k
-source ~/.zsh/conf/helpers.zsh           # Load helper functions
+source ~/.zsh/master/antigen.zsh           # Load and configure Antigen
+source ~/.zsh/master/powerlevel9k.zsh      # Configure Powerlevel9k
+source ~/.zsh/master/helpers.zsh           # Load helper functions
+source ~/.dotfiles/.simplepush.conf      # Load Simplepush Key
 
 # Aliases and Functions
 source ~/.zsh/general.zsh                   # General Shortcuts

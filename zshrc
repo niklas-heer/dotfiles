@@ -4,7 +4,7 @@ if [ -f ~/.zshrc_local_before ]; then
 fi
 
 # Load main configuration
-source ~/.zsh/conf/main.zsh
+source ~/.zsh/master/main.zsh
 
 # Allow local customizations in the ~/.zshrc_local_after file
 if [ -f ~/.zshrc_local_after ]; then
