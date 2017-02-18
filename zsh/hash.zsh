@@ -33,43 +33,55 @@ sha1()
 }
 
 # verify md5
-md5_check()
+md5check()
 {
-    file_md5=`md5 $1`
-    check_md5=`echo $2`
-
-    if [ "$file_md5" = "$check_md5" ]
-    then
-        echo "[MD5 CHECK] File is okay!"
+    if [ $# -eq 0 ]; then
+        echo "Usage: md5check <file> <md5 sum>"
     else
-        echo "[MD5 CHECK] File is corrupted!"
+        file_md5=`md5 $1`
+        check_md5=`echo $2`
+
+        if [ "$file_md5" = "$check_md5" ]
+        then
+            echo "[MD5 CHECK] File is okay!"
+        else
+            echo "[MD5 CHECK] File is corrupted!"
+        fi
     fi
 }
 
 # verify sha256
-sha256_check()
+sha256check()
 {
-    file_sha256=`sha256 $1`
-    check_sha256=`echo $2`
-
-    if [ "$file_sha256" = "$check_sha256" ]
-    then
-        echo "[SHA256 CHECK] File is okay!"
+    if [ $# -eq 0 ]; then
+        echo "Usage: sha256check <file> <sha256 sum>"
     else
-        echo "[SHA256 CHECK] File is corrupted!"
+        file_sha256=`sha256 $1`
+        check_sha256=`echo $2`
+
+        if [ "$file_sha256" = "$check_sha256" ]
+        then
+            echo "[SHA256 CHECK] File is okay!"
+        else
+            echo "[SHA256 CHECK] File is corrupted!"
+        fi
     fi
 }
 
 # verify sha256
-sha1_check()
+sha1check()
 {
-    file_sha1=`sha1 $1`
-    check_sha1=`echo $2`
-
-    if [ "$file_sha1" = "$check_sha1" ]
-    then
-        echo "[SHA1 CHECK] File is okay!"
+    if [ $# -eq 0 ]; then
+        echo "Usage: sha1check <file> <sha1 sum>"
     else
-        echo "[SHA1 CHECK] File is corrupted!"
+        file_sha1=`sha1 $1`
+        check_sha1=`echo $2`
+
+        if [ "$file_sha1" = "$check_sha1" ]
+        then
+            echo "[SHA1 CHECK] File is okay!"
+        else
+            echo "[SHA1 CHECK] File is corrupted!"
+        fi
     fi
 }
