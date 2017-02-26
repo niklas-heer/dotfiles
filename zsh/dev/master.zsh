@@ -16,3 +16,4 @@ alias ecs="exercism submit"
 ##################
 alias utf8="~/.dotfiles/bin/toUTF8.sh"
 alias fix_caddy="sudo setcap cap_net_bind_service=+ep /usr/sbin/caddy &>/dev/null"
+alias s="subl ."
