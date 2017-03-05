@@ -31,6 +31,7 @@
   - handbrake
   - htop
   - hub
+  - imagemagick
   - libreoffice-writer
   - meld
   - mosh
@@ -65,6 +66,7 @@
   - vlc
   - vscode
   - wget
+  - wine
   - xclip
   - zeal
   - zsh
