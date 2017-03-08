@@ -27,7 +27,7 @@
     "extension-manager.extensions": [
         "Borke.puppet",
         "dustinsanders.an-old-hope-theme-vscode",
-        "file-icons.file-icons",
+        "robertohuertasm.vscode-icons",
         "marcostazi.VS-code-vagrantfile",
         "rebornix.Ruby",
         "shardulm94.trailing-spaces",
