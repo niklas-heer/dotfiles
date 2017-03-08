@@ -1,0 +1,36 @@
+// Platzieren Sie Ihre Einstellungen in dieser Datei, um die Standardeinstellungen zu überschreiben.
+{
+    "workbench.iconTheme": "vs-seti",
+    "editor.fontFamily": "Hasklig",
+    "editor.fontLigatures": true,
+    "editor.tabSize": 4,
+    "files.associations": {
+        "*.staging": "ruby",
+        "*.sandbox": "ruby",
+        "*.kibana": "ruby",
+        "*.test": "ruby"
+    },
+    "editor.renderWhitespace": "all",
+    "editor.renderControlCharacters": true,
+    "editor.renderIndentGuides": true,
+    "editor.wordWrap": "on",
+    "terminal.integrated.shell.linux": "/usr/bin/zsh",
+    "terminal.integrated.cursorStyle": "underline",
+    "terminal.integrated.fontFamily": "Source Code Pro for Powerline",
+    "files.insertFinalNewline": true,
+    "trailing-spaces.deleteModifiedLinesOnly": true,
+    "trailing-spaces.trimOnSave": true,
+    // You need to install the "Extension Manager" extension.
+    // * Get extension list: Terminal "code --list-extensions"
+    // * Install extensions: F1 type "ext"
+    // List of all extensions:
+    "extension-manager.extensions": [
+        "Borke.puppet",
+        "dustinsanders.an-old-hope-theme-vscode",
+        "file-icons.file-icons",
+        "marcostazi.VS-code-vagrantfile",
+        "rebornix.Ruby",
+        "shardulm94.trailing-spaces",
+        "webstp.extension-manager"
+    ]
+}
