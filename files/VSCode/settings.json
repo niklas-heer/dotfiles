@@ -21,17 +21,5 @@
     "files.insertFinalNewline": true,
     "trailing-spaces.deleteModifiedLinesOnly": true,
     "trailing-spaces.trimOnSave": true,
-    // You need to install the "Extension Manager" extension.
-    // * Get extension list: Terminal "code --list-extensions"
-    // * Install extensions: F1 type "ext"
-    // List of all extensions:
-    "extension-manager.extensions": [
-        "Borke.puppet",
-        "dustinsanders.an-old-hope-theme-vscode",
-        "file-icons.file-icons",
-        "marcostazi.VS-code-vagrantfile",
-        "rebornix.Ruby",
-        "shardulm94.trailing-spaces",
-        "webstp.extension-manager"
-    ]
+    "markdown.preview.scrollPreviewWithEditorSelection": true
 }
