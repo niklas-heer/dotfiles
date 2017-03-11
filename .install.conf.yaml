@@ -21,9 +21,6 @@
     ~/.tmux.conf.local: tmux.conf
     ~/.vimrc: vimrc
     ~/.config/base16-gnome-terminal: config/base16-gnome-terminal
-    ~/.config/termite:
-        force: true
-        path: config/termite
     ~/.profile:
         force: true
         path: profile
@@ -39,5 +36,7 @@
     - ['git submodule update --init --recursive', 'Installing submodules... ']
     - ['git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf; ~/.fzf/install --all', 'Install fuzzy command-line finder (fzf)... ']
     - ['fonts/install.sh', 'Install powerline fonts... ']
+    - ['bin/install_awesome_font.sh', 'Install awesome fonts... ']
+    - ['bin/install_fira_font.sh', 'Install fira font... ']
     - ['', 'To install base16-gnome-terminal: "source ~/.config/base16-gnome-terminal/base16-google.dark.sh"']
-    - ['sudo -H pip install -r pip.conf --upgrade', 'Install pip packages... ']
+    - ['sudo -H pip3 install -r pip.conf --upgrade', 'Install pip packages... ']

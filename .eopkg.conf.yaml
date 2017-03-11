@@ -20,6 +20,7 @@
   - gnome-contacts
   - gnome-dictionary
   - gnome-disk-utility
+  - gnome-font-viewer
   - gnome-multi-writer
   - gnome-pomodoro
   - gnome-screenshot
@@ -30,6 +31,7 @@
   - handbrake
   - htop
   - hub
+  - imagemagick
   - libreoffice-writer
   - meld
   - mosh
@@ -49,6 +51,7 @@
   - ranger
   - redshift
   - ruby
+  - simplenote
   - sqlcipher
   - sqlcipher-devel
   - sqlite3
@@ -64,6 +67,7 @@
   - vlc
   - vscode
   - wget
+  - wine
   - xclip
   - zeal
   - zsh
