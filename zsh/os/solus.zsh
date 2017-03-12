@@ -11,3 +11,8 @@ update() { sudo eopkg -y up; }
 if [ -f /usr/bin/hub ]; then
     alias git=hub
 fi
+
+# Alias Visual Studio Code
+if [ -f /usr/bin/code-oss ]; then
+    alias code=code-oss
+fi
