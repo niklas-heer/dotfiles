@@ -60,6 +60,7 @@
   - sqlite3-devel
   - steam
   - telegram
+  - tig
   - tilda
   - tk # git-gui
   - tmux
