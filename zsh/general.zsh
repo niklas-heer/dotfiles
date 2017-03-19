@@ -3,7 +3,7 @@
 ###################
 zsh_reload() { source ~/.zshrc }
 reload() { zsh_reload }
-open() { xdg-open $1 }
+open() { ~/.dotfiles/bin/mimi.sh $1 }
 eval $(thefuck --alias)
 isup() { php ~/.dotfiles/bin/isitup.php $1 }
 mkd () { mkdir $@ && cd $_ }
