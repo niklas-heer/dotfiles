@@ -14,5 +14,5 @@ fi
 
 # Alias Visual Studio Code
 if [ -f /usr/bin/code-oss ]; then
-    code() { code-oss $@ }
+    code() { (code-oss $@ > /dev/null 2>&1 &) }
 fi
