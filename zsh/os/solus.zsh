@@ -14,5 +14,5 @@ fi
 
 # Alias Visual Studio Code
 if [ -f /usr/bin/code-oss ]; then
-    code() { code-oss $1}
+    code() { code-oss $@ }
 fi
