@@ -53,6 +53,7 @@
   - ranger
   - redshift
   - ruby
+  - shellcheck
   - simplenote
   - sqlcipher
   - sqlcipher-devel
