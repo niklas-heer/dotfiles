@@ -68,6 +68,8 @@
   - tree
   - vagrant
   - vim
+  - virtualenv
+  - virtualenvwrapper
   - vlc
   - vscode
   - wget
