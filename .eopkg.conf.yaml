@@ -53,6 +53,7 @@
   - pycrypto
   - ranger
   - redshift
+  - rsync
   - ruby
   - shellcheck
   - simplenote
