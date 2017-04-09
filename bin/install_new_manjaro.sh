@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # This is an install script to install all needed software
 
 # Designed for Manjaro

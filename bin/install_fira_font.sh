@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 mkdir -p ~/.local/share/fonts
 for type in Bold Light Medium Regular Retina; do

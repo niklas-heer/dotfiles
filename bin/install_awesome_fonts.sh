@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 mkdir -p ~/.local/share/fonts
 for font in Droid+Sans+Mono+Awesome Inconsolata+Awesome SourceCodePro+Powerline+Awesome+Regular; do
