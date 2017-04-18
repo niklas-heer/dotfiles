@@ -14,6 +14,10 @@ main() {
     # Install Skype
     sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/solus-project/3rd-party/master/network/im/skype/pspec.xml
     sudo eopkg it skype*.eopkg;sudo rm *.eopkg
+
+    # Install Teamspeak
+    sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/solus-project/3rd-party/master/network/im/teamspeak/pspec.xml
+    sudo eopkg it teamspeak3*.eopkg;sudo rm teamspeak3*.eopkg
 }
 
 main
