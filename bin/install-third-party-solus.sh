@@ -18,6 +18,10 @@ main() {
     # Install Teamspeak
     sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/solus-project/3rd-party/master/network/im/teamspeak/pspec.xml
     sudo eopkg it teamspeak3*.eopkg;sudo rm teamspeak3*.eopkg
+
+    # Install Insync
+    sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/solus-project/3rd-party/master/network/download/insync/pspec.xml
+sudo eopkg it insync*.eopkg;sudo rm insync*.eopkg
 }
 
 main
