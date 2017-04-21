@@ -22,6 +22,10 @@ main() {
     # Install Insync
     sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/solus-project/3rd-party/master/network/download/insync/pspec.xml
 sudo eopkg it insync*.eopkg;sudo rm insync*.eopkg
+
+    # Install Gitkraken
+    sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/solus-project/3rd-party/master/programming/gitkraken/pspec.xml
+sudo eopkg it gitkraken*.eopkg;sudo rm gitkraken*.eopkg
 }
 
 main
