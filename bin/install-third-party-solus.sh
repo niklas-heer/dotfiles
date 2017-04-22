@@ -26,6 +26,10 @@ sudo eopkg it insync*.eopkg;sudo rm insync*.eopkg
     # Install Gitkraken
     sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/solus-project/3rd-party/master/programming/gitkraken/pspec.xml
 sudo eopkg it gitkraken*.eopkg;sudo rm gitkraken*.eopkg
+
+    # Install Sublime Text 3
+    sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/solus-project/3rd-party/master/programming/sublime-text-3/pspec.xml
+sudo eopkg it sublime*.eopkg;sudo rm sublime*.eopkg
 }
 
 main
