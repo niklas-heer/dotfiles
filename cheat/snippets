@@ -2,3 +2,9 @@
 
 find . -name '*.zsh' ! -type d -exec bash -c 'expand --initial -t 4 "$0" > /tmp/e && mv /tmp/e "$0"' {} \;
 > Convert tabs to spaces
+
+for file in *; do mv "${file}" "${file/<string>/}"; done
+> cuts out the <string> from all file names in the folder
+
+for f in *\ *; do mv "$f" "${f// /_}"; done
+> replaces all whitespaces in filenames with underscores (in the folder)
