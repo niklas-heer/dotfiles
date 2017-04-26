@@ -36,6 +36,10 @@ main() {
     # Install Enpass
     sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/solus-project/3rd-party/master/security/enpass/pspec.xml
     sudo eopkg it enpass*.eopkg;sudo rm enpass*.eopkg
+
+    # Install Slack
+    sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/solus-project/3rd-party/master/network/im/slack-desktop/pspec.xml
+    sudo eopkg it slack-desktop*.eopkg;sudo rm slack-desktop*.eopkg
 }
 
 main
