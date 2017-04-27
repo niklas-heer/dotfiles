@@ -40,6 +40,10 @@ main() {
     # Install Slack
     sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/solus-project/3rd-party/master/network/im/slack-desktop/pspec.xml
     sudo eopkg it slack-desktop*.eopkg;sudo rm slack-desktop*.eopkg
+
+    # Install Spotify
+    sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/solus-project/3rd-party/master/multimedia/music/spotify/pspec.xml
+    sudo eopkg it spotify*.eopkg;sudo rm spotify*.eopkg
 }
 
 main
