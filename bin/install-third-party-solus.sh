@@ -44,6 +44,10 @@ main() {
     # Install Spotify
     sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/solus-project/3rd-party/master/multimedia/music/spotify/pspec.xml
     sudo eopkg it spotify*.eopkg;sudo rm spotify*.eopkg
+
+    # Install WPS Office
+    sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/solus-project/3rd-party/master/office/wps-office/pspec.xml
+    sudo eopkg it wps-office*.eopkg;sudo rm wps-office*.eopkg
 }
 
 main
