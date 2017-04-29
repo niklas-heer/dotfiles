@@ -48,6 +48,11 @@ main() {
     # Install WPS Office
     sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/solus-project/3rd-party/master/office/wps-office/pspec.xml
     sudo eopkg it wps-office*.eopkg;sudo rm wps-office*.eopkg
+
+    # Install Teamviewer
+    sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/solus-project/3rd-party/master/network/util/teamviewer/pspec.xml
+    sudo eopkg it teamviewer*.eopkg;sudo rm teamviewer*.eopkg
+    sudo systemctl start teamviewerd.service
 }
 
 main
