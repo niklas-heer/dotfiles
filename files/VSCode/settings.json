@@ -1,7 +1,8 @@
 // Platzieren Sie Ihre Einstellungen in dieser Datei, um die Standardeinstellungen zu überschreiben.
 {
     "workbench.iconTheme": "vs-seti",
-    "editor.fontFamily": "Hasklig",
+    "editor.fontFamily": "Iosevka",
+    "editor.fontSize": 15,
     "editor.fontLigatures": true,
     "editor.tabSize": 4,
     "files.associations": {
@@ -15,9 +16,9 @@
     "editor.renderIndentGuides": true,
     "editor.wordWrap": "on",
     "telemetry.enableTelemetry": false,
-    "terminal.integrated.shell.linux": "/usr/bin/zsh",
+    "terminal.integrated.shell.linux": "/bin/zsh",
     "terminal.integrated.cursorStyle": "underline",
-    "terminal.integrated.fontFamily": "SourceCodePro\\+Powerline\\+Awesome\\ Regular",
+    "terminal.integrated.fontFamily": "Iosevka",
     "files.insertFinalNewline": true,
     "trailing-spaces.deleteModifiedLinesOnly": true,
     "trailing-spaces.trimOnSave": true,
