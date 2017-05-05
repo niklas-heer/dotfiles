@@ -8,3 +8,6 @@ for file in *; do mv "${file}" "${file/<string>/}"; done
 
 for f in *\ *; do mv "$f" "${f// /_}"; done
 > replaces all whitespaces in filenames with underscores (in the folder)
+
+for f in *.zip; do unzip -d "${f%*.zip}" "$f"; done
+> extract all zip files in a folder and use the name of the file as folder name
