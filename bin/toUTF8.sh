@@ -13,14 +13,14 @@
 
 #checking Parameters
 if [ ! -n "$1" ] ; then
-	echo "You did not supply any directory at the command line."
-	echo "You need to provide the path to the directory that contains the files which you want to be converted"
-	echo ""
-	echo "Example: $0 /path/to/directory"
-	echo ""
-	echo "Important hint: You should not run this script from within the same directory where the files are stored"
-	echo "that you want to convert right now."
-        exit
+    echo "You did not supply any directory at the command line."
+    echo "You need to provide the path to the directory that contains the files which you want to be converted"
+    echo ""
+    echo "Example: $0 /path/to/directory"
+    echo ""
+    echo "Important hint: You should not run this script from within the same directory where the files are stored"
+    echo "that you want to convert right now."
+    exit
 fi
 
 # This array contains file extensions that need to be checked no matter if the filetype is binary or not.
@@ -57,45 +57,45 @@ i=0
 
 find "$dir" -type f |while read inputfile
 do
-        if [ -f "$inputfile" ] ; then
-                charset="$(file -bi "$inputfile"|awk -F "=" '{print $2}')"
-                if [ "$charset" != "utf-8" ]; then
-                        #if file extension is in filestoconvert variable the file will always be converted
-                        filename=$(basename "$inputfile")
-                        extension="${filename##*.}"
-                        # If the current file has not an extension that is listed in the array $filestoconvert the current file is being skipped (no conversion occurs)
-                        if in_array $extension "${filestoconvert[@]}" ; then
-                                # create a tempfile and remember all of the current file permissions to be able to reapply those to the new converted file after conversion
-                                tmp=$(mktemp)
-                                owner=`ls -l "$inputfile" | awk '{ print $3 }'`
-                                group=`ls -l "$inputfile" | awk '{ print $4 }'`
-                                octalpermission=$( stat --format=%a "$inputfile" )
-                                echo -e "$success $inputfile\t$charset\t->\tUTF-8 $reset"
-                                iconv -f "$charset" -t utf8 "$inputfile" -o $tmp &>2
-                                RETVAL=$?
-                                if [ $RETVAL > 0 ] ; then
-                                        # There was an error converting the file. Remember this and inform the user about the file not being converted at the end of the conversion process.
-                                        fileerrors="$fileerrors\n$inputfile"
-                                fi
-                                mv "$tmp" "$inputfile"
-                                #re-apply previous file permissions as well as user and group settings
-                                chown $owner:$group "$inputfile"
-                                chmod $octalpermission "$inputfile"
-                        else
-                                echo -e "$fileskipped $inputfile\t$charset\t->\tSkipped because its extension (.$extension) is not listed in the 'filestoconvert' array. $reset"
-                        fi
-                else
-                        echo -e "$noconversion $inputfile\t$charset\t->\tNo conversion needed (file is already UTF-8) $reset"
+    if [ -f "$inputfile" ] ; then
+        charset="$(file -bi "$inputfile"|awk -F "=" '{print $2}')"
+        if [ "$charset" != "utf-8" ]; then
+            #if file extension is in filestoconvert variable the file will always be converted
+            filename=$(basename "$inputfile")
+            extension="${filename##*.}"
+            # If the current file has not an extension that is listed in the array $filestoconvert the current file is being skipped (no conversion occurs)
+            if in_array $extension "${filestoconvert[@]}" ; then
+                # create a tempfile and remember all of the current file permissions to be able to reapply those to the new converted file after conversion
+                tmp=$(mktemp)
+                owner=`ls -l "$inputfile" | awk '{ print $3 }'`
+                group=`ls -l "$inputfile" | awk '{ print $4 }'`
+                octalpermission=$( stat --format=%a "$inputfile" )
+                echo -e "$success $inputfile\t$charset\t->\tUTF-8 $reset"
+                iconv -f "$charset" -t utf8 "$inputfile" -o $tmp &>2
+                RETVAL=$?
+                if [ $RETVAL > 0 ] ; then
+                        # There was an error converting the file. Remember this and inform the user about the file not being converted at the end of the conversion process.
+                        fileerrors="$fileerrors\n$inputfile"
                 fi
-	fi
-        (( ++i ))
+                mv "$tmp" "$inputfile"
+                #re-apply previous file permissions as well as user and group settings
+                chown $owner:$group "$inputfile"
+                chmod $octalpermission "$inputfile"
+            else
+                echo -e "$fileskipped $inputfile\t$charset\t->\tSkipped because its extension (.$extension) is not listed in the 'filestoconvert' array. $reset"
+            fi
+        else
+            echo -e "$noconversion $inputfile\t$charset\t->\tNo conversion needed (file is already UTF-8) $reset"
+        fi
+    fi
+    (( ++i ))
 done
 echo -e "$success Done! $reset"
 echo -e ""
 echo -e ""
 if [ ! $fileerrors == "" ]; then
-	echo -e "The following files had errors (origin charset not recognized) and need to be converted manually (e.g. by opening the file in an editor (IDE) like Komodo or Netbeans:"
-	echo -e $fileconverterror$fileerrors$reset
+    echo -e "The following files had errors (origin charset not recognized) and need to be converted manually (e.g. by opening the file in an editor (IDE) like Komodo or Netbeans:"
+    echo -e $fileconverterror$fileerrors$reset
 fi
 exit 0
 } #end function convert()
