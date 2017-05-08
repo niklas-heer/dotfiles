@@ -68,36 +68,36 @@ general_mime=''
 
 # fix file://
 if [[ "$arg" =~ ^file://(.*)$ ]]; then
-	# strip file://
-	arg="$(url_decode <<<"${BASH_REMATCH[1]}")"
-	protocol=file
+    # strip file://
+    arg="$(url_decode <<<"${BASH_REMATCH[1]}")"
+    protocol=file
 fi
 
 if [[ -e "$arg" ]]; then
-	# file or dir
-	mime="$(file -ib "$arg" | cut -d';' -f1)"
-	if [[ -f "$arg" ]]; then
-		ext="$(tr '[:upper:]' '[:lower:]' <<< "${arg##*.}")"
-	fi
+    # file or dir
+    mime="$(file -ib "$arg" | cut -d';' -f1)"
+    if [[ -f "$arg" ]]; then
+        ext="$(tr '[:upper:]' '[:lower:]' <<< "${arg##*.}")"
+    fi
 fi
 
 # protocol to mime ext
 if [[ "$arg" =~ ^([a-zA-Z-]+): ]]; then
-	# use protocol to guess mime ext
-	protocol="${BASH_REMATCH[1]}"
-	case "$protocol" in
-		http|https)
-			mime=text/html
-			ext=html
-			;;
-		magnet)
-			mime=application/x-bittorrent
-			ext=torrent
-			;;
-		irc)
-			mime=x-scheme-handler/irc
-			;;
-	esac
+    # use protocol to guess mime ext
+    protocol="${BASH_REMATCH[1]}"
+    case "$protocol" in
+        http|https)
+            mime=text/html
+            ext=html
+            ;;
+        magnet)
+            mime=application/x-bittorrent
+            ext=torrent
+            ;;
+        irc)
+            mime=x-scheme-handler/irc
+            ;;
+    esac
 fi
 
 
@@ -108,28 +108,28 @@ exist "$TERM" || TERM="$(find_in_config TERM)"
 
 # config
 for search in $ext $protocol $mime $general_mime; do
-	app=($(find_in_config "$search"))
-	[[ "${app[0]}" == TERM ]] && exist "$TERM" && app[0]="$TERM"
-	[[ "${app[*]}" ]] && fork_run "${app[@]}" "$arg"
+    app=($(find_in_config "$search"))
+    [[ "${app[0]}" == TERM ]] && exist "$TERM" && app[0]="$TERM"
+    [[ "${app[*]}" ]] && fork_run "${app[@]}" "$arg"
 done
 
 # .desktop
 for search in $mime $general_mime; do
-	desktop="$(find_desktop_file_by MimeType "$search")"
-	if [[ "$desktop" ]]; then
-		echo "$desktop"
-		app=($(find_exec_in_desktop_file <"$desktop"))
-		if need_terminal <"$desktop"; then
-			echo "term: $TERM"
-			exist "$TERM" && fork_run "$TERM" -e "${app[@]}" "$arg"
-		else
-			fork_run "${app[@]}" "$arg"
-		fi
-	fi
+    desktop="$(find_desktop_file_by MimeType "$search")"
+    if [[ "$desktop" ]]; then
+        echo "$desktop"
+        app=($(find_exec_in_desktop_file <"$desktop"))
+        if need_terminal <"$desktop"; then
+            echo "term: $TERM"
+            exist "$TERM" && fork_run "$TERM" -e "${app[@]}" "$arg"
+        else
+            fork_run "${app[@]}" "$arg"
+        fi
+    fi
 done
 
 # ask
 if exist dmenu; then
-	app=($(IFS=: stest -flx $PATH | sort -u | dmenu -p "how to open $arg"))
-	[[ "${app[*]}" ]] && fork_run "${app[@]}" "$arg"
+    app=($(IFS=: stest -flx $PATH | sort -u | dmenu -p "how to open $arg"))
+    [[ "${app[*]}" ]] && fork_run "${app[@]}" "$arg"
 fi
