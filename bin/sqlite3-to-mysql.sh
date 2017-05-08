@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # original author: https://github.com/athlite/sqlite3-to-mysql
 
 sed \

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Created by LEXO, http://www.lexo.ch
 # Version 1.0

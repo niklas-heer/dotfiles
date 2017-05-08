@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Prevent the automatic suspend from kicking in.
 # see: http://askubuntu.com/questions/222289/how-to-inhibit-suspend-temporarily
