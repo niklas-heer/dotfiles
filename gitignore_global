@@ -8,17 +8,20 @@
 *.so
 *.pyc
 
+##########################
 # Editing tools and IDEs #
 ##########################
 *.swp
 *~
 
+######################
 # Logs and databases #
 ######################
 *.log
 *.sql
 *.sqlite
 
+######################
 # OS generated files #
 ######################
 .DS_Store
@@ -30,6 +33,7 @@ Icon?
 ehthumbs.db
 Thumbs.db
 
+#############
 # Jetbrains #
 #############
 .idea/*
