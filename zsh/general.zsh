@@ -18,7 +18,6 @@ e() {
   fi 2> /dev/null
 }
 
-# Climb directory tree easylly
 # Go up directory tree X number of directories
 up () {
     COUNTER="$@";
