@@ -85,3 +85,20 @@ sha1check()
         fi
     fi
 }
+
+check() {
+    case "$1" in
+        "md5")
+            md5check $2 $3
+            ;;
+        "sha256")
+            sha256check $2 $3
+            ;;
+        "sha1")
+            sha1check $2 $3
+            ;;
+        *)
+            echo "Function not defined."
+            ;;
+    esac
+}
