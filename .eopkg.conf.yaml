@@ -64,6 +64,7 @@
   - sqlite3-devel
   - steam
   - telegram
+  - texlive-all
   - tig
   - tilda
   - tk # git-gui
