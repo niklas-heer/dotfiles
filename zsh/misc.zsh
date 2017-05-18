@@ -140,10 +140,10 @@ man() {
 #   ps awxxx | grep java
 # will show "grep java", which is probably not what you want
 psgrep() {
-  OUTFILE=$(mktemp /tmp/psgrep.XXXXX)
-  ps awxxx > "$OUTFILE"
-  grep "$@" "$OUTFILE"
-  rm "$OUTFILE"
+    OUTFILE=$(mktemp /tmp/psgrep.XXXXX)
+    ps awxxx > "$OUTFILE"
+    grep "$@" "$OUTFILE"
+    rm "$OUTFILE"
 }
 
 # Equations using gcalccmd
@@ -194,7 +194,7 @@ function repeat() {
 
 # List all files/folders only 1 deep
 lr() {
-  tree -L 2
+    tree -L 2
 }
 
 # Where/What is this binary? Shows extended ls output
