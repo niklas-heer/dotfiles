@@ -12,7 +12,3 @@ BROWSER=/usr/bin/google-chrome-stable
 EDITOR=/usr/bin/vim
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-if [[ "$TERM" == xterm-termite ]]; then
-   exec zsh
-fi
