@@ -12,8 +12,8 @@ random_string() { cat /dev/urandom | tr -dc 'a-z' | fold -w "$1" | head -n 1 }
 # kill processes, if you only know the name
 akill()
 {
-    for pid in $(ps -ef | grep "$1" | awk '{print $2}');
-    do kill -9 $pid;
+    for pid in $(ps -ef | grep "$1" | awk '{print $2}'); do
+        kill -9 $pid;
     done
 }
 
@@ -75,16 +75,16 @@ alias ex="extract"
 # it recognizes the type and creates the respective compressed file containing
 # all the files provided on the command line.
 pack() {
-  local FILE
-  FILE=$1
-  case $FILE in
-    *.tar.bz2)  shift && tar cjf "$FILE" "$*" ;;
-    *.tbz2)     shift && tar cjf "$FILE" "$*" ;;
-    *.tar.gz)   shift && tar czf "$FILE" "$*" ;;
-    *.tgz)      shift && tar czf "$FILE" "$*" ;;
-    *.zip)      shift && zip "$FILE" "$*"     ;;
-    *.rar)      shift && rar "$FILE" "$*"     ;;
-  esac
+    local FILE
+    FILE=$1
+    case $FILE in
+        *.tar.bz2)  shift && tar cjf "$FILE" "$*" ;;
+        *.tbz2)     shift && tar cjf "$FILE" "$*" ;;
+        *.tar.gz)   shift && tar czf "$FILE" "$*" ;;
+        *.tgz)      shift && tar czf "$FILE" "$*" ;;
+        *.zip)      shift && zip "$FILE" "$*"     ;;
+        *.rar)      shift && rar "$FILE" "$*"     ;;
+    esac
 }
 
 # Compress with tar + bzip2
