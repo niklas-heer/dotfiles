@@ -87,18 +87,27 @@ sha1check()
 }
 
 check() {
-    case "$1" in
-        "md5")
-            md5check $2 $3
+
+    if [ $# -eq 0 ]; then
+        echo "Usage: check <file> <md5|sha256|sha1 sum>"
+        return 1
+    fi
+
+    length=${#2}
+
+    case "$length" in
+        "32")
+            md5check $1 $2
             ;;
-        "sha256")
-            sha256check $2 $3
+        "64")
+            sha256check $1 $2
             ;;
-        "sha1")
-            sha1check $2 $3
+        "40")
+            sha1check $1 $2
             ;;
         *)
-            echo "Function not defined."
+            echo "Usage: check <file> <md5|sha256|sha1 sum>"
+            return 1
             ;;
     esac
 }
