@@ -53,7 +53,7 @@ License
 -------
 
 Copyright (c) 2016 Niklas Heer. Released under the MIT License. See
-[LICENSE.md][license] for details.
+[LICENSE][license] for details.
 
 [dotbot]: https://github.com/anishathalye/dotbot
-[license]: LICENSE.md
+[license]: LICENSE
