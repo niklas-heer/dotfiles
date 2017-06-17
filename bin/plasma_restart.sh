@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
-pkill plasmashell
-kstart plasmashell --shut-up
+
+main() {
+    pkill plasmashell
+    kstart plasmashell --shut-up
+}
+
+main
