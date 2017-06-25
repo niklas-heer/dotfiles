@@ -1,4 +1,4 @@
-NIH_REPO_DIR="$HOME/REPOS"
+NIH_REPO_DIR="$HOME/repos"
 NIH_UPDATABLE_DIRS=()
 
 #########################
