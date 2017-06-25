@@ -60,6 +60,10 @@ nih_repo_status() {
     cd $OLDPWD
 }
 
+list() {
+    tree -d -L 3 "$NIH_REPO_DIR"
+}
+
 
 repos() {
     case "$1" in
@@ -74,7 +78,7 @@ repos() {
             fi
             ;;
         -l | list)
-            tree -d -L 2 "$NIH_REPO_DIR"
+            list
             ;;
         -s | status)
             nih_repo_status
@@ -83,7 +87,7 @@ repos() {
             echo "Error: Unknown option: $1" >&2
             ;;
         *)  # No more options
-            tree -d -L 2 "$NIH_REPO_DIR"
+            list
             ;;
     esac
 }
