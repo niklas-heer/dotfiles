@@ -26,8 +26,6 @@ include ~/.dotfiles/.simplepush.conf         # Load Simplepush Key
 source ~/.zsh/general.zsh                   # General Shortcuts
 source ~/.zsh/aliases.zsh                   # Aliases
 source_files_in_dir ~/.zsh/dev/*.zsh        # Development Shortcuts
-source ~/.zsh/repos.zsh                     # Repo Shortcuts
-source ~/.zsh/hash.zsh                      # Hashing Shortcuts
 source ~/.zsh/misc.zsh                      # Miscelaneous shortcuts/tools
 source_files_in_dir ~/.zsh/scripts/*.zsh    # Scripts
 source ~/.zsh/os/main.zsh                   # Special commands for the current os
