@@ -6,4 +6,7 @@ if [ -f /etc/arch-release ] || [ -f /etc/manjaro-release ]; then
 elif [ -f /etc/solus-release ]; then
     # Solus
     source ~/.zsh/os/solus.zsh
+elif [ -f /etc/lsb-release  ]; then
+    # Ubuntu
+    source ~/.zsh/os/ubuntu.zsh
 fi
