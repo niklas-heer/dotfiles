@@ -1,6 +1,7 @@
 ###################
 # Aliases
 ###################
+
 alias -- +="pushd" # add current diretory to the stack
 alias -- -="popd"  # pop first directory from the stack
 

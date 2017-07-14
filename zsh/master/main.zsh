@@ -1,3 +1,7 @@
+###################
+# Source all
+###################
+
 autoload bashcompinit
 bashcompinit
 

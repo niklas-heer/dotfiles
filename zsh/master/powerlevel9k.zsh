@@ -1,4 +1,7 @@
+###################
 # Powerlevel9k
+###################
+
 POWERLEVEL9K_SHOW_CHANGESET=true
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status time context dir vcs)
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true

@@ -1,3 +1,7 @@
+###################
+# Helpers
+###################
+
 # Loop through directory and source all files
 source_files_in_dir() {
     for file in "$@"; do

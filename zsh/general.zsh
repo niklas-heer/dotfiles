@@ -1,6 +1,7 @@
 ###################
 # General
 ###################
+
 zsh_reload() { source ~/.zshrc }
 reload() { zsh_reload }
 open() { ~/.dotfiles/bin/mimi.sh $1 }

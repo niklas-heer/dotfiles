@@ -1,3 +1,7 @@
+###################
+# Exports
+###################
+
 export TERM=xterm-256color
 export EDITOR=/usr/bin/subl
 export DEFAULT_USER=nih

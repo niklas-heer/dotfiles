@@ -1,3 +1,7 @@
+###################
+# Simplepush
+###################
+
 # Simplepush helper - https://simplepush.io/#about
 alias sp="simplepush"
 
