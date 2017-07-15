@@ -4,4 +4,3 @@
 - Read [this guide](https://github.com/progrium/bashstyle) and follow it. Your scripts will be better.
 - Use [shellcheck](https://github.com/koalaman/shellcheck) as a linter.
 - Use [beautysh](https://github.com/bemeurer/beautysh) to format your script.
-
