@@ -1,6 +1,8 @@
 // Platzieren Sie Ihre Einstellungen in dieser Datei, um die Standardeinstellungen zu überschreiben.
 {
-    "workbench.iconTheme": "vs-seti",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "Material Theme Darker",
+    "git.enableSmartCommit": true,
     "editor.fontFamily": "Iosevka",
     "editor.fontSize": 15,
     "editor.fontLigatures": true,
