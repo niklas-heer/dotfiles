@@ -1,6 +1,6 @@
 # Jump Marks
 
-j   <mark>               - jump to jump-<mark>
-jm  <mark>               - create new jump-<mark>
-jrm <mark>               - remove jump-<mark>
-jls                      - list jump-marks
+* j   <mark>               - jump to jump-<mark>
+* jm  <mark>               - create new jump-<mark>
+* jrm <mark>               - remove jump-<mark>
+* jls                      - list jump-marks
