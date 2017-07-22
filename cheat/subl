@@ -1,7 +1,7 @@
 # Sublime Text Cheats
 
-- F9                  # put everything in alphabetical order
-- Ctrl + Shift + D    # duplicates a line
-- Ctrl + Shift + K    # delete line
-- Alt + F3            # multiple cursor select all occurrences
-- Ctrl + D            # multiple cursor select next occurrence
+* F9                  - put everything in alphabetical order
+* Ctrl + Shift + D    - duplicates a line
+* Ctrl + Shift + K    - delete line
+* Alt + F3            - multiple cursor select all occurrences
+* Ctrl + D            - multiple cursor select next occurrence
