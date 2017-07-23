@@ -1,3 +1,3 @@
 # systemd shortcuts
 
-- journalctl -u <service_name>            # get the logs for "service_name"
+* journalctl -u <service_name>         - get the logs for "service_name"
