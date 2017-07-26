@@ -20,7 +20,7 @@
     "telemetry.enableTelemetry": false,
     "terminal.integrated.shell.linux": "/bin/zsh",
     "terminal.integrated.cursorStyle": "underline",
-    "terminal.integrated.fontFamily": "Iosevka",
+    "terminal.integrated.fontFamily": "Source Code Pro for Powerline",
     "files.insertFinalNewline": true,
     "trailing-spaces.deleteModifiedLinesOnly": true,
     "trailing-spaces.trimOnSave": true,
