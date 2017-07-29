@@ -1,0 +1,10 @@
+# Slack Cheatsheet
+
+* /remind me in [time] to [task]
+* Ctrl + K                              - Quick Switcher
+* Shift + Ctrl + S                      - Show starred messages
+* Ctrl + U                              - Upload a file
+* Ctrl + Shift + Enter                  - Create a snippet
+* Shift + Ctrl + V                      - Paste clipboard as new snippet
+* /collapse                             - collapse all inline images
+* Ctrl + Shift + \                      - Add emoji reactions to a message
