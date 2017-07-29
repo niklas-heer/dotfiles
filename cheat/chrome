@@ -1,10 +1,10 @@
 # Chrome settings
 
-+ chrome://flags/#enable-tab-audio-muting
-+ chrome://flags/#enable-fast-unload
+* chrome://flags/#enable-tab-audio-muting
+* chrome://flags/#enable-fast-unload
 
-- chrome://net-internals
-- chrome://quota-internals/
-- chrome://network-error/-106
-- https://encrypted.google.com/search?q=find+my+phone
-- Ctrl + Shift + T | reopen closed tab
+* chrome://net-internals
+* chrome://quota-internals/
+* chrome://network-error/-106
+* https://encrypted.google.com/search?q=find+my+phone
+* Ctrl + Shift + T | reopen closed tab
