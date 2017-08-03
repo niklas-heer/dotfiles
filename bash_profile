@@ -1,3 +1,7 @@
+###################
+# Bash Profile 
+###################
+
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd'
 
 if [ -n "$DESKTOP_SESSION" ];then
