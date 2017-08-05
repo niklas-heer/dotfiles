@@ -74,8 +74,8 @@ do
                 iconv -f "$charset" -t utf8 "$inputfile" -o $tmp &>2
                 RETVAL=$?
                 if [ $RETVAL > 0 ] ; then
-                        # There was an error converting the file. Remember this and inform the user about the file not being converted at the end of the conversion process.
-                        fileerrors="$fileerrors\n$inputfile"
+                    # There was an error converting the file. Remember this and inform the user about the file not being converted at the end of the conversion process.
+                    fileerrors="$fileerrors\n$inputfile"
                 fi
                 mv "$tmp" "$inputfile"
                 #re-apply previous file permissions as well as user and group settings
