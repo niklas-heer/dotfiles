@@ -8,3 +8,4 @@
     - Use it: `composer require kint-php/kint`
 - Cool template engine: http://dwoo.org/
     - Use it: `composer require dwoo/dwoo 1.3.*`
+- Ansible Playbook for Laravel: https://github.com/aligajani/ansible-playbooks-laravel-5
