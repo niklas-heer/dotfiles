@@ -16,3 +16,4 @@
 - Laravel Valet (macOS): https://laravel.com/docs/master/valet
 - Style Enforcement for Laravel: https://styleci.io/
 - Scaffold important parts of a laravel app: https://spark.laravel.com/
+- Another cool templating engine: https://github.com/bobthecow/mustache.php
