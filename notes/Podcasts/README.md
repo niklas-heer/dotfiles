@@ -10,3 +10,5 @@ A podcast with CGP Grey and Myke Hurley about their working lives, productivity,
 A german podcast about software development. Very casual and there is definitely beer involved.
 Pretty good.
 
+### [DE] [Mein Scrum ist kaputt](http://pca.st/nm5q) (4/5 stars)
+A german podcast about Scrum and agile software development. Each time two Scrum Masters take on an interesting topic in this area and give some good insights from their personal history working in this field. Very interesting podcast if you are into Scrum and speak german.
