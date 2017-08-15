@@ -11,3 +11,6 @@ A german podcast about Scrum and agile software development. Each time two Scrum
 
 ### :us: [The College Info Geek Podcast](http://pca.st/BzAM)
 A podcast focused on students. The main topics are productivity, how to study better and how to hack your habits. Really good podcast and it's not only for students. :wink:
+
+### :us: [TED Radio Hour](http://pca.st/nprted)
+A podcast about interesting ideas from [TED Talks](https://www.ted.com/). Really great to get new ideas and start thinking.
