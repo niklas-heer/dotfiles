@@ -14,3 +14,6 @@ A podcast focused on students. The main topics are productivity, how to study be
 
 ### :us: [TED Radio Hour](http://pca.st/nprted)
 A podcast about interesting ideas from [TED Talks](https://www.ted.com/). Really great to get new ideas and start thinking.
+
+### :us: [Linux Action News](http://pca.st/QL3r)
+Weekly Linux news and analysis by [Chris](http://linuxactionnews.com/hosts/chris) and [Joe](http://linuxactionnews.com/hosts/joe). The show has some pretty good discussions about what’s happening in the Linux and FOSS scene.
