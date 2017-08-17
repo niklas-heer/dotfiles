@@ -17,3 +17,6 @@ A podcast about interesting ideas from [TED Talks](https://www.ted.com/). Really
 
 ### :us: [Linux Action News](http://pca.st/QL3r)
 Weekly Linux news and analysis by [Chris](http://linuxactionnews.com/hosts/chris) and [Joe](http://linuxactionnews.com/hosts/joe). The show has some pretty good discussions about what’s happening in the Linux and FOSS scene.
+
+### :us: [The Changelog](http://pca.st/changelog)
+A weekly conversation that gets to the heart of open source technologies and the people who create them. This show features in-depth interviews with the best and brightest software engineers, hackers, leaders, and innovators. Brilliant for all open source geeks. :)
