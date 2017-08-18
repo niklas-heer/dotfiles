@@ -20,3 +20,6 @@ Weekly Linux news and analysis by [Chris](http://linuxactionnews.com/hosts/chris
 
 ### :us: [The Changelog](http://pca.st/changelog)
 A weekly conversation that gets to the heart of open source technologies and the people who create them. This show features in-depth interviews with the best and brightest software engineers, hackers, leaders, and innovators. Brilliant for all open source geeks. :)
+
+### :us: [The Laracasts Snippet](http://pca.st/a6jO)
+Each episode, offers a single thought on some aspect of web development. Nothing more, nothing less. Hosted by Jeffrey Way. Nice if you like PHP, Laravel and web development.
