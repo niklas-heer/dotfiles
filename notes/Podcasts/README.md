@@ -23,3 +23,6 @@ A weekly conversation that gets to the heart of open source technologies and the
 
 ### :us: [The Laracasts Snippet](http://pca.st/a6jO)
 Each episode, offers a single thought on some aspect of web development. Nothing more, nothing less. Hosted by Jeffrey Way. Nice if you like PHP, Laravel and web development.
+
+### :de: [Führung auf den Punkt gebracht!](http://pca.st/uA5G)
+This podcast is mainly about business management, employee motivation, leadership and strategy. But also as an employee you can learn a lot.
