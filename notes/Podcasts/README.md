@@ -26,3 +26,6 @@ Each episode, offers a single thought on some aspect of web development. Nothing
 
 ### :de: [Führung auf den Punkt gebracht!](http://pca.st/uA5G)
 This podcast is mainly about business management, employee motivation, leadership and strategy. But also as an employee you can learn a lot.
+
+### :us: [The Minimalists Podcast](http://pca.st/minimalists)
+In this podcasts the hosts discuss living a meaningful life with less. Pretty interesting to get a grasp of the idea behind minimalism.
