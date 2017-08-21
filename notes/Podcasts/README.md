@@ -29,3 +29,6 @@ This podcast is mainly about business management, employee motivation, leadershi
 
 ### :us: [The Minimalists Podcast](http://pca.st/minimalists)
 In this podcasts the hosts discuss living a meaningful life with less. Pretty interesting to get a grasp of the idea behind minimalism.
+
+### :us: [Coder Radio](http://pca.st/BCivrU)
+A weekly talk show taking a pragmatic look at the art and business of software development and related technologies. Really interesting discussions.
