@@ -32,3 +32,6 @@ In this podcasts the hosts discuss living a meaningful life with less. Pretty in
 
 ### :us: [Coder Radio](http://pca.st/BCivrU)
 A weekly talk show taking a pragmatic look at the art and business of software development and related technologies. Really interesting discussions.
+
+### :us: [Hardcore History](http://pca.st/hardcorehist)
+Dan Carlin takes his "Martian", unorthodox way of thinking and applies it to the past. What would Apaches with modern weapons be like? Will our modern civilization ever fall like civilizations from past eras? This isn't academic history but the podcast's unique blend of high drama, masterful narration and Twilight Zone-style twists has entertained millions of listeners. If you are interested in history at all you should try out this podcast.
