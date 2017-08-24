@@ -35,3 +35,6 @@ A weekly talk show taking a pragmatic look at the art and business of software d
 
 ### :us: [Hardcore History](http://pca.st/hardcorehist)
 Dan Carlin takes his "Martian", unorthodox way of thinking and applies it to the past. What would Apaches with modern weapons be like? Will our modern civilization ever fall like civilizations from past eras? This isn't academic history but the podcast's unique blend of high drama, masterful narration and Twilight Zone-style twists has entertained millions of listeners. If you are interested in history at all you should try out this podcast.
+
+### :us: [Laravel News Podcast](http://pca.st/9NyF)
+This podcast brings you all the latest news and events related to Laravel.
