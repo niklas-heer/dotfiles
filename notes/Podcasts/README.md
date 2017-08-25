@@ -38,3 +38,6 @@ Dan Carlin takes his "Martian", unorthodox way of thinking and applies it to the
 
 ### :us: [Laravel News Podcast](http://pca.st/9NyF)
 This podcast brings you all the latest news and events related to Laravel.
+
+### :uk: [Hello Internet](http://pca.st/hellointernet)
+CGP Grey and Brady Haran talk about YouTube, life, work, whatever. It hasn't really a real theme, but it is always a worthwhile listen.
