@@ -41,3 +41,6 @@ This podcast brings you all the latest news and events related to Laravel.
 
 ### :uk: [Hello Internet](http://pca.st/hellointernet)
 CGP Grey and Brady Haran talk about YouTube, life, work, whatever. It hasn't really a real theme, but it is always a worthwhile listen.
+
+### :de: [Hintergrund - Deutschlandfunk](http://pca.st/5bF6)
+Thoroughly researched and carefully prepared analyses. This podcast covers the most important topics from Germany and abroad. In German.
