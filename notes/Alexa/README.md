@@ -11,3 +11,9 @@
 - Alexa, erzähl mir einen Witz.
 - Alexa, Kopf oder Zahl?
 - Alexa, erinnere mich morgen um 17.00 Uhr einkaufen zu gehen.
+- Alexa, mein Update bitte.
+- Alexa, was sind die Nachrichten?
+- Alexa, mach Donnerwetter.
+- Alexa, was steht heute in meinem Kalender?
+- Alexa, was steht auf meiner Todo Liste? 
+- Alexa, setz ‚Ofen reinigen‘ auf meine To-do-Liste.

@@ -44,3 +44,6 @@ CGP Grey and Brady Haran talk about YouTube, life, work, whatever. It hasn't rea
 
 ### :us: [The Laravel Podcast](http://pca.st/gJvO)
 The Laravel Podcast brings you Laravel and PHP development news and discussion. The podcast is hosted by Matt Stauffer and regular guests include Taylor Otwell (the creator of Laravel) and Jeffrey Way (the creator of Laracasts).
+
+### :de: [Hintergrund - Deutschlandfunk](http://pca.st/5bF6)
+Thoroughly researched and carefully prepared analyses. This podcast covers the most important topics from Germany and abroad. In German.
