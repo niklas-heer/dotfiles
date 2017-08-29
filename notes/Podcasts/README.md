@@ -47,3 +47,7 @@ The Laravel Podcast brings you Laravel and PHP development news and discussion. 
 
 ### :de: [Hintergrund - Deutschlandfunk](http://pca.st/5bF6)
 Thoroughly researched and carefully prepared analyses. This podcast covers the most important topics from Germany and abroad. In German.
+
+### :de: [Lage der Nation](http://pca.st/ldn)
+
+Every week, Philip Banse and Ulf Buermeyer review the political week and comment on the situation of the nation. Pretty good if you are politically interested and live in Germany.
