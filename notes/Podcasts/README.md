@@ -49,5 +49,7 @@ The Laravel Podcast brings you Laravel and PHP development news and discussion. 
 Thoroughly researched and carefully prepared analyses. This podcast covers the most important topics from Germany and abroad. In German.
 
 ### :de: [Lage der Nation](http://pca.st/ldn)
-
 Every week, Philip Banse and Ulf Buermeyer review the political week and comment on the situation of the nation. Pretty good if you are politically interested and live in Germany.
+
+### :de: [innoQ Podcast](http://pca.st/xkc0)
+In the innoQ Podcast, the hosts are discussing interesting topics from software development and architecture. The discussions are in depth and with a focus on professionalism.
