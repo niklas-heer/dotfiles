@@ -53,3 +53,6 @@ Every week, Philip Banse and Ulf Buermeyer review the political week and comment
 
 ### :de: [innoQ Podcast](http://pca.st/xkc0)
 In the innoQ Podcast, the hosts are discussing interesting topics from software development and architecture. The discussions are in depth and with a focus on professionalism.
+
+### :switzerland: [Zeitmanagement leicht gemacht!](http://pca.st/LSoe)
+This podcast focuses on how you can improve your work organization. It also sometimes talks about tools and other related topics. Pretty good.
