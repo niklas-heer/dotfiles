@@ -56,3 +56,6 @@ In the innoQ Podcast, the hosts are discussing interesting topics from software 
 
 ### :switzerland: [Zeitmanagement leicht gemacht!](http://pca.st/LSoe)
 This podcast focuses on how you can improve your work organization. It also sometimes talks about tools and other related topics. Pretty good.
+
+### :de: [Forschung Aktuell - Deutschlandfunk](http://pca.st/Ir9o)
+Daily the latest news from science, medicine and technology.
