@@ -15,5 +15,12 @@
 - Alexa, was sind die Nachrichten?
 - Alexa, mach Donnerwetter.
 - Alexa, was steht heute in meinem Kalender?
-- Alexa, was steht auf meiner Todo Liste? 
+- Alexa, was steht auf meiner Todo Liste?
 - Alexa, setz ‚Ofen reinigen‘ auf meine To-do-Liste.
+- Alexa, was läuft im Kino?
+- Alexa, Schnick, Schnack, Schnuck.
+- Alexa, stelle einen wiederholten Wecker für Dienstag um 8:00 Uhr ein.
+- Alexa, starte Einschlafgeräusche.
+- Alexa, lies mein Kindle eBook.
+- Alexa, wieviel ist 256 mal 52?
+- Alexa, erinnere mich daran die Blumen zu gießen.
