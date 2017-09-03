@@ -59,3 +59,6 @@ This podcast focuses on how you can improve your work organization. It also some
 
 ### :de: [Forschung Aktuell - Deutschlandfunk](http://pca.st/Ir9o)
 Daily the latest news from science, medicine and technology.
+
+### :us: [LINUX Unplugged Podcast](http://pca.st/2g9L)
+An open show powered by the community. LINUX Unplugged takes the best attributes of open collaboration and focuses them into a weekly lifestyle show about Linux.
