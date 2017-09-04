@@ -62,3 +62,6 @@ Daily the latest news from science, medicine and technology.
 
 ### :us: [LINUX Unplugged Podcast](http://pca.st/2g9L)
 An open show powered by the community. LINUX Unplugged takes the best attributes of open collaboration and focuses them into a weekly lifestyle show about Linux.
+
+### :us: [User Error Podcast](http://pca.st/lz24)
+Everyone makes mistakes and this is a show about them. Insightful yet irreverent and somewhat raw, User Error is a weekly talk show contemplating our own issues and those of our community.
