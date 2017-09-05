@@ -65,3 +65,6 @@ An open show powered by the community. LINUX Unplugged takes the best attributes
 
 ### :us: [User Error Podcast](http://pca.st/lz24)
 Everyone makes mistakes and this is a show about them. Insightful yet irreverent and somewhat raw, User Error is a weekly talk show contemplating our own issues and those of our community.
+
+### :uk: [Sundays with Solus](http://pca.st/nZ4R)
+A bi-weekly podcast covering the latest news from the Solus project.
