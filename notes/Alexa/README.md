@@ -24,3 +24,4 @@
 - Alexa, lies mein Kindle eBook.
 - Alexa, wieviel ist 256 mal 52?
 - Alexa, erinnere mich daran die Blumen zu gießen.
+- Alexa, Lautstärke auf (0-10)
