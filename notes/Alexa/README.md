@@ -25,3 +25,8 @@
 - Alexa, wieviel ist 256 mal 52?
 - Alexa, erinnere mich daran die Blumen zu gießen.
 - Alexa, Lautstärke auf (0-10)
+- Alexa, leiser
+- Alexa, lauter
+- Alexa, Ton aus
+- Alexa, Ton an
+- Alexa, füge meinem Kalender einen Termin hinzu
