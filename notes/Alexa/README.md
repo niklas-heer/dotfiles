@@ -30,3 +30,10 @@
 - Alexa, Ton aus
 - Alexa, Ton an
 - Alexa, füge meinem Kalender einen Termin hinzu
+- Alexa, wie wird das Wetter in (Ort) am Wochende/Freitag?
+- Alexa, füge (Ware) meinem Einkaufswagen hinzu
+- Alexa, wo ist meine Bestellung?
+- Alexa, wecke mich morgen um acht Uhr morgens
+- Alexa, stelle einen Timer auf fünf Minuten
+- Alexa, welche Timer sind gestellt?
+- Alexa, wie viel Zeit ist noch auf dem Timer?
