@@ -37,3 +37,4 @@
 - Alexa, stelle einen Timer auf fünf Minuten
 - Alexa, welche Timer sind gestellt?
 - Alexa, wie viel Zeit ist noch auf dem Timer?
+- Alexa, wieviele Esslöffel sind 100 ml?
