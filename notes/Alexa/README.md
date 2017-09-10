@@ -38,3 +38,5 @@
 - Alexa, welche Timer sind gestellt?
 - Alexa, wie viel Zeit ist noch auf dem Timer?
 - Alexa, wieviele Esslöffel sind 100 ml?
+- Alexa, kannst du klingonisch?
+- Alexa, nenn mir ein Filmzitat.
