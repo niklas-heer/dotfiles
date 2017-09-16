@@ -40,3 +40,8 @@
 - Alexa, wieviele Esslöffel sind 100 ml?
 - Alexa, kannst du klingonisch?
 - Alexa, nenn mir ein Filmzitat.
+- Alexa, wie ist der Verkehr?
+- Alexa, brauche ich heute einen Regenschirm?
+- Alexa, wie entferne ich Kaffeeflecken?
+- Alexa, erzähl mir den Witz des Tages.
+- Alexa, was steht auf meiner Einkaufsliste?
