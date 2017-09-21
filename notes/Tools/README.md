@@ -11,3 +11,4 @@
 - [Tilix](https://github.com/gnunn1/tilix). A cool, simple and powerful tiling terminal emulator for Linux. (formely known as Terminix)
 - [Gravit Designer](https://www.designer.io/) is a full featured free vector design app. Cross-platform. Yep also Linux. :wink:
 - [Todoist](https://todoist.com) is an awesome task manager. I use it to do [Getting Things Done](http://gettingthingsdone.com/). Try it. :smiley:
+- [Brain.fm](https://www.brain.fm) is a "noise generator" which can help you to focus and be more productive. It works surprisingly well.
