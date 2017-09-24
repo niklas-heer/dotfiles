@@ -1,7 +1,7 @@
 # Alexa Cheatsheet
 
-- Alexa, starte Mein Auftrag. -> ??
-- Alexa, starte Rollenspiel. -> ??
+- Alexa, starte Mein Auftrag.
+- Alexa, starte Rollenspiel.
 - Alexa, starte Würdest du Eher.
 - Alexa, setz Reinigungstücher auf meine Einkaufsliste.
 - Alexa, was sind die Öffnungszeiten von Edeka?
@@ -45,3 +45,10 @@
 - Alexa, wie entferne ich Kaffeeflecken?
 - Alexa, erzähl mir den Witz des Tages.
 - Alexa, was steht auf meiner Einkaufsliste?
+- Alexa, wann ist Vollmond?
+- Alexa, in welcher Reihenfolge schaut man Star Wars Filme?
+- Alexa, eine Runde Mitleid bitte.
+- Alexa, wen wählst Du?
+- Alexa, wieviele Tage sind es bis Weihnachten?
+- Alexa, sing ein Geburtstagslied.
+- Alexa, lass uns Zähne putzen.
