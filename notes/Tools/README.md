@@ -13,3 +13,4 @@
 - [Todoist](https://todoist.com) is an awesome task manager. I use it to do [Getting Things Done](http://gettingthingsdone.com/). Try it. :smiley:
 - [Brain.fm](https://www.brain.fm) is a "noise generator" which can help you to focus and be more productive. It works surprisingly well.
 - [MeisterTask](https://www.meistertask.com) an intuitive project and task management tool - Kanban style. If you don't like Trello, try MeisterTask.
+- [The Typing Cat](https://thetypingcat.com). Online keyboard touch typing tutor.
