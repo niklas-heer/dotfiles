@@ -14,3 +14,4 @@
 - [Brain.fm](https://www.brain.fm) is a "noise generator" which can help you to focus and be more productive. It works surprisingly well.
 - [MeisterTask](https://www.meistertask.com) an intuitive project and task management tool - Kanban style. If you don't like Trello, try MeisterTask.
 - [The Typing Cat](https://thetypingcat.com). Online keyboard touch typing tutor.
+- [Calm](https://www.calm.com/) is an app for your phone or on the web to mediate or relax.
