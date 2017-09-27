@@ -15,3 +15,4 @@
 - [MeisterTask](https://www.meistertask.com) an intuitive project and task management tool - Kanban style. If you don't like Trello, try MeisterTask.
 - [The Typing Cat](https://thetypingcat.com). Online keyboard touch typing tutor.
 - [Calm](https://www.calm.com/) is an app for your phone or on the web to mediate or relax.
+- [Duolingo](https://www.duolingo.com/) is a service where you can learn different languages for free.
