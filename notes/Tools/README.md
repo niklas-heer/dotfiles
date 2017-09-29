@@ -16,4 +16,5 @@
 - [The Typing Cat](https://thetypingcat.com). Online keyboard touch typing tutor.
 - [Calm](https://www.calm.com/) is an App for your phone or on the web to mediate or relax.
 - [Duolingo](https://www.duolingo.com/) is a service where you can learn different languages for free.
-- [DigitalOcean](https://www.digitalocean.com/) is a hoster focused on developers. Having an API for controlling servers is just awesome.
+- [DigitalOcean](https://www.digitalocean.com/) is a Hoster focused on developers. Having an API for controlling servers is just awesome.
+- [Habitica](https://habitica.com/) is an online task management App which focuses on gamification. It's great to get stuff done with you colleges. :wink:
