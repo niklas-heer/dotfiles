@@ -52,3 +52,9 @@
 - Alexa, wieviele Tage sind es bis Weihnachten?
 - Alexa, sing ein Geburtstagslied.
 - Alexa, lass uns Zähne putzen.
+- Alexa, was heißt Herbstwetter auf Englisch?
+- Alexa, mach mal Blödsinn.
+- Alexa, wer ist der Bürgermeister von Hamburg?
+- Alexa, hast du ein Rezept für mich?
+- Alexa, wie viele Liter enthält ein Barrel?
+- Alexa, was ist dein Lieblingsbier?
