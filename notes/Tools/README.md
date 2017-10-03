@@ -20,3 +20,4 @@
 - [Habitica](https://habitica.com/) is an online task management App which focuses on gamification. It's great to get stuff done with you colleges. :wink:
 - If you are looking for a really good email provider try [mailbox.org](https://mailbox.org/). They are secure, hosted in Germany and you can use your own domains.
 - I think you already know [Slack](https://slack.com), but it is a great tool for teams. If you don't know it already - try it! :smile:
+- [Inbox](https://www.google.de/inbox/) by Gmail is a fresh take on email management by the Gmail team. I recommend it, because it can help you tame your email flood.
