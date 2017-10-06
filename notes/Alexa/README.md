@@ -58,3 +58,4 @@
 - Alexa, hast du ein Rezept für mich?
 - Alexa, wie viele Liter enthält ein Barrel?
 - Alexa, was ist dein Lieblingsbier?
+- [Alexa, ruf Mama an.](https://smile.amazon.de/b/?ie=UTF8&node=14072713031&ref_=pe_3346671_217113181_email_AUCC_CM_DE_meet_alexa_cm2)
