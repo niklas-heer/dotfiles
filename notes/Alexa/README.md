@@ -59,3 +59,6 @@
 - Alexa, wie viele Liter enthält ein Barrel?
 - Alexa, was ist dein Lieblingsbier?
 - [Alexa, ruf Mama an.](https://smile.amazon.de/b/?ie=UTF8&node=14072713031&ref_=pe_3346671_217113181_email_AUCC_CM_DE_meet_alexa_cm2)
+- Alexa, gib mir einen Zungenbrecher.
+- Alexa, stell einen Timer auf 5 Minuten.
+- Alexa, wann läuft Kingsman: The Golden Circle im Kino?
