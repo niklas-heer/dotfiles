@@ -6,4 +6,4 @@
 
 A really good book with many stories, about the origin of Scrum, how it came to be and how it was used.
 
-[[Audible](https://www.audible.de/pd/English-Business/Scrum-Hoerbuch/B01ATRRE2K) | (Amazon)[https://www.amazon.de/Scrum-Doing-Twice-Work-Half/dp/038534645X]]
+[[Audible](https://www.audible.de/pd/English-Business/Scrum-Hoerbuch/B01ATRRE2K) | [Amazon](https://www.amazon.de/Scrum-Doing-Twice-Work-Half/dp/038534645X)]
