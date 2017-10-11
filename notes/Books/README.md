@@ -3,8 +3,8 @@
 Table of Contents
 =================
 
-      * [International](#international)
-         * [Scrum: The art of doing twice the work in half the time](#scrum-the-art-of-doing-twice-the-work-in-half-the-time)
+* [International](#international)
+   * [Scrum: The art of doing twice the work in half the time](#scrum-the-art-of-doing-twice-the-work-in-half-the-time)
 
 
 ## International
@@ -15,7 +15,7 @@ Table of Contents
 
 A really good book with many stories, about the origin of Scrum, how it came to be and how it was used.
 
-More: [good**reads**](https://www.goodreads.com/book/show/19288230-scrum)
+More: [good**reads**](https://www.goodreads.com/book/show/19288230-scrum) <br>
 Language: :us: English 
 
 ### :us: [Essentialism: The Disciplined Pursuit of Less](https://www.goodreads.com/book/show/22543496-elon-musk)
