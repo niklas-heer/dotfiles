@@ -39,3 +39,15 @@ This is a really great book, because it uses the stories it tells to give you va
 More: [good**reads**](https://www.goodreads.com/book/show/18077903-creativity-inc) <br>
 Language: :us: English 
 
+---
+
+## German
+
+### Die Kunst des klugen Handelns, 52 Irrwege, die Sie besser anderen überlassen
+
+> Unser Gehirn ist eine Wundermaschine – komplexer und leistungsfähiger als jeder Computer. Doch in unserer Bewunderung für die Krone der Evolution vergessen wir oft eines: Das Gehirn ist auch ziemlich fehleranfällig. Wie sonst ist es logisch zu erklären, dass man beim Fußball automatisch für die Mannschaft aus dem eigenen Land mitfiebert? Oder dass man Menschen, die anderer Meinung sind, gern mal für Idioten hält? Wer die Irrwege des Denkens kennt, kann sie für sich nutzen und öfter die richtigen Entscheidungen treffen, sei es im Marketing, in der Karriere oder im privaten Alltag. Die Vielzahl konkreter Beispiele zeigt immer wieder neue Aspekte auf.
+
+Dieses Buch schafft es eigene Irrwege aufzudecken und umzudenken. Ich empfehle dieses Buch jedem!
+
+More: [good**reads**](https://www.goodreads.com/book/show/16046854-die-kunst-des-klugen-handelns-52-irrwege-die-sie-besser-anderen-berla) <br>
+Language: :de: Deutsch
