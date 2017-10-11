@@ -1,11 +1,11 @@
 # Books I can recommend
 
-Table of Contents
-=================
-
 * [International](#international)
-   * [Scrum: The art of doing twice the work in half the time](#scrum-the-art-of-doing-twice-the-work-in-half-the-time)
-
+    * [Scrum: The art of doing twice the work in half the time](#scrum-the-art-of-doing-twice-the-work-in-half-the-time)
+    * [Essentialism: The Disciplined Pursuit of Less](#essentialism-the-disciplined-pursuit-of-less)
+    * [Creativity, Inc.: Overcoming the Unseen Forces That Stand in the Way of True Inspiration](#creativity-inc-overcoming-the-unseen-forces-that-stand-in-the-way-of-true-inspiration)
+* [German](#german)
+    * [Die Kunst des klugen Handelns, 52 Irrwege, die Sie besser anderen überlassen](#die-kunst-des-klugen-handelns-52-irrwege-die-sie-besser-anderen-überlassen)
 
 ## International
 
