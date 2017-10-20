@@ -62,3 +62,16 @@
 - Alexa, gib mir einen Zungenbrecher.
 - Alexa, stell einen Timer auf 5 Minuten.
 - Alexa, wann läuft Kingsman: The Golden Circle im Kino?
+- Alexa, was ist ein Haiku?
+- Alexa, begrüß meine Gäste.
+- Alexa, schlag mir einen Skill vor.
+- Alexa, was steht auf meiner To-do-Liste?
+- Alexa, wann ist morgen Sonnenaufgang?
+- Alexa, was ist dein Lieblingstier?
+- Alexa, gib mir meine tägliche Zusammenfassung.
+- Alexa, der Winter naht!
+- Alexa, wann ist Halloween?
+- Alexa, als was verkleidest du dich an Halloween?
+- Alexa, spiel Pop aus den 90ern.
+- Alexa, was ist die Hauptstadt von Australien?
+- Alexa, was ist die Währung in China?
