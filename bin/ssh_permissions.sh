@@ -10,17 +10,17 @@ main() {
 
     # main permissions
     chmod 700 "$SSH_FOLDER"
-    chmod 600 "$SSH_FOLDER/*"
-    chmod 644 "$SSH_FOLDER/*.pub"
+    chmod 600 "$SSH_FOLDER"/*
+    chmod 644 "$SSH_FOLDER"/*.pub
 
     # known_hosts
     if [ -f "$SSH_FOLDER/known_hosts" ]; then
-        chmod 644 "$SSH_FOLDER/known_hosts"
+        chmod 644 "$SSH_FOLDER"/known_hosts
     fi
 
     # config
     if [ -f "$SSH_FOLDER/config" ]; then
-        chmod 644 "$SSH_FOLDER/config"
+        chmod 644 "$SSH_FOLDER"/config
     fi
 }
 
