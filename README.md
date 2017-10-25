@@ -47,7 +47,7 @@ Clone this repo and cd into the directory. Execute this command:
 
 `./install -p dotbot-yaourt/yaourt.py -c .yaourt.conf.yaml`
 
-# License
+## License
 
 Copyright (c) 2016 Niklas Heer. Released under the MIT License. See
 [LICENSE][license] for details.
