@@ -1,5 +1,4 @@
-Dotfiles
-========
+# Dotfiles
 
 ![Screenshot](https://raw.githubusercontent.com/niklas-heer/dotfiles/master/.github/images/zsh_01.png)
 
@@ -36,21 +35,19 @@ You can make local customizations for some programs by editing these files:
 * `zsh` : `~/.zshrc_local_after` run after `.zshrc`
 * `git` : `~/.gitconfig_local`
 
-## Install all needed software on Arch
-
-Clone this repo and cd into the directory. Execute this command:
-
-`./install -p dotbot-yaourt/yaourt.py -c .yaourt.conf.yaml`
-
 ## Install all needed software on Solus
 
 Clone this repo and cd into the directory. Execute this command:
 
 `./install -p dotbot-eopkg/eopkg.py -c .eopkg.conf.yaml`
 
+## Install all needed software on Arch
 
-License
--------
+Clone this repo and cd into the directory. Execute this command:
+
+`./install -p dotbot-yaourt/yaourt.py -c .yaourt.conf.yaml`
+
+# License
 
 Copyright (c) 2016 Niklas Heer. Released under the MIT License. See
 [LICENSE][license] for details.
