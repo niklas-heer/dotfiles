@@ -75,3 +75,10 @@
 - Alexa, spiel Pop aus den 90ern.
 - Alexa, was ist die Hauptstadt von Australien?
 - Alexa, was ist die Währung in China?
+- Alexa, wann wird die Uhr umgestellt?
+- Alexa, gib mir Saueres!
+- Alexa, kannst du beatboxen?
+- Alexa, wie steht es an der Börse?
+- Alexa, erzähl mir ein Halloween-Witz.
+- Alexa, wer spielt Barney Stinson in How I Met Your Mother?
+- Alexa, lies Das Dschungelbuch von Audible.
