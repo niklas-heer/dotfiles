@@ -82,6 +82,16 @@
 - Alexa, erzähl mir ein Halloween-Witz.
 - Alexa, wer spielt Barney Stinson in How I Met Your Mother?
 - Alexa, lies Das Dschungelbuch von Audible.
+- Alexa, wie wird das Wetter heute?
+- Alexa, überrasch mich!
+- Alexa, was machst du an deinem Geburtstag?
+- Alexa, lies meine Gedanken.
+- Alexa, wie macht die Katze?
+- Alexa, wie ist die Verkehrslage im Moment?
+- Alexa, bring mir was bei.
+- Alexa, wo liegt das nächste Kino?
+- Alexa, liste die drei Gesetze von Isaac Newton auf.
+- Alexa, wie ändere ich den Weckton?
 - Alexa, erzähl einen Karnevalswitz.
 - Alexa, was ist der beste Film aller Zeiten?
 - Alexa, ich brauch etwas Entspannung.
