@@ -28,4 +28,4 @@ source_files_in_dir ~/.zsh/scripts/*.zsh    # Scripts
 source ~/.zsh/os/main.zsh                   # Special commands for the current os
 
 # VTE support
-source /etc/profile.d/vte.sh
+include /etc/profile.d/vte.sh
