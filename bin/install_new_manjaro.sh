@@ -41,9 +41,9 @@ main() {
 
     # Set up Golang
     echo "[INFO][7] Setting up Golang..."
-    export GOPATH=~/go
+    export GOPATH=~/Go
     export PATH="$PATH:$GOPATH/bin"
-    mkdir -p ~/go/{bin,src}
+    mkdir -p ~/Go/{bin,src}
 
     # Install antigen
     echo "[INFO][8] Setting up antigen..."
