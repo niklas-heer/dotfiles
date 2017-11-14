@@ -2,7 +2,7 @@
 # Repos
 ###################
 
-NIH_REPO_DIR="$HOME/repos"
+NIH_REPO_DIR="$HOME/Projects"
 NIH_UPDATABLE_DIRS=()
 
 #########################
