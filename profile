@@ -1,2 +1,2 @@
 source /usr/share/defaults/etc/profile
-export GOPATH=$HOME/go
+export GOPATH=$HOME/Go
