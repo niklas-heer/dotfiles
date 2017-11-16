@@ -2,9 +2,11 @@
 
 ![Screenshot](https://raw.githubusercontent.com/niklas-heer/dotfiles/master/.github/images/zsh_01.png)
 
-After cloning this repo, run `install` to automatically set up the development
+After cloning this repo, run `./install` to automatically set up the development
 environment. Note that the install script is idempotent, which means it can safely run
-multiple times.
+multiple times. You can also use the following arguments:
+
+- run `./install linux` to install fonts and specific configuration to setup a Linux environment.
 
 Dotfiles uses [Dotbot][dotbot] for installation.
 
