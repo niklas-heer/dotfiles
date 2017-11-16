@@ -20,11 +20,6 @@
     ~/.tmux.conf: tmux/.tmux.conf
     ~/.tmux.conf.local: tmux.conf
     ~/.vimrc: vimrc
-    ~/.config/base16-gnome-terminal: config/base16-gnome-terminal
-    ~/.profile:
-        force: true
-        path: profile
-    ~/.Xdefaults: Xdefaults
     ~/.zsh: zsh
     ~/.zshrc:
       force: true
@@ -36,9 +31,4 @@
     - ['git submodule update --init --recursive', 'Installing submodules... ']
     - ['git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf; ~/.fzf/install --all', 'Install fuzzy command-line finder (fzf)... ']
     - ['fonts/install.sh', 'Install powerline fonts... ']
-    - ['files/Go-Font/install.sh', 'Install go font... ']
-    - ['bin/install-font_awesome.sh', 'Install awesome fonts... ']
-    - ['bin/install-font_fira.sh', 'Install FiraCode font... ']
-    - ['bin/install-font_iosevka.sh', 'Install Iosevka font... ']
-    - ['', 'To install base16-gnome-terminal: "source ~/.config/base16-gnome-terminal/base16-google.dark.sh"']
     - ['bin/install_pip_deps.sh', 'Install pip packages... ']
