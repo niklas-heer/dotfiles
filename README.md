@@ -41,13 +41,13 @@ You can make local customizations for some programs by editing these files:
 
 Clone this repo and cd into the directory. Execute this command:
 
-`./install -p dotbot-eopkg/eopkg.py -c .eopkg.conf.yaml`
+`./install -p dotbot-eopkg/eopkg.py -c .envs/solus.yaml`
 
 ## Install all needed software on Arch
 
 Clone this repo and cd into the directory. Execute this command:
 
-`./install -p dotbot-yaourt/yaourt.py -c .yaourt.conf.yaml`
+`./install -p dotbot-yaourt/yaourt.py -c .envs/arch.yaml`
 
 ## License
 
