@@ -3,9 +3,11 @@
 set -e
 
 DEFAULT_CONFIG_PREFIX="default"
-CONFIG_FOLDER=".envs"
+CONFIG_FOLDER=".dotbot-envs"
 CONFIG_SUFFIX=".yaml"
 DOTBOT_DIR=".dotbot"
+PLUGIN=""
+PLUGIN_FOLDER=".dotbot-plugins"
 
 DOTBOT_BIN="bin/dotbot"
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -13,6 +15,25 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "${BASEDIR}"
 git submodule update --init --recursive "${DOTBOT_DIR}"
 
-for conf in ${DEFAULT_CONFIG_PREFIX} ${@}; do
-	"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG_FOLDER}/${conf}${CONFIG_SUFFIX}"
+for conf in ${DEFAULT_CONFIG_PREFIX} "${@}"; do
+
+	case "${conf}" in
+	"mac" | "mac-extras")
+		PLUGIN="dotbot-brew"
+		;;
+	"solus")
+		PLUGIN="dotbot-eopkg"
+		;;
+	"arch")
+		PLUGIN="dotbot-yaourt"
+		;;
+	*) ;;
+	esac
+
+	if [ -n "$PLUGIN" ]; then
+		"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" --plugin-dir "${PLUGIN_FOLDER}/${PLUGIN}" -c "${CONFIG_FOLDER}/${conf}${CONFIG_SUFFIX}"
+	else
+		"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG_FOLDER}/${conf}${CONFIG_SUFFIX}"
+	fi
+
 done
