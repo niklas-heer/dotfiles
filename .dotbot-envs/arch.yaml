@@ -1,0 +1,26 @@
+- yaourt:
+  - vim
+  - neovim
+  - vlc
+  - hub
+  - git
+  - gitg
+  - tig
+  - tree
+  - tmux
+  - shutter
+  - wget
+  - putty
+  - python-pip
+  - base-devel
+  - tk # git-gui
+  - mosh
+  - crystal
+  - shards
+  - words
+  - crunch
+  - terminix
+  - exercism-cli
+  - twemoji-color-font
+  - clion
+  - phpstorm

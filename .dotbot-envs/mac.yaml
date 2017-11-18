@@ -1,0 +1,26 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- brew:
+    - htop
+    - shellcheck
+    - shfmt
+    - exa
+    - htop
+    - homebrew/php/php71
+    - composer
+    - hub
+
+- cask:
+    - colorpicker-materialdesign
+    - visual-studio-code
+    - spotify
+    - google-chrome
+    - iina
+    - vlc
+    - cyberduck
+    - skype
+    - gitkraken
+    - firefox

@@ -1,0 +1,7 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- shell:
+    - ['defaults write com.apple.dock autohide-time-modifier -float 0.12; killall Dock', 'Make Dock animation faster...']
