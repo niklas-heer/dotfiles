@@ -12,7 +12,6 @@ main() {
 		"$pip_version" install -r "$HOME/.dotfiles/pip.conf" --upgrade
 	else
 		# Linux
-
 		if [ -f /etc/solus-release ]; then
 			# Solus
 			pip_version="pip"
