@@ -15,7 +15,15 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "${BASEDIR}"
 git submodule update --init --recursive "${DOTBOT_DIR}"
 
-for conf in ${DEFAULT_CONFIG_PREFIX} "${@}"; do
+# If the --no-default option is used omit the default config
+if [ "$1" != "--no-default" ]; then
+	export ENV_LIST=(${DEFAULT_CONFIG_PREFIX} "${@}")
+else
+	shift
+	export ENV_LIST=("${@}")
+fi
+
+for conf in "${ENV_LIST[@]}"; do
 
 	case "${conf}" in
 	"mac" | "mac-extras")
