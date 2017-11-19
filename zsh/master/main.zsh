@@ -18,6 +18,7 @@ source ~/.zsh/master/helpers.zsh            # Load helper functions
 
 # Load Maybe files
 include ~/.dotfiles/.simplepush.conf         # Load Simplepush Key
+include "$HOME/.cargo/env"                     # Load rust environment
 
 # Aliases and Functions
 source ~/.zsh/general.zsh                   # General Shortcuts
