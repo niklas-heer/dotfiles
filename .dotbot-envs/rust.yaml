@@ -1,5 +1,5 @@
 - shell:
-    - 
+    -
       command: curl https://sh.rustup.rs -sSf | sh
       stdin: true
       stdout: true
