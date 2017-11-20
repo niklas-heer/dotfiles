@@ -31,4 +31,3 @@
     - ['git submodule update --init --recursive', 'Installing submodules... ']
     - ['git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf; ~/.fzf/install --all', 'Install fuzzy command-line finder (fzf)... ']
     - ['fonts/install.sh', 'Install powerline fonts... ']
-    - ['bin/install_pip_deps.sh', 'Install pip packages... ']
