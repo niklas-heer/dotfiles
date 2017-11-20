@@ -1,0 +1,2 @@
+- shell:
+    - ['mkdir -p ~/Go/{bin,src/github.com/niklas-heer}', 'Setting up $GOPATH...']

@@ -27,7 +27,6 @@
 
 - shell:
     - ['mkdir -p ~/Projects/{test,github.com,gitlab.com}', 'Setting up REPO directories... ']
-    - ['mkdir -p ~/Go/{bin,src/github.com/niklas-heer}', 'Setting up $GOPATH...']
     - ['git submodule update --init --recursive', 'Installing submodules... ']
     - ['git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf; ~/.fzf/install --all', 'Install fuzzy command-line finder (fzf)... ']
     - ['fonts/install.sh', 'Install powerline fonts... ']
