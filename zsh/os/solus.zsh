@@ -3,17 +3,28 @@
 # Solus
 ###########
 
+# -------------------
 # Software Management
-in() { sudo eopkg -y it "$@"; }
-se() { eopkg -y sr "$1"; }
-update() { sudo eopkg -y up; }
+# -------------------
+in() {
+	# Install Shortcut
+	sudo eopkg -y it "$@"
+}
+se() {
+	# Search Shortcut
+	eopkg -y sr "$1"
+}
+update() {
+	# Update Shortcut
+	sudo eopkg -y up
+}
 
 # Alias git with hub
 if [ -f /usr/bin/hub ]; then
-    alias git=hub
+	alias git=hub
 fi
 
 # Alias Visual Studio Code
 if [ -f /usr/bin/code-oss ]; then
-    code() { (code-oss $@ > /dev/null 2>&1 &) }
+	code() { (code-oss "$@" >/dev/null 2>&1 &); }
 fi
