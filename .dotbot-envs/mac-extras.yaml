@@ -5,3 +5,4 @@
 
 - shell:
     - ['defaults write com.apple.dock autohide-time-modifier -float 0.12; killall Dock', 'Make Dock animation faster...']
+    - ['defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1', 'Change update frequency to daily...']
