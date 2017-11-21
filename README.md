@@ -25,7 +25,7 @@ Software needed
 * `vim`
 * `tmux`
 * `tree`
-* `python3-devel`, `python3-pip` for https://github.com/nvbn/thefuck
+* `python3-devel`, `python3-pip`
 * `gcc`
 
 Making Local Customizations
