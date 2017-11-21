@@ -7,17 +7,19 @@
 
 if [[ $(uname) == 'Darwin' ]]; then
 	# MacOS
-	source "$HOME/.zsh/os/mac.zsh"
+	include "$HOME/.zsh/os/mac.zsh"
 else
-	# Linux
+	# Load general linux configs
+	include "$HOME/.zsh/os/linux.zsh"
+
 	if [ -f /etc/arch-release ] || [ -f /etc/manjaro-release ]; then
 		# arch/manjaro/antergos
-		source "$HOME/.zsh/os/arch.zsh"
+		include "$HOME/.zsh/os/arch.zsh"
 	elif [ -f /etc/solus-release ]; then
 		# Solus
-		source "$HOME/.zsh/os/solus.zsh"
+		include "$HOME/.zsh/os/solus.zsh"
 	elif [ -f /etc/lsb-release ]; then
 		# Ubuntu
-		source "$HOME/.zsh/os/ubuntu.zsh"
+		include "$HOME/.zsh/os/ubuntu.zsh"
 	fi
 fi

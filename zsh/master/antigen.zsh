@@ -3,7 +3,7 @@
 # Antigen
 ###################
 
-source ~/.zsh/antigen/antigen.zsh
+include ~/.zsh/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
@@ -29,6 +29,7 @@ antigen bundle docker-compose
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 # Set the right font: https://github.com/gabrielelana/awesome-terminal-fonts
+# shellcheck disable=SC2034
 POWERLEVEL9K_MODE='awesome-patched'
 
 # Load the theme.

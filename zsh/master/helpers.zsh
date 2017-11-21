@@ -77,8 +77,3 @@ ask_short() {
 	*) return 1 ;;
 	esac
 }
-
-# Source a file if it exists
-include() {
-	[[ -f "$1" ]] && source "$1"
-}
