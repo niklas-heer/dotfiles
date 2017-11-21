@@ -3,6 +3,9 @@
 # macOS
 #############
 
+# Custom Exports
+export EDITOR=/usr/local/bin/code
+
 # Custom Aliases
 alias cask="brew cask"
 
