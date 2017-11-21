@@ -21,7 +21,7 @@ cin() {
 	cask install "$@"
 }
 
-update() {
+up() {
 	# Update Shortcut
 	brew update
 	brew upgrade
