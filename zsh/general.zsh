@@ -1,23 +1,51 @@
 # shellcheck disable=SC2148
+
 ###################
 # General
 ###################
 
-zsh_reload() { source ~/.zshrc }
-reload() { zsh_reload }
-open() { ~/.dotfiles/bin/mimi.sh $1 }
-eval $(thefuck --alias)
-isup() { php ~/.dotfiles/bin/isitup.php $1 }
-mkd () { mkdir $@ && cd $_ }
+# ---------------------
+# zsh related shortcuts
+# ---------------------
 
+# Reload zsh config
+zsh_reload() {
+	# shellcheck source=/dev/null
+	source "$HOME"/.zshrc
+}
+
+# Make reload even shorter
+reload() {
+	zsh_reload
+}
+
+# -------------
+# Random stuff
+# -------------
+
+# Check if a site is down or not
+isup() {
+	php ~/.dotfiles/bin/isitup.php "$1"
+}
+
+# Make a directory and go into it all at once
+mkd() {
+	mkdir "$@" && cd "$_" || exit
+}
+
+# Shortcut to open something in your favorite editor
 e() {
-    if echo -n >> "$1"; then
-        $EDITOR $@
-    else
-        echo -n "sudo [Y/n]? "
-        read sudo
-        [[ ${sudo:-y} == y ]] && sudo $EDITOR $@ || $EDITOR $@
-    fi 2> /dev/null
+	if echo -n >>"$1"; then
+		$EDITOR "$@"
+	else
+		echo -n "sudo [Y/n]? "
+		read -r sudo
+		if [[ ${sudo:-y} == y ]]; then
+			sudo "$EDITOR" "$@"
+		else
+			$EDITOR "$@"
+		fi
+	fi 2>/dev/null
 }
 
 # Go up directory tree X number of directories
@@ -43,8 +71,12 @@ up () {
     fi
 }
 
-###################
+# ------
 # Tmux
-###################
-tm()  { tmux new -s $1 }
-tma() { tmux attach -t $1 }
+# ------
+tm() {
+	tmux new -s "$1"
+}
+tma() {
+	tmux attach -t "$1"
+}
