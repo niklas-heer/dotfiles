@@ -16,8 +16,8 @@ alias catn="cat -n" # Concatenate and print content of files (add line numbers)
 alias dotf="cd ~/.dotfiles"
 alias ssh_conf="vim ~/.ssh/config"
 
-if ! type "subl" > /dev/null 2>&1; then
-    alias subl=subl3
+if ! type "subl" >/dev/null 2>&1; then
+	alias subl=subl3
 fi
 
 ###################
