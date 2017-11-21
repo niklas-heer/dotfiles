@@ -1,12 +1,26 @@
+# shellcheck disable=SC2148
 ###########################
 # Arch/Antergos/Manjaro
 ###########################
 
-# Random
+# Custom Aliases
 alias pacman-clean="sudo pacman -Sc && sudo pacman-optimize; yaourt -Syua"
 alias pacman-fix="sudo rm /var/lib/pacman/db.lck"
 
+# -------------------
 # Software Management
-in() { yaourt --noconfirm -S "$@"; }
-se() { yaourt --noconfirm "$1"; }
-update() { yaourt --noconfirm --aur -Syu; }
+# -------------------
+in() {
+	# Install Shortcut
+	yaourt --noconfirm -S "$@"
+}
+
+se() {
+	# Search Shortcut
+	yaourt --noconfirm "$1"
+}
+
+up() {
+	# Update Shortcut
+	yaourt --noconfirm --aur -Syu
+}
