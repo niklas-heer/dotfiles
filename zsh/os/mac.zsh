@@ -16,9 +16,19 @@ in() {
 	brew install "$@"
 }
 
+se() {
+	# Search Shortcut (brew)
+	brew search "$@"
+}
+
 cin() {
 	# Install Shortcut (brew cask)
 	cask install "$@"
+}
+
+cse() {
+	# Install Shortcut (brew cask)
+	cask search "$@"
 }
 
 up() {
