@@ -18,7 +18,6 @@ include "$HOME/.zsh/master/powerlevel9k.zsh"   # Configure Powerlevel9k
 include "$HOME/.zsh/master/helpers.zsh"        # Load helper functions
 
 # Load Maybe files
-include "$HOME/.dotfiles/.simplepush.conf"     # Load Simplepush Key
 include /etc/profile.d/vte.sh                  # VTE support
 include "$HOME/.cargo/env"                     # Load rust environment
 
