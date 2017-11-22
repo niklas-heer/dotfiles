@@ -1,0 +1,5 @@
+- shell:
+    - ['files/Go-Font/install.sh', 'Install go font... ']
+    - ['bin/install-font_awesome.sh', 'Install awesome fonts... ']
+    - ['bin/install-font_fira.sh', 'Install FiraCode font... ']
+    - ['bin/install-font_iosevka.sh', 'Install Iosevka font... ']
