@@ -25,7 +25,7 @@ reload() {
 
 # Check if a site is down or not
 isup() {
-	php ~/.dotfiles/bin/isitup.php "$1"
+	php "$HOME/.dotfiles/bin/isitup.php" "$1"
 }
 
 # Make a directory and go into it all at once

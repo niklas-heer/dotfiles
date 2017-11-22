@@ -11,10 +11,10 @@ blog() {
 		;;
 	"new")
 		name=$(echo "$*" | awk '{print tolower($0)}')
-		hugo new post/$(date +"%Y-%m-%d")-${name// /-}.md
+		hugo new post/"$(date +"%Y-%m-%d")"-"${name// /-}".md
 		;;
 	"goto")
-		cd "$BLOG_DIR"
+		cd "$BLOG_DIR" || exit
 		;;
 	*)
 		echo "Function not defined."
@@ -28,8 +28,8 @@ blog() {
 web() {
 	case "$1" in
 	"new")
-		echo "Creating a new local website...\n"
-		echo "\n\nCreating Caddyfile entry...\n"
+		printf "Creating a new local website...\n"
+		printf "\n\nCreating Caddyfile entry...\n"
 		bash -c "cat <<EOIPFW >> Caddyfile
 :80 {
     root .
@@ -37,12 +37,12 @@ web() {
     fastcgi / 127.0.0.1:9001 php
 }
 EOIPFW"
-		echo "\nStarting caddy..."
+		printf "\nStarting caddy..."
 		sudo systemctl restart php-fpm.service
 		caddy
 		;;
 	"start")
-		echo "\nStarting caddy..."
+		printf "\nStarting caddy..."
 		sudo systemctl restart php-fpm.service
 		caddy
 		;;

@@ -29,8 +29,7 @@ antigen bundle docker-compose
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 # Set the right font: https://github.com/gabrielelana/awesome-terminal-fonts
-# shellcheck disable=SC2034
-POWERLEVEL9K_MODE='awesome-patched'
+export POWERLEVEL9K_MODE='awesome-patched'
 
 # Load the theme.
 antigen theme bhilburn/powerlevel9k powerlevel9k
