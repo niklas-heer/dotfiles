@@ -8,7 +8,6 @@
     ~/.profile:
         force: true
         path: profile
-    ~/.Xdefaults: Xdefaults
 
 - shell:
     - ['files/Go-Font/install.sh', 'Install go font... ']
