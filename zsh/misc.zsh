@@ -27,12 +27,8 @@ newdir() {
 #    - https://github.com/darnir/dotfiles/blob/master/Packages/Bash/bash_functions
 ###################
 
-21days()
-{
-
-    NOW=$(date +'%a %d.%m.%y %H:%M')
-    THEN=$(date -d "21 days" +'%a %d.%m.%y %H:%M')
-    echo "21-day rule\n====================\n\nStart: $NOW\nZiel: $THEN"
+21days() {
+	"$HOME/.dotfiles/bin/21days.py"
 }
 
 # Weather
