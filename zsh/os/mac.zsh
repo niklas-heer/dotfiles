@@ -6,6 +6,9 @@
 # Custom Exports
 export EDITOR=/usr/local/bin/code
 
+# Load Custom Files
+include "${HOME}/.zsh/os/mac_iterm2.zsh"
+
 # Custom Aliases
 alias cask="brew cask"
 
