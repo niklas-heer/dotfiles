@@ -15,10 +15,8 @@ antigen bundle command-not-found
 antigen bundle history
 antigen bundle history-substring-search
 antigen bundle jump
-antigen bundle sublime
 antigen bundle sudo
 antigen bundle man
-antigen bundle systemd
 antigen bundle zsh-navigation-tools
 antigen bundle composer
 antigen bundle docker
