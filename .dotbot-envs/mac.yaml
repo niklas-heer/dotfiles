@@ -12,6 +12,7 @@
     - homebrew/php/php71
     - composer
     - hub
+    - wget
 
 - cask:
     - colorpicker-materialdesign
