@@ -13,6 +13,7 @@
     - composer
     - hub
     - wget
+    - tldr
 
 - cask:
     - colorpicker-materialdesign
