@@ -1,5 +1,4 @@
 # shellcheck disable=SC2148
-
 ###################
 # General
 ###################
