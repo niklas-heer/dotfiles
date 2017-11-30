@@ -97,30 +97,6 @@ bz2() {
 	tar cvpjf "$1.tar.bz2" "$1"
 }
 
-# Function: note()
-# Another simple but extremely useful utlity function. This was copied from the
-# ArchWiki too. Expects a bunch of text as its parameters which is then stored
-# in ~/.notes file.
-# Commands:
-# Add a new note:  $ note <Enter note here>
-# Display notes:   $ note
-# Clean all notes: $ note -c
-note() {
-	NOTES="$HOME/.notes"
-	#if file doesn't exist, create it
-	[ -f "$NOTES" ] || touch "$NOTES"
-	#no arguments, print file
-	if [ $# = 0 ]; then
-		cat "$NOTES"
-		#clear file
-	elif [ "$1" = -c ]; then
-		printf "" >"$NOTES"
-		#add all arguments to file
-	else
-		echo "$@" >>"$NOTES"
-	fi
-}
-
 # Function: man()
 # Similar to pdflatex, this function is invoked when someone tries to load a man
 # page. It adds some amount of syntax colouring to the man page to make it
@@ -148,21 +124,6 @@ psgrep() {
 	rm "$OUTFILE"
 }
 
-# Equations using gcalccmd
-# You can also make the function call gcalccmd (from gnome-calculator) like so:
-#
-# eq 'sqrt(2)' # Returns 1.4142135623
-# eq '4^4'     # Returns 256
-#
-# list of funtions: https://sourcecodebrowser.com/gcalctool/5.29.2/mp-equation_8c.html#a2c1b83394ed2fe6da08e1538b65fd29b
-eq() {
-	calc=("$@")
-	# Uncomment the below for (p → +) and (x → *)
-	#calc="${calc//p/+}"
-	#calc="${calc//x/*}"
-	echo -ne "${calc[*]}\n quit" | gcalccmd | sed 's:^> ::g'
-}
-
 # Repeat a command N times.  You can do something like
 #  repeat 3 echo 'hi'
 function repeat() {
@@ -184,7 +145,7 @@ function what() {
 	which "$1" | xargs ls -la
 }
 
-# awesome!  CD AND LA. I never use 'cd' anymore...
+# awesome!  CD AND LA. I never use 'cd' anymore... No actually I do.
 cl() {
 	cd "$@" && la
 }
