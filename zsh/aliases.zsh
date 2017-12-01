@@ -27,13 +27,6 @@ alias j="jump"
 alias jm="mark"
 alias jrm="umark"
 alias jls="marks"
-
-###################
-# Clipboard
-###################
-alias pbcopy='xclip -selection clipboard'
-alias pbpaste='xclip -selection clipboard -o'
-
 ##################
 # Misc
 ##################
