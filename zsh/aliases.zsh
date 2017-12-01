@@ -9,7 +9,6 @@ alias -- -="popd"  # pop first directory from the stack
 alias grep="grep --color=auto"
 alias tree="tree -C"
 alias mkdir="mkdir -p"
-alias o=open
 alias lss="ls --sort=size -hs"
 alias catn="cat -n" # Concatenate and print content of files (add line numbers)
 
@@ -27,10 +26,3 @@ alias j="jump"
 alias jm="mark"
 alias jrm="umark"
 alias jls="marks"
-##################
-# Misc
-##################
-alias zshrc="vim ~/.zshrc"
-alias starwars="telnet towel.blinkenlights.nl"
-alias cow_fortune="exec fortune | cowsay -n"
-alias random_word="sort -R /usr/share/dict/usa | head -1"
