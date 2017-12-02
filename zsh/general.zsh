@@ -22,11 +22,6 @@ reload() {
 # Random stuff
 # -------------
 
-# Check if a site is down or not
-isup() {
-	php "$HOME/.dotfiles/bin/isitup.php" "$1"
-}
-
 # Make a directory and go into it all at once
 mkd() {
 	mkdir "$@" && cd "$_" || exit
