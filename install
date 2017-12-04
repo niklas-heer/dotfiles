@@ -3,7 +3,7 @@
 set -e
 
 DEFAULT_CONFIG_PREFIX="default"
-CONFIG_FOLDER=".dotbot-envs"
+CONFIG_FOLDER=".dotbot-profiles"
 CONFIG_SUFFIX=".yaml"
 DOTBOT_DIR=".dotbot"
 PLUGIN=""
