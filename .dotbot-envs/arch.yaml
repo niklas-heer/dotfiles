@@ -1,3 +1,8 @@
+- shell:
+    - ['###################']
+    - ['# Install Arch apps']
+    - ['###################']
+
 - yaourt:
   - vim
   - neovim

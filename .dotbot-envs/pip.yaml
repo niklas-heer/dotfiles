@@ -1,2 +1,7 @@
 - shell:
+    - ['#########################']
+    - ['# Install Python packages']
+    - ['#########################']
+
+- shell:
     - ['bin/install_pip_deps.sh', 'Install pip packages... ']
