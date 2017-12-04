@@ -26,7 +26,7 @@ fi
 for conf in "${ENV_LIST[@]}"; do
 
 	case "${conf}" in
-	"mac" | "mac-extras")
+	"mac" | "mac-apps")
 		PLUGIN="dotbot-brew"
 		;;
 	"solus")
