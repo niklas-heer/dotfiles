@@ -9,6 +9,9 @@ bashcompinit
 # Load exports
 include "$HOME/.zsh/master/exports.zsh"
 
+# Check for update
+include "$HOME/.zsh/master/update.zsh"
+
 # Autocompletion files
 fpath=($HOME/.zsh/autocompletion $fpath)
 

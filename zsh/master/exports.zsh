@@ -3,6 +3,7 @@
 # Exports
 ###################
 
+export DOTFILES="$HOME/.dotfiles"
 export TERM=xterm-256color
 export DEFAULT_USER=nih
 export GOPATH="$HOME/Go"
