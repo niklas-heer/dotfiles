@@ -2,5 +2,6 @@
 files/BitDay/screen1/*
 .idea/*
 .vscode/*
+log/
 
 .simplepush.conf
