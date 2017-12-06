@@ -2,34 +2,29 @@
 
 ![Screenshot](https://raw.githubusercontent.com/niklas-heer/dotfiles/master/.github/images/zsh_01.png)
 
-After cloning this repo, run `./install` to automatically set up the development
-environment. Note that the install script is idempotent, which means it can safely run
-multiple times. You can also use the following arguments:
+These dotfiles use [Dotbot][dotbot] for installation. <br/>
+These dotfiles should also update automatically every once in a while. :wink:
 
-- run `./install linux` to install fonts and specific configuration to setup a Linux environment.
+## Installation
 
-Dotfiles uses [Dotbot][dotbot] for installation.
+1. Clone this repo somewhere in your `$HOME`.
+2. Run `make`.
+3. Profit. :dollar:
 
-This dotfiles are intended to run under an Arch based distro like Antergos or Manjaro.
+> Note that the install script is idempotent, which means it can safely run multiple times.
 
-These dotfiles are inspired by [anishs dotfiles](https://github.com/anishathalye/dotfiles).
+You can append your environment after `make`. Like that: `make linux`. <br/>
+The following environments are available:
 
-## Interesting Links
+| Command      |                                                                Desciption |
+|--------------|--------------------------------------------------------------------------:|
+| `make`       |                                                Make a basic installation. |
+| `make linux` |                   It basically runs `make` and installs  Linux specifics. |
+| `make solus` | It basically runs `make linux` and installs software on Solus after that. |
+| `make arch`  |  It basically runs `make linux` and installs software on Arch after that. |
+| `make mac`   |        It setups a macOS and installs software via `brew` and `brew cask` |
 
-- https://github.com/anishathalye/dotbot/pull/11#issuecomment-73082152
-
-Software needed
----------------
-
-* `git`, `git-gui`
-* `vim`
-* `tmux`
-* `tree`
-* `python3-devel`, `python3-pip`
-* `gcc`
-
-Making Local Customizations
----------------------------
+## Making Local Customizations
 
 You can make local customizations for some programs by editing these files:
 
@@ -37,21 +32,25 @@ You can make local customizations for some programs by editing these files:
 * `zsh` : `~/.zshrc_local_after` run after `.zshrc`
 * `git` : `~/.gitconfig_local`
 
-## Install all needed software on Solus
+## Software needed
 
-Clone this repo and cd into the directory. Execute this command:
+* `git`
+* `vim`
+* `tmux`
+* `tree`
+* `python3-devel`, `python3-pip`
+* `gcc`
 
-`./install -p dotbot-eopkg/eopkg.py -c .envs/solus.yaml`
+## Thanks
 
-## Install all needed software on Arch
-
-Clone this repo and cd into the directory. Execute this command:
-
-`./install -p dotbot-yaourt/yaourt.py -c .envs/arch.yaml`
+- [zsh](https://www.zsh.org/) as being an awesome shell :heart:
+- [oh-my-zsh](http://ohmyz.sh/) for the update functionality and plugins :+1:
+- [anishs dotfiles](https://github.com/anishathalye/dotfiles) from which I got the inspiration :bulb:
+- [dotbot](https://github.com/anishathalye/dotbot) for being an awesome base and pretty extensible! :heart:
 
 ## License
 
-Copyright (c) 2016 Niklas Heer. Released under the MIT License. See
+Copyright (c) 2016-2017 Niklas Heer. Released under the MIT License. See
 [LICENSE][license] for details.
 
 [dotbot]: https://github.com/anishathalye/dotbot
