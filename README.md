@@ -22,7 +22,7 @@ The following environments are available:
 | `make linux` |                   It basically runs `make` and installs  Linux specifics. |
 | `make solus` | It basically runs `make linux` and installs software on Solus after that. |
 | `make arch`  |  It basically runs `make linux` and installs software on Arch after that. |
-| `make mac`   |        It setups a macOS and installs software via `brew` and `brew cask` |
+| `make mac`   |          It setups macOS and installs software via `brew` and `brew cask` |
 
 ## Making Local Customizations
 
