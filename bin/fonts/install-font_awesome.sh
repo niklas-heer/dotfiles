@@ -25,7 +25,7 @@ main() {
 		fc-cache -f "$font_dir"
 	fi
 
-	echo "Installed all awesome paatched fonts to $font_dir"
+	echo "Installed all awesome patched fonts to $font_dir"
 }
 
 main
