@@ -21,6 +21,7 @@
     - wget
     - tldr
     - youtube-dl
+    - direnv
 
 - cask:
     - colorpicker-materialdesign
