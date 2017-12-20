@@ -9,7 +9,7 @@ main() {
 
 	if [[ $(uname) == 'Darwin' ]]; then
 		# MacOS
-		"$pip_version" install -r "$HOME/.dotfiles/pip.conf" --upgrade
+		"$pip_version" install -r "$HOME/.dotfiles/requirements.txt" --upgrade
 	else
 		# Linux
 		if [ -f /etc/solus-release ]; then
@@ -17,7 +17,7 @@ main() {
 			pip_version="pip"
 		fi
 
-		sudo -H "$pip_version" install -r "$HOME/.dotfiles/pip.conf" --upgrade
+		sudo -H "$pip_version" install -r "$HOME/.dotfiles/requirements.txt" --upgrade
 	fi
 }
 
