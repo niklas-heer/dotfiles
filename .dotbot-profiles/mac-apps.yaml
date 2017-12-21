@@ -23,6 +23,7 @@
     - youtube-dl
     - direnv
     - fd
+    - sbdchd/skim/skim
 
 - cask:
     - colorpicker-materialdesign
