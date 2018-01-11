@@ -5,6 +5,7 @@
 
 # Custom Exports
 export EDITOR=/usr/local/bin/code
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
 
 # Load Custom Files
 include "${HOME}/.zsh/os/mac_iterm2.zsh"

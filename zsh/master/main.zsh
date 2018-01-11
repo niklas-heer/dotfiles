@@ -16,9 +16,12 @@ include "$HOME/.zsh/master/update.zsh"
 fpath=($HOME/.zsh/autocompletion $fpath)
 
 # Load more configuration
-include "$HOME/.zsh/master/antigen.zsh"        # Load and configure Antigen
-include "$HOME/.zsh/master/powerlevel9k.zsh"   # Configure Powerlevel9k
-include "$HOME/.zsh/master/helpers.zsh"        # Load helper functions
+include "$HOME/.zsh/master/antigen.zsh"      # Load and configure Antigen
+include "$HOME/.zsh/master/powerlevel9k.zsh" # Configure Powerlevel9k
+include "$HOME/.zsh/master/helpers.zsh"      # Load helper functions
+
+# Load direnv - https://github.com/direnv/direnv
+eval "$(direnv hook zsh)"
 
 # Load Maybe files
 include /etc/profile.d/vte.sh                  # VTE support
@@ -31,3 +34,6 @@ source_files_in_dir "$HOME"/.zsh/dev/*.zsh     # Development Shortcuts
 include "$HOME/.zsh/misc.zsh"                  # Miscelaneous shortcuts/tools
 source_files_in_dir "$HOME"/.zsh/scripts/*.zsh # Scripts
 include "$HOME/.zsh/os/main.zsh"               # Special commands for the current os
+
+# Load Python stuff
+include /usr/local/bin/virtualenvwrapper.sh # Load pythonvirtualenv tools

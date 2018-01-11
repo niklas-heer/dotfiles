@@ -5,3 +5,5 @@ beautysh
 pex
 isitup
 gfmtoc
+virtualenv
+virtualenvwrapper
