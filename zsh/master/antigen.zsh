@@ -26,8 +26,15 @@ antigen bundle docker-compose
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
 
-# Set the right font: https://github.com/gabrielelana/awesome-terminal-fonts
-export POWERLEVEL9K_MODE='awesome-patched'
+if [[ $(uname) == 'Darwin' ]]; then
+	# macOS
+	# https://github.com/ryanoasis/nerd-fonts
+	export POWERLEVEL9K_MODE='nerdfont-complete'
+else
+	# Linux
+	# Set the right font: https://github.com/gabrielelana/awesome-terminal-fonts
+	export POWERLEVEL9K_MODE='awesome-patched'
+fi
 
 # Load the theme.
 antigen theme bhilburn/powerlevel9k powerlevel9k

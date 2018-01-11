@@ -8,6 +8,9 @@
       create: true
       relink: true
 
+- tap:
+    - caskroom/fonts
+
 - brew:
     - htop
     - tig
@@ -24,6 +27,7 @@
     - direnv
     - fd
     - sbdchd/skim/skim
+    - font-hack-nerd-font
 
 - cask:
     - colorpicker-materialdesign
