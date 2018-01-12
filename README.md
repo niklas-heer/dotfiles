@@ -9,7 +9,8 @@ These dotfiles should also update automatically every once in a while. :wink:
 
 1. Clone this repo somewhere in your `$HOME`.
 2. Run `make`.
-3. Profit. :dollar:
+3. Change you standard shell to `zsh`.
+4. Profit. :dollar:
 
 > Note that the install script is idempotent, which means it can safely run multiple times.
 
@@ -35,11 +36,12 @@ You can make local customizations for some programs by editing these files:
 ## Software needed
 
 * `git`
+* `zsh`
 * `vim`
 * `tmux`
 * `tree`
-* `python3-devel`, `python3-pip`
-* `gcc`
+* `python3`
+* `python3-pip`
 
 ## Thanks
 
