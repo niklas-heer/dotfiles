@@ -52,8 +52,9 @@ You can make local customizations for some programs by editing these files:
 
 ## License
 
-Copyright (c) 2016-2017 Niklas Heer. Released under the MIT License. See
-[LICENSE][license] for details.
+Copyright (c) 2016-2018 Niklas Heer.<br/>
+Released under the MIT License.<br/>
+See [LICENSE][license] for details.<br/>
 
 [dotbot]: https://github.com/anishathalye/dotbot
 [license]: LICENSE
