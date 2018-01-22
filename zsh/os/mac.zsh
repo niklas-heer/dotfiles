@@ -12,6 +12,7 @@ include "${HOME}/.zsh/os/mac_iterm2.zsh"
 
 # Custom Aliases
 alias cask="brew cask"
+alias cpwd="pwd | pbcopy"
 
 # Software Management
 # ------------------
