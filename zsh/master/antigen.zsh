@@ -18,7 +18,6 @@ antigen bundle jump
 antigen bundle sudo
 antigen bundle man
 antigen bundle zsh-navigation-tools
-antigen bundle composer
 antigen bundle docker
 antigen bundle docker-compose
 #antigen bundle autojump # https://github.com/wting/autojump
