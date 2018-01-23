@@ -26,3 +26,9 @@ alias j="jump"
 alias jm="mark"
 alias jrm="umark"
 alias jls="marks"
+
+#############################
+# Load if the command exists
+#############################
+type exa >/dev/null 2>&1 && alias el="exa -la"
+type exa >/dev/null 2>&1 && alias ea="exa -bghl --git --group-directories-first"
