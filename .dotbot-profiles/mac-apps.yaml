@@ -28,6 +28,7 @@
     - fd
     - sbdchd/skim/skim
     - font-hack-nerd-font
+    - imagemagick
 
 - cask:
     - colorpicker-materialdesign
