@@ -10,7 +10,8 @@ These dotfiles should also update automatically every once in a while. :wink:
 1. Clone this repo somewhere in your `$HOME`.
 2. Run `make`.
 3. Change you standard shell to `zsh`.
-4. Profit. :dollar:
+4. Change your `~/.gitconfig`.
+5. Profit. :dollar:
 
 > Note that the install script is idempotent, which means it can safely run multiple times.
 
