@@ -10,6 +10,7 @@
 
 - tap:
     - caskroom/fonts
+    - jmacdonald/amp
 
 - brew:
     - htop
@@ -29,6 +30,7 @@
     - sbdchd/skim/skim
     - font-hack-nerd-font
     - imagemagick
+    - amp
 
 - cask:
     - colorpicker-materialdesign
