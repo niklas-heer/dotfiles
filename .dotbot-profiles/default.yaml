@@ -12,9 +12,6 @@
     ~/.bash_profile: bash_profile
     ~/.direnvrc: direnvrc
     ~/.dotfiles: ''
-    ~/.gitconfig:
-        force: true
-        path: gitconfig
     ~/.gitignore_global: gitignore_global
     ~/.vim: vim
     ~/.tmux: tmux
@@ -31,3 +28,8 @@
     - ['git submodule update --init --recursive', 'Installing submodules... ']
     - ['git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf; ~/.fzf/install --all', 'Install fuzzy command-line finder (fzf)... ']
     - ['fonts/install.sh', 'Install powerline fonts... ']
+    -
+      command: ~/.dotfiles/bin/install_gitconfig.sh
+      stdin: true
+      stdout: true
+      description: Configuring git...
