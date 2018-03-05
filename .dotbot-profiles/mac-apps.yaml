@@ -33,6 +33,7 @@
     - amp
     - crystal-lang
     - rust
+    - lynx
 
 - cask:
     - colorpicker-materialdesign
