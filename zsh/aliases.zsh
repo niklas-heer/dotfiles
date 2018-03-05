@@ -33,3 +33,8 @@ alias jls="marks"
 type exa >/dev/null 2>&1 && alias el="exa -la"
 type exa >/dev/null 2>&1 && alias et="exa -laT --level=2"
 type exa >/dev/null 2>&1 && alias ea="exa -bghl --git --group-directories-first"
+
+###################
+# Lynx
+###################
+alias hints='tmp_f(){ URL_PARAM=$(echo "$@" | sed "s/ /-/g"); lynx -accept_all_cookies https://devhints.io/"$URL_PARAM"; unset -f tmp_f; }; tmp_f'
