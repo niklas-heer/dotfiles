@@ -7,4 +7,3 @@ isitup
 gfmtoc
 virtualenv
 virtualenvwrapper
-Gooey
