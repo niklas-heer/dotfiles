@@ -32,3 +32,23 @@ glcd() {
 	echo "\033[31m=>\033[0m \033[036m$reponame\033[0m"
 	cd "$reponame" || exit
 }
+
+gdate() {
+	case "$1" in
+	-s | set)
+		export GIT_COMMITTER_DATE="$2"
+		export GIT_AUTHOR_DATE="$2"
+		;;
+	-u | unset)
+		unset GIT_COMMITTER_DATE
+		unset GIT_AUTHOR_DATE
+		;;
+	-*)
+		echo "Error: Unknown option: $1" >&2
+		;;
+	*) # No more options
+		echo "Please use <set> or <unset>"
+		echo "Format for <set>: YYYY-MM-DD HH:MM:SS"
+		;;
+	esac
+}
