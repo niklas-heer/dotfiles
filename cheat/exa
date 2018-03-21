@@ -2,4 +2,3 @@
 
 * el - list all files incl. hidden ones and show more metadata
 * et - the same as `el`, but also show show a tree view 2 folders deep
-* ea - show a nice list with headlines and also show the git status

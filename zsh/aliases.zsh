@@ -30,9 +30,8 @@ alias jls="marks"
 #############################
 # Load if the command exists
 #############################
-type exa >/dev/null 2>&1 && alias el="exa -la"
-type exa >/dev/null 2>&1 && alias et="exa -laT --level=2"
-type exa >/dev/null 2>&1 && alias ea="exa -bghl --git --group-directories-first"
+type exa >/dev/null 2>&1 && alias et="exa -laTgh --git --group-directories-first --level=2"
+type exa >/dev/null 2>&1 && alias el="exa -bghla --git --group-directories-first"
 
 ###################
 # Lynx
