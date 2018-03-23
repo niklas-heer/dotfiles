@@ -18,7 +18,6 @@
     - shellcheck
     - shfmt
     - exa
-    - htop
     - homebrew/php/php71
     - composer
     - hub
