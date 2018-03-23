@@ -4,7 +4,9 @@
 ###################
 
 export POWERLEVEL9K_SHOW_CHANGESET=true
-export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir virtualenv vcs status)
+export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(root_indicator dir_writable context dir virtualenv vcs status)
+export POWERLEVEL9K_ROOT_INDICATOR_BACKGROUND="red"
+export POWERLEVEL9K_ROOT_INDICATOR_FOREGROUND="white"
 export POWERLEVEL9K_PROMPT_ON_NEWLINE=false
 export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(pyenv)
 export POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
