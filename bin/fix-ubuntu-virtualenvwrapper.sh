@@ -14,11 +14,15 @@ popd () {
 }
 
 main() {
-    pushd /usr/local/bin
-    sudo ln -s `which python3` python
-    popd
+    if [ ! -f /usr/local/bin/python ]; then
+        pushd /usr/local/bin
+        sudo ln -s `which python3` python
+        popd
 
-    echo "The problem should be fixed! Have fun :)"
+        echo "The problem should be fixed! Have fun :)"
+    else
+        echo "It should already work. ;)"
+    fi
 }
 
 main
