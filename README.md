@@ -1,6 +1,6 @@
 # Dotfiles
 
-![Screenshot](https://raw.githubusercontent.com/niklas-heer/dotfiles/master/.github/images/zsh_01.png)
+![Screenshot](https://raw.githubusercontent.com/niklas-heer/dotfiles/master/.github/images/shell_02.png)
 
 These dotfiles use [Dotbot][dotbot] for installation. <br/>
 These dotfiles should also update automatically every once in a while. :wink:
