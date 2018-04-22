@@ -18,31 +18,31 @@ These dotfiles should also update automatically every once in a while. :wink:
 You can append your environment after `make`. Like that: `make linux`. <br/>
 The following environments are available:
 
-| Command      |                                                                Desciption |
-|--------------|--------------------------------------------------------------------------:|
-| `make`       |                                                Make a basic installation. |
-| `make linux` |                   It basically runs `make` and installs  Linux specifics. |
+| Command      | Desciption                                                                |
+| ------------ | -------------------------------------------------------------------------:|
+| `make`       | Make a basic installation.                                                |
+| `make linux` | It basically runs `make` and installs  Linux specifics.                   |
 | `make solus` | It basically runs `make linux` and installs software on Solus after that. |
-| `make arch`  |  It basically runs `make linux` and installs software on Arch after that. |
-| `make mac`   |          It setups macOS and installs software via `brew` and `brew cask` |
+| `make arch`  | It basically runs `make linux` and installs software on Arch after that.  |
+| `make mac`   | It setups macOS and installs software via `brew` and `brew cask`          |
 
 ## Making Local Customizations
 
 You can make local customizations for some programs by editing these files:
 
-* `zsh` : `~/.zshrc_local_before` run before `.zshrc`
-* `zsh` : `~/.zshrc_local_after` run after `.zshrc`
-* `git` : `~/.gitconfig_local`
+- `zsh` : `~/.zshrc_local_before` run before `.zshrc`
+- `zsh` : `~/.zshrc_local_after` run after `.zshrc`
+- `git` : `~/.gitconfig_local`
 
 ## Software needed
 
-* `git`
-* `zsh`
-* `vim`
-* `tmux`
-* `tree`
-* `python3`
-* `python3-pip`
+- `git`
+- `zsh`
+- `vim`
+- `tmux`
+- `tree`
+- `python3`
+- `python3-pip`
 
 ## Thanks
 
