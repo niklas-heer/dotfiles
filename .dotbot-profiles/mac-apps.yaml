@@ -33,6 +33,7 @@
     - crystal-lang
     - rust
     - lynx
+    - mas
 
 - cask:
     - colorpicker-materialdesign
