@@ -33,6 +33,9 @@
     - crystal-lang
     - rust
     - lynx
+    - mas
+    - bat
+    - bettercap
 
 - cask:
     - colorpicker-materialdesign
