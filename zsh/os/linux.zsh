@@ -4,7 +4,7 @@
 ###########
 
 # Custom Exports
-export EDITOR=/usr/bin/subl
+export EDITOR=/usr/bin/vim
 
 # Custom Aliases
 alias pbcopy='xclip -selection clipboard'
