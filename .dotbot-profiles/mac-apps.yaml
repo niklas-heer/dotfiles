@@ -36,6 +36,7 @@
     - mas
     - bat
     - bettercap
+    - ranger
 
 - cask:
     - colorpicker-materialdesign
