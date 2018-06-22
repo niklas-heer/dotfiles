@@ -37,6 +37,7 @@
     - bat
     - bettercap
     - ranger
+    - ncdu
 
 - cask:
     - colorpicker-materialdesign
