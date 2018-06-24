@@ -7,3 +7,4 @@ isitup
 gfmtoc
 virtualenv
 virtualenvwrapper
+ety
