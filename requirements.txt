@@ -8,3 +8,4 @@ gfmtoc
 virtualenv
 virtualenvwrapper
 ety
+howdoi
