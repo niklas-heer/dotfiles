@@ -45,6 +45,7 @@
     - xsv
     - m-cli
     - tokei
+    - piknik
 
 - cask:
     - colorpicker-materialdesign
