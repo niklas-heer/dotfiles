@@ -46,6 +46,7 @@
     - m-cli
     - tokei
     - piknik
+    - bench
 
 - cask:
     - colorpicker-materialdesign
