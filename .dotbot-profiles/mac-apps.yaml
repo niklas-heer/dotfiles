@@ -40,6 +40,7 @@
     - ncdu
     - ripgrep
     - jq
+    - neofetch
 
 - cask:
     - colorpicker-materialdesign
