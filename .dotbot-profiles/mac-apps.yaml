@@ -43,6 +43,7 @@
     - neofetch
     - modd
     - xsv
+    - m-cli
 
 - cask:
     - colorpicker-materialdesign
