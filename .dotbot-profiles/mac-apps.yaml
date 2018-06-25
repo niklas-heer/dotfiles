@@ -38,6 +38,7 @@
     - bettercap
     - ranger
     - ncdu
+    - ripgrep
 
 - cask:
     - colorpicker-materialdesign
