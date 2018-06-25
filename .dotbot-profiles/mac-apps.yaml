@@ -39,6 +39,7 @@
     - ranger
     - ncdu
     - ripgrep
+    - jq
 
 - cask:
     - colorpicker-materialdesign
