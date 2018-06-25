@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+#
+# Description: This script gives you a short diff summary for a git repo since a specific date.
+#              It was inspired by: https://stackoverflow.com/a/39374756
+#                   Usage: `git-diff-since <date>`
+#
+#                   Example: `git-diff-since yesterday`, `git-diff-since '1 Jan 2018'`
+# Author: Niklas Heer (niklas.heer@gmail.com)
+# Version: 1.0.0 (2018-06-25)
+
+
+if [ $# -eq 0 ] || [ "$1" = "--help" ]; then
+  cat <<EOF
+Usage: $0 DATE FILE...
+git diff on FILE... since the specified DATE on the current branch.
+EOF
+  exit
+fi
+
+branch1=$(git rev-parse --abbrev-ref HEAD)
+revision1=$(git rev-list -1 --before="$1" "$branch1")
+shift
+
+revision2=HEAD
+
+git diff --shortstat "$revision1" "$revision2" -- "$@"
