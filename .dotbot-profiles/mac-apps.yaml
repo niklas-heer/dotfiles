@@ -42,6 +42,7 @@
     - jq
     - neofetch
     - modd
+    - xsv
 
 - cask:
     - colorpicker-materialdesign
