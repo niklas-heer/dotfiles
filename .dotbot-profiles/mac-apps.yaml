@@ -41,6 +41,7 @@
     - ripgrep
     - jq
     - neofetch
+    - modd
 
 - cask:
     - colorpicker-materialdesign
