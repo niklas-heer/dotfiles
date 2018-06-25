@@ -13,6 +13,7 @@ include "${HOME}/.zsh/os/mac_iterm2.zsh"
 # Custom Aliases
 alias cask="brew cask"
 alias cpwd="pwd | pbcopy"
+alias apex-up="/usr/local/bin/up"
 
 # Software Management
 # ------------------
