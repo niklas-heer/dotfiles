@@ -44,6 +44,7 @@
     - modd
     - xsv
     - m-cli
+    - tokei
 
 - cask:
     - colorpicker-materialdesign
