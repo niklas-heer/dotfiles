@@ -47,6 +47,7 @@
     - tokei
     - piknik
     - bench
+    - golang
 
 - cask:
     - colorpicker-materialdesign

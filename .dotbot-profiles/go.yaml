@@ -4,4 +4,4 @@
     - ['######################']
 
 - shell:
-    - ['mkdir -p ~/Go/{bin,src/github.com/niklas-heer}', 'Setting up $GOPATH...']
+    - ['mkdir -p ~/Go/{bin,src,pkg}', 'Setting up $GOPATH...']
