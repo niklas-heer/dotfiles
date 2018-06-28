@@ -6,6 +6,8 @@
 # Custom Exports
 export EDITOR=/usr/local/bin/code
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+
+# Golang setup
 export GOROOT=/usr/local/opt/go/libexec
 export PATH="$PATH:$GOROOT/bin"
 export GOBIN="$GOPATH/bin"
