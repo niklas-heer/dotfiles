@@ -22,6 +22,16 @@ reload() {
 # Random stuff
 # -------------
 
+repo() {
+	REPO_PATH="$HOME/Projects"
+
+	if hash fzf 2>/dev/null; then
+        cd ${$(find "$REPO_PATH" -name .git -type d -prune | fzf)%.git} || exit
+    else
+        cd "$REPO_PATH" || exit
+    fi
+}
+
 # Make a directory and go into it all at once
 mkd() {
 	mkdir "$@" && cd "$_" || exit
