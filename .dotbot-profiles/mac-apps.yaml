@@ -49,6 +49,7 @@
     - bench
     - golang
     - nss
+    - tmux
 
 - cask:
     - colorpicker-materialdesign
