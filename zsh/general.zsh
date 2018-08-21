@@ -26,10 +26,20 @@ repo() {
 	REPO_PATH="$HOME/Projects"
 
 	if hash fzf 2>/dev/null; then
-        cd ${$(find "$REPO_PATH" -name .git -type d -prune | fzf)%.git} || exit
-    else
-        cd "$REPO_PATH" || exit
-    fi
+		# Give to option to provide a search query from the start like this: repo <search> (...or not)
+		if [ -z ${1+x} ]; then
+			GOTO_PATH=${$(find "$REPO_PATH" -name .git -type d -prune | fzf --border)%.git}
+		else
+			GOTO_PATH=${$(find "$REPO_PATH" -name .git -type d -prune | fzf --border --query="$1")%.git}
+		fi
+
+		# If we haven't select anything we don't need to cd
+		if [ -n "$GOTO_PATH" ]; then
+			cd $GOTO_PATH || exit
+		fi
+	else
+		cd "$REPO_PATH" || exit
+	fi
 }
 
 # Make a directory and go into it all at once
