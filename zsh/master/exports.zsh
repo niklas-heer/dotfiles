@@ -14,3 +14,6 @@ export WORKON_HOME="$HOME/Envs"
 # setting for https://github.com/chrisallenlane/cheat
 export CHEATPATH="$CHEATPATH:$HOME/.dotfiles/cheat"
 export CHEATCOLORS=true
+
+# see: https://github.com/pierpo/fzf-docker#usage
+export FZF_COMPLETION_TRIGGER=','

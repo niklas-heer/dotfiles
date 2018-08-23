@@ -22,6 +22,9 @@ antigen bundle docker
 antigen bundle docker-compose
 #antigen bundle autojump # https://github.com/wting/autojump
 
+# see: https://github.com/pierpo/fzf-docker
+antigen bundle pierpo/fzf-docker
+
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
 
