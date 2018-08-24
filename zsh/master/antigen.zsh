@@ -25,6 +25,9 @@ antigen bundle docker-compose
 # see: https://github.com/pierpo/fzf-docker
 antigen bundle pierpo/fzf-docker
 
+# see: https://github.com/Tarrasch/zsh-bd
+antigen-bundle Tarrasch/zsh-bd
+
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
 
