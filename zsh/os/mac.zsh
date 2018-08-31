@@ -3,6 +3,11 @@
 # macOS
 #############
 
+# see: https://github.com/athityakumar/colorls#installation
+# shellcheck source=/dev/null
+source "$(dirname $(gem which colorls))/tab_complete.sh"
+alias lc='colorls -lA --sd'
+
 # Custom Exports
 export EDITOR=/usr/local/bin/code
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
