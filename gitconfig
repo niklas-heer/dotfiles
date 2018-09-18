@@ -76,3 +76,7 @@
     smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
     required = true
+
+# ghq settings - https://github.com/motemen/ghq
+[ghq]
+    root = ~/Projects

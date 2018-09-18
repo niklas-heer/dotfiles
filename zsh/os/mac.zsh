@@ -19,6 +19,8 @@ include "${HOME}/.zsh/os/mac_iterm2.zsh"
 alias cask="brew cask"
 alias cpwd="pwd | pbcopy"
 alias apex-up="/usr/local/bin/up"
+# shellcheck disable=SC2139
+alias ghq="$HOME/.dotfiles/bin/ghq_mac"
 
 # Software Management
 # ------------------
