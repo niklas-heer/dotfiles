@@ -26,7 +26,7 @@ repo() {
 	REPO_PATH="$HOME/Projects"
 
 	if hash fzf 2>/dev/null; then
-        cd ${$(find "$REPO_PATH" -name .git -type d -prune | fzf)%.git} || exit
+        cd "$REPO_PATH/$(ghq list | fzf)" || exit
     else
         cd "$REPO_PATH" || exit
     fi

@@ -21,11 +21,10 @@ alias fix_caddy="sudo setcap cap_net_bind_service=+ep /usr/sbin/caddy &>/dev/nul
 alias s="subl ."
 
 # Open the url of the curent repo
-op () {
+op() {
     proj_dir='Projects'
-    current_dir=$(pwd)
+    # sed is used to strip out ports, like ":2200"
+    proto_url=$(pwd | sed 's~:[[:digit:]]\+~~g')
 
-    if [[ $current_dir = *$proj_dir* ]]; then
-        python -m webbrowser "http://${current_dir##*$proj_dir/}"
-    fi
+    python -m webbrowser http://${proto_url##*$proj_dir/}
 }
