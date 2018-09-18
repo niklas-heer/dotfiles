@@ -41,7 +41,7 @@ else
 fi
 
 # Load the theme.
-antigen theme bhilburn/powerlevel9k powerlevel9k
+antigen theme denysdovhan/spaceship-prompt spaceship
 
 # Tell antigen that you're done.
 antigen apply

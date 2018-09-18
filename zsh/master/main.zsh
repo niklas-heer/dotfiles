@@ -17,7 +17,7 @@ fpath=($HOME/.zsh/autocompletion $fpath)
 
 # Load more configuration
 include "$HOME/.zsh/master/antigen.zsh"      # Load and configure Antigen
-include "$HOME/.zsh/master/powerlevel9k.zsh" # Configure Powerlevel9k
+include "$HOME/.zsh/master/spaceship.zsh"    # Configure Spaceship
 include "$HOME/.zsh/master/helpers.zsh"      # Load helper functions
 
 # Load direnv - https://github.com/direnv/direnv
