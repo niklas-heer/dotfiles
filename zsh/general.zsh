@@ -26,10 +26,20 @@ repo() {
 	REPO_PATH="$HOME/Projects"
 
 	if hash fzf 2>/dev/null; then
-        cd "$REPO_PATH/$(ghq list | fzf)" || exit
-    else
-        cd "$REPO_PATH" || exit
-    fi
+		# Give to option to provide a search query from the start like this: repo <search> (...or not)
+		if [ -z ${1+x} ]; then
+			GOTO_PATH=$(ghq list | fzf --border)
+		else
+			GOTO_PATH=$(ghq list | fzf --border --query="$1")
+		fi
+
+		# If we haven't select anything we don't need to cd
+		if [ -n "$GOTO_PATH" ]; then
+			cd $REPO_PATH/$GOTO_PATH || exit
+		fi
+	else
+		cd "$REPO_PATH" || exit
+	fi
 }
 
 # Make a directory and go into it all at once
@@ -79,8 +89,12 @@ upd() {
 # Tmux
 # ------
 tm() {
-	tmux new -s "$1"
-}
-tma() {
-	tmux attach -t "$1"
+	# tm - create new tmux session, or switch to existing one. Works from within tmux too. (@bag-man)
+	# `tm` will allow you to select your tmux session via fzf.
+	# `tm irc` will attach to the irc session (if it exists), else it will create it.
+	[[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
+	if [ $1 ]; then
+		tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s $1 && tmux $change -t "$1"); return
+	fi
+	session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
 }
