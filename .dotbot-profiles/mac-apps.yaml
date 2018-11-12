@@ -11,6 +11,7 @@
 - tap:
     - caskroom/fonts
     - jmacdonald/amp
+    - colindean/fonts-nonfree
 
 - brew:
     - htop
@@ -69,3 +70,4 @@
     - crunch
     - mark-text
     - nocturnal
+    - font-microsoft-office
