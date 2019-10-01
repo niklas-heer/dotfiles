@@ -24,33 +24,31 @@ include "${HOME}/.zsh/os/mac_iterm2.zsh"
 alias cask="brew cask"
 alias cpwd="pwd | pbcopy"
 alias apex-up="/usr/local/bin/up"
-# shellcheck disable=SC2139
-alias ghq="$HOME/.dotfiles/bin/ghq_mac"
 
 # Software Management
 # ------------------
 in() {
-	# Install Shortcut (brew)
-	brew install "$@"
+    # Install Shortcut (brew)
+    brew install "$@"
 }
 
 se() {
-	# Search Shortcut (brew)
-	brew search "$@"
+    # Search Shortcut (brew)
+    brew search "$@"
 }
 
 cin() {
-	# Install Shortcut (brew cask)
-	cask install "$@"
+    # Install Shortcut (brew cask)
+    cask install "$@"
 }
 
 cse() {
-	# Install Shortcut (brew cask)
-	cask search "$@"
+    # Install Shortcut (brew cask)
+    cask search "$@"
 }
 
 up() {
-	# Update Shortcut
-	brew update
-	brew upgrade
+    # Update Shortcut
+    brew update
+    brew upgrade
 }

@@ -1,7 +1,7 @@
 - shell:
-    - ['#####################']
-    - ['# Install macOS apps']
-    - ['#####################']
+    - ["#####################"]
+    - ["# Install macOS apps"]
+    - ["#####################"]
 
 - defaults:
     link:
@@ -51,6 +51,8 @@
     - golang
     - nss
     - tmux
+    - cloc
+    - ghq
 
 - cask:
     - colorpicker-materialdesign
