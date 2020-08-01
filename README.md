@@ -48,12 +48,14 @@ You can make local customizations for some programs by editing these files:
 
 - [zsh](https://www.zsh.org/) as being an awesome shell :heart:
 - [oh-my-zsh](http://ohmyz.sh/) for the update functionality and plugins :+1:
+- [zgen](https://github.com/tarjoilija/zgen) for being a lightweight and fast ZSH plugin manager :zap:
+- [starship](https://github.com/starship/starship) for being a blazing-fast prompt :rocket:
 - [anishs dotfiles](https://github.com/anishathalye/dotfiles) from which I got the inspiration :bulb:
 - [dotbot](https://github.com/anishathalye/dotbot) for being an awesome base and pretty extensible! :heart:
 
 ## License
 
-Copyright (c) 2016-2018 Niklas Heer.<br/>
+Copyright (c) 2016-2020 Niklas Heer.<br/>
 Released under the MIT License.<br/>
 See [LICENSE][license] for details.<br/>
 
