@@ -19,3 +19,6 @@
 [submodule "dotbot-brew"]
 	path = .dotbot-plugins/dotbot-brew
 	url = https://github.com/d12frosted/dotbot-brew.git
+[submodule "zsh/zgen"]
+	path = zsh/zgen
+	url = https://github.com/tarjoilija/zgen.git
