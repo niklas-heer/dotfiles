@@ -16,7 +16,7 @@ include "$HOME/.zsh/master/update.zsh"
 fpath=($HOME/.zsh/autocompletion $fpath)
 
 # Load more configuration
-include "$HOME/.zsh/master/antigen.zsh"      # Load and configure Antigen
+include "$HOME/.zsh/master/zgen.zsh"          # Load and configure zgen
 
 include "$HOME/.zsh/master/starship.zsh"     # Load starship prompt
 
