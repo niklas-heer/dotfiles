@@ -19,6 +19,8 @@ alias cask="brew cask"
 alias cpwd="pwd | pbcopy"
 alias apex-up="/usr/local/bin/up"
 alias ls="lsd"
+alias python="/usr/local/bin/python3"
+alias pip="/usr/local/bin/pip3"
 
 # Software Management
 # ------------------
