@@ -1,6 +1,6 @@
 # Dotfiles
 
-![Screenshot](https://raw.githubusercontent.com/niklas-heer/dotfiles/master/.github/images/shell_02.png)
+![Screenshot](images/shell_03.png)
 
 These dotfiles use [Dotbot][dotbot] for installation. <br/>
 These dotfiles should also update automatically every once in a while. :wink:
@@ -18,13 +18,13 @@ These dotfiles should also update automatically every once in a while. :wink:
 You can append your environment after `make`. Like that: `make linux`. <br/>
 The following environments are available:
 
-| Command      | Desciption                                                                |
-| ------------ | -------------------------------------------------------------------------:|
-| `make`       | Make a basic installation.                                                |
-| `make linux` | It basically runs `make` and installs  Linux specifics.                   |
+| Command      |                                                                Desciption |
+| ------------ | ------------------------------------------------------------------------: |
+| `make`       |                                                Make a basic installation. |
+| `make linux` |                    It basically runs `make` and installs Linux specifics. |
 | `make solus` | It basically runs `make linux` and installs software on Solus after that. |
-| `make arch`  | It basically runs `make linux` and installs software on Arch after that.  |
-| `make mac`   | It setups macOS and installs software via `brew` and `brew cask`          |
+| `make arch`  |  It basically runs `make linux` and installs software on Arch after that. |
+| `make mac`   |          It setups macOS and installs software via `brew` and `brew cask` |
 
 ## Making Local Customizations
 
