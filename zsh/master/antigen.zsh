@@ -25,29 +25,8 @@ antigen bundle docker-compose
 # see: https://github.com/pierpo/fzf-docker
 antigen bundle pierpo/fzf-docker
 
-# see: https://github.com/Tarrasch/zsh-bd
-antigen-bundle Tarrasch/zsh-bd
-
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
-
-if [[ $(uname) == 'Darwin' ]]; then
-	# macOS
-	if [[ -n "$TERM_EMULATOR" ]] && [[ "$TERM_EMULATOR" == 'vscode' ]]; then
-		# We are running in Visual Studio Code
-		export POWERLEVEL9K_MODE='awesome-patched';
-	else
-		# We are running in iTerm or something else
-		export POWERLEVEL9K_MODE='nerdfont-complete'   # https://github.com/ryanoasis/nerd-fonts
-	fi
-else
-	# Linux
-	# Set the right font: https://github.com/gabrielelana/awesome-terminal-fonts
-	export POWERLEVEL9K_MODE='awesome-patched'
-fi
-
-# Load the theme.
-antigen theme denysdovhan/spaceship-prompt spaceship
 
 # Tell antigen that you're done.
 antigen apply

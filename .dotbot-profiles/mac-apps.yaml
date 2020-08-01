@@ -53,6 +53,9 @@
     - tmux
     - cloc
     - ghq
+    - lsd
+    - starship
+    - git-extras
 
 - cask:
     - colorpicker-materialdesign
@@ -73,3 +76,4 @@
     - mark-text
     - nocturnal
     - font-microsoft-office
+    - sublime-merge

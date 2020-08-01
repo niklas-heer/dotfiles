@@ -17,7 +17,9 @@ fpath=($HOME/.zsh/autocompletion $fpath)
 
 # Load more configuration
 include "$HOME/.zsh/master/antigen.zsh"      # Load and configure Antigen
-include "$HOME/.zsh/master/spaceship.zsh"    # Configure Spaceship
+
+include "$HOME/.zsh/master/starship.zsh"     # Load starship prompt
+
 include "$HOME/.zsh/master/helpers.zsh"      # Load helper functions
 
 # Load direnv - https://github.com/direnv/direnv
@@ -34,6 +36,3 @@ source_files_in_dir "$HOME"/.zsh/dev/*.zsh     # Development Shortcuts
 include "$HOME/.zsh/misc.zsh"                  # Miscelaneous shortcuts/tools
 source_files_in_dir "$HOME"/.zsh/scripts/*.zsh # Scripts
 include "$HOME/.zsh/os/main.zsh"               # Special commands for the current os
-
-# Load Python stuff
-include /usr/local/bin/virtualenvwrapper.sh # Load pythonvirtualenv tools
