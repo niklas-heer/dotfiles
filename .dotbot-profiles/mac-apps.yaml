@@ -58,6 +58,7 @@
     - git-extras
     - python
     - pulumi
+    - awscli
 
 - cask:
     - colorpicker-materialdesign
