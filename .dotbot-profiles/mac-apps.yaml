@@ -57,6 +57,7 @@
     - starship
     - git-extras
     - python
+    - pulumi
 
 - cask:
     - colorpicker-materialdesign
@@ -78,3 +79,6 @@
     - nocturnal
     - font-microsoft-office
     - sublime-merge
+    - font-ia-writer-mono
+    - font-ia-writer-duo
+    - font-ia-writer-quattro
