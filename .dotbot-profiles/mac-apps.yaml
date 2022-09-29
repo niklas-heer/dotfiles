@@ -59,6 +59,8 @@
     - python
     - pulumi
     - awscli
+    - earthly/earthly/earthly
+    - fzf
 
 - cask:
     - colorpicker-materialdesign
