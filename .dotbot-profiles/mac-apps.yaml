@@ -9,7 +9,7 @@
       relink: true
 
 - tap:
-    - caskroom/fonts
+    - homebrew/cask-fonts
     - jmacdonald/amp
     - colindean/fonts-nonfree
 
@@ -19,8 +19,6 @@
     - shellcheck
     - shfmt
     - exa
-    - homebrew/php/php71
-    - composer
     - hub
     - wget
     - tldr
@@ -42,7 +40,6 @@
     - ripgrep
     - jq
     - neofetch
-    - modd
     - xsv
     - m-cli
     - tokei
@@ -56,32 +53,15 @@
     - lsd
     - starship
     - git-extras
-    - python
     - pulumi
     - awscli
     - earthly/earthly/earthly
     - fzf
 
 - cask:
-    - colorpicker-materialdesign
-    - visual-studio-code
-    - spotify
-    - google-chrome
-    - iina
-    - vlc
-    - cyberduck
-    - skype
-    - gitkraken
-    - firefox
     - amethyst
-    - ngrok
-    - julia
     - font-iosevka
-    - crunch
-    - mark-text
-    - nocturnal
     - font-microsoft-office
-    - sublime-merge
     - font-ia-writer-mono
     - font-ia-writer-duo
     - font-ia-writer-quattro

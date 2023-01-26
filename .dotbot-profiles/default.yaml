@@ -10,7 +10,7 @@
         force: true
         path: bashrc
     ~/.bash_profile: bash_profile
-    ~/.direnvrc: direnvrc
+    # ~/.direnvrc: direnvrc
     ~/.dotfiles: ''
     ~/.gitignore_global: gitignore_global
     ~/.vim: vim

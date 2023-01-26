@@ -17,12 +17,12 @@
         "defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1",
         "Change update frequency to daily...",
       ]
-    - [
-        "brew install --HEAD https://github.com/FiloSottile/mkcert/raw/master/HomebrewFormula/mkcert.rb",
-        "Intalling mkcert...",
-      ]
+    # - [
+    #     "brew install --HEAD https://github.com/FiloSottile/mkcert/raw/master/HomebrewFormula/mkcert.rb",
+    #     "Intalling mkcert...",
+    #   ]
     - ["mkdir -p ~/.local/bin", "Creating local bin directory..."]
     - [
-        'ln -s "/Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge" ~/.local/bin/smerge',
+        '[ -f ~/.local/bin/smerge ] && echo "$FILE exist." || ln -s "/Applications/Sublime Merge.app/Contents/SharedSupport/bin/smerge" ~/.local/bin/smerge',
         "Linking Sublime Merge...",
       ]
