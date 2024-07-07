@@ -9,4 +9,4 @@ if [ -n "$DESKTOP_SESSION" ];then
     export SSH_AUTH_SOCK
 fi
 
-export PATH="$HOME/.cargo/bin:$PATH"
+. "$HOME/.cargo/env"
