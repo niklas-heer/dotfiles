@@ -69,7 +69,7 @@
 [user]
     username = niklas-heer
     name = Niklas Heer
-    email = niklas.heer@gmail.com
+	email = me@nheer.io
 
 [filter "lfs"]
     clean = git-lfs clean -- %f
