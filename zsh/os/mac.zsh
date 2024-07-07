@@ -58,3 +58,20 @@ sm() {
         smerge "$1"
     fi
 }
+
+# asdf - https://asdf-vm.com/guide/getting-started.html
+. "$HOME/.asdf/asdf.sh"
+
+# append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
+# initialise completions with ZSH's compinit
+autoload -Uz compinit && compinit
+
+# Elixir
+
+## Enable Shell history for: iex
+export ERL_AFLAGS="-kernel shell_history enabled"
+
+## Fix a bug with Erlang and asdf 
+## https://stackoverflow.com/q/74559444
+export KERL_BUILD_DOCS=yes
