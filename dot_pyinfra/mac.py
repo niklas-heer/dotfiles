@@ -5,7 +5,7 @@ from pyinfra.operations import brew, server
 #
 
 apps = ["zed", "arc", "ghostty", "1password", "1password-cli"]
-clis = ["nushell", "m-cli", "gitmoji", "lazygit", "lazydocker"]
+clis = ["nushell", "m-cli", "gitmoji", "lazygit", "lazydocker", "ghq", "fzf"]
 
 def install_summary(desc, list):
     print(f"\n--> Installing {desc}: {', '.join(list)}")
@@ -22,8 +22,8 @@ install_desktop_apps(apps)
 install_cli_apps(clis)
 
 server.shell(
-    name="Change shell to Nushell.",
-    commands=["echo hello"],
+    name="Setting up ghq directiories.",
+    commands=['zsh -c "mkdir -p $HOME/Projects/{test,github.com}"'],
 )
 
 # install system packages

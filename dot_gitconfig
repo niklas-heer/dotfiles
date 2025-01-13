@@ -1,0 +1,41 @@
+[alias]
+    update-submodules = submodule update --init --recursive
+    upgrade-submodules = submodule update --init --remote
+
+    # one-line log
+    l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+
+    a = add
+    c = commit --verbose
+    ca = commit -a --verbose
+    cm = commit -m
+
+    d = diff
+
+    s = status -s
+    # list branches sorted by last modified
+    b = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
+
+    # list aliases
+    la = "!git config -l | grep alias | cut -c 7-"
+
+[push]
+    default = simple
+
+[core]
+    editor = zed
+    autocrlf = input
+    excludesfile = ~/.gitignore_global
+
+# Allow local customizations in the .gitconfig_local file
+[include]
+    path = ~/.gitconfig_local
+
+[user]
+    username = niklas-heer
+    name = Niklas Heer
+	email = me@nheer.io
+
+# ghq settings - https://github.com/motemen/ghq
+[ghq]
+    root = ~/Projects
