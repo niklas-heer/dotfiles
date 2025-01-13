@@ -1,0 +1,8 @@
+# Find Python binary directories
+bins=$(
+    find "$HOME/Library/Python" -maxdepth 2 -type d -name 'bin' \
+        | tr '\n' ':' \
+        | sed 's/:$//'
+)
+
+export PATH="$PATH:$bins"

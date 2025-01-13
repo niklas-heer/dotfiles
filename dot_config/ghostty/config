@@ -1,0 +1,3 @@
+command = /opt/homebrew/bin/nu
+theme = Dracula
+font-size = 15

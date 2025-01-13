@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+#check we are on a mac
+#check if python is installed
+#install pyinfra
+#do I need to have homebrew installed?
+
+pyinfra_mac(){
+    pyinfra @local {{ joinPath .chezmoi.sourceDir "dot_pyinfra/mac.py" | quote }} -y
+}
+
+OS="$(uname -s)"
+case "${OS}" in
+    Darwin*)
+        pyinfra_mac
+        ;;
+    *)
+        echo "Unsupported operating system: ${OS}"
+        exit 1
+        ;;
+esac

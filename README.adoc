@@ -1,0 +1,11 @@
+= nheer dotfiles
+:toc:
+
+== requirements
+* python `>= 3.9`
+* bash
+
+== tasks
+* [ ] figure out XCode base install
+* [ ] install pyinfra
+* [ ] figure out nushell and /opt/homebrew/bin/brew shellenv
