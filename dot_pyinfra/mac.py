@@ -6,7 +6,7 @@ from pyinfra.operations import brew, server
 
 apps = ["zed", "arc", "ghostty", "1password", "1password-cli", "rocket", "raycast"]
 fonts = ["font-cascadia-code-nf", "font-jetbrains-mono-nerd-font", "font-monaspace-nerd-font", "font-victor-mono-nerd-font", "font-victor-mono"]
-clis = ["nushell", "m-cli", "gitmoji", "lazygit", "lazydocker", "ghq", "fzf"]
+clis = ["nushell", "m-cli", "gitmoji", "lazygit", "lazydocker", "ghq", "fzf", "oh-my-posh"]
 
 def install_summary(desc, list):
     print(f"\n--> Installing {desc}: {', '.join(list)}")

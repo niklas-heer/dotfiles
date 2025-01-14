@@ -15,7 +15,7 @@ path add $py_dirs
 alias nu-open = open
 alias open = ^open
 
-
+# We have to set --env otherwise the cd won't work
 def --env repo [...args] {
     let proj = $"($env.HOME)/Projects"
 
@@ -26,3 +26,6 @@ def --env repo [...args] {
     let sel = ghq list | if ($args | is-empty) {fzf --border} else {fzf --border --query $args.0} | str trim
     cd $"($proj)/($sel)"
 }
+
+# https://ohmyposh.dev/docs/installation/prompt
+source ~/.oh-my-posh.nu
