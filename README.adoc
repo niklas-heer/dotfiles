@@ -14,9 +14,15 @@ export GITHUB_USERNAME=niklas-heer
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME
 ----
 
+== Used technology
+* https://www.chezmoi.io/[chezmoi] - keeps the dotfiles in sync and secure
+* https://pyinfra.com/[pyinfra] - installs software to setup my machine
+* https://www.nushell.sh/[nushell] - is my main shell
+
 == tasks
 * [x] upload to github
 * [x] add install instructions
+* [x] add list of used tools used
 * [ ] add MonoLisa font encrypted and install
 * [ ] use m-cli to configure dock
 * [x] figure out XCode base install/homebrew
