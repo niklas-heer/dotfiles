@@ -1,16 +1,22 @@
 = nheer dotfiles
 :toc:
 
-== requirements
+== Requirements
 * python `>= 3.9`
 * bash
 
-== installation
+== How to run
 The scripts are run in alphabetical order.
+
+[,bash]
+----
+export GITHUB_USERNAME=niklas-heer
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME
+----
 
 == tasks
 * [x] upload to github
-* [ ] add install instructions
+* [x] add install instructions
 * [ ] add MonoLisa font encrypted and install
 * [ ] use m-cli to configure dock
 * [x] figure out XCode base install/homebrew
