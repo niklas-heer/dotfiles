@@ -6,6 +6,13 @@
 * bash
 
 == tasks
+* [ ] upload to github
+* [ ] add install instructions
+* [ ] add MonoLisa font encrypted and install
+* [ ] use m-cli to configure dock
 * [ ] figure out XCode base install
+* [ ] configure zed fully (plugins, themes, config)
+* [ ] break out brew install lists into it's own file (yaml? toml?)
 * [ ] install pyinfra
+* [ ] install docker
 * [ ] figure out nushell and /opt/homebrew/bin/brew shellenv
