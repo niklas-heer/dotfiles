@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+{{ if eq .chezmoi.os "darwin" }}
+
+# Install homebrew which also installs Xcode Command Line Tools (clang, gcc, git)
+# https://www.freecodecamp.org/news/install-xcode-command-line-tools/
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+{{ else }}
+echo "Unsupported operating system."
+exit 1
+
+{{ end }}
