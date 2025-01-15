@@ -1,0 +1,39 @@
+#!/usr/bin/env nu
+
+# Define the template filename
+let template_file = "0000-template.adoc"
+let states = ["📝 Draft" "✅ Accepted" "❌ Rejected" "⛔ Deprecated by YYY" "⬆️ Supersedes XXX"]
+
+if not ($template_file | path exists) {
+    echo $"❌ Template file ($template_file) not found!"
+}
+
+let template_content = $template_file | path expand | open
+
+# Get input
+let title = (input "🌟 ADR name: ")
+let status = ($states | input list -f "🟢 ADR status")
+
+let current_date = (date now | format date "%Y-%m-%d")
+
+# Get the highest number in the folder and increment it by 1
+let max_number = (ls | where name =~ "^[0-9]+-.*.adoc$" |
+                    get name |
+                    each { |n| ($n | split row '-' | get 0 | into int) } |
+                    math max) + 1
+
+# Format the number to be 4 digits
+let formatted_number = $max_number | fill -a right -c '0' -w 4
+
+# Replace the placeholders with the actual values
+let updated_content = ($template_content |
+                        str replace "{number}" $formatted_number |
+                        str replace "{title}" $title |
+                        str replace "{date}" $current_date |
+                        str replace "{status}" $status)
+
+let new_adr_file = $"($formatted_number)-($title | str kebab-case).adoc"
+
+$updated_content | save $new_adr_file
+
+echo $"\n✅ Created new file: ($new_adr_file)"

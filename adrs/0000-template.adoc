@@ -1,0 +1,13 @@
+= ADR {number}: {title}
+
+Date: {date}
+Status: {status}
+
+== Context
+TODO
+
+== Decision
+TODO
+
+== Consequences
+TODO

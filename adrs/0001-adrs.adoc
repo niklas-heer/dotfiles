@@ -1,0 +1,13 @@
+= ADR 0001: Architecture Decision Records (ADRs)
+
+Date: 2025-01-15
+Status: ✅ Accepted
+
+== Context
+I have been working on my dotfiles and choosing different tools but never really explained why I choose one over another.
+
+== Decision
+From now on I will write ADRs explaining why I took a decision so that others might learn from it or I can reference it later.
+
+== Consequences
+I will have to write those ADRs quite frequently. Thus I should build/use tooling for it.

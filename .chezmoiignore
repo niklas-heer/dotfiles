@@ -1,2 +1,4 @@
 todo.md
 README.adoc
+adrs/**/*
+bin/chezmoi
