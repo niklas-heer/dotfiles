@@ -20,6 +20,7 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME
 * https://www.nushell.sh/[nushell] - is my main shell
 
 == tasks
+[%interactive]
 * [x] upload to github
 * [x] add install instructions
 * [x] add list of used tools used

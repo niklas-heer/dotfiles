@@ -1,7 +1,7 @@
 = ADR {number}: {title}
 
-Date: {date}
-Status: {status}
+* Date: {date}
+* Status: {status}
 
 == Context
 TODO
