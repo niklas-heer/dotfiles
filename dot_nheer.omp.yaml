@@ -34,10 +34,6 @@ blocks:
         foreground: "#98C379"
         type: node
         style: plain
-      - template: "x "
-        foreground: "#C94A16"
-        type: status
-        style: plain
   - type: prompt
     alignment: right
     segments:
@@ -49,9 +45,11 @@ blocks:
     alignment: left
     newline: true
     segments:
-      - template: "\u276f "
+      - template: "{{ if eq .Code 0 }}<#63F08C>\u276f{{ else }}<#e91e63>\u2718{{ end }} "
+        properties:
+          always_enabled: true
         foreground: "#63F08C"
-        type: text
+        type: status
         style: plain
 
 version: 3
