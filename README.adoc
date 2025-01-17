@@ -32,4 +32,4 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME
 * [ ] break out brew install lists into it's own file (yaml? toml?)
 * [ ] install pyinfra
 * [ ] install docker
-* [ ] figure out nushell and /opt/homebrew/bin/brew shellenv
+* [x] figure out nushell and /opt/homebrew/bin/brew shellenv

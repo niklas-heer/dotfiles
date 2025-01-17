@@ -3,9 +3,18 @@
 
 $env.config.show_banner = false
 
+# https://www.nushell.sh/book/configuration.html#set-environment-variables
 use std/util "path add"
-path add "/opt/homebrew/bin" # homebrew
 path add ($env.HOME | path join "bin") # chezmoi
+
+# Homebrew rework the initial command: eval "$(/opt/homebrew/bin/brew shellenv)"
+load-env {
+    "HOMEBREW_PREFIX": "/opt/homebrew",
+    "HOMEBREW_CELLAR": "/opt/homebrew/Cellar",
+    "HOMEBREW_REPOSITORY": "/opt/homebrew"
+}
+path add ["/opt/homebrew/bin", "/opt/homebrew/sbin"]
+$env.INFOPATH = "/opt/homebrew/share/info"
 
 # Add Python binaries. This is mainly for pyinfra.
 let py_dirs = ls ~/Library/Python/*/bin | get name
