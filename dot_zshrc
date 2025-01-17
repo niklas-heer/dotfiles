@@ -9,11 +9,9 @@ export PATH="$PATH:$bins"
 # Add chezmoi
 # https://stackoverflow.com/a/18077919
 path+=("$HOME/bin")
-
 export PATH
 
-
-#---------- Start config oh-my-posh
+#---- START oh-my-posh
 export POSH_THEME=$'/Users/nheer/.nheer.omp.yaml'
 export POSH_SHELL='zsh'
 export POSH_SHELL_VERSION=$ZSH_VERSION
@@ -245,4 +243,4 @@ function enable_poshtooltips() {
 # legacy functions
 function enable_poshtransientprompt() {}
 
-#-------- End oh-my-posh
+#---- END oh-my-posh

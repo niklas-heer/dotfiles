@@ -25,8 +25,8 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME
 * [x] add list of used tools used
 * [x] add oh-my-posh to nushell
 * [x] add oh-my-posh to zsh for fallback
+* [x] add carapace
 * [ ] add MonoLisa font encrypted and install
-* [ ] use m-cli to configure dock
 * [x] figure out XCode base install/homebrew
 * [ ] configure zed fully (plugins, themes, config)
 * [ ] break out brew install lists into it's own file (yaml? toml?)

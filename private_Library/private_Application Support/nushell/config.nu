@@ -20,9 +20,14 @@ $env.INFOPATH = "/opt/homebrew/share/info"
 let py_dirs = ls ~/Library/Python/*/bin | get name
 path add $py_dirs
 
+# https://carapace-sh.github.io/carapace-bin/setup.html#nushell
+$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
+mkdir ~/.cache/carapace
+carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+source ~/.cache/carapace/init.nu
+
 # See: https://www.nushell.sh/book/configuration.html#macos-keeping-usr-bin-open-as-open
-alias nu-open = open
-alias open = ^open
+alias m-open = ^open
 
 # We have to set --env otherwise the cd won't work
 def --env repo [...args] {

@@ -1,15 +1,11 @@
 from pyinfra.operations import brew, server
 
-#fix scrolling
-# defaults write -g com.apple.swipescrolldirection -bool NO
-#
-
 apps = ["zed", "arc", "ghostty", "1password", "1password-cli", "rocket", "raycast"]
-fonts = ["font-cascadia-code-nf", "font-jetbrains-mono-nerd-font", "font-monaspace-nerd-font", "font-victor-mono-nerd-font", "font-victor-mono"]
-clis = ["nushell", "m-cli", "gitmoji", "lazygit", "lazydocker", "ghq", "fzf", "oh-my-posh"]
+fonts = ["font-jetbrains-mono-nerd-font", "font-victor-mono-nerd-font"]
+clis = ["nushell", "gitmoji", "lazygit", "lazydocker", "ghq", "fzf", "oh-my-posh", "carapace"]
 
 def install_summary(desc, list):
-    print(f"\n--> Installing {desc}: {', '.join(list)}")
+    print(f"    Installing {desc}: {', '.join(list)}")
 
 def install_casks(desc, apps):
     install_summary(desc, apps)
