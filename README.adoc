@@ -30,6 +30,7 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME
 * [x] figure out XCode base install/homebrew
 * [ ] configure zed fully (plugins, themes, config)
 * [ ] break out brew install lists into it's own file (yaml? toml?)
-* [ ] install pyinfra
+* [x] install pyinfra
 * [ ] install docker
 * [x] figure out nushell and /opt/homebrew/bin/brew shellenv
+* [ ] add title parameter to the adr script
