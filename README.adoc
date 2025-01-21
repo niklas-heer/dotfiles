@@ -29,8 +29,10 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME
 * [ ] add MonoLisa font encrypted and install
 * [x] figure out XCode base install/homebrew
 * [ ] configure zed fully (plugins, themes, config)
-* [ ] break out brew install lists into it's own file (yaml? toml?)
+<del>* [ ] break out brew install lists into it's own file (yaml? toml?)</del>
+** won't do as it is simpler to just have one file I also don't need a PyYAML dependency
 * [x] install pyinfra
 * [ ] install docker
 * [x] figure out nushell and /opt/homebrew/bin/brew shellenv
 * [ ] add title parameter to the adr script
+* [ ] write a simple todo manager with nu
