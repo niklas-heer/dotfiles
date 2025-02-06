@@ -39,6 +39,8 @@ clis = [
     "just",
     # replaces cat for me as it does syntax highlighting
     "bat",
+    # replaces httpie for interacting with APIs
+    "xh",
 ]
 
 # Fonts I use
