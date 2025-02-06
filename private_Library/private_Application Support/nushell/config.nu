@@ -10,16 +10,19 @@ source ~/.cache/carapace/init.nu
 # See: https://www.nushell.sh/book/configuration.html#macos-keeping-usr-bin-open-as-open
 alias m-open = ^open
 
+alias lg = lazygit
+
 # We have to set --env otherwise the cd won't work
-def --env repo [...args] {
-    let proj = $"($env.HOME)/Projects"
-
-    if (which fzf | is-empty) {
-        error make {msg: "fzf is not installed."}
-    }
-
-    let sel = ghq list | if ($args | is-empty) {fzf --border} else {fzf --border --query $args.0} | str trim
-    cd $"($proj)/($sel)"
+def --env repo [] {
+    ["~/Projects/**/.git" "~/ghq/**/.git" "~/.local/share/chezmoi/**/.git"]
+    | each { |p| ls ...(glob $p) -D -t }
+    | flatten
+    | where type == dir
+    | sort-by -r modified
+    | get name
+    | each {|p| $p | str replace "/.git" "" | path relative-to "~" | $"~/($in)"}
+    | input list --fuzzy
+    | cd $in
 }
 
 # https://ohmyposh.dev/docs/installation/prompt
