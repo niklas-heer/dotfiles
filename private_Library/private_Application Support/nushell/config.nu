@@ -1,29 +1,10 @@
 # See https://www.nushell.sh/book/configuration.html
 # This file is loaded after env.nu and before login.nu
 
+# Hide welcome message
 $env.config.show_banner = false
 
-# https://www.nushell.sh/book/configuration.html#set-environment-variables
-use std/util "path add"
-path add ($env.HOME | path join "bin") # chezmoi
-
-# Homebrew rework the initial command: eval "$(/opt/homebrew/bin/brew shellenv)"
-load-env {
-    "HOMEBREW_PREFIX": "/opt/homebrew",
-    "HOMEBREW_CELLAR": "/opt/homebrew/Cellar",
-    "HOMEBREW_REPOSITORY": "/opt/homebrew"
-}
-path add ["/opt/homebrew/bin", "/opt/homebrew/sbin"]
-$env.INFOPATH = "/opt/homebrew/share/info"
-
-# Add Python binaries. This is mainly for pyinfra.
-let py_dirs = ls ~/Library/Python/*/bin | get name
-path add $py_dirs
-
 # https://carapace-sh.github.io/carapace-bin/setup.html#nushell
-$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
-mkdir ~/.cache/carapace
-carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
 source ~/.cache/carapace/init.nu
 
 # See: https://www.nushell.sh/book/configuration.html#macos-keeping-usr-bin-open-as-open
