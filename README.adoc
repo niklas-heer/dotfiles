@@ -11,7 +11,7 @@ The scripts are run in alphabetical order.
 [,bash]
 ----
 export GITHUB_USERNAME=niklas-heer
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply --ssh $GITHUB_USERNAME
 ----
 
 == Used technology
