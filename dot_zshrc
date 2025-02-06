@@ -1,3 +1,6 @@
+# Homebrew import
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Find Python binary directories
 bins=$(
     find "$HOME/Library/Python" -maxdepth 2 -type d -name 'bin' \
