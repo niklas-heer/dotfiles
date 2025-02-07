@@ -1,6 +1,6 @@
 = nheer `dotfiles`
 
-:chezmoi: https://www.chezmoi.io/[`chezmoi`]
+:chezmoi: https://www.chezmoi.io/[chezmoi]
 
 Dotfiles managed with {chezmoi}.
 Install {chezmoi} with:
@@ -13,7 +13,7 @@ Install and apply configuration with:
 [,bash]
 ----
 export GITHUB_USERNAME=niklas-heer
-~/bin/chezmoi init --apply --ssh $GITHUB_USERNAME
+$HOME/bin/chezmoi init --apply --ssh $GITHUB_USERNAME
 ----
 NOTE: The scripts are run in alphabetical order.
 
