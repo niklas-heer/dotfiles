@@ -15,7 +15,7 @@ path+=("$HOME/bin")
 export PATH
 
 #---- START oh-my-posh
-export POSH_THEME=$'/Users/nheer/.nheer.omp.yaml'
+export POSH_THEME="$HOME/.nheer.omp.yaml"
 export POSH_SHELL='zsh'
 export POSH_SHELL_VERSION=$ZSH_VERSION
 export POSH_SESSION_ID=$'d9c77ee6-2abe-4c74-bc31-89a5ed1967f3'
