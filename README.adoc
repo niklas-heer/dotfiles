@@ -2,8 +2,7 @@
 :toc:
 
 == Requirements
-* python `>= 3.9`
-* bash
+MacOS 15 or higher (Sequoia).
 
 == How to run
 The scripts are run in alphabetical order.
@@ -22,6 +21,5 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply --ssh $GITHUB_USERNAME
 == tasks
 
 * [ ] add MonoLisa font encrypted and install
-* [ ] install docker
 * [ ] add title parameter to the adr script
 * [ ] write a simple todo manager with nu

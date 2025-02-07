@@ -15,6 +15,7 @@ packages:
       - "bat" # better cat
       - "xh" # better httpie - interact with APIs (get, post, ...)
       - "bun" # better nodejs
+      - "docker" # containers ftw 😅
     casks:
       - "zed" # editor of choice over vscode
       - "arc" # browser
@@ -23,6 +24,7 @@ packages:
       - "1password-cli" # to use password manager in cli
       - "raycast" # productivity replaces Alfred and Spotlight
       - "setapp" # subscription service for some paid apps
+      - "orbstack" # replaces Docker Desktop and is faster and lighter
     fonts:
       # TODO: Add MonoLisa as my main font
       - "font-jetbrains-mono-nerd-font" # most practical font
