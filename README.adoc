@@ -1,20 +1,27 @@
-= nheer dotfiles
-:toc:
+= nheer `dotfiles`
+
+:chezmoi: https://www.chezmoi.io/[`chezmoi`]
+
+Dotfiles managed with {chezmoi}.
+Install {chezmoi} with:
+[,bash]
+----
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/bin
+----
+
+Install and apply configuration with:
+[,bash]
+----
+export GITHUB_USERNAME=niklas-heer
+~/bin/chezmoi init --apply --ssh $GITHUB_USERNAME
+----
+NOTE: The scripts are run in alphabetical order.
 
 == Requirements
 MacOS 15 or higher (Sequoia).
 
-== How to run
-The scripts are run in alphabetical order.
-
-[,bash]
-----
-export GITHUB_USERNAME=niklas-heer
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply --ssh $GITHUB_USERNAME
-----
-
 == Used technology
-* https://www.chezmoi.io/[chezmoi] - keeps the dotfiles in sync and secure
+* {chezmoi} - keeps the dotfiles in sync and secure
 * https://brew.sh[homebrew] - installs mac applications
 * https://www.nushell.sh/[nushell] - a data first and user-friendly shell
 
