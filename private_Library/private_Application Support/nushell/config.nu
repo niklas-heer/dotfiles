@@ -4,6 +4,9 @@
 # Hide welcome message
 $env.config.show_banner = false
 
+# Set theme for bat
+$env.BAT_THEME = "Monokai Extended Bright"
+
 # https://carapace-sh.github.io/carapace-bin/setup.html#nushell
 source ~/.cache/carapace/init.nu
 
