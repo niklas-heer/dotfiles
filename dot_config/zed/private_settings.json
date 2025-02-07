@@ -20,9 +20,12 @@
     "font_family": "JetBrainsMono Nerd Font",
     "blinking": "off"
   },
+  // https://zed.dev/docs/configuring-zed#auto-install-extensions
+  // for the names: ls `~/Library/Application Support/Zed/extensions/installed/` (nushell)
   "auto_install_extensions": {
     "html": true,
     "dockerfile": true,
+    "asciidoc": true,
     "earthfile": true,
     "elixir": true,
     "make": true,
