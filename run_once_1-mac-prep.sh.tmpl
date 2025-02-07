@@ -11,11 +11,8 @@ then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-# Install pyinfra as python should be installed
-if ! command -v pyinfra 2>&1 >/dev/null
-then
-    /usr/bin/pip3 install pyinfra
-fi
+# Setting up ghq directiories
+mkdir -p $HOME/Projects/{test,github.com}
 
 # Fix scrolling to be classic
 defaults write -g com.apple.swipescrolldirection -bool NO
