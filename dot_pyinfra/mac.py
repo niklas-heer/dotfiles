@@ -41,6 +41,8 @@ clis = [
     "bat",
     # replaces httpie for interacting with APIs
     "xh",
+    # Bun as replacement for nodejs
+    "oven-sh/bun/bun"
 ]
 
 # Fonts I use
