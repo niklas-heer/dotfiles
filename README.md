@@ -39,6 +39,9 @@ MacOS 15 or higher (Sequoia).
   - [ ] chezmoi
 
 ## Project decision log
+I want to document my decisions for me so I don't forget and potentially for you so you understand why I use one tool or another or why I remove stuff from time to time.
+
+<!-- DECISION LOG START -->
 
 ### 0005 Removing PyInfra
 * **Status**: ⬆️ Supersedes [0004 Adopt PyInfra](#0004-adopt-pyinfra)
@@ -69,3 +72,5 @@ MacOS 15 or higher (Sequoia).
 * **Decision**: From now on, I will write decision logs explaining why I took a decision so that others might learn from it, or I can reference it later.
 * **Context**: I have been working on my dotfiles and choosing different tools, but never really explained why I choose one over another.
 * **Consequences**: I will have to write those decision logs quite frequently. Thus, I should build/use tooling for it.
+
+<!-- DECISION LOG END -->
