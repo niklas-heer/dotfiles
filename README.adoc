@@ -1,8 +1,9 @@
 = nheer `dotfiles`
-
+:note-caption: 🗒️
 :chezmoi: https://www.chezmoi.io/[chezmoi]
 
 Dotfiles managed with {chezmoi}.
+
 Install {chezmoi} with:
 [,bash]
 ----
