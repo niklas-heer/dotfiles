@@ -30,8 +30,28 @@ MacOS 15 or higher (Sequoia).
 - [ ] write a simple todo manager with nu
 - [ ] [docker setup with colima](https://medium.com/@guillem.riera/the-most-performant-docker-setup-on-macos-apple-silicon-m1-m2-m3-for-x64-amd64-compatibility-da5100e2557d)
 - [ ] Add Raycast configuration
+- [ ] Add decision log
+  - [x] choosing asciidoc
+  - [x] switching to markdown
+  - [x] pyinfra
+  - [x] removing pyinfra
+  - [ ] nushell
+  - [ ] chezmoi
 
 ## Project decision log
+
+### 0005 Removing PyInfra
+* **Status**: ⬆️ Supersedes [0004 Adopt PyInfra](#0004-adopt-pyinfra)
+* **Decision**: I will use chezmoi and a Brewfile instead of PyInfra.
+* **Context**: After testing the installation on two machines, it didn't work. It broke because some apps were already installed, and I could use the `--force` flag of homebrew. On another occasion, Python didn't install properly. So I decided to solve it via using a [Brewfile](https://homebrew-file.readthedocs.io/en/latest/usage.html) and [chezmoi templates](https://www.chezmoi.io/user-guide/advanced/install-packages-declaratively/). This doesn't require extra dependencies and is simpler and more reliable.
+* **Consequences**: I will have to experiment with PyInfra on another project. I also might have to write some shell scripts to set up fonts.
+
+### 0004 Adopt PyInfra
+* **Status**: ⛔ Deprecated by [0005 Removing PyInfra](#0005-removing-pyinfra)
+* **Decision**: I will use PyInfra to install software.
+* **Context**: As I need to install packages and I want to try out PyInfra as it seems cool compared to Ansible as I can just use Python.
+* **Consequences**: I will have to make sure Python and the PyInfra are installed.
+
 ### 0003 Switch to markdown
 * **Status**: ⬆️ Supersedes [0002 Adopt asciidoc](#0002-adopt-asciidoc)
 * **Decision**: I will switch to Markdown from asciidoc.
