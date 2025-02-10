@@ -33,17 +33,7 @@ MacOS 15 or higher (Sequoia).
 - [ ] write a simple todo manager with nu
 - [ ] [docker setup with colima](https://medium.com/@guillem.riera/the-most-performant-docker-setup-on-macos-apple-silicon-m1-m2-m3-for-x64-amd64-compatibility-da5100e2557d)
 - [ ] Add Raycast configuration
-- [ ] Add decision log
-  - [x] choosing asciidoc
-  - [x] switching to markdown
-  - [x] pyinfra
-  - [x] removing pyinfra
-  - [x] nushell over fish, elvish or zsh/bash
-  - [x] chezmoi over dotbot
-  - [x] why start new
-  - [x] oh-my-posh over starship
-  - [x] Ghostty over Wezterm or iTerm
-  - [x] Why no chsh for nushell
+- [x] Add decision log
 
 ## Project decision log
 I want to document my decisions for me so I don't forget and potentially for you so you understand why I use one tool or another or why I remove stuff from time to time.
