@@ -23,7 +23,7 @@ packages:
       - "ghostty" # terminal
       - "1password" # password manager
       - "1password-cli" # to use password manager in cli
-      - "raycast" # productivity replaces Alfred and Spotlight
+      - "raycast" # productivity replaces Alfred and Spotlight, config synced via cloud
       - "setapp" # subscription service for some paid apps
     fonts:
       # TODO: Add MonoLisa as my main font
