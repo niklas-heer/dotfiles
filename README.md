@@ -38,8 +38,12 @@ MacOS 15 or higher (Sequoia).
   - [x] switching to markdown
   - [x] pyinfra
   - [x] removing pyinfra
-  - [ ] nushell
-  - [ ] chezmoi
+  - [x] nushell over fish, elvish or zsh/bash
+  - [x] chezmoi over dotbot
+  - [x] why start new
+  - [x] oh-my-posh over starship
+  - [x] Ghostty over Wezterm or iTerm
+  - [x] Why no chsh for nushell
 
 ## Project decision log
 I want to document my decisions for me so I don't forget and potentially for you so you understand why I use one tool or another or why I remove stuff from time to time.
