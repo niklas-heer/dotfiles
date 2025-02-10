@@ -1,5 +1,7 @@
 # nheer `dotfiles`
 
+![Terminal](https://raw.github.com/niklas-heer/dotfiles/main/.github/img/2025-02-10_terminal.png "Ghostty & Nushell")
+
 Dotfiles managed with [chezmoi](https://www.chezmoi.io/).
 
 Install chezmoi with:
@@ -25,6 +27,7 @@ MacOS 15 or higher (Sequoia).
 
 ## Tasks
 
+- [ ] Add roc-lang setup
 - [ ] write tooling for my decision log
 - [ ] add MonoLisa font encrypted and install
 - [ ] write a simple todo manager with nu

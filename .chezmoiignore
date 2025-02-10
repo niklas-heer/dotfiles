@@ -1,4 +1,4 @@
-todo.md
-README.adoc
-adrs/**/*
+# https://www.chezmoi.io/reference/special-files/chezmoiignore/
+README.md
 bin/chezmoi
+.githun/**/*
