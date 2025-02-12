@@ -74,7 +74,7 @@ end
 -- Create a hotkey binding to trigger the speech
 hs.hotkey.bind(hyper, "w", function()
     local text = current_selection()
-    local ok, result = hs.execute(('osascript ~/.hammerspoon/scripts/tts.applescript "%s"'):format(text))
+    local ok, result = hs.execute(('~/.hammerspoon/scripts/tts.jxa "%s"'):format(text))
     if not ok then
         print("Script failed:", result)
     end

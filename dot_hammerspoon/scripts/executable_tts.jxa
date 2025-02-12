@@ -1,0 +1,35 @@
+#!/usr/bin/env osascript -l JavaScript
+
+// Documentation about JXA (JavaScript for Automation)
+// https://bru6.de/jxa/introduction-to-jxa/
+
+function guessLanguage(input) {
+    const NSLinguisticTagger = Application('System Events').NSLinguisticTagger;
+    return $.NSLinguisticTagger.dominantLanguageForString(input).js;
+}
+
+function speak(text) {
+  const lang = guessLanguage(text);
+  const speakingRate = 230;
+
+	app = Application.currentApplication();
+  app.includeStandardAdditions = true;
+
+  if (lang === 'en' || lang === 'und') {
+    // if it is English (en) or undefined (und)
+    app.say(text, {using: "Jamie (Premium)", speakingRate: speakingRate});
+  } else if (lang === 'de') {
+    app.say(text, {using: "Anna (Premium)", speakingRate: speakingRate});
+  } else {
+    console.log(`❌ This language is not supported. (${lang})`)
+  }
+}
+
+ObjC.import("Foundation");
+const args = $.NSProcessInfo.processInfo.arguments;
+if (args.count > 4) {
+  var first_arg = args.js[4].js;
+  speak(first_arg);
+} else {
+  console.log("❌ Please provide a text to process.")
+}
