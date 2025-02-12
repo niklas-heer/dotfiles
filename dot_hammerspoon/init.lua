@@ -71,8 +71,8 @@ function current_selection()
     return (sel or "")
 end
 
--- Create a hotkey binding to trigger the speech
-hs.hotkey.bind(hyper, "w", function()
+-- (t)ext-to-speech (tts) for the current selection
+hs.hotkey.bind(hyper, "t", function()
     local text = current_selection()
     local ok, result = hs.execute(('~/.hammerspoon/scripts/tts.jxa "%s"'):format(text))
     if not ok then
