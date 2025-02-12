@@ -52,3 +52,30 @@ local mappings = {
 for _, config in ipairs(mappings) do
     mu.createModal(config.mods, config.key, config.actions)
 end
+
+-- Internal function to get the currently selected text.
+-- It tries through hs.uielement, but if that fails it
+-- tries issuing a Cmd-c and getting the pasteboard contents
+-- afterwards.
+function current_selection()
+    local elem = hs.uielement.focusedElement()
+    local sel = nil
+    if elem then
+        sel = elem:selectedText()
+    end
+    if (not sel) or (sel == "") then
+        hs.eventtap.keyStroke({ "cmd" }, "c")
+        hs.timer.usleep(20000)
+        sel = hs.pasteboard.getContents()
+    end
+    return (sel or "")
+end
+
+-- Create a hotkey binding to trigger the speech
+hs.hotkey.bind(hyper, "w", function()
+    local text = current_selection()
+    local ok, result = hs.execute(('osascript ~/.hammerspoon/scripts/tts.applescript "%s"'):format(text))
+    if not ok then
+        print("Script failed:", result)
+    end
+end)
