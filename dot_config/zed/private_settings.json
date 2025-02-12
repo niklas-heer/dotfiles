@@ -32,6 +32,7 @@
     "nu": true,
     "ruby": true,
     "tokyo-night": true,
+    "lua": true,
     "docker-compose": true
   }
 }
