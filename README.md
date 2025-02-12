@@ -36,6 +36,12 @@ I want to document my decisions for me so I don't forget and potentially for you
 
 <!-- DECISION LOG START -->
 
+### 11 Adopting Hammerspoon
+* **Status**: ✅ Adopted
+* **Decision**: I will use `Hammerspoon`(https://www.hammerspoon.org/) instead of skhd, Keyboard Maestro or Karabiner-Elements.
+* **Context**: I mainly want to create shortcuts to interact with applications, like launching them. I would like to press `hyper+g` first and then press another key like `t` for Terminal to launch my Terminal application. I think you can do that with skhd, but I couldn't make it work, and the project seems stale. Keyboard Maestro is out because I don't know how to do it. Karabiner-Elements is possible, but it is a ton of JSON. Hammerspoon makes it easy, and you can use Lua, a real programming language, to configure it.
+* **Consequences**: I have to get used to Hammerspoon and write config.
+
 ### 10 Adopting Ghostty
 * **Status**: ✅ Adopted
 * **Decision**: I will use [`Ghostty`](https://ghostty.org/) instead of Wezterm, Kitty or iTerm.
