@@ -6,12 +6,6 @@ local hyper = { "cmd", "alt", "shift", "ctrl" }
 hs.loadSpoon("ReloadConfiguration")
 spoon.ReloadConfiguration:start()
 
--- Global mic muted
--- ref: https://www.hammerspoon.org/Spoons/MicMute.html
-hs.loadSpoon("MicMute")
-spoon.MicMute:bindHotkeys({ toggle = { hyper, "m" } }, 0.75)
-
-
 local mu = require("modal_utils") -- (m)odal (u)tils
 
 -- Internal function to get the currently selected text.
