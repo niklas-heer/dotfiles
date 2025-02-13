@@ -14,45 +14,6 @@ spoon.MicMute:bindHotkeys({ toggle = { hyper, "m" } }, 0.75)
 
 local mu = require("modal_utils") -- (m)odal (u)tils
 
--- Define your mappings
-local mappings = {
-    -- Apps modal
-    {
-        mods = hyper,
-        key = "g",
-        actions = {
-            t = mu.app("Ghostty"),   -- (t)erminal
-            b = mu.app("Arc"),       -- (b)rowser
-            c = mu.app("Zed"),       -- (c)ode editor
-            f = mu.app("Finder"),    -- (f)iles
-            d = mu.app("Discord"),   -- (d)iscord
-            v = mu.app("ProtonVPN"), -- (v)pn
-            s = mu.app("Slack"),     -- (s)lack
-            m = mu.app("Spotify"),   -- (m)usic
-        }
-    },
-    -- Raycast modal
-    {
-        mods = hyper,
-        key = "r",
-        actions = {
-            t = mu.url("raycast://confetti"),                                                          -- (t)ada 🎉
-            e = mu.url("raycast://extensions/raycast/emoji-symbols/search-emoji-symbols"),             -- (e)moji
-            g = mu.url("raycast://extensions/ricoberger/gitmoji/gitmoji"),                             -- (g)itmoji
-            a = mu.url("raycast://extensions/raycast/raycast-ai/ai-chat"),                             -- (a)i
-            c = mu.url("raycast://extensions/raycast/clipboard-history/clipboard-history"),            -- (c)lipboard-history
-            s = mu.url("raycast://extensions/raycast/system/sleep"),                                   -- (s)leep mode
-            r = mu.url("raycast://"),                                                                  -- (r)aycast
-            f = mu.url("raycast://extensions/raycast/raycast-focus/start-focus-session?Goal=Pomodoro") -- (f)ocus session
-        }
-    }
-}
-
--- Create all modals
-for _, config in ipairs(mappings) do
-    mu.createModal(config.mods, config.key, config.actions)
-end
-
 -- Internal function to get the currently selected text.
 -- It tries through hs.uielement, but if that fails it
 -- tries issuing a Cmd-c and getting the pasteboard contents
@@ -71,11 +32,66 @@ function current_selection()
     return (sel or "")
 end
 
--- (t)ext-to-speech (tts) for the current selection
-hs.hotkey.bind(hyper, "t", function()
-    local text = current_selection()
-    local ok, result = hs.execute(('~/.hammerspoon/scripts/tts.jxa "%s"'):format(text))
-    if not ok then
-        print("Script failed:", result)
-    end
-end)
+-- Define your mappings
+local mappings = {
+    -- (G)oto an application
+    {
+        mods = hyper,
+        key = "g",
+        actions = {
+            t = mu.app("Ghostty"),   -- (t)erminal
+            b = mu.app("Arc"),       -- (b)rowser
+            c = mu.app("Zed"),       -- (c)ode editor
+            f = mu.app("Finder"),    -- (f)iles
+            d = mu.app("Discord"),   -- (d)iscord
+            v = mu.app("ProtonVPN"), -- (v)pn
+            s = mu.app("Slack"),     -- (s)lack
+            m = mu.app("Spotify"),   -- (m)usic
+        }
+    },
+    -- (R)aycast modal
+    {
+        mods = hyper,
+        key = "r",
+        actions = {
+            t = mu.url("raycast://confetti"),                                                           -- (t)ada 🎉
+            e = mu.url("raycast://extensions/raycast/emoji-symbols/search-emoji-symbols"),              -- (e)moji
+            g = mu.url("raycast://extensions/ricoberger/gitmoji/gitmoji"),                              -- (g)itmoji
+            a = mu.url("raycast://extensions/raycast/raycast-ai/ai-chat"),                              -- (a)i
+            c = mu.url("raycast://extensions/raycast/clipboard-history/clipboard-history"),             -- (c)lipboard-history
+            s = mu.url("raycast://extensions/raycast/system/sleep"),                                    -- (s)leep mode
+            r = mu.url("raycast://extensions/moored/git-repos/list"),                                   -- (r)epos
+            f = mu.url("raycast://extensions/raycast/raycast-focus/start-focus-session?Goal=Pomodoro"), -- (f)ocus session
+            q = mu.url("raycast://extensions/rolandleth/kill-process/index")                            -- (q)uit an application
+        }
+    },
+    -- (T)odoist
+    -- https://developer.todoist.com/guides/#desktop-app-url-schemes
+    {
+        mods = hyper,
+        key = "t",
+        actions = {
+            a = mu.url("todoist://openquickadd"), -- (a)dd task
+            t = mu.url("todoist://today"),        -- (t)oday view
+        }
+    },
+    -- (F)unctions
+    {
+        mods = hyper,
+        key = "f",
+        actions = {
+            r = {
+                handler = function(target)
+                    local text = current_selection()
+                    hs.execute(('~/.hammerspoon/scripts/tts.jxa "%s"'):format(text))
+                end,
+                target = ""
+            }, -- (r)ead text for the current selection
+        }
+    }
+}
+
+-- Create all modals
+for _, config in ipairs(mappings) do
+    mu.createModal(config.mods, config.key, config.actions)
+end
