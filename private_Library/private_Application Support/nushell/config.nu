@@ -18,7 +18,9 @@ $env.FZF_DEFAULT_OPTS = "--color=fg:#c0caf5,bg:#1a1b26,hl:#bb9af7 --color=fg+:#F
 
 # We have to set --env otherwise the cd won't work
 def --env repo [] {
-    fd -H '^.git$' -t d ~/ghq ~/Projects ~/.local/share/chezmoi
+    let dirs = ["~/Projects" "~/ghq" "~/.local/share/chezmoi"] | each { path expand } | where { path exists }
+
+    fd -H '^.git$' -t d ...$dirs
     | sd '/.git/' ''
     | fzf --height=40% --layout=reverse --border --info=inline --preview="eza -lhm --no-permissions --total-size --no-user --color=always --icons=always --time-style=relative --sort=modified --reverse {}"
     | cd $in

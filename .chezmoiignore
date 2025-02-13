@@ -2,3 +2,4 @@
 README.md
 bin/chezmoi
 .githun/**/*
+.luarc.json
