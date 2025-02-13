@@ -12,7 +12,7 @@ local mu = require("modal_utils") -- (m)odal (u)tils
 -- It tries through hs.uielement, but if that fails it
 -- tries issuing a Cmd-c and getting the pasteboard contents
 -- afterwards.
-function current_selection()
+local function current_selection()
     local elem = hs.uielement.focusedElement()
     local sel = nil
     if elem then
@@ -57,6 +57,18 @@ local mappings = {
             r = mu.url("raycast://extensions/moored/git-repos/list"),                                   -- (r)epos
             f = mu.url("raycast://extensions/raycast/raycast-focus/start-focus-session?Goal=Pomodoro"), -- (f)ocus session
             q = mu.url("raycast://extensions/rolandleth/kill-process/index")                            -- (q)uit an application
+        }
+    },
+    -- Clean(S)hot
+    -- https://cleanshot.com/docs-api
+    {
+        mods = hyper,
+        key = "s",
+        actions = {
+            a = mu.url("cleanshot://all-in-one"),     -- (a)ll-in-one mode
+            c = mu.url("cleanshot://capture-area"),   -- (c)apture area mode
+            w = mu.url("cleanshot://capture-window"), -- capture (w)indow mode
+            t = mu.url("cleanshot://capture-text"),   -- (t)ext recognition mode
         }
     },
     -- (T)odoist
