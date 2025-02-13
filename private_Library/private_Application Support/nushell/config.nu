@@ -12,19 +12,15 @@ source ~/.cache/carapace/init.nu
 
 # See: https://www.nushell.sh/book/configuration.html#macos-keeping-usr-bin-open-as-open
 alias m-open = ^open
-
 alias lg = lazygit
+
+$env.FZF_DEFAULT_OPTS = "--color=fg:#c0caf5,bg:#1a1b26,hl:#bb9af7 --color=fg+:#FFFFFF,bg+:#1a1b26,hl+:#7dcfff --color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff --color=marker:#9ece6a,spinner:#9ece6a,header:#9ece6a"
 
 # We have to set --env otherwise the cd won't work
 def --env repo [] {
-    ["~/Projects/**/.git" "~/ghq/**/.git" "~/.local/share/chezmoi/**/.git"]
-    | each { |p| ls ...(glob $p) -D -t }
-    | flatten
-    | where type == dir
-    | sort-by -r modified
-    | get name
-    | each {|p| $p | str replace "/.git" "" | path relative-to "~" | $"~/($in)"}
-    | input list --fuzzy
+    fd -H '^.git$' -t d ~/ghq ~/Projects ~/.local/share/chezmoi
+    | sd '/.git/' ''
+    | fzf --height=40% --layout=reverse --border --info=inline --preview="eza -lhm --no-permissions --total-size --no-user --color=always --icons=always --time-style=relative --sort=modified --reverse {}"
     | cd $in
 }
 

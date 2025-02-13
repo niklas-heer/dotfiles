@@ -17,6 +17,9 @@ packages:
       - "bun" # better nodejs
       - "docker" # containers ftw 😅
       - "colima" # running Docker on MacOS
+      - "fd" # better find
+      - "sd" # better sed to replace stuff
+      - "eza" # better ls to list stuff
     casks:
       - "zed" # editor of choice over vscode
       - "arc" # browser
