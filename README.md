@@ -1,6 +1,6 @@
 # nheer `dotfiles`
 
-![Terminal](https://raw.github.com/niklas-heer/dotfiles/main/.github/img/2025-02-10_terminal.png "Ghostty & Nushell")
+![Terminal](https://raw.github.com/niklas-heer/dotfiles/main/.github/img/2025-02-13_terminal.png "Ghostty & Nushell")
 
 Install [`chezmoi`](https://www.chezmoi.io/) with:
 ```bash
