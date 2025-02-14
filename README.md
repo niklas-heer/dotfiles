@@ -32,6 +32,7 @@ There are some tasks after the install as they cannot be automated.
 
 ## Tasks
 
+- [ ] Explore and potentially add atuin - https://github.com/atuinsh/atuin
 - [ ] Add roc-lang setup
 - [ ] write tooling for my decision log
 - [ ] add MonoLisa font encrypted and install
