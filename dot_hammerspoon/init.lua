@@ -26,6 +26,10 @@ local function current_selection()
     return (sel or "")
 end
 
+local function escapeQuotes(str)
+    return string.gsub(str, '"', '\\"')
+end
+
 -- Define your mappings
 local mappings = {
     -- (G)oto an application
@@ -88,7 +92,7 @@ local mappings = {
         actions = {
             r = {
                 handler = function(target)
-                    local text = current_selection()
+                    local text = escapeQuotes(current_selection())
                     hs.execute(('~/.hammerspoon/scripts/tts.jxa "%s"'):format(text))
                 end,
                 target = ""
