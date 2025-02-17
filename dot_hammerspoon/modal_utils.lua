@@ -30,16 +30,12 @@ function M.url(target)
     return { handler = hs.urlevent.openURL, target = target }
 end
 
--- For reference this is also possible:
---
--- t = { handler = hs.application.launchOrFocus, target = "App" },
--- x = {
---     handler = function(target)
---         -- Do something custom
---         print("Custom action")
---         hs.application.launchOrFocus(target)
---     end,
---     target = "SomeApp"
--- },
+function M.keystroke(mods, key)
+    return {
+        handler = function()
+            hs.eventtap.keyStroke(mods, key)
+        end
+    }
+end
 
 return M

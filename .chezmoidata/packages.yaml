@@ -29,6 +29,7 @@ packages:
       - "raycast" # productivity replaces Alfred and Spotlight, config synced via cloud
       - "setapp" # subscription service for some paid apps
       - "hammerspoon" # powerful automation with Lua (e.g. shortcuts or global mute)
+      - "amethyst" # tiling window manager similar to xmonad
     fonts:
       # TODO: Add MonoLisa as my main font
       - "font-jetbrains-mono-nerd-font" # most practical font

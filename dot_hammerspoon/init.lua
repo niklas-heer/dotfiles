@@ -30,6 +30,21 @@ local function escapeQuotes(str)
     return string.gsub(str, '"', '\\"')
 end
 
+local function setWindowFloatingAndResize(window)
+    -- Tell Amethyst to float current window
+    hs.eventtap.keyStroke({ 'ctrl', 'alt', 'shift' }, 'f')
+
+    -- 3. Now resize the window (same as before)
+    local screen = window:screen()
+    local frame = screen:frame()
+    local width = 1400
+    local height = 960
+    local x = frame.x + (frame.w - width) / 2
+    local y = frame.y + (frame.h - height) / 2
+
+    window:setFrame({ x = x, y = y, w = width, h = height })
+end
+
 -- Define your mappings
 local mappings = {
     -- (G)oto an application
@@ -97,6 +112,18 @@ local mappings = {
                 end,
                 target = ""
             }, -- (r)ead text for the current selection
+            p = {
+                handler = function(target)
+                    local focusedWindow = hs.window.focusedWindow()
+                    if focusedWindow then
+                        setWindowFloatingAndResize(focusedWindow)
+                    else
+                        print("No window is currently focused.")
+                    end
+                end,
+                target = ""
+            },                                                -- (p)resent mode to the focused window with Amethyst
+            f = mu.keystroke({ 'ctrl', 'alt', 'shift' }, 'f') -- toggle (f)loating mode for current window with Amethyst
         }
     }
 }
