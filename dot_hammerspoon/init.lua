@@ -60,6 +60,7 @@ local mappings = {
             v = mu.app("ProtonVPN"), -- (v)pn
             s = mu.app("Slack"),     -- (s)lack
             m = mu.app("Spotify"),   -- (m)usic
+            e = mu.app("Emacs"),     -- (e)macs
         }
     },
     -- (R)aycast modal

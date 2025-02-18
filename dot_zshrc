@@ -14,6 +14,9 @@ export PATH="$PATH:$bins"
 path+=("$HOME/bin")
 export PATH
 
+path+=("$HOME/.config/emacs/bin")
+export LIBRARY_PATH=$LIBRARY_PATH:/opt/homebrew/lib/gcc/current
+
 #---- START oh-my-posh
 export POSH_THEME="$HOME/.nheer.omp.yaml"
 export POSH_SHELL='zsh'

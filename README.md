@@ -12,8 +12,9 @@ Install and apply configuration with:
 export GITHUB_USERNAME=niklas-heer
 $HOME/bin/chezmoi init --apply --ssh $GITHUB_USERNAME
 ```
-
-> 🗒️ The scripts are run in alphabetical order.
+<!-- https://github.com/orgs/community/discussions/16925 -->
+> [!NOTE]
+> The scripts are run in alphabetical order.
 
 ## Requirements
 MacOS 15 or higher (Sequoia).
