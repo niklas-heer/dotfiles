@@ -36,6 +36,8 @@
     "ruby": true,
     "tokyo-night": true,
     "lua": true,
-    "docker-compose": true
+    "docker-compose": true,
+    "terraform": true,
+    "elisp": true
   }
 }

@@ -5,7 +5,11 @@
 # -> Looks for ~/Brewfile and installs its contents
 
 tap "oven-sh/bun" # https://github.com/oven-sh/homebrew-bun
-tap "d12frosted/emacs-plus" # https://github.com/d12frosted/homebrew-emacs-plus
+tap "railwaycat/emacsmacport" # https://github.com/railwaycat/homebrew-emacsmacport
+
+# Basics
+brew "git"
+brew "coreutils"
 
 # CLI apps
 brew "nushell" # shell replaces bash/zsh and more
@@ -27,12 +31,11 @@ brew "sd" # better sed to replace stuff
 brew "eza" # better ls to list stuff
 brew "ripgrep" # better grep, also needed for Doom Emacs
 
-# Emacs Plus
-# see: https://github.com/d12frosted/homebrew-emacs-plus?tab=readme-ov-file#gccemacs
-# problems: https://github.com/d12frosted/homebrew-emacs-plus?tab=readme-ov-file#gccemacs
-brew "emacs-plus", args: ["with-native-comp", "with-c9rgreen-sonoma-icon"]
-brew "gcc" # to fix Emacs native-comp
-brew "libgccjit" # to fix Emacs native-comp
+# https://github.com/doomemacs/doomemacs/blob/master/docs/getting_started.org#on-macos
+# needs: fd, ripgrep, git, coreutils
+# also: `xcode-select --install` but that should be installed already
+# alternative: https://github.com/d12frosted/homebrew-emacs-plus
+brew "emacs-mac", args: ["with-modules", "with-native-compilation"]
 
 # Desktop apps
 cask "zed" # editor of choice over vscode
