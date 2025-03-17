@@ -5,7 +5,7 @@
 # -> Looks for ~/Brewfile and installs its contents
 
 tap "oven-sh/bun" # https://github.com/oven-sh/homebrew-bun
-tap "railwaycat/emacsmacport" # https://github.com/railwaycat/homebrew-emacsmacport
+# tap "railwaycat/emacsmacport" # https://github.com/railwaycat/homebrew-emacsmacport
 
 # Basics
 brew "git"
@@ -35,7 +35,7 @@ brew "ripgrep" # better grep, also needed for Doom Emacs
 # needs: fd, ripgrep, git, coreutils
 # also: `xcode-select --install` but that should be installed already
 # alternative: https://github.com/d12frosted/homebrew-emacs-plus
-brew "emacs-mac", args: ["with-modules", "with-native-compilation"]
+# brew "emacs-mac", args: ["with-modules", "with-native-compilation"]
 
 # Desktop apps
 cask "zed" # editor of choice over vscode
