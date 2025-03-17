@@ -50,6 +50,7 @@ cask "amethyst" # tiling window manager similar to xmonad
 cask "spotify" # music streaming app of choice
 cask "protonvpn" # VPN of choice
 cask "nikitabobko/tap/aerospace" # i3-like tiling window manager
+cask "orion" # alternative battery-saving browser
 
 # Fonts
 # TODO: Add MonoLisa as my main font
