@@ -6,6 +6,8 @@ Install [`chezmoi`](https://www.chezmoi.io/) with:
 ```bash
 sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/bin
 ```
+> [!NOTE]
+> You'll find the repo cloned to `~/.local/share/chezmoi`
 
 Install and apply configuration with:
 ```bash
@@ -17,7 +19,8 @@ $HOME/bin/chezmoi init --apply --ssh $GITHUB_USERNAME
 > The scripts are run in alphabetical order.
 
 ## Requirements
-MacOS 15 or higher (Sequoia).
+* MacOS 15 (Sequoia) or higher
+* [1Password and SSH-Agent setup](https://developer.1password.com/docs/ssh/agent/)
 
 ## Used technology
 * [chezmoi](https://www.chezmoi.io/) - keeps the dotfiles in sync and secure
@@ -34,6 +37,8 @@ There are some tasks after the install as they cannot be automated.
 
 ## Tasks
 
+- [ ] Add aerospace configuration
+  - [ ] Add decision log aerospace vs Amethyst
 - [ ] Explore and potentially add atuin - https://github.com/atuinsh/atuin
 - [ ] Add roc-lang setup
 - [ ] write tooling for my decision log
