@@ -51,6 +51,7 @@ cask "spotify" # music streaming app of choice
 cask "protonvpn" # VPN of choice
 cask "nikitabobko/tap/aerospace" # i3-like tiling window manager
 cask "orion" # alternative battery-saving browser
+cask "betterdisplay" # be able to set the right resulotion for every display
 
 # Fonts
 # TODO: Add MonoLisa as my main font
