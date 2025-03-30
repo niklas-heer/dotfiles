@@ -51,6 +51,12 @@ I want to document my decisions for me so I don't forget and potentially for you
 
 <!-- DECISION LOG START -->
 
+### 12 Rejecting Doom Emacs
+* **Status**: ✅ Accepted
+* **Decision**: I will not use Doom Emacs.
+* **Context**: While I appreciate the integrated nature and completeness of Emacs, and the performance of Doom Emacs specifically, I encountered significant difficulties in installing a current, performant version on macOS. This fiddly installation process goes against my core philosophy that tools must be reliable and easy to set up to be truly useful. Furthermore, adopting Doom Emacs would likely lead me to abandon Zed and Ghostty, two tools I currently value. The benefits of Doom Emacs, including the appeal of org-mode, do not outweigh the costs of instability and sacrificing other liked tools.
+* **Consequences**: I will need to find an alternative for org-mode.
+
 ### 11 Adopting Hammerspoon
 * **Status**: ✅ Adopted
 * **Decision**: I will use `Hammerspoon`(https://www.hammerspoon.org/) instead of skhd, Keyboard Maestro or Karabiner-Elements.
