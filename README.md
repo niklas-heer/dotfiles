@@ -33,7 +33,6 @@ There are some tasks after the install as they cannot be automated.
 - Install SetApp apps: CleanShot X
 - Download Premium voices on macOS: "Anna (Premium)", "Jamie (Premium)"
   - https://support.apple.com/guide/mac-help/change-the-voice-your-mac-uses-to-speak-text-mchlp2290/mac
-- [Install Doom Emacs](https://github.com/doomemacs/doomemacs?tab=readme-ov-file#install)
 
 ## Tasks
 
