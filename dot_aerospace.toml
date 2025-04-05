@@ -140,7 +140,7 @@ alt-o = 'workspace O'
 alt-p = 'workspace P'
 alt-q = 'workspace Q'
 alt-r = 'workspace R'
-alt-s = 'workspace S'
+# no S workspace to avoid conflict with: ß
 alt-t = 'workspace T'
 # no U workspace to avoid conflict with: üöä
 alt-v = 'workspace V'
@@ -159,7 +159,7 @@ alt-shift-6 = 'move-node-to-workspace 6'
 alt-shift-7 = 'move-node-to-workspace 7'
 alt-shift-8 = 'move-node-to-workspace 8'
 alt-shift-9 = 'move-node-to-workspace 9'
-# no a to use raycast AI chat for that
+# no A to use raycast AI chat for that
 alt-shift-b = 'move-node-to-workspace B'
 alt-shift-c = 'move-node-to-workspace C'
 alt-shift-d = 'move-node-to-workspace D'
@@ -173,7 +173,7 @@ alt-shift-o = 'move-node-to-workspace O'
 alt-shift-p = 'move-node-to-workspace P'
 alt-shift-q = 'move-node-to-workspace Q'
 alt-shift-r = 'move-node-to-workspace R'
-alt-shift-s = 'move-node-to-workspace S'
+# no S workspace to avoid conflict with: ß
 alt-shift-t = 'move-node-to-workspace T'
 # no U workspace to avoid conflict with: üöä
 alt-shift-v = 'move-node-to-workspace V'
