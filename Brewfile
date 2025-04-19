@@ -53,6 +53,7 @@ cask "nikitabobko/tap/aerospace" # i3-like tiling window manager
 cask "orion" # alternative battery-saving browser
 cask "betterdisplay" # be able to set the right resulotion for every display
 cask "rocket" # slack like emojis everywhere
+cask "mouseless" # vim-like and keyboard focused navigation
 
 # Fonts
 # TODO: Add MonoLisa as my main font
