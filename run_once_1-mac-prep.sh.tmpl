@@ -26,7 +26,8 @@ defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 
 # Fixes for aerospace
 # https://nikitabobko.github.io/AeroSpace/guide#a-note-on-displays-have-separate-spaces
-defaults write com.apple.spaces spans-displays -bool true && killall SystemUIServer
+# -> This should be disabled, I want separate spaces!
+defaults write com.apple.spaces spans-displays -bool false && killall SystemUIServer
 # https://nikitabobko.github.io/AeroSpace/guide#a-note-on-mission-control
 defaults write com.apple.dock expose-group-apps -bool true && killall Dock
 
