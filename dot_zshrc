@@ -250,3 +250,6 @@ function enable_poshtooltips() {
 function enable_poshtransientprompt() {}
 
 #---- END oh-my-posh
+
+# Created by `pipx`
+export PATH="$PATH:/Users/nheer/.local/bin"
