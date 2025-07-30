@@ -6,6 +6,8 @@ Install [`chezmoi`](https://www.chezmoi.io/) with:
 ```bash
 sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/bin
 ```
+> [!NOTE]
+> You'll find the repo cloned to `~/.local/share/chezmoi`
 
 Install and apply configuration with:
 ```bash
@@ -17,7 +19,8 @@ $HOME/bin/chezmoi init --apply --ssh $GITHUB_USERNAME
 > The scripts are run in alphabetical order.
 
 ## Requirements
-MacOS 15 or higher (Sequoia).
+* MacOS 15 (Sequoia) or higher
+* [1Password and SSH-Agent setup](https://developer.1password.com/docs/ssh/agent/)
 
 ## Used technology
 * [chezmoi](https://www.chezmoi.io/) - keeps the dotfiles in sync and secure
@@ -30,10 +33,11 @@ There are some tasks after the install as they cannot be automated.
 - Install SetApp apps: CleanShot X
 - Download Premium voices on macOS: "Anna (Premium)", "Jamie (Premium)"
   - https://support.apple.com/guide/mac-help/change-the-voice-your-mac-uses-to-speak-text-mchlp2290/mac
-- [Install Doom Emacs](https://github.com/doomemacs/doomemacs?tab=readme-ov-file#install)
 
 ## Tasks
 
+- [ ] Add aerospace configuration
+  - [ ] Add decision log aerospace vs Amethyst
 - [ ] Explore and potentially add atuin - https://github.com/atuinsh/atuin
 - [ ] Add roc-lang setup
 - [ ] write tooling for my decision log
@@ -45,6 +49,12 @@ There are some tasks after the install as they cannot be automated.
 I want to document my decisions for me so I don't forget and potentially for you so you understand why I use one tool or another or why I remove stuff from time to time.
 
 <!-- DECISION LOG START -->
+
+### 12 Rejecting Doom Emacs
+* **Status**: ✅ Accepted
+* **Decision**: I will not use Doom Emacs.
+* **Context**: While I appreciate the integrated nature and completeness of Emacs, and the performance of Doom Emacs specifically, I encountered significant difficulties in installing a current, performant version on macOS. This fiddly installation process goes against my core philosophy that tools must be reliable and easy to set up to be truly useful. Furthermore, adopting Doom Emacs would likely lead me to abandon Zed and Ghostty, two tools I currently value. The benefits of Doom Emacs, including the appeal of org-mode, do not outweigh the costs of instability and sacrificing other liked tools.
+* **Consequences**: I will need to find an alternative for org-mode.
 
 ### 11 Adopting Hammerspoon
 * **Status**: ✅ Adopted

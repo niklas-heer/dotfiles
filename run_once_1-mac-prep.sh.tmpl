@@ -14,8 +14,31 @@ fi
 # Setting up ghq directiories
 mkdir -p $HOME/Projects/{test,github.com}
 
+# Fix carapace dir problem
+mkdir -p $HOME/.cache/carapace
+
 # Fix scrolling to be classic
-defaults write -g com.apple.swipescrolldirection -bool NO
+defaults write com.apple.swipescrolldirection -bool NO
+
+# Speed up animations
+defaults write com.apple.Accessibility ReduceMotionEnabled -int 1
+defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+
+# Fixes for aerospace
+# https://nikitabobko.github.io/AeroSpace/guide#a-note-on-displays-have-separate-spaces
+# -> This should be disabled, I want separate spaces!
+defaults write com.apple.spaces spans-displays -bool false && killall SystemUIServer
+# https://nikitabobko.github.io/AeroSpace/guide#a-note-on-mission-control
+defaults write com.apple.dock expose-group-apps -bool true && killall Dock
+
+# Setup Dock: speed up animations, move to right position, resize, autohide
+# https://macos-defaults.com/dock/
+defaults write com.apple.dock "autohide" -bool "true"
+defaults write com.apple.dock "autohide-time-modifier" -float "0"
+defaults write com.apple.dock "autohide-delay" -float "0"
+defaults write com.apple.dock "orientation" -string "left"
+defaults write com.apple.dock "tilesize" -int "42"
+killall Dock
 
 {{ else }}
 echo "Unsupported operating system."

@@ -20,13 +20,6 @@ $env.INFOPATH = "/opt/homebrew/share/info"
 mkdir -v ~/.bun/bin
 path add ($env.HOME | path join ".bun/bin") # global bun binaries
 
-# Doom Emacs
-path add ($env.HOME | path join ".config/emacs/bin")
-
-# Add Python binaries. This is mainly for pyinfra.
-let py_dirs = ls ~/Library/Python/*/bin | get name
-path add $py_dirs
-
 # https://carapace-sh.github.io/carapace-bin/setup.html#nushell
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
 mkdir -v ~/.cache/carapace

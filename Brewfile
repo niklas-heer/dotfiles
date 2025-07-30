@@ -5,7 +5,7 @@
 # -> Looks for ~/Brewfile and installs its contents
 
 tap "oven-sh/bun" # https://github.com/oven-sh/homebrew-bun
-tap "railwaycat/emacsmacport" # https://github.com/railwaycat/homebrew-emacsmacport
+# tap "railwaycat/emacsmacport" # https://github.com/railwaycat/homebrew-emacsmacport
 
 # Basics
 brew "git"
@@ -30,23 +30,30 @@ brew "fd" # better find
 brew "sd" # better sed to replace stuff
 brew "eza" # better ls to list stuff
 brew "ripgrep" # better grep, also needed for Doom Emacs
+brew "1password-cli" # to use password manager in cli
 
 # https://github.com/doomemacs/doomemacs/blob/master/docs/getting_started.org#on-macos
 # needs: fd, ripgrep, git, coreutils
 # also: `xcode-select --install` but that should be installed already
 # alternative: https://github.com/d12frosted/homebrew-emacs-plus
-brew "emacs-mac", args: ["with-modules", "with-native-compilation"]
+# brew "emacs-mac", args: ["with-modules", "with-native-compilation"]
 
 # Desktop apps
 cask "zed" # editor of choice over vscode
 cask "arc" # browser
 cask "ghostty" # terminal
 cask "1password" # password manager
-cask "1password-cli" # to use password manager in cli
 cask "raycast" # productivity replaces Alfred and Spotlight, config synced via cloud
 cask "setapp" # subscription service for some paid apps
 cask "hammerspoon" # powerful automation with Lua (e.g. shortcuts or global mute)
 cask "amethyst" # tiling window manager similar to xmonad
+cask "spotify" # music streaming app of choice
+cask "protonvpn" # VPN of choice
+cask "nikitabobko/tap/aerospace" # i3-like tiling window manager
+cask "orion" # alternative battery-saving browser
+cask "betterdisplay" # be able to set the right resulotion for every display
+cask "rocket" # slack like emojis everywhere
+cask "mouseless" # vim-like and keyboard focused navigation
 
 # Fonts
 # TODO: Add MonoLisa as my main font

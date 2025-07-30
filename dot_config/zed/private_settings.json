@@ -45,6 +45,6 @@
     "lua": true,
     "docker-compose": true,
     "terraform": true,
-    "elisp": true
+    "toml": true
   }
 }
