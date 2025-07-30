@@ -8,7 +8,7 @@ set -Eeuo pipefail
 #
 # We need to run after the file is present so the `after_` in the name is important.
 # see: https://www.chezmoi.io/user-guide/use-scripts-to-perform-actions/
-brew bundle --no-lock --force --file=~/Brewfile
+brew bundle --force --file=~/Brewfile
 
 # Post installation tasks
 # Emacs
