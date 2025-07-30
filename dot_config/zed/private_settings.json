@@ -7,6 +7,9 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "agent": {
+    "always_allow_tool_actions": true
+  },
   "theme": "Tokyo Night",
   "soft_wrap": "editor_width",
   "buffer_font_size": 16,
@@ -22,6 +25,10 @@
   },
   "experimental.theme_overrides": {
     "terminal.background": "#1E1F29"
+  },
+  "file_types": {
+    "JavaScript": ["jxa", "js", "jsx", "mjs", "cjs"],
+    "TypeScript": ["ts", "tsx"]
   },
   // https://zed.dev/docs/configuring-zed#auto-install-extensions
   // for the names: ls `~/Library/Application Support/Zed/extensions/installed/` (nushell)
