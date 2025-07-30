@@ -51,32 +51,33 @@ local mappings = {
     {
         mods = hyper,
         key = "g",
+        name = "Go to Application",
         actions = {
-            t = mu.app("Ghostty"),   -- (t)erminal
-            b = mu.app("Arc"),       -- (b)rowser
-            c = mu.app("Zed"),       -- (c)ode editor
-            f = mu.app("Finder"),    -- (f)iles
-            d = mu.app("Discord"),   -- (d)iscord
-            v = mu.app("ProtonVPN"), -- (v)pn
-            s = mu.app("Slack"),     -- (s)lack
-            m = mu.app("Spotify"),   -- (m)usic
-            e = mu.app("Emacs"),     -- (e)macs
+            t = mu.app("Ghostty", "💻 Terminal"),
+            b = mu.app("Arc", "🌐 Browser"),
+            c = mu.app("Zed", "⚡ Code editor"),
+            f = mu.app("Finder", "📁 Files"),
+            d = mu.app("Discord", "💬 Discord"),
+            v = mu.app("ProtonVPN", "🔒 VPN"),
+            s = mu.app("Slack", "💼 Slack"),
+            m = mu.app("Spotify", "🎵 Music")
         }
     },
     -- (R)aycast modal
     {
         mods = hyper,
         key = "r",
+        name = "Raycast Commands",
         actions = {
-            t = mu.url("raycast://confetti"),                                                           -- (t)ada 🎉
-            e = mu.url("raycast://extensions/raycast/emoji-symbols/search-emoji-symbols"),              -- (e)moji
-            g = mu.url("raycast://extensions/ricoberger/gitmoji/gitmoji"),                              -- (g)itmoji
-            a = mu.url("raycast://extensions/raycast/raycast-ai/ai-chat"),                              -- (a)i
-            c = mu.url("raycast://extensions/raycast/clipboard-history/clipboard-history"),             -- (c)lipboard-history
-            s = mu.url("raycast://extensions/raycast/system/sleep"),                                    -- (s)leep mode
-            r = mu.url("raycast://extensions/moored/git-repos/list"),                                   -- (r)epos
-            f = mu.url("raycast://extensions/raycast/raycast-focus/start-focus-session?Goal=Pomodoro"), -- (f)ocus session
-            q = mu.url("raycast://extensions/rolandleth/kill-process/index")                            -- (q)uit an application
+            t = mu.url("raycast://confetti", "🎉 Tada"),
+            e = mu.url("raycast://extensions/raycast/emoji-symbols/search-emoji-symbols", "😀 Emoji"),
+            g = mu.url("raycast://extensions/ricoberger/gitmoji/gitmoji", "🎨 Gitmoji"),
+            a = mu.url("raycast://extensions/raycast/raycast-ai/ai-chat", "🤖 AI Chat"),
+            c = mu.url("raycast://extensions/raycast/clipboard-history/clipboard-history", "📋 Clipboard history"),
+            s = mu.url("raycast://extensions/raycast/system/sleep", "😴 Sleep mode"),
+            r = mu.url("raycast://extensions/moored/git-repos/list", "📚 Repos"),
+            f = mu.url("raycast://extensions/raycast/raycast-focus/start-focus-session?Goal=Pomodoro", "🍅 Focus session"),
+            q = mu.url("raycast://extensions/rolandleth/kill-process/index", "❌ Quit an application")
         }
     },
     -- Clean(S)hot
@@ -84,11 +85,12 @@ local mappings = {
     {
         mods = hyper,
         key = "s",
+        name = "CleanShot Capture",
         actions = {
-            a = mu.url("cleanshot://all-in-one"),     -- (a)ll-in-one mode
-            c = mu.url("cleanshot://capture-area"),   -- (c)apture area mode
-            w = mu.url("cleanshot://capture-window"), -- capture (w)indow mode
-            t = mu.url("cleanshot://capture-text"),   -- (t)ext recognition mode
+            a = mu.url("cleanshot://all-in-one", "📸 All-in-one mode"),
+            c = mu.url("cleanshot://capture-area", "✂️ Capture area mode"),
+            w = mu.url("cleanshot://capture-window", "🪟 Capture window mode"),
+            t = mu.url("cleanshot://capture-text", "🔍 Text recognition mode"),
         }
     },
     -- (T)odoist
@@ -96,23 +98,27 @@ local mappings = {
     {
         mods = hyper,
         key = "t",
+        name = "Todoist Tasks",
         actions = {
-            a = mu.url("todoist://openquickadd"), -- (a)dd task
-            t = mu.url("todoist://today"),        -- (t)oday view
+            a = mu.url("todoist://openquickadd", "➕ Add task"),
+            t = mu.url("todoist://today", "📅 Today view"),
         }
     },
     -- (F)unctions
     {
         mods = hyper,
         key = "f",
+        name = "Custom Functions",
         actions = {
             r = {
                 handler = function(target)
                     local text = escapeQuotes(current_selection())
-                    hs.execute(('~/.hammerspoon/scripts/tts.jxa "%s"'):format(text))
+                    hs.task.new('/bin/bash', nil, function() end, {
+                        '-c', ('~/.hammerspoon/scripts/tts.jxa "%s"'):format(text)
+                    }):start()
                 end,
-                target = ""
-            }, -- (r)ead text for the current selection
+                description = "🔊 Read selected text aloud"
+            },
             p = {
                 handler = function(target)
                     local focusedWindow = hs.window.focusedWindow()
@@ -122,14 +128,14 @@ local mappings = {
                         print("No window is currently focused.")
                     end
                 end,
-                target = ""
-            },                                                -- (p)resent mode to the focused window with Amethyst
-            f = mu.keystroke({ 'ctrl', 'alt', 'shift' }, 'f') -- toggle (f)loating mode for current window with Amethyst
+                description = "🎯 Present mode (float & resize)"
+            },
+            f = mu.keystroke({ 'ctrl', 'alt', 'shift' }, 'f', "🪟 Toggle floating mode")
         }
     }
 }
 
 -- Create all modals
 for _, config in ipairs(mappings) do
-    mu.createModal(config.mods, config.key, config.actions)
+    mu.createModal(config.mods, config.key, config.actions, config.name)
 end
