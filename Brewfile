@@ -28,7 +28,8 @@ brew "colima" # running Docker on MacOS
 brew "fd" # better find
 brew "sd" # better sed to replace stuff
 brew "eza" # better ls to list stuff
-brew "ripgrep" # better grep, also needed for Doom Emacs
+brew "ripgrep" # better grep -> `rg`
+brew "zoxide" # smarter `cd` command
 
 # Desktop apps
 cask "zed" # editor of choice over vscode

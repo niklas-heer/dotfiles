@@ -253,3 +253,7 @@ function enable_poshtransientprompt() {}
 
 # Created by `pipx`
 export PATH="$PATH:/Users/nheer/.local/bin"
+
+# zoxide https://github.com/ajeetdsouza/zoxide
+eval "$(zoxide init zsh)"
+

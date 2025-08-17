@@ -24,3 +24,4 @@ path add ($env.HOME | path join ".bun/bin") # global bun binaries
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
 mkdir -v ~/.cache/carapace
 carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+zoxide init nushell | save -f ~/.zoxide.nu

@@ -28,3 +28,6 @@ def --env repo [] {
 
 # https://ohmyposh.dev/docs/installation/prompt
 source ~/.oh-my-posh.nu
+
+# https://github.com/ajeetdsouza/zoxide
+source ~/.zoxide.nu
