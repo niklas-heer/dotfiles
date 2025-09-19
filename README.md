@@ -36,8 +36,6 @@ There are some tasks after the install as they cannot be automated.
 
 ## Tasks
 
-- [ ] Add aerospace configuration
-  - [ ] Add decision log aerospace vs Amethyst
 - [ ] Explore and potentially add atuin - https://github.com/atuinsh/atuin
 - [ ] Add roc-lang setup
 - [ ] write tooling for my decision log
@@ -49,6 +47,12 @@ There are some tasks after the install as they cannot be automated.
 I want to document my decisions for me so I don't forget and potentially for you so you understand why I use one tool or another or why I remove stuff from time to time.
 
 <!-- DECISION LOG START -->
+
+### 13 Sticking with Amethyst
+* **Status**: ✅ Adopted
+* **Decision**: I will stick with `Amethyst` instead of trying out `aerospace`.
+* **Context**: I prefer automatic tiling window managers over manual ones. While `aerospace` is a great manual tiling window manager, I find that `Amethyst's` automatic tiling fits my workflow better. I don't have to think about managing my windows, they just tile automatically.
+* **Consequences**: I will not explore `aerospace` further for now and stick with my `Amethyst` setup.
 
 ### 12 Rejecting Doom Emacs
 * **Status**: ✅ Accepted
