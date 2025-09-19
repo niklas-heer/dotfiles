@@ -8,6 +8,10 @@
 // from the command palette or from `Zed` application menu.
 {
   "agent": {
+    "default_model": {
+      "provider": "openrouter",
+      "model": "openai/gpt-5"
+    },
     "always_allow_tool_actions": true
   },
   "theme": "Tokyo Night",
