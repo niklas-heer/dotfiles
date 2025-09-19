@@ -6,6 +6,9 @@
 #
 # We need to run after the file is present so the `after_` in the name is important.
 # see: https://www.chezmoi.io/user-guide/use-scripts-to-perform-actions/
+#
+# https://www.chezmoi.io/user-guide/use-scripts-to-perform-actions/#run-a-script-when-the-contents-of-another-file-changes
+# Brewfile hash: {{ include "Brewfile" | sha256sum }}
 brew bundle --force --file=~/Brewfile
 {{ else }}
 echo "Unsupported operating system."
