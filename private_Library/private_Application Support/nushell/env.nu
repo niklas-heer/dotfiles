@@ -25,3 +25,6 @@ $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
 mkdir -v ~/.cache/carapace
 carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
 zoxide init nushell | save -f ~/.zoxide.nu
+
+# add path for container tool: https://github.com/apple/container
+path add /usr/local/bin/
