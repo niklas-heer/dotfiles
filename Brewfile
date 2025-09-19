@@ -31,6 +31,7 @@ brew "eza" # better ls to list stuff
 brew "ripgrep" # better grep -> `rg`
 brew "zoxide" # smarter `cd` command
 brew "opencode" # AI coding agent for the terminal
+brew "uv" # extremely fast Python package installer
 
 # Desktop apps
 cask "zed" # editor of choice over vscode
@@ -48,6 +49,9 @@ cask "orion" # alternative battery-saving browser
 cask "betterdisplay" # be able to set the right resulotion for every display
 cask "rocket" # slack like emojis everywhere
 cask "mouseless" # vim-like and keyboard focused navigation
+
+# https://github.com/apple/container
+cask "container" # apple native tool run Linux containers as lightweight virtual machines
 
 # Fonts
 # TODO: Add MonoLisa as my main font
