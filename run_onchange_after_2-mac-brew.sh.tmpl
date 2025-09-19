@@ -1,17 +1,13 @@
 #!/usr/bin/env bash
-set -Eeuo pipefail
 
 {{ if eq .chezmoi.os "darwin" }}
-
 # Install packages via homebrew.
 # see: https://www.chezmoi.io/user-guide/advanced/install-packages-declaratively/
 #
 # We need to run after the file is present so the `after_` in the name is important.
 # see: https://www.chezmoi.io/user-guide/use-scripts-to-perform-actions/
 brew bundle --force --file=~/Brewfile
-
 {{ else }}
 echo "Unsupported operating system."
 exit 1
-
 {{ end }}
