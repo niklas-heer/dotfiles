@@ -26,8 +26,8 @@ def --env repo [] {
     | cd $in
 }
 
-# https://ohmyposh.dev/docs/installation/prompt
-source ~/.oh-my-posh.nu
+# https://ohmyposh.dev/docs/installation/customize#set-the-configuration
+oh-my-posh init nu --config ~/.nheer.omp.yaml
 
 # https://github.com/ajeetdsouza/zoxide
 source ~/.zoxide.nu
