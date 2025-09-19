@@ -30,6 +30,7 @@ brew "sd" # better sed to replace stuff
 brew "eza" # better ls to list stuff
 brew "ripgrep" # better grep -> `rg`
 brew "zoxide" # smarter `cd` command
+brew "opencode" # AI coding agent for the terminal
 
 # Desktop apps
 cask "zed" # editor of choice over vscode
