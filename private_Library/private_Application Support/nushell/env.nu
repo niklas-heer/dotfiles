@@ -28,3 +28,8 @@ zoxide init nushell | save -f ~/.zoxide.nu
 
 # add path for container tool: https://github.com/apple/container
 path add /usr/local/bin/
+
+# Go setup
+$env.GOPATH = ($env.HOME | path join "go")
+$env.GOBIN = ($env.GOPATH | path join "bin")
+path add $env.GOBIN
