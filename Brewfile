@@ -50,9 +50,9 @@ cask "orion" # alternative battery-saving browser
 cask "betterdisplay" # be able to set the right resulotion for every display
 cask "rocket" # slack like emojis everywhere
 cask "mouseless" # vim-like and keyboard focused navigation
-
 # https://github.com/apple/container
 cask "container" # apple native tool run Linux containers as lightweight virtual machines
+cask "claude-code" # Claude Code AI CLI app
 
 # Fonts
 # TODO: Add MonoLisa as my main font
