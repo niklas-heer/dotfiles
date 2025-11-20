@@ -1,5 +1,5 @@
 # [theme]
-# name = "tokyo-night"
+name = "tokyo-night"
 
 # height of the search window
 inline_height = 40
