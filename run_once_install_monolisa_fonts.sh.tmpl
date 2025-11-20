@@ -1,0 +1,27 @@
+#!/bin/sh
+set -e
+
+FONT_DIR="$HOME/Library/Fonts"
+mkdir -p "$FONT_DIR"
+
+echo "Checking MonoLisa fonts..."
+
+# MonoLisa Regular
+if [ ! -f "$FONT_DIR/MonoLisa-Regular.ttf" ]; then
+    echo "Installing MonoLisa Regular..."
+    op document get 4bqielvc4ikkjr5pcf6hcj2v3m \
+        --out-file "$FONT_DIR/MonoLisa-Regular.ttf"
+else
+    echo "MonoLisa Regular already installed — skipping."
+fi
+
+# MonoLisa Italic
+if [ ! -f "$FONT_DIR/MonoLisa-Italic.ttf" ]; then
+    echo "Installing MonoLisa Italic..."
+    op document get iujo3bnvj3ccttlbzoluzpczgi \
+        --out-file "$FONT_DIR/MonoLisa-Italic.ttf"
+else
+    echo "MonoLisa Italic already installed — skipping."
+fi
+
+echo "Done installing MonoLisa fonts."
