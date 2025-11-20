@@ -33,6 +33,7 @@ brew "zoxide" # smarter `cd` command
 brew "opencode" # AI coding agent for the terminal
 brew "uv" # extremely fast Python package installer
 brew "flyctl" # CLI tool for fly.io
+brew "atuin" # better shell history
 
 # Desktop apps
 cask "zed" # editor of choice over vscode

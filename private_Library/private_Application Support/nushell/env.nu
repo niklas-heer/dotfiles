@@ -33,3 +33,12 @@ path add /usr/local/bin/
 $env.GOPATH = ($env.HOME | path join "go")
 $env.GOBIN = ($env.GOPATH | path join "bin")
 path add $env.GOBIN
+
+# https://docs.atuin.sh/guide/installation/
+let atuin_dir  = ($nu.home-path | path join ".local/share/atuin")
+let atuin_file = ($atuin_dir | path join "init.nu")
+
+if not ($atuin_file | path exists) {
+    mkdir $atuin_dir
+    atuin init nu | save $atuin_file
+}

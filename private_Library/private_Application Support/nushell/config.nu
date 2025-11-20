@@ -31,3 +31,6 @@ oh-my-posh init nu --config ~/.nheer.omp.yaml
 
 # https://github.com/ajeetdsouza/zoxide
 source ~/.zoxide.nu
+
+# https://docs.atuin.sh/guide/installation/
+source ~/.local/share/atuin/init.nu
