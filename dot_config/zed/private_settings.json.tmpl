@@ -81,7 +81,13 @@
   "theme": "Tokyo Night",
   "soft_wrap": "editor_width",
   "buffer_font_size": 16,
-  "buffer_font_family": "JetBrainsMono Nerd Font",
+  "buffer_font_family": "MonoLisa Variable",
+  "buffer_font_features": {
+    "ss01": true,
+    "ss02": true,
+    "zero": true,
+    "calt": true
+  },
   "buffer_line_height": "comfortable",
   "telemetry": { "diagnostics": true, "metrics": false },
   "terminal": {
@@ -92,7 +98,16 @@
     "blinking": "off"
   },
   "experimental.theme_overrides": {
-    "terminal.background": "#1E1F29"
+    "terminal.background": "#1E1F29",
+    "syntax": {
+      "function": {
+        "font_style": "italic"
+      },
+      "comment": {
+        "font_style": "italic",
+        "font_weight": 600
+      }
+    }
   },
   "file_types": {
     "JavaScript": ["jxa", "js", "jsx", "mjs", "cjs"],
