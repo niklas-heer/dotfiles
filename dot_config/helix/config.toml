@@ -1,0 +1,4 @@
+theme = "tokyonight"
+
+[editor]
+line-number = "relative"
