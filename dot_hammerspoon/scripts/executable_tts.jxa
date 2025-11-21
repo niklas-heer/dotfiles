@@ -10,7 +10,7 @@ function guessLanguage(input) {
 
 function speak(text) {
   const lang = guessLanguage(text);
-  const speakingRate = 230;
+  const speakingRate = 250;
 
 	app = Application.currentApplication();
   app.includeStandardAdditions = true;
