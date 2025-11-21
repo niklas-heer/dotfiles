@@ -36,10 +36,7 @@ There are some tasks after the install as they cannot be automated.
 
 ## Tasks
 
-- [ ] Explore and potentially add atuin - https://github.com/atuinsh/atuin
 - [ ] Add roc-lang setup
-- [ ] write tooling for my decision log
-- [ ] add MonoLisa font encrypted and install
 - [ ] write a simple todo manager with nu
 - [ ] [docker setup with colima](https://medium.com/@guillem.riera/the-most-performant-docker-setup-on-macos-apple-silicon-m1-m2-m3-for-x64-amd64-compatibility-da5100e2557d)
 

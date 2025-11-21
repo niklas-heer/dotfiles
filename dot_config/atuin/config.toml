@@ -1,0 +1,6 @@
+# [theme]
+name = "tokyo-night"
+
+# height of the search window
+inline_height = 40
+style = "compact"
