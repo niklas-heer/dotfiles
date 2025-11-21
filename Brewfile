@@ -34,6 +34,7 @@ brew "opencode" # AI coding agent for the terminal
 brew "uv" # extremely fast Python package installer
 brew "flyctl" # CLI tool for fly.io
 brew "atuin" # better shell history
+brew "marksman" # markdown lsp
 
 # Desktop apps
 cask "zed" # editor of choice over vscode
