@@ -7,3 +7,35 @@ line-number = "relative"
 insert = "bar"
 normal = "block"
 select = "underline"
+
+[keys.normal.space]
+
+"t" = [
+  # Extend the selection to include the whole line (or lines),
+  # without selecting an extra line when a single line is selected
+  "extend_to_line_start",
+  "flip_selections",
+  "extend_to_line_end",
+  "extend_line",
+  # Run the selection through awk
+  # - Toggle '- [ ]' to '- [x]' and vice-versa
+  # - If the line starts with a '-' bullet, then add an empty checkbox
+  # - If the line isn't a bullet point, then add '- [ ] '
+  """:pipe awk '{
+    if ($0 ~ /^- \\[ \\]/) {
+      sub(/^- \\[ \\]/, \"- [x]\"); print;
+    } else if ($0 ~ /^- \\[x\\]/) {
+      sub(/^- \\[x\\]/, \"- [ ]\"); print;
+    } else if ($0 ~ /^- /) {
+      sub(/^- /, \"- [ ] \"); print;
+    } else {
+      print \"- [ ] \" $0;
+    }
+  }'
+  """,
+  # Move the cursor to the start of the line and collapse the selection
+  # (this is the only way I've found to have consistent behaviour between
+  # single and multi-line toggling).
+  "goto_first_nonwhitespace",
+  "collapse_selection"
+]
