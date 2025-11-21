@@ -33,3 +33,6 @@ path add /usr/local/bin/
 $env.GOPATH = ($env.HOME | path join "go")
 $env.GOBIN = ($env.GOPATH | path join "bin")
 path add $env.GOBIN
+
+# uv installed tools
+path add ($env.HOME | path join ".local/bin")
