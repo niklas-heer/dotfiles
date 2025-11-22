@@ -34,12 +34,6 @@ There are some tasks after the install as they cannot be automated.
 - Download Premium voices on macOS: "Anna (Premium)", "Jamie (Premium)"
   - https://support.apple.com/guide/mac-help/change-the-voice-your-mac-uses-to-speak-text-mchlp2290/mac
 
-## Tasks
-
-- [ ] Add roc-lang setup
-- [ ] write a simple todo manager with nu
-- [ ] [docker setup with colima](https://medium.com/@guillem.riera/the-most-performant-docker-setup-on-macos-apple-silicon-m1-m2-m3-for-x64-amd64-compatibility-da5100e2557d)
-
 ## Project decision log
 I want to document my decisions for me so I don't forget and potentially for you so you understand why I use one tool or another or why I remove stuff from time to time.
 
