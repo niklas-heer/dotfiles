@@ -5,6 +5,7 @@
 # -> Looks for ~/Brewfile and installs its contents
 
 tap "oven-sh/bun" # https://github.com/oven-sh/homebrew-bun
+tap "niklas-heer/tap" # https://github.com/niklas-heer/homebrew-tap
 
 # Basics
 brew "git"
@@ -35,6 +36,7 @@ brew "uv" # extremely fast Python package installer
 brew "flyctl" # CLI tool for fly.io
 brew "atuin" # better shell history
 brew "marksman" # markdown lsp
+brew "tdx" # better todos for git (my own package)
 
 # Desktop apps
 cask "zed" # editor of choice over vscode

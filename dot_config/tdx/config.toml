@@ -1,0 +1,5 @@
+[theme]
+name = "tokyo-night"
+
+[display]
+max_visible = 10  # 0 = unlimited
