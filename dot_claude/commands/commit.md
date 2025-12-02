@@ -18,23 +18,12 @@ Analyze all changes and create well-organized commits, grouping related changes 
 
 **Validation Rules**
 
-Before committing any group, run validation based on the file types in that group:
+Before committing, run validation based on the file types present. Only run checks for tools that exist in the project:
 
-**Go files (*.go)** - must match CI exactly:
-1. Run `gofmt -l .` to check formatting, fix with `gofmt -w .` if needed
-2. Run `go vet ./...` to catch common mistakes
-3. Run `golangci-lint run --timeout=5m` for linting
-4. Run `go test -v -race ./...` to ensure tests pass
-5. If any issues found:
-   - Fix formatting and lint issues automatically
-   - Fix test failures
-   - Re-stage the fixed files
-   - Re-run validation to confirm fixes work
-
-**Other languages** (extend as needed):
-- **TypeScript/JavaScript**: Run `npm test`, `npm run lint` if package.json exists
-- **Python**: Run `pytest`, `ruff` or `flake8` if available
-- **Rust**: Run `cargo test`, `cargo clippy`
+- **Go**: `go fmt`, `go vet`, `go test`
+- **TypeScript/JavaScript**: `npm test`, `npm run lint` (if package.json exists)
+- **Python**: `pytest`, `ruff` or `flake8` (if configured)
+- **Rust**: `cargo test`, `cargo clippy`
 
 **Validation Failure Handling**:
 - Formatting issues: Fix automatically and re-stage
@@ -48,18 +37,18 @@ Group changes that belong together semantically:
 
 - **Feature + Tests**: Implementation files with their corresponding test files
 - **Refactor**: Related refactoring changes across multiple files
-- **Config changes**: Build configs, CI files, dependencies (go.mod, package.json, etc.)
+- **Config changes**: Build configs, CI files, dependencies
 - **Documentation**: README, docs/, comments-only changes
 - **Bug fix**: The fix and any related test additions
 - **Single responsibility**: Each commit should do ONE thing
 
 **Examples of Good Grouping**
 
-- `feat(parser): add support for nested lists` → parser.go + parser_test.go
-- `chore: update dependencies` → go.mod + go.sum
-- `docs: add examples to README` → README.md
-- `fix(ui): resolve cursor positioning bug` → ui.go + ui_test.go
-- `refactor: extract validation logic` → multiple files touched by the refactor
+- `feat(parser): add support for nested lists` - parser files + tests
+- `chore: update dependencies` - dependency files only
+- `docs: add examples to README` - documentation only
+- `fix(ui): resolve cursor positioning bug` - fix + related tests
+- `refactor: extract validation logic` - related refactoring across files
 
 **Examples of Bad Grouping**
 
@@ -85,4 +74,5 @@ Group changes that belong together semantically:
 - `ci`: CI/CD changes
 - `perf`: Performance improvements
 
+Include scope in parentheses when applicable: `feat(auth): add login flow`
 Include breaking change footer (`BREAKING CHANGE:`) if applicable.
