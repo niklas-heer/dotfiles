@@ -13,25 +13,6 @@
       "args": ["acp"]
     }
   },
-  "context_servers": {
-    "core-memory": {
-      "source": "custom",
-      "enabled": true,
-      "command": "npx",
-      "args": [
-        "-y",
-        "mcp-remote",
-        "https://core.heysol.ai/api/v1/mcp?source=Zed"
-      ]
-    },
-    "mcp-server-context7": {
-      "source": "extension",
-      "enabled": true,
-      "settings": {
-        "context7_api_key": "{{ (onepasswordDetailsFields `zed_context7_api_key`).password.value }}"
-      }
-    }
-  },
   "agent": {
     "default_profile": "nheer",
     "profiles": {
@@ -80,7 +61,7 @@
     },
     "default_model": {
       "provider": "openrouter",
-      "model": "anthropic/claude-sonnet-4.5"
+      "model": "anthropic/claude-opus-4.5"
     },
     "always_allow_tool_actions": true
   },
@@ -117,7 +98,11 @@
   },
   "file_types": {
     "JavaScript": ["jxa", "js", "jsx", "mjs", "cjs"],
-    "TypeScript": ["ts", "tsx"]
+    "TypeScript": ["ts", "tsx"],
+    "JSON": ["*.json.tmpl"],
+    "JSONC": ["*_settings.json.tmpl"],
+    "Shell Script": ["*.sh.tmpl"],
+    "TOML": ["*.toml.tmpl"]
   },
   // https://zed.dev/docs/configuring-zed#auto-install-extensions
   // for the names: ls `~/Library/Application Support/Zed/extensions/installed/` (nushell)
@@ -134,6 +119,7 @@
     "lua": true,
     "docker-compose": true,
     "terraform": true,
-    "toml": true
+    "toml": true,
+    "astro": true
   }
 }
