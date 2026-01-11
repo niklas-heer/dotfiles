@@ -1,4 +1,5 @@
 **/.DS_Store
+.claude/
 .ropeproject
 bin/chezmoi
 private_Library/private_Application Support/zalando-token-cli/
