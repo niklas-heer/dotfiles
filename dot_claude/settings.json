@@ -1,5 +1,10 @@
 {
   "permissions": {
-    "allow": ["Bash(*)", "Read(*)", "Write(*)", "Edit(*)"]
+    "allow": ["Bash", "Read(*)", "Write(*)", "Edit(*)"]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bun x ccusage statusline --cost-source both",
+    "padding": 0
   }
 }
