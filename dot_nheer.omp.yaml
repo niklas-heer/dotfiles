@@ -5,6 +5,19 @@ upgrade:
   interval: 168h
   auto: false
   notice: false
+
+transient_prompt:
+  template: "{{ if eq .Code 0 }}<#63F08C>{{ .Shell }} ❯</>{{ else }}<#e91e63>{{ .Shell }} ✘</>{{ end }} "
+
+tooltips_action: replace
+tooltips:
+  - type: git
+    tips:
+      - git
+    template: "{{ .HEAD }}"
+    foreground: "#C678DD"
+    style: plain
+
 blocks:
   - type: prompt
     alignment: left
@@ -30,21 +43,19 @@ blocks:
         style: plain
       - properties:
           fetch_version: true
+        min_width: 110
         template: "<#ffffff>via</> \ue781 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} "
         foreground: "#98C379"
         type: node
         style: plain
   - type: prompt
-    alignment: right
-    segments:
-      - template: "{{ .Name }}"
-        foreground: "#63F08C"
-        type: shell
-        style: plain
-  - type: prompt
     alignment: left
     newline: true
     segments:
+      - template: "{{ .Name }} "
+        foreground: "#63F08C"
+        type: shell
+        style: plain
       - template: "{{ if eq .Code 0 }}<#63F08C>\u276f{{ else }}<#e91e63>\u2718{{ end }} "
         properties:
           always_enabled: true

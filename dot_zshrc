@@ -246,6 +246,8 @@ function enable_poshtooltips() {
   _omp_create_widget $widget _omp_render_tooltip
 }
 
+enable_poshtooltips
+
 # legacy functions
 function enable_poshtransientprompt() {}
 
