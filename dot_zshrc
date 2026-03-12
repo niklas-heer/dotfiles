@@ -259,3 +259,5 @@ export PATH="$PATH:/Users/nheer/.local/bin"
 # zoxide https://github.com/ajeetdsouza/zoxide
 eval "$(zoxide init zsh)"
 
+export PATH="$HOME/.bun/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"

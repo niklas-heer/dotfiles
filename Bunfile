@@ -1,0 +1,5 @@
+# Global bun packages to install
+# One package per line, comments and blank lines are ignored
+# `chezmoi apply` will install these when this file changes
+
+@openai/codex

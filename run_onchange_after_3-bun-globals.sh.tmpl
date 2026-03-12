@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+{{ if eq .chezmoi.os "darwin" }}
+# Install global bun packages declaratively.
+# Same pattern as Brewfile — re-runs when Bunfile content changes.
+#
+# Bunfile hash: {{ include "Bunfile" | sha256sum }}
+while IFS= read -r pkg || [[ -n "$pkg" ]]; do
+  [[ -z "$pkg" || "$pkg" == \#* ]] && continue
+  bun install -g "$pkg"
+done < ~/Bunfile
+{{ else }}
+echo "Unsupported operating system."
+exit 1
+{{ end }}
