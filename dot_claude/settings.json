@@ -1,10 +1,20 @@
 {
   "permissions": {
-    "allow": ["Bash", "Read(*)", "Write(*)", "Edit(*)"]
+    "allow": [
+      "Bash",
+      "Read(*)",
+      "Write(*)",
+      "Edit(*)"
+    ]
   },
+  "model": "opus",
   "statusLine": {
     "type": "command",
     "command": "bun x ccusage statusline --cost-source both",
     "padding": 0
-  }
+  },
+  "enabledPlugins": {
+    "clangd-lsp@claude-plugins-official": true
+  },
+  "voiceEnabled": true
 }

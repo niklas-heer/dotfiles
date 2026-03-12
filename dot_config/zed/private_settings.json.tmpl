@@ -8,62 +8,15 @@
 // from the command palette or from `Zed` application menu.
 {
   "agent_servers": {
-    "OpenCode": {
-      "command": "opencode",
-      "args": ["acp"]
+    "claude": {
+      "favorite_models": [
+        "opus"
+      ]
     }
   },
   "agent": {
-    "default_profile": "nheer",
-    "profiles": {
-      "nheer": {
-        "name": "nheer",
-        "tools": {
-          "copy_path": true,
-          "create_directory": true,
-          "delete_path": true,
-          "diagnostics": false,
-          "edit_file": true,
-          "fetch": true,
-          "find_path": true,
-          "grep": true,
-          "list_directory": true,
-          "move_path": true,
-          "open": true,
-          "now": true,
-          "project_notifications": true,
-          "read_file": true,
-          "terminal": true,
-          "thinking": true
-        },
-        "enable_all_context_servers": false,
-        "context_servers": {
-          "core-memory": {
-            "tools": {
-              "memory_search": true,
-              "memory_ingest": true,
-              "memory_get_spaces": true,
-              "memory_get_space": true,
-              "memory_about_user": true,
-              "get_integrations": true,
-              "get_integration_actions": true,
-              "execute_integration_action": true
-            }
-          },
-          "mcp-server-context7": {
-            "tools": {
-              "resolve-library-id": true,
-              "get-library-docs": true
-            }
-          }
-        }
-      }
-    },
-    "default_model": {
-      "provider": "openrouter",
-      "model": "anthropic/claude-opus-4.5"
-    },
-    "always_allow_tool_actions": true
+    "always_allow_tool_actions": true,
+    "model_parameters": []
   },
   "theme": "Tokyo Night",
   "soft_wrap": "editor_width",
