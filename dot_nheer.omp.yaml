@@ -27,7 +27,7 @@ blocks:
         foreground: "#E06C75"
         type: root
         style: plain
-      - properties:
+      - options:
           style: unique
           mapped_locations:
             /Users/nheer: 🏠
@@ -35,13 +35,13 @@ blocks:
         foreground: "#55B9C4"
         type: path
         style: plain
-      - properties:
+      - options:
           fetch_status: true
         template: "<#ffffff>on</> {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }} "
         foreground: "#C678DD"
         type: git
         style: plain
-      - properties:
+      - options:
           fetch_version: true
         min_width: 110
         template: "<#ffffff>via</> \ue781 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} "
@@ -57,7 +57,7 @@ blocks:
         type: shell
         style: plain
       - template: "{{ if eq .Code 0 }}<#63F08C>\u276f{{ else }}<#e91e63>\u2718{{ end }} "
-        properties:
+        options:
           always_enabled: true
         foreground: "#63F08C"
         type: status
