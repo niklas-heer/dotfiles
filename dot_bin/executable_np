@@ -1,0 +1,340 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#   "typer>=0.16.0",
+#   "questionary>=2.1.0",
+# ]
+# ///
+
+from __future__ import annotations
+
+import shutil
+import subprocess
+import sys
+import os
+from enum import Enum
+from pathlib import Path
+import re
+
+import typer
+import questionary
+
+app = typer.Typer(no_args_is_help=True, add_completion=False)
+
+
+class UserCancelled(Exception):
+    pass
+
+
+class Target(str, Enum):
+    github_com = "github.com"
+    gitlab_tradebyte_org = "gitlab.tradebyte.org"
+    gitlab_com = "gitlab.com"
+
+
+class Visibility(str, Enum):
+    private = "private"
+    public = "public"
+
+
+class YesNo(str, Enum):
+    yes = "yes"
+    no = "no"
+
+
+class RepoScope(str, Enum):
+    local = "local"
+    github = "github.com"
+    gitlab = "gitlab.tradebyte.org"
+    gitlab_public = "gitlab.com"
+
+
+def err(message: str) -> None:
+    print(message, file=sys.stderr)
+
+
+def emit_destination(path: Path) -> None:
+    cd_file = os.getenv("NP_CD_FILE", "").strip()
+    if cd_file:
+        Path(cd_file).write_text(str(path), encoding="utf-8")
+    print(path)
+
+
+def run(cmd: list[str], cwd: Path | None = None, capture: bool = False) -> str:
+    try:
+        result = subprocess.run(
+            cmd,
+            cwd=str(cwd) if cwd else None,
+            check=True,
+            text=True,
+            capture_output=capture,
+        )
+    except FileNotFoundError as exc:
+        err(f"Required command not found: {cmd[0]}")
+        raise typer.Exit(code=127) from exc
+    return result.stdout.strip() if capture else ""
+
+
+def ask_input(message: str, default: str | None = None) -> str:
+    value = questionary.text(message, default=default or "").ask()
+    if value is None:
+        raise UserCancelled()
+    value = value.strip()
+    if not value and default is not None:
+        return default
+    return value
+
+
+def ask_select(message: str, options: list[str], default_idx: int = 0) -> str:
+    choice = questionary.select(message, choices=options, default=options[default_idx]).ask()
+    if choice is None:
+        raise UserCancelled()
+    return choice
+
+
+def namespaces_from_dirs(scope: str) -> list[str]:
+    base = ghq_root() / scope
+    if not base.exists() or not base.is_dir():
+        return []
+
+    values: list[str] = []
+    for child in sorted(base.iterdir()):
+        if child.is_dir():
+            values.append(child.name)
+    return values
+
+
+def namespace_choices(scope: str) -> list[str]:
+    defaults = {
+        "local": ["scratch"],
+        "github.com": ["niklas-heer"],
+        "gitlab.tradebyte.org": ["cps", "nih", "ccs"],
+        "gitlab.com": ["niklas-heer"],
+    }
+
+    choices: list[str] = []
+    seen: set[str] = set()
+
+    for candidate in defaults.get(scope, []):
+        if candidate not in seen:
+            choices.append(candidate)
+            seen.add(candidate)
+
+    for candidate in namespaces_from_dirs(scope):
+        if candidate and candidate not in seen:
+            choices.append(candidate)
+            seen.add(candidate)
+
+    return choices
+
+
+def ask_namespace(scope: str, default: str) -> str:
+    choices = namespace_choices(scope)
+    if default not in choices:
+        choices.insert(0, default)
+
+    menu_choices = choices + ["custom..."]
+    selection = ask_select("Namespace", menu_choices, default_idx=0)
+    if selection != "custom...":
+        return selection
+
+    return ask_input("Namespace", default)
+
+
+def normalize_name(value: str) -> str:
+    slug = value.strip().lower()
+    slug = re.sub(r"[^a-z0-9._-]+", "-", slug)
+    slug = re.sub(r"-+", "-", slug)
+    slug = slug.strip("-._")
+    return slug
+
+
+def ensure_valid_name(kind: str, raw_value: str) -> str:
+    normalized = normalize_name(raw_value)
+    if not normalized:
+        err(f"{kind} is required")
+        raise typer.Exit(code=1)
+    if normalized != raw_value:
+        err(f"Using {kind.lower()} '{normalized}' (from '{raw_value}')")
+    return normalized
+
+
+def ghq_root() -> Path:
+    return Path(run(["ghq", "root"], capture=True)).expanduser().resolve()
+
+
+def ensure_git_repo(path: Path) -> None:
+    if not (path / ".git").exists():
+        run(["git", "init", "-b", "main"], cwd=path)
+
+
+def ensure_readme(path: Path, name: str) -> None:
+    readme = path / "README.md"
+    if not readme.exists():
+        readme.write_text(f"# {name}\n", encoding="utf-8")
+
+
+def cmd_new(name: str | None, namespace: str | None, root: RepoScope | None) -> int:
+    selected_scope = root.value if root else ask_select(
+        "Project root",
+        [
+            RepoScope.local.value,
+            RepoScope.github.value,
+            RepoScope.gitlab.value,
+            RepoScope.gitlab_public.value,
+        ],
+        default_idx=0,
+    )
+
+    default_ns = "scratch"
+    if selected_scope == RepoScope.github.value:
+        default_ns = "niklas-heer"
+    elif selected_scope == RepoScope.gitlab.value:
+        default_ns = "cps"
+    elif selected_scope == RepoScope.gitlab_public.value:
+        default_ns = "niklas-heer"
+
+    ns_raw = namespace or ask_namespace(selected_scope, default_ns)
+    ns = ensure_valid_name("Namespace", ns_raw)
+    project_raw = name or ask_input("Project name")
+    project = ensure_valid_name("Project name", project_raw)
+
+    dest = ghq_root() / selected_scope / ns / project
+    if dest.exists():
+        err(f"Already exists: {dest}")
+        emit_destination(dest)
+        return 0
+
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.mkdir(parents=True, exist_ok=True)
+    ensure_git_repo(dest)
+    ensure_readme(dest, project)
+    err(f"Created local project: {dest}")
+    if selected_scope == RepoScope.local.value:
+        err("Run `np promote` later to attach a remote.")
+    else:
+        err("No remote was created automatically. Run `np promote` in this repo when ready.")
+    emit_destination(dest)
+    return 0
+
+
+def cmd_promote(
+    target: Target | None,
+    namespace: str | None,
+    name: str | None,
+    visibility: Visibility | None,
+    move: YesNo | None,
+) -> int:
+    cwd = Path.cwd()
+    if not (cwd / ".git").exists():
+        err("Not a git repository. cd into a project first.")
+        return 1
+
+    selected_target = target.value if target else ask_select(
+        "Remote target",
+        ["github.com", "gitlab.tradebyte.org", "gitlab.com"],
+    )
+    if selected_target == "github.com":
+        default_ns = "niklas-heer"
+    elif selected_target == "gitlab.tradebyte.org":
+        default_ns = "cps"
+    else:
+        default_ns = "niklas-heer"
+    scope = selected_target
+    ns_raw = namespace or ask_namespace(scope, default_ns)
+    ns = ensure_valid_name("Namespace", ns_raw)
+    project_raw = name or ask_input("Project name", cwd.name)
+    project = ensure_valid_name("Project name", project_raw)
+
+    if selected_target == "github.com":
+        vis = visibility.value if visibility else ask_select("GitHub visibility", ["private", "public"])
+        flag = "--public" if vis == "public" else "--private"
+        run(
+            [
+                "gh",
+                "repo",
+                "create",
+                f"{ns}/{project}",
+                "--source",
+                ".",
+                "--remote",
+                "origin",
+                flag,
+                "--push",
+            ],
+            cwd=cwd,
+        )
+    else:
+        origin = (
+            f"ssh://git@gitlab.tradebyte.org:2200/{ns}/{project}.git"
+            if selected_target == "gitlab.tradebyte.org"
+            else f"ssh://git@gitlab.com/{ns}/{project}.git"
+        )
+        remotes = run(["git", "remote"], cwd=cwd, capture=True).splitlines()
+        if "origin" in remotes:
+            run(["git", "remote", "set-url", "origin", origin], cwd=cwd)
+        else:
+            run(["git", "remote", "add", "origin", origin], cwd=cwd)
+        err(f"Create GitLab project, then push to: {origin}")
+
+    move_choice = move.value if move else ask_select("Move project to remote-host path in ghq?", ["no", "yes"])
+    if move_choice != "yes":
+        emit_destination(cwd)
+        return 0
+
+    host = selected_target
+    dst = ghq_root() / host / ns / project
+    if dst.exists():
+        err(f"Destination already exists: {dst}")
+        emit_destination(cwd)
+        return 0
+
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.move(str(cwd), str(dst))
+    err(f"Moved: {dst}")
+    emit_destination(dst)
+    return 0
+
+
+@app.command()
+def new(
+    name: str | None = typer.Argument(default=None),
+    namespace: str | None = typer.Option(None, "--namespace", "-n"),
+    root: RepoScope | None = typer.Option(None, "--root"),
+) -> None:
+    """Create a local-first project."""
+
+    code = cmd_new(name, namespace, root)
+    raise typer.Exit(code=code)
+
+
+@app.command()
+def promote(
+    target: Target | None = typer.Option(None, "--target"),
+    namespace: str | None = typer.Option(None, "--namespace", "-n"),
+    name: str | None = typer.Option(None, "--name"),
+    visibility: Visibility | None = typer.Option(None, "--visibility"),
+    move: YesNo | None = typer.Option(None, "--move"),
+) -> None:
+    """Attach a remote to current project."""
+
+    code = cmd_promote(target, namespace, name, visibility, move)
+    raise typer.Exit(code=code)
+
+
+def main() -> None:
+    try:
+        app()
+    except UserCancelled:
+        err("Cancelled.")
+        raise SystemExit(130)
+    except subprocess.CalledProcessError as exc:
+        err(f"Command failed: {' '.join(exc.cmd)}")
+        if exc.stderr:
+            err(exc.stderr.strip())
+        raise SystemExit(exc.returncode) from exc
+
+
+if __name__ == "__main__":
+    main()

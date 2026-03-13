@@ -11,6 +11,7 @@ export PATH="$PATH:$bins"
 
 # Add chezmoi
 # https://stackoverflow.com/a/18077919
+path+=("$HOME/.bin")
 path+=("$HOME/bin")
 export PATH
 
@@ -32,6 +33,29 @@ eval "$(zoxide init zsh)"
 
 # atuin https://docs.atuin.sh/guide/installation/
 eval "$(atuin init zsh)"
+
+np() {
+  local cd_file
+  cd_file="$(mktemp -t np-cd.XXXXXX)" || return 1
+
+  NP_CD_FILE="$cd_file" command np "$@"
+  local status=$?
+
+  if [[ -f "$cd_file" ]]; then
+    local destination
+    destination="$(<"$cd_file")"
+    rm -f "$cd_file"
+
+    if [[ $status -eq 0 && -n "$destination" && -d "$destination" ]]; then
+      cd "$destination" || return $status
+    fi
+  fi
+
+  return $status
+}
+
+alias newproj='np new'
+alias graduateproj='np promote'
 
 export PATH="$HOME/.bun/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"

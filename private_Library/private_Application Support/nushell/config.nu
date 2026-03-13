@@ -28,6 +28,28 @@ def --env repo [] {
     | cd $in
 }
 
+def --env np [...args] {
+    let cd_file = (^mktemp -t np-cd.XXXXXX | str trim)
+
+    with-env { NP_CD_FILE: $cd_file } {
+        ^np ...$args
+    }
+
+    let status = $env.LAST_EXIT_CODE
+
+    if ($cd_file | path exists) {
+        let destination = (open $cd_file | str trim)
+        rm $cd_file
+
+        if ($status == 0) and (not ($destination | is-empty)) and ($destination | path exists) {
+            cd $destination
+        }
+    }
+}
+
+alias newproj = np new
+alias graduateproj = np promote
+
 # https://ohmyposh.dev/docs/installation/customize#set-the-configuration
 oh-my-posh init nu --config ~/.nheer.omp.yaml
 

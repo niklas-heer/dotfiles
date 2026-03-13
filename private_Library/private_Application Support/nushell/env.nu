@@ -6,7 +6,7 @@
 
 # https://www.nushell.sh/book/configuration.html#set-environment-variables
 use std/util "path add"
-path add ($env.HOME | path join "bin") # chezmoi
+path add [($env.HOME | path join ".bin"), ($env.HOME | path join "bin")] # chezmoi
 
 # Homebrew rework the initial command: eval "$(/opt/homebrew/bin/brew shellenv)"
 load-env {
