@@ -38,7 +38,7 @@ path add $env.GOBIN
 path add ($env.HOME | path join ".local/bin")
 
 # https://docs.atuin.sh/guide/installation/
-let atuin_dir  = ($nu.home-path | path join ".local/share/atuin")
+let atuin_dir  = ($env.HOME | path join ".local/share/atuin")
 let atuin_file = ($atuin_dir | path join "init.nu")
 
 if not ($atuin_file | path exists) {
