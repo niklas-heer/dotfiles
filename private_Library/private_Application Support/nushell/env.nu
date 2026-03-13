@@ -22,9 +22,19 @@ path add ($env.HOME | path join ".bun/bin") # global bun binaries
 
 # https://carapace-sh.github.io/carapace-bin/setup.html#nushell
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
-mkdir -v ~/.cache/carapace
-carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
-zoxide init nushell | save -f ~/.zoxide.nu
+let carapace_dir = ($env.HOME | path join ".cache/carapace")
+let carapace_file = ($carapace_dir | path join "init.nu")
+
+if not ($carapace_file | path exists) {
+    mkdir $carapace_dir
+    carapace _carapace nushell | save --force $carapace_file
+}
+
+let zoxide_file = ($env.HOME | path join ".zoxide.nu")
+
+if not ($zoxide_file | path exists) {
+    zoxide init nushell | save -f $zoxide_file
+}
 
 # add path for container tool: https://github.com/apple/container
 path add /usr/local/bin/

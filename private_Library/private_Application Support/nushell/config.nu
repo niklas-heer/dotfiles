@@ -8,7 +8,9 @@ $env.config.show_banner = false
 $env.BAT_THEME = "Monokai Extended Bright"
 
 # https://carapace-sh.github.io/carapace-bin/setup.html#nushell
-source ~/.cache/carapace/init.nu
+if ("~/.cache/carapace/init.nu" | path expand | path exists) {
+    source ~/.cache/carapace/init.nu
+}
 
 # See: https://www.nushell.sh/book/configuration.html#macos-keeping-usr-bin-open-as-open
 alias m-open = ^open
@@ -30,7 +32,11 @@ def --env repo [] {
 oh-my-posh init nu --config ~/.nheer.omp.yaml
 
 # https://github.com/ajeetdsouza/zoxide
-source ~/.zoxide.nu
+if ("~/.zoxide.nu" | path expand | path exists) {
+    source ~/.zoxide.nu
+}
 
 # https://docs.atuin.sh/guide/installation/
-source ~/.local/share/atuin/init.nu
+if ("~/.local/share/atuin/init.nu" | path expand | path exists) {
+    source ~/.local/share/atuin/init.nu
+}
