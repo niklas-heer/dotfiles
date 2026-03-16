@@ -47,6 +47,10 @@ path add $env.GOBIN
 # uv installed tools
 path add ($env.HOME | path join ".local/bin")
 
+# Preferred editor
+$env.EDITOR = "nvim"
+$env.VISUAL = "nvim"
+
 # https://docs.atuin.sh/guide/installation/
 let atuin_dir  = ($env.HOME | path join ".local/share/atuin")
 let atuin_file = ($atuin_dir | path join "init.nu")

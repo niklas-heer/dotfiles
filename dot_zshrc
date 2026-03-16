@@ -59,3 +59,5 @@ alias graduateproj='np promote'
 
 export PATH="$HOME/.bun/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export EDITOR="nvim"
+export VISUAL="nvim"
