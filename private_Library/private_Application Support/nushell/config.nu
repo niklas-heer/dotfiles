@@ -16,6 +16,56 @@ if ("~/.cache/carapace/init.nu" | path expand | path exists) {
 alias m-open = ^open
 alias lg = lazygit
 
+def --env wtpcd [target?: string] {
+    let destination = if ($target | is-empty) {
+        ^wtp cd
+    } else {
+        ^wtp cd $target
+    }
+
+    if ($env.LAST_EXIT_CODE == 0) {
+        cd ($destination | str trim)
+    }
+}
+
+alias wcd = wtpcd
+
+def --env --wrapped wtp [...args] {
+    if (($args | length) == 0) {
+        ^wtp
+        return
+    }
+
+    let subcommand = ($args | first)
+
+    if ($subcommand == "cd") {
+        if (($args | length) > 1) {
+            let first_arg = ($args | get 1)
+            if ($first_arg == "-h" or $first_arg == "--help") {
+                ^wtp ...$args
+                return
+            }
+        }
+
+        let destination = if (($args | length) > 1) {
+            ^wtp cd ...($args | skip 1)
+        } else {
+            ^wtp cd
+        }
+
+        if ($env.LAST_EXIT_CODE == 0) {
+            let resolved = ($destination | str trim)
+            if (not ($resolved | is-empty)) and ($resolved | path exists) {
+                cd $resolved
+            }
+        }
+
+        return
+    }
+
+    ^wtp ...$args
+}
+
 $env.FZF_DEFAULT_OPTS = "--color=fg:#c0caf5,bg:#1e1f29,hl:#bb9af7 --color=fg+:#FFFFFF,bg+:#1e1f29,hl+:#7dcfff --color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff --color=marker:#9ece6a,spinner:#9ece6a,header:#9ece6a"
 
 # We have to set --env otherwise the cd won't work

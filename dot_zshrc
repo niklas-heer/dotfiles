@@ -34,6 +34,11 @@ eval "$(zoxide init zsh)"
 # atuin https://docs.atuin.sh/guide/installation/
 eval "$(atuin init zsh)"
 
+# wtp shell integration (completion + hook)
+if command -v wtp >/dev/null 2>&1; then
+  eval "$(wtp shell-init zsh)"
+fi
+
 np() {
   local cd_file
   cd_file="$(mktemp -t np-cd.XXXXXX)" || return 1
