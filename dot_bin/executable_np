@@ -291,6 +291,7 @@ def cmd_promote(
         return 0
 
     dst.parent.mkdir(parents=True, exist_ok=True)
+    os.chdir(dst.parent)
     shutil.move(str(cwd), str(dst))
     err(f"Moved: {dst}")
     emit_destination(dst)
