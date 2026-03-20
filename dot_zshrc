@@ -18,6 +18,9 @@ export PATH
 path+=("$HOME/.config/emacs/bin")
 export LIBRARY_PATH=$LIBRARY_PATH:/opt/homebrew/lib/gcc/current
 
+# Initialize zsh completion system before any evals that use compdef
+autoload -Uz compinit && compinit
+
 #---- START oh-my-posh
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
