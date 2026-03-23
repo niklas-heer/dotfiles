@@ -5,8 +5,11 @@
 # Same pattern as Brewfile — re-runs when Bunfile content changes.
 #
 # Bunfile hash: {{ include "Bunfile" | sha256sum }}
-while IFS= read -r pkg || [[ -n "$pkg" ]]; do
-  [[ -z "$pkg" || "$pkg" == \#* ]] && continue
+while IFS= read -r line || [[ -n "$line" ]]; do
+  # Strip inline comments and trim whitespace
+  pkg="${line%%#*}"
+  pkg="${pkg%%[[:space:]]}"
+  [[ -z "$pkg" ]] && continue
   bun install -g "$pkg"
 done < ~/Bunfile
 {{ else }}
