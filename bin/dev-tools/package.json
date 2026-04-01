@@ -1,0 +1,26 @@
+{
+  "name": "@nheer/dev-tools",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1",
+  "scripts": {
+    "register": "bun run src/register.ts",
+    "smart-commit": "bun run src/smart-commit/index.ts",
+    "test": "bun test",
+    "typecheck": "bunx tsc --noEmit"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "latest",
+    "@varlock/1password-plugin": "latest",
+    "ai": "latest",
+    "ink": "^6.8.0",
+    "react": "^19.2.4",
+    "varlock": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/react": "^19.2.14",
+    "typescript": "latest"
+  }
+}

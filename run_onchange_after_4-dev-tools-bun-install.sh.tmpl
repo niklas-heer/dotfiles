@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+{{ if eq .chezmoi.os "darwin" }}
+# Install local bun dependencies for the dev-tools workspace.
+# Re-runs when the scaffolded package manifest changes.
+#
+# dev-tools package.json hash: {{ include "bin/dev-tools/package.json" | sha256sum }}
+if [[ -f ~/bin/dev-tools/package.json ]]; then
+  bun install --cwd ~/bin/dev-tools/
+fi
+{{ else }}
+echo "Unsupported operating system."
+exit 1
+{{ end }}

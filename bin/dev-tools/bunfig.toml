@@ -1,0 +1,5 @@
+env = false
+
+[install]
+auto = "disable"
+saveTextLockfile = true

@@ -1,0 +1,7 @@
+# @plugin(@varlock/1password-plugin)
+# @initOp(allowAppAuth=true)
+# ---
+
+# @required @sensitive
+# @docs(https://openrouter.ai/docs/api-keys)
+OPENROUTER_API_KEY=op(op://Personal/ptny6kpu7d5gpxjcjgh3s2lz7a/credential)
