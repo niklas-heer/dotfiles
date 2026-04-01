@@ -19,6 +19,7 @@ brew "lazygit" # cli client for git
 brew "lazydocker" # cli client for docker
 brew "ghq" # download and manage git repos Golang style
 brew "fzf" # fuzzy finder
+brew "television" # fuzzy finder and search TUI
 brew "oh-my-posh" # prompt engine for nu and zsh
 brew "carapace" # multi-shell completion library (for nushell)
 brew "just" # better Makefiles
