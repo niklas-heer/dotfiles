@@ -69,6 +69,7 @@ alias graduateproj='np promote'
 if command -v tv >/dev/null 2>&1; then
   eval "$(tv init zsh)"
 fi
+alias nht='tv nht'
 export PATH="$HOME/.bun/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export EDITOR="nvim"

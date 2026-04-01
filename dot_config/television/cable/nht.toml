@@ -1,0 +1,16 @@
+[metadata]
+name = "nht"
+description = "Niklas Heer Tools"
+
+[source]
+command = "bun run ~/bin/dev-tools/src/register.ts"
+display = "{split:\\t:0|pad:20: :right}{split:\\t:1}"
+output = "{split:\\t:2}"
+
+[keybindings]
+enter = "actions:run"
+
+[actions.run]
+description = "Run the selected tool"
+command = "{split:\\t:2}"
+mode = "execute"

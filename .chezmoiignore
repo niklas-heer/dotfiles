@@ -3,3 +3,5 @@ README.md
 bin/chezmoi
 .githun/**/*
 .luarc.json
+bin/dev-tools/node_modules/**
+bin/dev-tools/.env

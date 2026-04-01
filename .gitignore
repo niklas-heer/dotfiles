@@ -3,3 +3,5 @@
 .ropeproject
 bin/chezmoi
 private_Library/private_Application Support/zalando-token-cli/
+bin/dev-tools/node_modules/
+bin/dev-tools/.env

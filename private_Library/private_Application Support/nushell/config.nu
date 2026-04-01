@@ -15,6 +15,7 @@ if ("~/.cache/carapace/init.nu" | path expand | path exists) {
 # See: https://www.nushell.sh/book/configuration.html#macos-keeping-usr-bin-open-as-open
 alias m-open = ^open
 alias lg = lazygit
+alias nht = tv nht
 
 def --env wtpcd [target?: string] {
     let destination = if ($target | is-empty) {
