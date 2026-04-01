@@ -65,6 +65,10 @@ np() {
 alias newproj='np new'
 alias graduateproj='np promote'
 
+# television shell integration https://alexpasmantier.github.io/television/docs/Users/shell-integration/
+if command -v tv >/dev/null 2>&1; then
+  eval "$(tv init zsh)"
+fi
 export PATH="$HOME/.bun/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export EDITOR="nvim"

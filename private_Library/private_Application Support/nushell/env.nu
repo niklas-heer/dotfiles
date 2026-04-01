@@ -36,6 +36,13 @@ if not ($zoxide_file | path exists) {
     zoxide init nushell | save -f $zoxide_file
 }
 
+# https://alexpasmantier.github.io/television/docs/Users/shell-integration/
+if (which tv | is-not-empty) {
+    let tv_autoload_dir = ($nu.data-dir | path join "vendor/autoload")
+    mkdir $tv_autoload_dir
+    tv init nu | save -f ($tv_autoload_dir | path join "tv.nu")
+}
+
 # add path for container tool: https://github.com/apple/container
 path add /usr/local/bin/
 
