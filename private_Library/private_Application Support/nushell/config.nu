@@ -15,7 +15,95 @@ if ("~/.cache/carapace/init.nu" | path expand | path exists) {
 # See: https://www.nushell.sh/book/configuration.html#macos-keeping-usr-bin-open-as-open
 alias m-open = ^open
 alias lg = lazygit
-alias nht = tv nht
+
+def --env __nht_apply_action [action_file: string, status: int] {
+    if (not ($action_file | path exists)) {
+        return $status
+    }
+
+    let action_line = (open $action_file | str trim)
+    rm $action_file
+
+    if ($status != 0) or ($action_line | is-empty) {
+        return $status
+    }
+
+    let parts = ($action_line | split row "\t")
+    let action = ($parts | get 0)
+    let values = ($parts | skip 1)
+
+    if ($action == "cd") {
+        let value = ($values | get 0? | default "")
+        if (not ($value | is-empty)) and ($value | path exists) {
+            cd $value
+            return 0
+        }
+        return $status
+    }
+
+    if ($action == "print") {
+        print ($values | str join "\t")
+        return 0
+    }
+
+    if ($action == "open") {
+        let value = ($values | get 0? | default "")
+        if (not ($value | is-empty)) {
+            ^open $value
+            return $env.LAST_EXIT_CODE
+        }
+        return $status
+    }
+
+    if ($action == "exec") {
+        let program = ($values | get 0? | default "")
+        let args = ($values | skip 1)
+        if (not ($program | is-empty)) {
+            run-external $program ...$args
+            return $env.LAST_EXIT_CODE
+        }
+        return $status
+    }
+
+    print $"Unsupported nht shell action: ($action)"
+    return 1
+}
+
+def __nht_resolve_command [tool: string] {
+    ^bun run ~/bin/dev-tools/src/register.ts
+    | lines
+    | parse "{name}\t{description}\t{command}"
+    | where name == $tool
+    | get 0?.command
+    | default ""
+}
+
+def --env nht [...args] {
+    let selection = if (($args | length) > 0) {
+        __nht_resolve_command ($args | first)
+    } else {
+        (^tv nht | str trim)
+    }
+
+    if ($env.LAST_EXIT_CODE != 0) or ($selection | is-empty) {
+        return
+    }
+
+    let parts = ($selection | split row " " | where {|part| not ($part | is-empty)})
+    if (($parts | length) == 0) {
+        return
+    }
+
+    let action_file = (^mktemp -t nht-action.XXXXXX | str trim)
+    let extra_args = if (($args | length) > 0) { $args | skip 1 } else { [] }
+
+    with-env { NHT_ACTION_FILE: $action_file } {
+        run-external ($parts | first) ...($parts | skip 1) ...$extra_args
+    }
+
+    let status = $env.LAST_EXIT_CODE
+    __nht_apply_action $action_file $status | ignore
+}
 
 def --env wtpcd [target?: string] {
     let destination = if ($target | is-empty) {
@@ -70,13 +158,15 @@ def --env --wrapped wtp [...args] {
 $env.FZF_DEFAULT_OPTS = "--color=fg:#c0caf5,bg:#1e1f29,hl:#bb9af7 --color=fg+:#FFFFFF,bg+:#1e1f29,hl+:#7dcfff --color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff --color=marker:#9ece6a,spinner:#9ece6a,header:#9ece6a"
 
 # We have to set --env otherwise the cd won't work
-def --env repo [] {
-    let dirs = ["~/Projects" "~/ghq" "~/.local/share/chezmoi"] | each { path expand } | where { path exists }
+def --env repo [...query] {
+    let action_file = (^mktemp -t nht-action.XXXXXX | str trim)
 
-    fd -H '^.git$' -t d ...$dirs
-    | sd '/.git/' ''
-    | fzf --height=40% --layout=reverse --border --info=inline --preview="eza -lhm --no-permissions --total-size --no-user --color=always --icons=always --time-style=relative --sort=modified --reverse {}"
-    | cd $in
+    with-env { NHT_ACTION_FILE: $action_file } {
+        ^bun run ~/bin/dev-tools/src/repo/index.ts ...$query
+    }
+
+    let status = $env.LAST_EXIT_CODE
+    __nht_apply_action $action_file $status | ignore
 }
 
 def --env np [...args] {

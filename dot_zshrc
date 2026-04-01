@@ -65,11 +65,118 @@ np() {
 alias newproj='np new'
 alias graduateproj='np promote'
 
+__nht_resolve_command() {
+  command bun run "$HOME/bin/dev-tools/src/register.ts" | awk -F $'\t' -v tool="$1" '$1 == tool { print $3; exit }'
+}
+
+__nht_apply_action_file() {
+  local action_file="$1"
+  local status="$2"
+
+  if [[ ! -f "$action_file" ]]; then
+    return "$status"
+  fi
+
+  local action_line
+  action_line="$(<"$action_file")"
+  rm -f "$action_file"
+
+  if [[ "$status" -ne 0 || -z "$action_line" ]]; then
+    return "$status"
+  fi
+
+  local -a parts
+  parts=("${(@ps:\t:)action_line}")
+  local action="${parts[1]}"
+
+  case "$action" in
+    cd)
+      local value="${parts[2]}"
+      if [[ -n "$value" && -d "$value" ]]; then
+        cd "$value" || return 1
+        return 0
+      fi
+      ;;
+    print)
+      printf '%s\n' "${(j:\t:)parts[2,-1]}"
+      return 0
+      ;;
+    open)
+      local value="${parts[2]}"
+      if [[ -n "$value" ]]; then
+        command open "$value"
+        return $?
+      fi
+      ;;
+    exec)
+      if [[ ${#parts[@]} -ge 2 ]]; then
+        "${parts[2]}" "${parts[@]:3}"
+        return $?
+      fi
+      ;;
+    *)
+      printf 'Unsupported nht shell action: %s\n' "$action" >&2
+      return 1
+      ;;
+  esac
+
+  return "$status"
+}
+
+repo() {
+  local action_file
+  action_file="$(mktemp -t nht-action.XXXXXX)" || return 1
+
+  export NHT_ACTION_FILE="$action_file"
+  command bun run "$HOME/bin/dev-tools/src/repo/index.ts" "$@"
+  local status=$?
+  unset NHT_ACTION_FILE
+
+  __nht_apply_action_file "$action_file" "$status"
+  return $?
+}
+
 # television shell integration https://alexpasmantier.github.io/television/docs/Users/shell-integration/
 if command -v tv >/dev/null 2>&1; then
   eval "$(tv init zsh)"
 fi
-alias nht='tv nht'
+
+nht() {
+  local selection
+  local status
+
+  if [[ $# -gt 0 ]]; then
+    selection="$(__nht_resolve_command "$1")"
+    status=$?
+    shift
+  else
+    selection="$(tv nht)"
+    status=$?
+  fi
+
+  if [[ $status -ne 0 || -z "$selection" ]]; then
+    return $status
+  fi
+
+  local action_file
+  action_file="$(mktemp -t nht-action.XXXXXX)" || return 1
+
+  export NHT_ACTION_FILE="$action_file"
+  if [[ $# -gt 0 ]]; then
+    local quoted_args
+    printf -v quoted_args '%q ' "$@"
+    quoted_args="${quoted_args% }"
+    eval "$selection $quoted_args"
+  else
+    eval "$selection"
+  fi
+  status=$?
+  unset NHT_ACTION_FILE
+
+  __nht_apply_action_file "$action_file" "$status"
+  return $?
+}
+
 export PATH="$HOME/.bun/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export EDITOR="nvim"
