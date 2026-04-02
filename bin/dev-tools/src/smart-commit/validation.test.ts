@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 
 import type { GatheredContext, ScopedFile } from "./gather.ts";
 import type { PlannedCommitGroup } from "./groups.ts";
-import { validateMessages } from "./messages.ts";
+import { normalizeCommitMessages, normalizeCommitSubject, validateMessages } from "./messages.ts";
 import { validateCommitPlan } from "./plan.ts";
 
 function makeFile(path: string): ScopedFile {
@@ -87,5 +87,32 @@ describe("smart-commit validation", () => {
     expect(() => validateMessages(groups, [
       { id: "missing", subject: "chore: missing" },
     ])).toThrow("Message referenced unknown group: missing");
+  });
+
+  test("normalizes conventional commit subjects to include a gitmoji after the prefix", () => {
+    expect(normalizeCommitSubject("feat(add-tool): prompt for package name")).toBe(
+      "feat(add-tool): ✨ prompt for package name",
+    );
+    expect(normalizeCommitSubject("fix(repo): 🐛 restore zsh action handling")).toBe(
+      "fix(repo): 🐛 restore zsh action handling",
+    );
+  });
+
+  test("normalizes all generated messages before validation", () => {
+    const groups = [makeGroup("one", ["a.ts"])];
+    const messages = normalizeCommitMessages([
+      { id: "one", subject: "docs(readme): update install section" },
+    ]);
+
+    expect(messages[0]?.subject).toBe("docs(readme): 📝 update install section");
+    expect(() => validateMessages(groups, messages)).not.toThrow();
+  });
+
+  test("rejects subjects that are not conventional commits", () => {
+    const groups = [makeGroup("one", ["a.ts"])];
+
+    expect(() => validateMessages(groups, [
+      { id: "one", subject: "✨ feat(add-tool): prompt for package name" },
+    ])).toThrow("Message subject is not a conventional commit");
   });
 });
