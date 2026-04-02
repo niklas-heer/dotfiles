@@ -1,57 +1,49 @@
-import { access, readdir } from "node:fs/promises";
-import { homedir } from "node:os";
-import { join } from "node:path";
-import { pathToFileURL } from "node:url";
+import {
+  findToolMatch,
+  formatRegisterRow,
+  listRegisteredTools,
+} from "./lib/registry.ts";
 
-type ToolMeta = {
-  name: string;
-  description: string;
-};
+function printHelp() {
+  process.stdout.write(`register
 
-const srcRoot = new URL(".", import.meta.url);
-const srcPath = Bun.fileURLToPath(srcRoot);
+Usage:
+  bun run src/register.ts
+  bun run src/register.ts --resolve <tool-or-alias>
 
-async function hasMetaFile(path: string): Promise<boolean> {
-  try {
-    await access(path);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-async function loadToolMeta(dirName: string): Promise<ToolMeta | null> {
-  const metaPath = join(srcPath, dirName, "meta.ts");
-  if (!(await hasMetaFile(metaPath))) {
-    return null;
-  }
-
-  const module = (await import(pathToFileURL(metaPath).href)) as {
-    default?: ToolMeta;
-  };
-
-  return module.default ?? null;
+Options:
+  --resolve <tool-or-alias>  Print only the matching launch command
+  -h, --help                 Show this help message
+`);
 }
 
 async function main() {
-  const entries = await readdir(srcPath, { withFileTypes: true });
-  const rows: string[] = [];
-
-  for (const entry of entries) {
-    if (!entry.isDirectory() || entry.name === "lib") {
-      continue;
-    }
-
-    const meta = await loadToolMeta(entry.name);
-    if (!meta) {
-      continue;
-    }
-
-    const command = `bun run ${homedir()}/bin/dev-tools/src/${entry.name}/index.ts`;
-    rows.push(`${meta.name}\t${meta.description}\t${command}`);
+  const argv = process.argv.slice(2);
+  if (argv.includes("-h") || argv.includes("--help")) {
+    printHelp();
+    return;
   }
 
-  rows.sort((left, right) => left.localeCompare(right));
+  const tools = await listRegisteredTools();
+  const resolveIndex = argv.findIndex((arg) => arg === "--resolve");
+
+  if (resolveIndex >= 0) {
+    const query = argv[resolveIndex + 1]?.trim();
+    if (!query) {
+      throw new Error("Pass a tool name or alias after --resolve.");
+    }
+
+    const tool = findToolMatch(tools, query);
+    if (!tool) {
+      process.exitCode = 1;
+      return;
+    }
+
+    process.stdout.write(`${tool.command}\n`);
+    return;
+  }
+
+  const rows = tools.map(formatRegisterRow);
   process.stdout.write(rows.join("\n"));
   if (rows.length > 0) {
     process.stdout.write("\n");

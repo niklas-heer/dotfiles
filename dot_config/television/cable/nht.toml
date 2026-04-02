@@ -1,8 +1,38 @@
 [metadata]
 name = "nht"
-description = "Niklas Heer Tools"
+description = "Niklas Heer Tools command palette"
 
 [source]
 command = "bun run ~/bin/dev-tools/src/register.ts"
-display = "{split:\\t:0|pad:20: :right}{split:\\t:1}"
-output = "{split:\\t:2}"
+display = "{split:\\t:0|pad:18: :right}  {split:\\t:1}  {split:\\t:2}"
+output = "{split:\\t:3}"
+
+[preview]
+command = "bun run ~/bin/dev-tools/src/launcher-preview.ts '{split:\\t:0}'"
+
+[ui]
+layout = "landscape"
+
+[ui.input_bar]
+prompt = "nht>"
+
+[ui.preview_panel]
+size = 58
+header = "{split:\\t:0}  {split:\\t:1}"
+footer = "enter run | ctrl-e help | ctrl-o source | ctrl-x actions"
+
+[keybindings]
+ctrl-e = "actions:help"
+ctrl-o = "actions:open-source"
+
+[actions.help]
+description = "Show the selected tool help"
+command = "{split:\\t:3} --help | ${PAGER:-less -R}"
+shell = "bash"
+mode = "execute"
+
+[actions.open-source]
+description = "Open the selected tool source in the editor"
+command = "${EDITOR:-vim} '${HOME}/bin/dev-tools/src/{split:\\t:5}/index.ts'"
+shell = "bash"
+mode = "execute"

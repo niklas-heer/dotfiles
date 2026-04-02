@@ -70,12 +70,7 @@ def --env __nht_apply_action [action_file: string, status: int] {
 }
 
 def __nht_resolve_command [tool: string] {
-    ^bun run ~/bin/dev-tools/src/register.ts
-    | lines
-    | parse "{name}\t{description}\t{command}"
-    | where name == $tool
-    | get 0?.command
-    | default ""
+    (^bun run ~/bin/dev-tools/src/register.ts --resolve $tool | str trim)
 }
 
 def --env nht [...args] {
