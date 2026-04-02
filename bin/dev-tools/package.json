@@ -5,8 +5,10 @@
   "packageManager": "bun@1",
   "scripts": {
     "add-tool": "bun run src/add-tool/index.ts",
+    "op-id": "bun run src/op-id/index.ts",
     "register": "bun run src/register.ts",
     "smart-commit": "bun run src/smart-commit/index.ts",
+    "upgrade": "bun run src/upgrade/index.ts",
     "test": "bun test",
     "typecheck": "bunx tsc --noEmit"
   },
