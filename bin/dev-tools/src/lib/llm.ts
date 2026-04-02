@@ -8,6 +8,7 @@ import { initVarlockEnv } from "varlock/env";
 
 export const MODELS = {
   analyzeAndGroup: "openai/gpt-5.4-mini",
+  writeDecision: "openai/gpt-5.4-mini",
   writeMessages: "anthropic/claude-sonnet-4.6",
 } as const;
 
