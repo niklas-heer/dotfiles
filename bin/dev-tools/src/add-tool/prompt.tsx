@@ -1,31 +1,17 @@
 import { Box, Text, render, useApp, useInput } from "ink";
-import type { ReactNode } from "react";
 import { useState } from "react";
+
+import {
+  AppFrame,
+  ChoiceCard,
+  InputField,
+  Panel,
+} from "../lib/tui.tsx";
 
 type Manager = "brew" | "bun";
 
 function isPrintable(input: string) {
   return /^[ -~]$/.test(input);
-}
-
-function PromptShell({
-  title,
-  subtitle,
-  children,
-}: {
-  title: string;
-  subtitle: string;
-  children: ReactNode;
-}) {
-  return (
-    <Box flexDirection="column">
-      <Text bold color="green">{title}</Text>
-      <Text dimColor>{subtitle}</Text>
-      <Box marginTop={1} borderStyle="round" borderColor="gray" paddingX={1} paddingY={0} flexDirection="column">
-        {children}
-      </Box>
-    </Box>
-  );
 }
 
 function NamePromptApp({
@@ -69,16 +55,26 @@ function NamePromptApp({
   });
 
   return (
-    <PromptShell
+    <AppFrame
       title="Add Tool"
       subtitle="Type a package name and press enter. Esc cancels."
+      stats={[
+        { label: "step", value: "package", tone: "primary" },
+        { label: "target", value: "Brewfile or Bunfile" },
+      ]}
+      hints={[
+        { key: "Enter", label: "continue", tone: "success" },
+        { key: "Esc", label: "cancel", tone: "warning" },
+      ]}
     >
-      <Text color="cyan">Package</Text>
-      <Text>
-        {"> "}
-        {value ? value : <Text dimColor>e.g. glow</Text>}
-      </Text>
-    </PromptShell>
+      <Panel title="Package Input" active>
+        <InputField
+          label="Package"
+          value={value}
+          placeholder="e.g. glow"
+        />
+      </Panel>
+    </AppFrame>
   );
 }
 
@@ -130,31 +126,30 @@ function ManagerPromptApp({
   });
 
   return (
-    <PromptShell
+    <AppFrame
       title="Add Tool"
       subtitle={`Choose where to add ${packageName}. Enter confirms, Esc cancels.`}
+      stats={[
+        { label: "package", value: packageName, tone: "primary" },
+        { label: "choices", value: String(options.length) },
+      ]}
+      hints={[
+        { key: "j/k", label: "move" },
+        { key: "Enter", label: "select", tone: "success" },
+        { key: "Esc", label: "cancel", tone: "warning" },
+      ]}
     >
-      <Text color="cyan">Manager</Text>
-      {options.map((option, index) => {
-        const selected = index === selectedIndex;
-
-        return (
-          <Box
+      <Panel title="Destination" active>
+        {options.map((option, index) => (
+          <ChoiceCard
             key={option.id}
-            marginTop={1}
-            paddingX={1}
-            flexDirection="column"
-            borderStyle="round"
-            borderColor={selected ? "magenta" : "gray"}
-          >
-            <Text color={selected ? "magenta" : undefined}>
-              {selected ? ">" : " "} {option.label}
-            </Text>
-            <Text dimColor>{option.description}</Text>
-          </Box>
-        );
-      })}
-    </PromptShell>
+            title={option.label}
+            subtitle={option.description}
+            selected={index === selectedIndex}
+          />
+        ))}
+      </Panel>
+    </AppFrame>
   );
 }
 

@@ -1,6 +1,12 @@
 import { Box, Text, render, useApp, useInput } from "ink";
-import type { ReactNode } from "react";
 import { useState } from "react";
+
+import {
+  AppFrame,
+  ChoiceCard,
+  InputField,
+  Panel,
+} from "../lib/tui.tsx";
 
 export type OpItemMatch = {
   id: string;
@@ -12,26 +18,6 @@ export type OpItemMatch = {
 
 function isPrintable(input: string) {
   return /^[ -~]$/.test(input);
-}
-
-function PromptShell({
-  title,
-  subtitle,
-  children,
-}: {
-  title: string;
-  subtitle: string;
-  children: ReactNode;
-}) {
-  return (
-    <Box flexDirection="column">
-      <Text bold color="green">{title}</Text>
-      <Text dimColor>{subtitle}</Text>
-      <Box marginTop={1} borderStyle="round" borderColor="gray" paddingX={1} paddingY={0} flexDirection="column">
-        {children}
-      </Box>
-    </Box>
-  );
 }
 
 function QueryPromptApp({
@@ -73,16 +59,26 @@ function QueryPromptApp({
   });
 
   return (
-    <PromptShell
+    <AppFrame
       title="1Password UUID"
       subtitle="Type an item name and press enter. Esc cancels."
+      stats={[
+        { label: "mode", value: "search", tone: "primary" },
+        { label: "output", value: "UUID" },
+      ]}
+      hints={[
+        { key: "Enter", label: "search", tone: "success" },
+        { key: "Esc", label: "cancel", tone: "warning" },
+      ]}
     >
-      <Text color="cyan">Query</Text>
-      <Text>
-        {"> "}
-        {value ? value : <Text dimColor>e.g. github</Text>}
-      </Text>
-    </PromptShell>
+      <Panel title="Lookup" active>
+        <InputField
+          label="Query"
+          value={value}
+          placeholder="e.g. github"
+        />
+      </Panel>
+    </AppFrame>
   );
 }
 
@@ -124,33 +120,33 @@ function SelectItemApp({
   });
 
   return (
-    <PromptShell
+    <AppFrame
       title="1Password UUID"
       subtitle={`Choose the matching item for ${query}. Enter confirms, Esc cancels.`}
+      stats={[
+        { label: "query", value: query, tone: "primary" },
+        { label: "matches", value: String(items.length) },
+      ]}
+      hints={[
+        { key: "j/k", label: "move" },
+        { key: "Enter", label: "copy UUID", tone: "success" },
+        { key: "Esc", label: "cancel", tone: "warning" },
+      ]}
     >
-      <Text color="cyan">Matches</Text>
-      {items.slice(0, 12).map((item, index) => {
-        const selected = index === selectedIndex;
-
-        return (
-          <Box
+      <Panel title="Matches" active>
+        {items.slice(0, 12).map((item, index) => (
+          <ChoiceCard
             key={item.id}
-            marginTop={1}
-            paddingX={1}
-            flexDirection="column"
-            borderStyle="round"
-            borderColor={selected ? "magenta" : "gray"}
+            title={item.title}
+            subtitle={`${item.vaultName} • ${item.category}`}
+            selected={index === selectedIndex}
           >
-            <Text color={selected ? "magenta" : undefined}>
-              {selected ? ">" : " "} {item.title}
-            </Text>
-            <Text dimColor>{item.vaultName} • {item.category}</Text>
             {item.additionalInformation ? <Text dimColor>{item.additionalInformation}</Text> : null}
-          </Box>
-        );
-      })}
-      {items.length > 12 ? <Text dimColor>...and {items.length - 12} more</Text> : null}
-    </PromptShell>
+          </ChoiceCard>
+        ))}
+        {items.length > 12 ? <Text dimColor>...and {items.length - 12} more</Text> : null}
+      </Panel>
+    </AppFrame>
   );
 }
 

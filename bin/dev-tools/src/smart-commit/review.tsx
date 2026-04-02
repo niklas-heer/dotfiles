@@ -7,6 +7,14 @@ import { Box, Text, render, useApp, useInput } from "ink";
 import type { ReactNode } from "react";
 import { useState } from "react";
 
+import {
+  AppFrame,
+  EmptyState,
+  ListRow,
+  Panel,
+  SectionLabel,
+  StatusPill,
+} from "../lib/tui.tsx";
 import type { PlannedCommitGroup } from "./groups.ts";
 import type { CommitMessage } from "./messages.ts";
 
@@ -162,30 +170,26 @@ function renderGroupSummary(index: number, group: ReviewedCommitGroup, skipped: 
 }
 
 function StatusTag({ skipped }: { skipped: boolean }) {
-  return (
-    <Text color={skipped ? "yellow" : "green"}>
-      [{skipped ? "skip" : "keep"}]
-    </Text>
-  );
+  return <StatusPill label={skipped ? "skip" : "keep"} tone={skipped ? "warning" : "success"} />;
 }
 
 function FileStatusTag({ status, untracked }: { status: string; untracked?: boolean }) {
   const label = untracked ? "A+" : status;
-  const color = status === "A"
-    ? "green"
+  const tone = status === "A"
+    ? "success"
     : status === "M"
-      ? "yellow"
+      ? "warning"
       : status === "D"
-        ? "red"
-        : "magenta";
+        ? "danger"
+        : "primary";
 
-  return <Text color={color}>[{label}]</Text>;
+  return <StatusPill label={label} tone={tone} />;
 }
 
 function LabeledBlock({ label, children }: { label: string; children: ReactNode }) {
   return (
     <Box flexDirection="column" marginBottom={1}>
-      <Text color="cyan">{label}</Text>
+      <SectionLabel>{label}</SectionLabel>
       <Box marginLeft={2} flexDirection="column">
         {children}
       </Box>
@@ -210,9 +214,9 @@ function ReviewApp({
   const selectedGroup = groups[selectedIndex];
   const columns = process.stdout.columns ?? 120;
   const rows = process.stdout.rows ?? 32;
-  const leftPaneWidth = Math.max(52, Math.min(76, Math.floor(columns * 0.38)));
-  const subjectPreviewWidth = Math.max(32, leftPaneWidth - 6);
-  const visibleGroupCount = Math.max(8, rows - 8);
+  const splitView = columns >= 108;
+  const leftPaneWidth = splitView ? Math.max(44, Math.min(68, Math.floor(columns * 0.36))) : columns - 4;
+  const visibleGroupCount = splitView ? Math.max(8, rows - 10) : Math.max(5, Math.floor(rows * 0.28));
   const range = getVisibleRange(selectedIndex, groups.length, visibleGroupCount);
   const visibleGroups = groups.slice(range.start, range.end);
 
@@ -277,93 +281,101 @@ function ReviewApp({
   });
 
   return (
-    <Box flexDirection="column">
-      <Text bold color="green">Smart Commit Review</Text>
-      <Text dimColor>
-        ↑/↓ or j/k move  s toggle keep/skip  e edit message  enter/a approve  q quit
-      </Text>
-      <Box marginTop={1}>
-        <Box flexDirection="column" width={leftPaneWidth} marginRight={1} borderStyle="round" borderColor="gray" paddingX={1} paddingY={0}>
-          <Text color="cyan">Commit Groups</Text>
+    <AppFrame
+      title="Smart Commit Review"
+      subtitle="Review the proposed commit stack before anything is written."
+      stats={[
+        { label: "groups", value: String(groups.length), tone: "primary" },
+        { label: "skipped", value: String(skippedIds.size), tone: skippedIds.size > 0 ? "warning" : "default" },
+        { label: "selected", value: selectedGroup ? String(selectedIndex + 1) : "-" },
+      ]}
+      hints={[
+        { key: "j/k", label: "move" },
+        { key: "s", label: "skip or keep", tone: "warning" },
+        { key: "e", label: "edit message", tone: "primary" },
+        { key: "Enter", label: "approve", tone: "success" },
+        { key: "q", label: "quit", tone: "warning" },
+      ]}
+    >
+      <Box flexDirection={splitView ? "row" : "column"}>
+        <Panel title="Commit Groups" active width={leftPaneWidth} marginRight={splitView ? 1 : 0}>
           {range.start > 0 ? <Text dimColor>... {range.start} above</Text> : null}
           {visibleGroups.map((group, offset) => {
             const index = range.start + offset;
             const isSelected = index === selectedIndex;
             const skipped = skippedIds.has(group.id);
-            const groupLabelWidth = Math.max(20, leftPaneWidth - 5);
+            const groupLabelWidth = Math.max(20, leftPaneWidth - 9);
 
             return (
-              <Box
+              <ListRow
                 key={group.id}
-                marginTop={1}
-                flexDirection="column"
-              >
-                <Text color={isSelected ? "magenta" : undefined} wrap="truncate-end">
-                  {isSelected ? ">" : " "} {index + 1}. {truncateText(group.message.subject, groupLabelWidth)}
-                </Text>
-                <Box marginLeft={2}>
-                  <StatusTag skipped={skipped} />
-                  <Text dimColor> {group.files.length} file{group.files.length === 1 ? "" : "s"}</Text>
-                </Box>
-              </Box>
+                selected={isSelected}
+                tone={skipped ? "warning" : "success"}
+                title={`${index + 1}. ${truncateText(group.message.subject, groupLabelWidth)}`}
+                subtitle={
+                  <>
+                    <StatusTag skipped={skipped} />
+                    <Text dimColor> {group.files.length} file{group.files.length === 1 ? "" : "s"}</Text>
+                  </>
+                }
+              />
             );
           })}
           {range.end < groups.length ? <Text dimColor>... {groups.length - range.end} below</Text> : null}
-        </Box>
-        <Box flexDirection="column" flexGrow={1} borderStyle="round" borderColor="gray" paddingX={1} paddingY={0}>
-          <Text color="cyan">Selected Commit</Text>
-          {selectedGroup
-            ? (
-              <Box flexDirection="column" marginTop={1}>
-                <Box flexDirection="column" marginBottom={1} borderStyle="round" borderColor="magenta" paddingX={1}>
-                  <Text color="cyan">Subject</Text>
-                  <Box>
-                    <StatusTag skipped={skippedIds.has(selectedGroup.id)} />
-                    <Text bold wrap="truncate-end"> {selectedGroup.message.subject}</Text>
+        </Panel>
+        <Box marginTop={splitView ? 0 : 1} flexGrow={1}>
+          <Panel title="Selected Commit" active={Boolean(selectedGroup)} flexGrow={1}>
+            {selectedGroup
+              ? (
+                <Box flexDirection="column">
+                  <Box flexDirection="column" marginBottom={1} borderStyle="round" borderColor="blue" paddingX={1}>
+                    <SectionLabel>Subject</SectionLabel>
+                    <Box>
+                      <StatusTag skipped={skippedIds.has(selectedGroup.id)} />
+                      <Text bold wrap="truncate-end"> {selectedGroup.message.subject}</Text>
+                    </Box>
                   </Box>
-                </Box>
-                <LabeledBlock label="Reason">
-                  {summarizeLines(selectedGroup.reason, 3).map((line) => (
-                    <Text key={`${selectedGroup.id}:reason:${line}`}>{line}</Text>
-                  ))}
-                </LabeledBlock>
-                <LabeledBlock label="Files">
-                  {selectedGroup.scopedFiles.map((file) => {
-                    const rename = file.previousPath ? ` <- ${file.previousPath}` : "";
-                    const descriptor = file.untracked ? "[A untracked]" : `[${file.status}]`;
-                    const statLines = summarizeLines(file.statSummary, 2);
+                  <LabeledBlock label="Reason">
+                    {summarizeLines(selectedGroup.reason, 3).map((line) => (
+                      <Text key={`${selectedGroup.id}:reason:${line}`}>{line}</Text>
+                    ))}
+                  </LabeledBlock>
+                  <LabeledBlock label="Files">
+                    {selectedGroup.scopedFiles.map((file) => {
+                      const rename = file.previousPath ? ` <- ${file.previousPath}` : "";
 
-                    return (
-                      <Box
-                        key={`${selectedGroup.id}:${file.path}`}
-                        flexDirection="column"
-                        marginBottom={1}
-                      >
-                        <Text>
-                          <FileStatusTag status={file.status} untracked={file.untracked} /> {file.path}{rename}
-                        </Text>
-                        <Text dimColor>  {summarizeStat(file.statSummary)}</Text>
-                      </Box>
-                    );
-                  })}
-                </LabeledBlock>
-                {selectedGroup.message.body?.trim()
-                  ? (
-                    <LabeledBlock label="Body">
-                      {summarizeLines(selectedGroup.message.body.trim(), 4).map((line, index) => (
-                        <Text key={`${selectedGroup.id}:body:${index}`}>{line}</Text>
-                      ))}
-                    </LabeledBlock>
-                  )
-                  : null}
-              </Box>
-            )
-            : (
-              <Text dimColor>No groups to review.</Text>
-            )}
+                      return (
+                        <Box
+                          key={`${selectedGroup.id}:${file.path}`}
+                          flexDirection="column"
+                          marginBottom={1}
+                        >
+                          <Text>
+                            <FileStatusTag status={file.status} untracked={file.untracked} /> {file.path}{rename}
+                          </Text>
+                          <Text dimColor>  {summarizeStat(file.statSummary)}</Text>
+                        </Box>
+                      );
+                    })}
+                  </LabeledBlock>
+                  {selectedGroup.message.body?.trim()
+                    ? (
+                      <LabeledBlock label="Body">
+                        {summarizeLines(selectedGroup.message.body.trim(), splitView ? 5 : 3).map((line, index) => (
+                          <Text key={`${selectedGroup.id}:body:${index}`}>{line}</Text>
+                        ))}
+                      </LabeledBlock>
+                    )
+                    : null}
+                </Box>
+              )
+              : (
+                <EmptyState message="No groups to review." />
+              )}
+          </Panel>
         </Box>
       </Box>
-    </Box>
+    </AppFrame>
   );
 }
 

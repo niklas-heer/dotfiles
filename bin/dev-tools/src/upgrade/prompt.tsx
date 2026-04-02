@@ -1,5 +1,12 @@
 import { Box, Text, render, useApp, useInput } from "ink";
 
+import {
+  AppFrame,
+  EmptyState,
+  Panel,
+  SectionLabel,
+} from "../lib/tui.tsx";
+
 export type UpgradePreviewItem = {
   name: string;
   current: string;
@@ -26,12 +33,12 @@ function Section({
 }) {
   return (
     <Box flexDirection="column" marginTop={1}>
-      <Text color="cyan">
+      <SectionLabel>
         {title} {enabled ? `(${count})` : "(disabled)"}
-      </Text>
+      </SectionLabel>
       {enabled
         ? count === 0
-          ? <Text dimColor>Nothing to upgrade.</Text>
+          ? <EmptyState message="Nothing to upgrade." />
           : items.slice(0, 6).map((item) => (
             <Text key={item.name}>
               {item.name} <Text dimColor>{item.current}</Text> → <Text color="green">{item.latest}</Text>
@@ -53,6 +60,8 @@ function UpgradePromptApp({
   onCancel: () => void;
 }) {
   const { exit } = useApp();
+  const columns = process.stdout.columns ?? 120;
+  const splitView = columns >= 110;
 
   useInput((input, key) => {
     if (key.return) {
@@ -68,24 +77,39 @@ function UpgradePromptApp({
   });
 
   return (
-    <Box flexDirection="column">
-      <Text bold color="green">Upgrade</Text>
-      <Text dimColor>Enter continues. Esc cancels.</Text>
-      <Box marginTop={1} borderStyle="round" borderColor="gray" paddingX={1} paddingY={0} flexDirection="column">
-        <Section
-          title="Homebrew"
-          count={preview.brew.length}
-          items={preview.brew}
-          enabled={preview.brewEnabled}
-        />
-        <Section
-          title="Bun"
-          count={preview.bun.length}
-          items={preview.bun}
-          enabled={preview.bunEnabled}
-        />
+    <AppFrame
+      title="Upgrade"
+      subtitle="Review managed upgrades before running them."
+      stats={[
+        { label: "brew", value: preview.brewEnabled ? String(preview.brew.length) : "off", tone: preview.brewEnabled ? "primary" : "default" },
+        { label: "bun", value: preview.bunEnabled ? String(preview.bun.length) : "off", tone: preview.bunEnabled ? "primary" : "default" },
+      ]}
+      hints={[
+        { key: "Enter", label: "run upgrades", tone: "success" },
+        { key: "Esc", label: "cancel", tone: "warning" },
+      ]}
+    >
+      <Box flexDirection={splitView ? "row" : "column"}>
+        <Panel title="Homebrew" active={preview.brewEnabled} flexGrow={1} marginRight={splitView ? 1 : 0}>
+          <Section
+            title="Packages"
+            count={preview.brew.length}
+            items={preview.brew}
+            enabled={preview.brewEnabled}
+          />
+        </Panel>
+        <Box marginTop={splitView ? 0 : 1}>
+          <Panel title="Bun" active={preview.bunEnabled} flexGrow={1}>
+            <Section
+              title="Packages"
+              count={preview.bun.length}
+              items={preview.bun}
+              enabled={preview.bunEnabled}
+            />
+          </Panel>
+        </Box>
       </Box>
-    </Box>
+    </AppFrame>
   );
 }
 
