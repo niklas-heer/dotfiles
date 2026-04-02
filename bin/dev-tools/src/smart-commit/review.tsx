@@ -57,6 +57,44 @@ function formatMultiline(value: string, indent = "  ") {
     .map((line) => `${indent}${line}`);
 }
 
+function truncateText(value: string, maxWidth: number) {
+  if (maxWidth <= 0 || value.length <= maxWidth) {
+    return value;
+  }
+
+  if (maxWidth <= 1) {
+    return "…";
+  }
+
+  return `${value.slice(0, maxWidth - 1)}…`;
+}
+
+function summarizeLines(value: string, maxLines: number) {
+  return value
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .slice(0, maxLines);
+}
+
+function summarizeStat(value: string) {
+  return summarizeLines(value, 2).join("  ");
+}
+
+function getVisibleRange(selectedIndex: number, totalCount: number, visibleCount: number) {
+  if (totalCount <= visibleCount) {
+    return { start: 0, end: totalCount };
+  }
+
+  const halfWindow = Math.floor(visibleCount / 2);
+  const maxStart = Math.max(0, totalCount - visibleCount);
+  const start = Math.max(0, Math.min(selectedIndex - halfWindow, maxStart));
+  return {
+    start,
+    end: Math.min(totalCount, start + visibleCount),
+  };
+}
+
 function clampIndex(index: number, groups: ReviewedCommitGroup[]) {
   if (groups.length === 0) {
     return 0;
@@ -131,6 +169,19 @@ function StatusTag({ skipped }: { skipped: boolean }) {
   );
 }
 
+function FileStatusTag({ status, untracked }: { status: string; untracked?: boolean }) {
+  const label = untracked ? "A+" : status;
+  const color = status === "A"
+    ? "green"
+    : status === "M"
+      ? "yellow"
+      : status === "D"
+        ? "red"
+        : "magenta";
+
+  return <Text color={color}>[{label}]</Text>;
+}
+
 function LabeledBlock({ label, children }: { label: string; children: ReactNode }) {
   return (
     <Box flexDirection="column" marginBottom={1}>
@@ -157,6 +208,13 @@ function ReviewApp({
   const [selectedIndex, setSelectedIndex] = useState(clampIndex(initialSelectedIndex, groups));
   const [skippedIds, setSkippedIds] = useState(() => new Set(initialSkippedIds));
   const selectedGroup = groups[selectedIndex];
+  const columns = process.stdout.columns ?? 120;
+  const rows = process.stdout.rows ?? 32;
+  const leftPaneWidth = Math.max(52, Math.min(76, Math.floor(columns * 0.38)));
+  const subjectPreviewWidth = Math.max(32, leftPaneWidth - 6);
+  const visibleGroupCount = Math.max(8, rows - 8);
+  const range = getVisibleRange(selectedIndex, groups.length, visibleGroupCount);
+  const visibleGroups = groups.slice(range.start, range.end);
 
   useInput((input, key) => {
     if (key.upArrow || input === "k") {
@@ -225,23 +283,23 @@ function ReviewApp({
         ↑/↓ or j/k move  s toggle keep/skip  e edit message  enter/a approve  q quit
       </Text>
       <Box marginTop={1}>
-        <Box flexDirection="column" width={40} marginRight={2} borderStyle="round" borderColor="gray" paddingX={1} paddingY={0}>
+        <Box flexDirection="column" width={leftPaneWidth} marginRight={1} borderStyle="round" borderColor="gray" paddingX={1} paddingY={0}>
           <Text color="cyan">Commit Groups</Text>
-          {groups.map((group, index) => {
+          {range.start > 0 ? <Text dimColor>... {range.start} above</Text> : null}
+          {visibleGroups.map((group, offset) => {
+            const index = range.start + offset;
             const isSelected = index === selectedIndex;
             const skipped = skippedIds.has(group.id);
+            const groupLabelWidth = Math.max(20, leftPaneWidth - 5);
 
             return (
               <Box
                 key={group.id}
                 marginTop={1}
-                paddingX={1}
                 flexDirection="column"
-                borderStyle="round"
-                borderColor={isSelected ? "magenta" : "gray"}
               >
-                <Text color={isSelected ? "magenta" : undefined}>
-                  {isSelected ? ">" : " "} {index + 1}. {group.message.subject}
+                <Text color={isSelected ? "magenta" : undefined} wrap="truncate-end">
+                  {isSelected ? ">" : " "} {index + 1}. {truncateText(group.message.subject, groupLabelWidth)}
                 </Text>
                 <Box marginLeft={2}>
                   <StatusTag skipped={skipped} />
@@ -250,39 +308,41 @@ function ReviewApp({
               </Box>
             );
           })}
+          {range.end < groups.length ? <Text dimColor>... {groups.length - range.end} below</Text> : null}
         </Box>
         <Box flexDirection="column" flexGrow={1} borderStyle="round" borderColor="gray" paddingX={1} paddingY={0}>
           <Text color="cyan">Selected Commit</Text>
           {selectedGroup
             ? (
               <Box flexDirection="column" marginTop={1}>
-                <Box>
-                  <StatusTag skipped={skippedIds.has(selectedGroup.id)} />
-                  <Text> {selectedGroup.message.subject}</Text>
+                <Box flexDirection="column" marginBottom={1} borderStyle="round" borderColor="magenta" paddingX={1}>
+                  <Text color="cyan">Subject</Text>
+                  <Box>
+                    <StatusTag skipped={skippedIds.has(selectedGroup.id)} />
+                    <Text bold wrap="truncate-end"> {selectedGroup.message.subject}</Text>
+                  </Box>
                 </Box>
                 <LabeledBlock label="Reason">
-                  <Text>{selectedGroup.reason}</Text>
+                  {summarizeLines(selectedGroup.reason, 3).map((line) => (
+                    <Text key={`${selectedGroup.id}:reason:${line}`}>{line}</Text>
+                  ))}
                 </LabeledBlock>
                 <LabeledBlock label="Files">
                   {selectedGroup.scopedFiles.map((file) => {
                     const rename = file.previousPath ? ` <- ${file.previousPath}` : "";
                     const descriptor = file.untracked ? "[A untracked]" : `[${file.status}]`;
+                    const statLines = summarizeLines(file.statSummary, 2);
 
                     return (
                       <Box
                         key={`${selectedGroup.id}:${file.path}`}
                         flexDirection="column"
                         marginBottom={1}
-                        paddingX={1}
-                        borderStyle="round"
-                        borderColor="gray"
                       >
                         <Text>
-                          - {descriptor} {file.path}{rename}
+                          <FileStatusTag status={file.status} untracked={file.untracked} /> {file.path}{rename}
                         </Text>
-                        {formatMultiline(file.statSummary).map((line) => (
-                          <Text key={`${selectedGroup.id}:${file.path}:${line}`} dimColor>{line}</Text>
-                        ))}
+                        <Text dimColor>  {summarizeStat(file.statSummary)}</Text>
                       </Box>
                     );
                   })}
@@ -290,7 +350,7 @@ function ReviewApp({
                 {selectedGroup.message.body?.trim()
                   ? (
                     <LabeledBlock label="Body">
-                      {selectedGroup.message.body.trim().split("\n").map((line, index) => (
+                      {summarizeLines(selectedGroup.message.body.trim(), 4).map((line, index) => (
                         <Text key={`${selectedGroup.id}:body:${index}`}>{line}</Text>
                       ))}
                     </LabeledBlock>

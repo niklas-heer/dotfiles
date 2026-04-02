@@ -16,6 +16,12 @@ export const commitPlanSchema = z.array(commitGroupSchema);
 const commitPlanEnvelopeSchema = z.object({
   groups: commitPlanSchema,
 });
+const MAX_PLAN_ATTEMPTS = 3;
+type CommitPlanRequestResult = {
+  object: {
+    groups: CommitGroup[];
+  };
+};
 
 export type CommitGroup = z.infer<typeof commitGroupSchema>;
 
@@ -47,9 +53,12 @@ export function validateCommitPlan(context: GatheredContext, plan: CommitGroup[]
   }
 }
 
-export async function generateCommitPlan(context: GatheredContext) {
+async function requestCommitPlan(
+  context: GatheredContext,
+  correction?: string,
+): Promise<CommitPlanRequestResult> {
   const openrouter = getOpenRouterProvider();
-  const result = await generateObject({
+  return generateObject({
     model: openrouter(MODELS.analyzeAndGroup),
     schema: commitPlanEnvelopeSchema,
     schemaName: "commit_plan",
@@ -64,9 +73,46 @@ export async function generateCommitPlan(context: GatheredContext) {
       "Return an object with a single `groups` array field.",
       "draft_message must be a concise conventional-commit-style subject line.",
     ].join("\n"),
-    prompt: buildGroupingPrompt(context),
+    prompt: [
+      buildGroupingPrompt(context),
+      correction
+        ? [
+          "",
+          "Previous attempt failed validation.",
+          `Validation error: ${correction}`,
+          "Correct the plan so every scoped file appears exactly once.",
+        ].join("\n")
+        : "",
+    ].filter(Boolean).join("\n"),
   });
+}
 
-  validateCommitPlan(context, result.object.groups);
-  return result.object.groups;
+export async function generateCommitPlan(
+  context: GatheredContext,
+  deps: {
+    requestCommitPlan?: typeof requestCommitPlan;
+  } = {},
+) {
+  const requestPlan = deps.requestCommitPlan ?? requestCommitPlan;
+  let validationError: Error | null = null;
+
+  for (let attempt = 1; attempt <= MAX_PLAN_ATTEMPTS; attempt += 1) {
+    const result = await requestPlan(context, validationError?.message);
+
+    try {
+      validateCommitPlan(context, result.object.groups);
+      return result.object.groups;
+    } catch (error) {
+      if (!(error instanceof Error)) {
+        throw error;
+      }
+
+      validationError = error;
+      if (attempt === MAX_PLAN_ATTEMPTS) {
+        throw error;
+      }
+    }
+  }
+
+  throw validationError ?? new Error("Failed to generate a valid commit plan.");
 }

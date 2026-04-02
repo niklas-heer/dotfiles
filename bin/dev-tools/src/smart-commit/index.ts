@@ -30,6 +30,13 @@ type RunSmartCommitOptions = {
 
 const MAX_PRINTED_FILES = 40;
 const LARGE_IGNORE_CANDIDATE_COUNT = 200;
+const RESET = "\u001b[0m";
+const DIM = "\u001b[2m";
+const GREEN = "\u001b[32m";
+const YELLOW = "\u001b[33m";
+const MAGENTA = "\u001b[35m";
+const RED = "\u001b[31m";
+const CYAN = "\u001b[36m";
 
 function printHelp() {
   console.log(`smart-commit
@@ -95,6 +102,51 @@ function formatProviderError(error: unknown) {
   }
 
   return `${error.message} (${details.join("; ")})`;
+}
+
+function colorize(color: string, value: string) {
+  return `${color}${value}${RESET}`;
+}
+
+function dim(value: string) {
+  return colorize(DIM, value);
+}
+
+function statusColor(status: "A" | "M" | "D" | "R") {
+  return status === "A"
+    ? GREEN
+    : status === "M"
+      ? YELLOW
+      : status === "D"
+        ? RED
+        : MAGENTA;
+}
+
+function formatStatusBadge(status: "A" | "M" | "D" | "R", untracked?: boolean) {
+  const label = untracked ? "A+" : status;
+  return colorize(statusColor(status), `[${label}]`);
+}
+
+function summarizeStatSummary(value: string) {
+  return value
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .join("  ");
+}
+
+function formatFileMeta(context: GatheredContext["files"][number]) {
+  const parts = [
+    context.source,
+    context.binary ? "binary" : "text",
+  ];
+
+  if (context.untracked) {
+    parts.push("untracked");
+  }
+
+  parts.push(context.representation);
+  return parts.join(" • ");
 }
 
 async function loadDependencies(overrides: Partial<SmartCommitDependencies> = {}): Promise<SmartCommitDependencies> {
@@ -179,10 +231,8 @@ function printContextSummary(context: GatheredContext) {
   section("Changes");
   for (const file of visibleFiles.slice(0, MAX_PRINTED_FILES)) {
     const rename = file.previousPath ? ` <- ${file.previousPath}` : "";
-    const kind = file.binary ? "binary" : "text";
-    const untracked = file.untracked ? ", untracked" : "";
-    console.log(`- [${file.status}] ${file.path}${rename} (${file.source}, ${kind}${untracked}, ${file.representation})`);
-    console.log(formatIndentedBlock(file.statSummary));
+    console.log(`${formatStatusBadge(file.status, file.untracked)} ${colorize(CYAN, file.path)}${rename} ${dim(formatFileMeta(file))}`);
+    note(`  ${summarizeStatSummary(file.statSummary)}`);
   }
 
   const suppressedCount = context.files.length - visibleFiles.length;
