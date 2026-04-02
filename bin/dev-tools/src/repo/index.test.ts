@@ -5,6 +5,10 @@ import { tmpdir } from "node:os";
 
 import { discoverRepoRoots, runRepo } from "./index.ts";
 
+function normalizeMacTmpPath(path: string) {
+  return path.replace(/^\/private/, "");
+}
+
 describe("repo tool", () => {
   test("discovers repos from .git directories and files", async () => {
     const root = await mkdtemp(join(tmpdir(), "repo-tool-test-"));
@@ -22,9 +26,9 @@ describe("repo tool", () => {
         join(root, "ghq"),
       ]);
 
-      expect(repos).toEqual([
-        worktreeRepo,
-        standardRepo,
+      expect(repos.map(normalizeMacTmpPath)).toEqual([
+        normalizeMacTmpPath(worktreeRepo),
+        normalizeMacTmpPath(standardRepo),
       ]);
     } finally {
       await rm(root, { recursive: true, force: true });
@@ -111,5 +115,29 @@ describe("repo tool", () => {
 
       await rm(root, { recursive: true, force: true });
     }
+  });
+
+  test("prefers basename and abbreviated path in picker entries", async () => {
+    let output = "";
+
+    const exitCode = await runRepo(["chez"], {
+      stdout: {
+        write(chunk: string) {
+          output += chunk;
+          return true;
+        },
+      },
+      deps: {
+        discoverRepoRoots: async () => ["/tmp/alpha", "/Users/nheer/.local/share/chezmoi"],
+        selectRepo: async (repos, query) => {
+          expect(repos).toEqual(["/tmp/alpha", "/Users/nheer/.local/share/chezmoi"]);
+          expect(query).toBe("chez");
+          return "/Users/nheer/.local/share/chezmoi";
+        },
+      },
+    });
+
+    expect(exitCode).toBe(0);
+    expect(output).toBe("/Users/nheer/.local/share/chezmoi\n");
   });
 });
