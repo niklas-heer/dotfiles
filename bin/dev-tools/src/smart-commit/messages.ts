@@ -16,8 +16,71 @@ const commitMessagesSchema = z.array(commitMessageSchema);
 const commitMessagesEnvelopeSchema = z.object({
   messages: commitMessagesSchema,
 });
+const CONVENTIONAL_TYPES = new Set([
+  "feat",
+  "fix",
+  "docs",
+  "refactor",
+  "chore",
+  "test",
+  "style",
+  "perf",
+  "ci",
+  "build",
+]);
+const GITMOJI_BY_TYPE: Record<string, string> = {
+  feat: "✨",
+  fix: "🐛",
+  docs: "📝",
+  refactor: "♻️",
+  chore: "🔧",
+  test: "✅",
+  style: "💄",
+  perf: "⚡️",
+  ci: "👷",
+  build: "📦",
+};
+const CONVENTIONAL_SUBJECT_PATTERN = /^(?<type>[a-z]+)(?<scope>\([^)]+\))?: (?<description>.+)$/u;
+const LEADING_EMOJI_PATTERN = /^[\p{Extended_Pictographic}\uFE0F\u200D\s]+/u;
 
 export type CommitMessage = z.infer<typeof commitMessageSchema>;
+
+function parseConventionalSubject(subject: string) {
+  const match = subject.trim().match(CONVENTIONAL_SUBJECT_PATTERN);
+  if (!match?.groups) {
+    throw new Error(`Message subject is not a conventional commit: ${subject}`);
+  }
+
+  const { type, scope, description } = match.groups;
+  if (!CONVENTIONAL_TYPES.has(type)) {
+    throw new Error(`Message subject uses an unsupported conventional commit type: ${type}`);
+  }
+
+  return {
+    type,
+    scope: scope ?? "",
+    description: description.trim(),
+  };
+}
+
+export function normalizeCommitSubject(subject: string) {
+  const parsed = parseConventionalSubject(subject);
+  const emoji = GITMOJI_BY_TYPE[parsed.type] ?? "🔧";
+  const description = parsed.description.replace(LEADING_EMOJI_PATTERN, "").trim();
+
+  if (!description) {
+    throw new Error(`Message subject is missing a description: ${subject}`);
+  }
+
+  return `${parsed.type}${parsed.scope}: ${emoji} ${description}`;
+}
+
+export function normalizeCommitMessages(messages: CommitMessage[]) {
+  return messages.map((message) => ({
+    ...message,
+    subject: normalizeCommitSubject(message.subject),
+  }));
+}
 
 export function validateMessages(groups: PlannedCommitGroup[], messages: CommitMessage[]) {
   const expected = new Set(groups.map((group) => group.id));
@@ -33,6 +96,7 @@ export function validateMessages(groups: PlannedCommitGroup[], messages: CommitM
     }
 
     seen.add(message.id);
+    parseConventionalSubject(message.subject);
   }
 
   const missing = [...expected].filter((id) => !seen.has(id));
@@ -55,6 +119,8 @@ export async function generateCommitMessages(
       "Write git commit messages for grouped changes.",
       "Use conventional commits with an optional scope.",
       "Valid types: feat, fix, docs, refactor, chore, test, style, perf, ci, build.",
+      "Format every subject as `type(scope): gitmoji description` or `type: gitmoji description`.",
+      "Place the gitmoji after the conventional-commit prefix, never before it.",
       "Keep the subject concise and imperative.",
       "Use a body only when it adds real context.",
       "Return an object with a single `messages` array field.",
@@ -63,6 +129,7 @@ export async function generateCommitMessages(
     prompt: buildMessagePrompt(context, groups),
   });
 
-  validateMessages(groups, result.object.messages);
-  return result.object.messages;
+  const messages = normalizeCommitMessages(result.object.messages);
+  validateMessages(groups, messages);
+  return messages;
 }
