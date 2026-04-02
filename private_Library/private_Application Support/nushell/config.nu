@@ -82,7 +82,7 @@ def --env nht [...args] {
     let selection = if (($args | length) > 0) {
         __nht_resolve_command ($args | first)
     } else {
-        (^tv nht | str trim)
+        (^tv nht --inline | str trim)
     }
 
     if ($env.LAST_EXIT_CODE != 0) or ($selection | is-empty) {
