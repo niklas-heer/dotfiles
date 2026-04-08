@@ -6,7 +6,7 @@
 
 tap "oven-sh/bun" # https://github.com/oven-sh/homebrew-bun
 tap "niklas-heer/tap" # https://github.com/niklas-heer/homebrew-tap
-tap "nur-taskrunner/homebrew" # https://github.com/nur-taskrunner/homebrew.git
+tap "nur-taskrunner/homebrew", "https://github.com/nur-taskrunner/homebrew.git" # https://github.com/nur-taskrunner/homebrew
 tap "satococoa/tap" # https://github.com/satococoa/homebrew-tap
 
 # Basics
