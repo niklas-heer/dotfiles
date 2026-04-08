@@ -5,6 +5,15 @@ import { generateObject } from "ai";
 import { z } from "zod";
 
 import { MODELS, getOpenRouterProvider } from "../lib/llm.ts";
+import {
+  withSpinnerTo,
+  writeAppHeader,
+  writeBullet,
+  writeCodeBlock,
+  writeLine,
+  writePairTo,
+  writeSectionTo,
+} from "../lib/ui.ts";
 import { promptForManager, promptForName } from "./prompt.tsx";
 
 type Manager = "brew" | "bun";
@@ -41,60 +50,6 @@ type RunAddToolOptions = {
 const commentSchema = z.object({
   comment: z.string().min(1).max(80),
 });
-const RESET = "\u001b[0m";
-const DIM = "\u001b[2m";
-const GREEN = "\u001b[32m";
-const CYAN = "\u001b[36m";
-const SPINNER_FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
-
-function colorize(color: string, message: string) {
-  return `${color}${message}${RESET}`;
-}
-
-function writeLine(output: Pick<typeof process.stdout, "write"> | Pick<typeof process.stderr, "write">, message = "") {
-  output.write(`${message}\n`);
-}
-
-function writeSection(output: Pick<typeof process.stdout, "write">, title: string) {
-  writeLine(output, colorize(CYAN, title));
-}
-
-function writePair(output: Pick<typeof process.stdout, "write">, label: string, value: string) {
-  writeLine(output, `${DIM}${label}:${RESET} ${value}`);
-}
-
-async function withStepSpinner<T>(
-  label: string,
-  stderr: Pick<typeof process.stderr, "write">,
-  task: () => Promise<T>,
-) {
-  if (stderr !== process.stderr || !process.stderr.isTTY) {
-    writeLine(stderr, `${label}...`);
-    return task();
-  }
-
-  let frameIndex = 0;
-  const renderFrame = () => {
-    const frame = SPINNER_FRAMES[frameIndex % SPINNER_FRAMES.length];
-    frameIndex += 1;
-    process.stderr.write(`\r${colorize(CYAN, `${frame} ${label}`)}`);
-  };
-
-  renderFrame();
-  const interval = setInterval(renderFrame, 80);
-
-  try {
-    const result = await task();
-    clearInterval(interval);
-    process.stderr.write(`\r${colorize(GREEN, `✓ ${label}`)}\n`);
-    return result;
-  } catch (error) {
-    clearInterval(interval);
-    process.stderr.write(`\r${label}\n`);
-    throw error;
-  }
-}
-
 function printHelp(stdout: Pick<typeof process.stdout, "write">) {
   stdout.write(`add-tool
 
@@ -475,17 +430,18 @@ export async function runAddTool(argv: string[], options: RunAddToolOptions = {}
       throw new Error(`Could not find ${manager === "brew" ? "Brewfile" : "Bunfile"} from ${cwd}`);
     }
 
-    writeSection(stdout, "Add Tool");
-    writePair(stdout, "package", name);
-    writePair(stdout, "manager", manager);
+    writeAppHeader(stdout, "Add Tool", "Add a managed package entry with a terse inline manifest comment.");
+    writeSectionTo(stdout, "Selection");
+    writePairTo(stdout, "package", name);
+    writePairTo(stdout, "manager", manager);
     writeLine(stdout);
 
-    const metadata = await withStepSpinner(
+    const metadata = await withSpinnerTo(
       `Looking up ${manager} metadata for ${name}`,
       stderr,
       () => deps.fetchMetadata(manager, name),
     );
-    const comment = await withStepSpinner(
+    const comment = await withSpinnerTo(
       `Generating comment for ${metadata.name}`,
       stderr,
       () => deps.generateComment(manager, metadata),
@@ -495,22 +451,33 @@ export async function runAddTool(argv: string[], options: RunAddToolOptions = {}
     const nextContent = applyManifestUpdate(manager, manifestContent, metadata.name, comment);
     const renderedEntry = renderEntry(manager, metadata.name, comment);
 
+    writeSectionTo(stdout, "Resolved Package");
+    writePairTo(stdout, "manifest", basename(manifestPath));
+    writePairTo(stdout, "package", metadata.name);
+    writePairTo(stdout, "source", metadata.source);
+    if (metadata.homepage) {
+      writePairTo(stdout, "homepage", metadata.homepage);
+    }
+    writePairTo(stdout, "comment", comment);
+    writeLine(stdout);
+
     if (dryRun) {
-      writeSection(stdout, "Dry Run");
-      writePair(stdout, "file", basename(manifestPath));
-      writeLine(stdout, renderedEntry);
+      writeSectionTo(stdout, "Dry Run");
+      writePairTo(stdout, "file", basename(manifestPath));
+      writeCodeBlock(stdout, renderedEntry);
       return 0;
     }
 
-    await withStepSpinner(
+    await withSpinnerTo(
       `Updating ${basename(manifestPath)}`,
       stderr,
       () => deps.writeTextFile(manifestPath, nextContent, "utf8"),
     );
 
-    writeSection(stdout, "Updated");
-    writePair(stdout, "file", basename(manifestPath));
-    writeLine(stdout, renderedEntry);
+    writeSectionTo(stdout, "Updated");
+    writePairTo(stdout, "file", basename(manifestPath));
+    writeCodeBlock(stdout, renderedEntry);
+    writeBullet(stdout, "Manifest updated successfully", "success");
     return 0;
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);

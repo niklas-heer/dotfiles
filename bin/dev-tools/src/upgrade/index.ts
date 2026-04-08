@@ -1,6 +1,14 @@
 import { access, readFile } from "node:fs/promises";
 import { basename, dirname, join, resolve } from "node:path";
 
+import {
+  withSpinnerTo,
+  writeAppHeader,
+  writeBullet,
+  writeLine,
+  writePairTo,
+  writeSectionTo,
+} from "../lib/ui.ts";
 import { confirmUpgrade, type UpgradePreview, type UpgradePreviewItem } from "./prompt.tsx";
 
 type Manager = "brew" | "bun";
@@ -38,60 +46,6 @@ type RunUpgradeOptions = {
   stderr?: Pick<typeof process.stderr, "write">;
   deps?: Partial<UpgradeDependencies>;
 };
-
-const RESET = "\u001b[0m";
-const DIM = "\u001b[2m";
-const GREEN = "\u001b[32m";
-const CYAN = "\u001b[36m";
-const SPINNER_FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
-
-function colorize(color: string, message: string) {
-  return `${color}${message}${RESET}`;
-}
-
-function writeLine(output: Pick<typeof process.stdout, "write"> | Pick<typeof process.stderr, "write">, message = "") {
-  output.write(`${message}\n`);
-}
-
-function writeSection(output: Pick<typeof process.stdout, "write">, title: string) {
-  writeLine(output, colorize(CYAN, title));
-}
-
-function writePair(output: Pick<typeof process.stdout, "write">, label: string, value: string) {
-  writeLine(output, `${DIM}${label}:${RESET} ${value}`);
-}
-
-async function withStepSpinner<T>(
-  label: string,
-  stderr: Pick<typeof process.stderr, "write">,
-  task: () => Promise<T>,
-) {
-  if (stderr !== process.stderr || !process.stderr.isTTY) {
-    writeLine(stderr, `${label}...`);
-    return task();
-  }
-
-  let frameIndex = 0;
-  const renderFrame = () => {
-    const frame = SPINNER_FRAMES[frameIndex % SPINNER_FRAMES.length];
-    frameIndex += 1;
-    process.stderr.write(`\r${colorize(CYAN, `${frame} ${label}`)}`);
-  };
-
-  renderFrame();
-  const interval = setInterval(renderFrame, 80);
-
-  try {
-    const result = await task();
-    clearInterval(interval);
-    process.stderr.write(`\r${colorize(GREEN, `✓ ${label}`)}\n`);
-    return result;
-  } catch (error) {
-    clearInterval(interval);
-    process.stderr.write(`\r${label}\n`);
-    throw error;
-  }
-}
 
 function printHelp(stdout: Pick<typeof process.stdout, "write">) {
   stdout.write(`upgrade
@@ -323,10 +277,10 @@ export async function runUpgrade(argv: string[], options: RunUpgradeOptions = {}
     const deps = await loadDependencies(options.deps);
 
     const brew = brewEnabled
-      ? await withStepSpinner("Checking Homebrew upgrades", stderr, () => deps.checkBrewUpgrades())
+      ? await withSpinnerTo("Checking Homebrew upgrades", stderr, () => deps.checkBrewUpgrades())
       : [];
     const bun = bunEnabled
-      ? await withStepSpinner("Checking Bun global packages", stderr, () => deps.checkBunUpgrades(cwd))
+      ? await withSpinnerTo("Checking Bun global packages", stderr, () => deps.checkBunUpgrades(cwd))
       : [];
 
     const preview: UpgradePreview = {
@@ -337,29 +291,31 @@ export async function runUpgrade(argv: string[], options: RunUpgradeOptions = {}
     };
 
     if (brew.length === 0 && bun.length === 0) {
-      writeSection(stdout, "Upgrade");
+      writeAppHeader(stdout, "Upgrade", "Review managed Homebrew and Bun upgrades before applying them.");
+      writeSectionTo(stdout, "Upgrade");
       writeLine(stdout, "Nothing to upgrade.");
       return 0;
     }
 
-    writeSection(stdout, "Upgrade");
-    writePair(stdout, "homebrew", brewEnabled ? `${brew.length} outdated` : "disabled");
-    writePair(stdout, "bun", bunEnabled ? `${bun.length} outdated` : "disabled");
+    writeAppHeader(stdout, "Upgrade", "Review managed Homebrew and Bun upgrades before applying them.");
+    writeSectionTo(stdout, "Upgrade");
+    writePairTo(stdout, "homebrew", brewEnabled ? `${brew.length} outdated` : "disabled");
+    writePairTo(stdout, "bun", bunEnabled ? `${bun.length} outdated` : "disabled");
     writeLine(stdout);
 
     if (dryRun) {
       if (brewEnabled) {
-        writeSection(stdout, "Homebrew");
+        writeSectionTo(stdout, "Homebrew");
         for (const item of brew) {
-          writeLine(stdout, `${item.name} ${item.current} -> ${item.latest}`);
+          writeBullet(stdout, `${item.name} ${item.current} -> ${item.latest}`);
         }
         writeLine(stdout);
       }
 
       if (bunEnabled) {
-        writeSection(stdout, "Bun");
+        writeSectionTo(stdout, "Bun");
         for (const item of bun) {
-          writeLine(stdout, `${item.name} ${item.current} -> ${item.latest}`);
+          writeBullet(stdout, `${item.name} ${item.current} -> ${item.latest}`);
         }
       }
 
@@ -369,12 +325,13 @@ export async function runUpgrade(argv: string[], options: RunUpgradeOptions = {}
     if (!yes) {
       const confirmed = await deps.confirmUpgrade(preview);
       if (!confirmed) {
+        writeLine(stderr, "Upgrade cancelled.");
         return 0;
       }
     }
 
     if (brew.length > 0) {
-      await withStepSpinner("Running brew upgrade", stderr, async () => {
+      await withSpinnerTo("Running brew upgrade", stderr, async () => {
         const brewBin = Bun.which("brew") ?? "/opt/homebrew/bin/brew";
         const result = await deps.runCommand([brewBin, "upgrade"], cwd);
         if (result.exitCode !== 0) {
@@ -385,7 +342,7 @@ export async function runUpgrade(argv: string[], options: RunUpgradeOptions = {}
 
     if (bun.length > 0) {
       for (const item of bun) {
-        await withStepSpinner(`Upgrading bun package ${item.name}`, stderr, async () => {
+        await withSpinnerTo(`Upgrading bun package ${item.name}`, stderr, async () => {
           const result = await deps.runCommand(["bun", "install", "-g", item.name], cwd);
           if (result.exitCode !== 0) {
             throw new Error(result.stderr || `bun install -g ${item.name} failed`);
@@ -394,9 +351,15 @@ export async function runUpgrade(argv: string[], options: RunUpgradeOptions = {}
       }
     }
 
-    writeSection(stdout, "Upgraded");
-    writePair(stdout, "homebrew", brewEnabled ? `${brew.length} package${brew.length === 1 ? "" : "s"}` : "disabled");
-    writePair(stdout, "bun", bunEnabled ? `${bun.length} package${bun.length === 1 ? "" : "s"}` : "disabled");
+    writeSectionTo(stdout, "Upgraded");
+    writePairTo(stdout, "homebrew", brewEnabled ? `${brew.length} package${brew.length === 1 ? "" : "s"}` : "disabled");
+    writePairTo(stdout, "bun", bunEnabled ? `${bun.length} package${bun.length === 1 ? "" : "s"}` : "disabled");
+    if (brew.length > 0) {
+      writeBullet(stdout, `brew upgrade ran for ${brew.length} outdated package${brew.length === 1 ? "" : "s"}`, "success");
+    }
+    for (const item of bun) {
+      writeBullet(stdout, `${item.name} -> ${item.latest}`, "success");
+    }
     return 0;
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);

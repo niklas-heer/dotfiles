@@ -1,4 +1,0 @@
-# .zprofile
-
-# Created by `pipx`
-export PATH="$PATH:/Users/nheer/.local/bin"

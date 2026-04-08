@@ -185,6 +185,7 @@ def --env np [...args] {
 
 alias newproj = np new
 alias graduateproj = np promote
+alias ai = codex --dangerously-bypass-approvals-and-sandbox
 
 # https://ohmyposh.dev/docs/installation/customize#set-the-configuration
 oh-my-posh init nu --config ~/.nheer.omp.yaml

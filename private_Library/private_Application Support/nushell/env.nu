@@ -58,6 +58,44 @@ path add ($env.HOME | path join ".local/bin")
 $env.EDITOR = "nvim"
 $env.VISUAL = "nvim"
 
+# Mirror the essential Nix daemon environment that login shells pick up from
+# `nix-daemon.sh`, so `nix` and installed tools work in Nushell as well.
+let nix_default_profile = "/nix/var/nix/profiles/default"
+let nix_legacy_profile = ($env.HOME | path join ".nix-profile")
+let xdg_state_home = ($env.XDG_STATE_HOME? | default ($env.HOME | path join ".local/state"))
+let nix_state_profile = ($xdg_state_home | path join "nix/profile")
+let nix_user_profile = if ($nix_state_profile | path exists) { $nix_state_profile } else { $nix_legacy_profile }
+let nix_binary = ($nix_default_profile | path join "bin/nix")
+
+if ($nix_binary | path exists) {
+    $env.NIX_PROFILES = $"($nix_default_profile) ($nix_user_profile)"
+
+    let nix_data_dirs = $"($nix_user_profile)/share:($nix_default_profile)/share"
+    let current_xdg_data_dirs = ($env.XDG_DATA_DIRS? | default "")
+    $env.XDG_DATA_DIRS = if ($current_xdg_data_dirs | is-empty) {
+        $"/usr/local/share:/usr/share:($nix_data_dirs)"
+    } else {
+        $"($current_xdg_data_dirs):($nix_data_dirs)"
+    }
+
+    if (($env.NIX_SSL_CERT_FILE? | default "") | is-empty) {
+        let nix_ssl_cert = ([
+            "/etc/ssl/certs/ca-certificates.crt"
+            "/etc/ssl/ca-bundle.pem"
+            "/etc/ssl/certs/ca-bundle.crt"
+            "/etc/pki/tls/certs/ca-bundle.crt"
+            ($nix_user_profile | path join "etc/ssl/certs/ca-bundle.crt")
+            ($nix_default_profile | path join "etc/ssl/certs/ca-bundle.crt")
+        ] | where {|cert| $cert | path exists } | get 0? | default "")
+
+        if (not ($nix_ssl_cert | is-empty)) {
+            $env.NIX_SSL_CERT_FILE = $nix_ssl_cert
+        }
+    }
+
+    path add [($nix_user_profile | path join "bin"), ($nix_default_profile | path join "bin")]
+}
+
 # https://docs.atuin.sh/guide/installation/
 let atuin_dir  = ($env.HOME | path join ".local/share/atuin")
 let atuin_file = ($atuin_dir | path join "init.nu")

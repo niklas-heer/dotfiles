@@ -1,0 +1,10 @@
+# .zprofile
+
+# Created by `pipx`
+export PATH="$PATH:/Users/nheer/.local/bin"
+{{- if stat (joinPath .chezmoi.homeDir ".orbstack/shell/init.zsh") }}
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+{{- end }}

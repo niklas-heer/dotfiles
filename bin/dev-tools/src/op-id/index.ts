@@ -1,4 +1,12 @@
 import { promptForQuery, selectMatchingItem, type OpItemMatch } from "./prompt.tsx";
+import {
+  statusText,
+  withSpinnerTo,
+  writeAppHeader,
+  writeLine,
+  writePairTo,
+  writeSectionTo,
+} from "../lib/ui.ts";
 
 type OnePasswordItem = {
   id: string;
@@ -29,27 +37,6 @@ type RunOpIdOptions = {
   stderr?: Pick<typeof process.stderr, "write">;
   deps?: Partial<OpIdDependencies>;
 };
-
-const RESET = "\u001b[0m";
-const DIM = "\u001b[2m";
-const GREEN = "\u001b[32m";
-const CYAN = "\u001b[36m";
-
-function colorize(color: string, message: string) {
-  return `${color}${message}${RESET}`;
-}
-
-function writeLine(output: Pick<typeof process.stdout, "write"> | Pick<typeof process.stderr, "write">, message = "") {
-  output.write(`${message}\n`);
-}
-
-function writeSection(output: Pick<typeof process.stdout, "write">, title: string) {
-  writeLine(output, colorize(CYAN, title));
-}
-
-function writePair(output: Pick<typeof process.stdout, "write">, label: string, value: string) {
-  writeLine(output, `${DIM}${label}:${RESET} ${value}`);
-}
 
 function printHelp(stdout: Pick<typeof process.stdout, "write">) {
   stdout.write(`op-id
@@ -204,17 +191,24 @@ async function loadDependencies(overrides: Partial<OpIdDependencies> = {}): Prom
 
 async function finishSelection(
   id: string,
+  query: string,
+  vault: string | undefined,
+  matchCount: number,
   stdout: Pick<typeof process.stdout, "write">,
   stderr: Pick<typeof process.stderr, "write">,
   deps: OpIdDependencies,
 ) {
   const copied = await deps.copyToClipboard(id);
 
-  writeSection(stdout, "1Password UUID");
-  writePair(stdout, "id", id);
+  writeAppHeader(stdout, "1Password UUID", "Resolve a 1Password item quickly and copy the stable UUID when possible.");
+  writeSectionTo(stdout, "1Password UUID");
+  writePairTo(stdout, "query", query);
+  writePairTo(stdout, "vault", vault ?? "all");
+  writePairTo(stdout, "matches", String(matchCount));
+  writePairTo(stdout, "id", id);
 
   if (copied) {
-    writeLine(stderr, colorize(GREEN, "Copied UUID to clipboard."));
+    writeLine(stderr, statusText("Copied UUID to clipboard.", "success"));
   }
 }
 
@@ -236,7 +230,7 @@ export async function runOpId(argv: string[], options: RunOpIdOptions = {}) {
       return 0;
     }
 
-    const items = await deps.listItems(vault);
+    const items = await withSpinnerTo("Loading 1Password items", stderr, () => deps.listItems(vault));
     const matches = findMatchingItems(query, items);
 
     if (matches.length === 0) {
@@ -244,7 +238,7 @@ export async function runOpId(argv: string[], options: RunOpIdOptions = {}) {
     }
 
     if (matches.length === 1) {
-      await finishSelection(matches[0]!.id, stdout, stderr, deps);
+      await finishSelection(matches[0]!.id, query, vault, matches.length, stdout, stderr, deps);
       return 0;
     }
 
@@ -253,7 +247,7 @@ export async function runOpId(argv: string[], options: RunOpIdOptions = {}) {
       return 0;
     }
 
-    await finishSelection(selected.id, stdout, stderr, deps);
+    await finishSelection(selected.id, query, vault, matches.length, stdout, stderr, deps);
     return 0;
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);

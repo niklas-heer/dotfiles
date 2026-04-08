@@ -6,6 +6,7 @@
 
 tap "oven-sh/bun" # https://github.com/oven-sh/homebrew-bun
 tap "niklas-heer/tap" # https://github.com/niklas-heer/homebrew-tap
+tap "nur-taskrunner/homebrew" # https://github.com/nur-taskrunner/homebrew.git
 tap "satococoa/tap" # https://github.com/satococoa/homebrew-tap
 
 # Basics
@@ -20,11 +21,13 @@ brew "lazygit" # cli client for git
 brew "lazydocker" # cli client for docker
 brew "ghq" # download and manage git repos Golang style
 brew "fzf" # fuzzy finder
+brew "pulumi" # infrastructure as code platform
 brew "television" # fuzzy finder and search TUI
 brew "oh-my-posh" # prompt engine for nu and zsh
 brew "carapace" # multi-shell completion library (for nushell)
 brew "just" # better Makefiles
 brew "mask" # task runner defined in markdown files
+brew "nur" # task runner
 brew "bat" # better cat
 brew "xh" # better httpie - interact with APIs (get, post, ...)
 brew "bun" # better nodejs

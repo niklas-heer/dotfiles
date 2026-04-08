@@ -64,6 +64,7 @@ np() {
 
 alias newproj='np new'
 alias graduateproj='np promote'
+alias ai='codex --dangerously-bypass-approvals-and-sandbox'
 
 __nht_resolve_command() {
   command bun run "$HOME/bin/dev-tools/src/register.ts" --resolve "$1"

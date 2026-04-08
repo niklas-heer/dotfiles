@@ -166,6 +166,7 @@ describe("op-id command", () => {
 
     expect(exitCode).toBe(0);
     expect(output).toContain("abc123");
-    expect(errput).toBe("");
+    expect(errput).toContain("Loading 1Password items");
+    expect(errput).not.toContain("Copied UUID to clipboard.");
   });
 });
