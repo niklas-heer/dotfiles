@@ -199,3 +199,32 @@ if ("~/.zoxide.nu" | path expand | path exists) {
 if ("~/.local/share/atuin/init.nu" | path expand | path exists) {
     source ~/.local/share/atuin/init.nu
 }
+
+# Keep Television shell integration, but ensure Ctrl-R opens Atuin history.
+let _nheer_ctrl_r_binding = {
+    name: atuin_ctrl_r_override
+    modifier: control
+    keycode: char_r
+    mode: [emacs, vi_normal, vi_insert]
+    event: {
+        send: executehostcommand
+        cmd: ([
+            'with-env { ATUIN_LOG: error, ATUIN_QUERY: (commandline), ATUIN_SHELL: nu } {'
+            'let output = (run-external atuin search --interactive e>| str trim)'
+            'if ($output | str starts-with "__atuin_accept__:") {'
+            'commandline edit --accept ($output | str replace "__atuin_accept__:" "")'
+            '} else {'
+            'commandline edit $output'
+            '}'
+            '}'
+        ] | str join "\n")
+    }
+}
+
+$env.config.keybindings = (
+    ($env.config.keybindings? | default [])
+    | where {|kb|
+        (($kb.keycode? | default "") != "char_r")
+    }
+    | append $_nheer_ctrl_r_binding
+)
