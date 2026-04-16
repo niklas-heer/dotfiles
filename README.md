@@ -98,8 +98,20 @@ I want to document my decisions for me so I don't forget and potentially for you
 * **Context**: I prefer automatic tiling window managers over manual ones. While `aerospace` is a great manual tiling window manager, I find that `Amethyst's` automatic tiling fits my workflow better. I don't have to think about managing my windows, they just tile automatically.
 * **Consequences**: I will not explore `aerospace` further for now and stick with my `Amethyst` setup.
 
+### 15 Removing Emacs Plus and Doom Emacs
+* **Status**: ✅ Adopted
+* **Decision**: I will remove `emacs-plus` and `Doom Emacs` from this machine and my dotfiles.
+* **Context**: Emacs still does not feel like the right fit for my workflow right now, and I want to keep the setup simple and focused on the tools I actually use day to day.
+* **Consequences**: Emacs-specific Homebrew packages, app bundles, shell paths, and Doom configuration will be removed.
+
+### 14 Adopting Emacs Plus and Doom Emacs
+* **Status**: ⛔ Deprecated by [15 Removing Emacs Plus and Doom Emacs](#15-removing-emacs-plus-and-doom-emacs)
+* **Decision**: I will use `emacs-plus` as my macOS Emacs distribution and `Doom Emacs` as my configuration framework.
+* **Context**: Emacs Plus offers a fast, modern macOS build with native compilation and a prebuilt app bundle, while Doom Emacs gives me an opinionated, performant, and well-supported workflow on top of GNU Emacs. This combination balances speed, features, and maintainability better than my previous assumptions.
+* **Consequences**: I will maintain a Doom-based Emacs setup and keep Emacs-related configuration in sync with chezmoi.
+
 ### 12 Rejecting Doom Emacs
-* **Status**: ✅ Accepted
+* **Status**: ⛔ Deprecated by [14 Adopting Emacs Plus and Doom Emacs](#14-adopting-emacs-plus-and-doom-emacs)
 * **Decision**: I will not use Doom Emacs.
 * **Context**: While I appreciate the integrated nature and completeness of Emacs, and the performance of Doom Emacs specifically, I encountered significant difficulties in installing a current, performant version on macOS. This fiddly installation process goes against my core philosophy that tools must be reliable and easy to set up to be truly useful. Furthermore, adopting Doom Emacs would likely lead me to abandon Zed and Ghostty, two tools I currently value. The benefits of Doom Emacs, including the appeal of org-mode, do not outweigh the costs of instability and sacrificing other liked tools.
 * **Consequences**: I will need to find an alternative for org-mode.

@@ -68,5 +68,4 @@ cask "claude-code" # Claude Code AI CLI app
 
 # Fonts
 # TODO: Add MonoLisa as my main font
-cask "font-symbols-only-nerd-font" # for Doom Emacs icon support
 cask "font-jetbrains-mono-nerd-font" # most practical font
