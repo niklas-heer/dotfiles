@@ -5,7 +5,8 @@ import { generateObject } from "ai";
 import { z } from "zod";
 
 import { MODELS, getOpenRouterProvider } from "../lib/llm.ts";
-import { promptForApproval, promptForFollowUp, promptForNotes } from "./prompt.ts";
+import { statusText, withSpinnerTo, writeAppHeader, writeBullet, writeCodeBlock, writeLine, writePairTo, writeSectionTo } from "../lib/ui.ts";
+import { endDecisionSession, promptForApproval, promptForFollowUp, promptForNotes, type DecisionReviewData, withDecisionProgress } from "./prompt.tsx";
 
 type DecisionStatusKind = "adopted" | "deprecated" | "supersedes";
 
@@ -35,7 +36,7 @@ type DecisionDependencies = {
   writeTextFile: typeof writeFile;
   promptNotes: () => Promise<string | null>;
   promptFollowUp: (question: string) => Promise<string | null>;
-  promptApproval: () => Promise<boolean>;
+  promptApproval: (review: DecisionReviewData) => Promise<boolean>;
   requestDecisionDraft: typeof requestDecisionDraft;
 };
 
@@ -57,57 +58,78 @@ const decisionFormSchema = z.object({
 
 const decisionAssistantSchema = z.object({
   needs_follow_up: z.boolean(),
-  question: z.string().optional(),
-  title: z.string().optional(),
-  status: z.enum(["adopted", "deprecated", "supersedes"]).optional(),
-  reference: z.string().optional(),
-  decision: z.string().optional(),
-  context: z.string().optional(),
-  consequences: z.string().optional(),
+  question: z.string().nullable(),
+  title: z.string().nullable(),
+  status: z.enum(["adopted", "deprecated", "supersedes"]).nullable(),
+  reference: z.string().nullable(),
+  decision: z.string().nullable(),
+  context: z.string().nullable(),
+  consequences: z.string().nullable(),
 });
 
-const RESET = "\u001b[0m";
-const DIM = "\u001b[2m";
-const CYAN = "\u001b[36m";
-const GREEN = "\u001b[32m";
-const SPINNER_FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
 const MAX_DRAFT_ATTEMPTS = 3;
 const DECISION_LOG_START = "<!-- DECISION LOG START -->";
 const DECISION_LOG_END = "<!-- DECISION LOG END -->";
-const ANSI_CLEAR_LINE = "\u001b[2K";
 
-function colorize(color: string, value: string) {
-  return `${color}${value}${RESET}`;
-}
+function extractProviderErrorDetails(error: Error & {
+  statusCode?: number;
+  responseBody?: string;
+}) {
+  const details: string[] = [];
 
-function dim(value: string) {
-  return colorize(DIM, value);
-}
+  if (typeof error.statusCode === "number") {
+    details.push(`status ${error.statusCode}`);
+  }
 
-function writeLine(output: Pick<typeof process.stdout, "write"> | Pick<typeof process.stderr, "write">, message = "") {
-  output.write(`${message}\n`);
-}
+  if (error.responseBody) {
+    try {
+      const parsed = JSON.parse(error.responseBody) as {
+        error?: {
+          message?: string;
+          metadata?: {
+            raw?: string;
+          };
+        };
+      };
 
-function writeSection(output: Pick<typeof process.stdout, "write">, title: string) {
-  writeLine(output, colorize(CYAN, title));
-}
+      const raw = parsed.error?.metadata?.raw;
+      if (raw) {
+        try {
+          const nested = JSON.parse(raw) as {
+            error?: {
+              message?: string;
+            };
+          };
+          if (nested.error?.message) {
+            details.push(nested.error.message);
+          }
+        } catch {
+          details.push(raw);
+        }
+      } else if (parsed.error?.message) {
+        details.push(parsed.error.message);
+      }
+    } catch {
+      details.push(error.responseBody);
+    }
+  }
 
-function writePair(output: Pick<typeof process.stdout, "write">, label: string, value: string) {
-  writeLine(output, `${dim(label)} ${value}`);
-}
-
-function clearStatusLine(output: Pick<typeof process.stderr, "write">) {
-  output.write(`\r${ANSI_CLEAR_LINE}`);
+  return details;
 }
 
 function formatErrorDetails(error: unknown): string {
   if (error instanceof Error) {
+    const providerDetails = extractProviderErrorDetails(error as Error & {
+      statusCode?: number;
+      responseBody?: string;
+    });
     const nested = "cause" in error ? formatErrorDetails((error as Error & { cause?: unknown }).cause) : "";
     const details = [
       error.message,
+      ...providerDetails,
       nested && nested !== error.message ? nested : "",
     ].filter(Boolean);
-    return details.join(": ");
+    return [...new Set(details)].join(": ");
   }
 
   if (!error) {
@@ -155,53 +177,18 @@ function toDecisionAssistantResponse(result: z.infer<typeof decisionAssistantSch
   }
 
   const draft = decisionFormSchema.parse({
-    title: result.title,
-    status: result.status,
-    reference: result.reference,
-    decision: result.decision,
-    context: result.context,
-    consequences: result.consequences,
+    title: result.title ?? undefined,
+    status: result.status ?? undefined,
+    reference: result.reference ?? undefined,
+    decision: result.decision ?? undefined,
+    context: result.context ?? undefined,
+    consequences: result.consequences ?? undefined,
   });
 
   return {
     kind: "draft",
     draft,
   };
-}
-
-async function withStepSpinner<T>(
-  label: string,
-  stderr: Pick<typeof process.stderr, "write">,
-  task: () => Promise<T>,
-) {
-  if (stderr !== process.stderr || !process.stderr.isTTY) {
-    writeLine(stderr, `${label}...`);
-    return task();
-  }
-
-  let frameIndex = 0;
-  const renderFrame = () => {
-    const frame = SPINNER_FRAMES[frameIndex % SPINNER_FRAMES.length];
-    frameIndex += 1;
-    clearStatusLine(process.stderr);
-    process.stderr.write(colorize(CYAN, `${frame} ${label}`));
-  };
-
-  renderFrame();
-  const interval = setInterval(renderFrame, 80);
-
-  try {
-    const result = await task();
-    clearInterval(interval);
-    clearStatusLine(process.stderr);
-    process.stderr.write(`${colorize(GREEN, `✓ ${label}`)}\n`);
-    return result;
-  } catch (error) {
-    clearInterval(interval);
-    clearStatusLine(process.stderr);
-    process.stderr.write(`${label}\n`);
-    throw error;
-  }
 }
 
 function printHelp(stdout: Pick<typeof process.stdout, "write">) {
@@ -335,10 +322,12 @@ export async function requestDecisionDraft({
         "You turn rough developer notes into polished decision log entries for a dotfiles repository.",
         "Return a single object.",
         "Set `needs_follow_up` to true only if one short question is required to draft a good decision entry.",
-        "If `needs_follow_up` is true, fill only `question`.",
-        "If `needs_follow_up` is false, fill `title`, `status`, `decision`, `context`, and `consequences`.",
+        "Every key must always be present in the returned object.",
+        "Use null for fields that are not applicable in the current branch.",
+        "If `needs_follow_up` is true, fill `question` and set `title`, `status`, `reference`, `decision`, `context`, and `consequences` to null.",
+        "If `needs_follow_up` is false, fill `title`, `status`, `decision`, `context`, and `consequences` and set `question` to null.",
         "Default to `adopted` unless the notes clearly describe replacing or deprecating another decision.",
-        "If status is `deprecated` or `supersedes`, include the referenced prior decision in `reference`.",
+        "If status is `deprecated` or `supersedes`, include the referenced prior decision in `reference`; otherwise set `reference` to null.",
         "Write in first person singular.",
         "Keep title concise and decision-oriented.",
         "Write `decision`, `context`, and `consequences` as polished prose, each one to three sentences.",
@@ -386,15 +375,16 @@ function printDraft(
   number: number,
   notes: string,
 ) {
-  writeSection(stdout, "Decision Draft");
-  writePair(stdout, "number", String(number));
-  writePair(stdout, "title", form.title);
-  writePair(stdout, "status", renderStatusLine(form.status, form.reference));
+  writeAppHeader(stdout, "Decision", "Draft a decision log entry from rough notes and confirm before writing.");
+  writeSectionTo(stdout, "Decision Draft");
+  writePairTo(stdout, "number", String(number));
+  writePairTo(stdout, "title", form.title);
+  writePairTo(stdout, "status", renderStatusLine(form.status, form.reference));
   writeLine(stdout);
-  writeLine(stdout, renderDecisionEntry(number, form));
+  writeCodeBlock(stdout, renderDecisionEntry(number, form));
   writeLine(stdout);
-  writeSection(stdout, "Source Notes");
-  writeLine(stdout, notes);
+  writeSectionTo(stdout, "Source Notes");
+  writeCodeBlock(stdout, notes);
   writeLine(stdout);
 }
 
@@ -429,14 +419,14 @@ export async function runDecision(argv: string[], options: RunDecisionOptions = 
     let form: DecisionForm | null = null;
 
     for (let attempt = 1; attempt <= MAX_DRAFT_ATTEMPTS; attempt += 1) {
-      const response = await withStepSpinner("Drafting decision", stderr, () =>
-        deps.requestDecisionDraft({
-          notes,
-          existingDecisionTitles,
-          followUps,
-        })
-      );
-
+      const requestDraft = () => deps.requestDecisionDraft({
+        notes,
+        existingDecisionTitles,
+        followUps,
+      });
+      const response = stdout === process.stdout && stderr === process.stderr
+        ? await withDecisionProgress("Drafting decision", requestDraft)
+        : await withSpinnerTo("Drafting decision", stderr, requestDraft);
       if (response.kind === "draft") {
         form = normalizeDecisionForm(response.draft);
         break;
@@ -459,10 +449,22 @@ export async function runDecision(argv: string[], options: RunDecisionOptions = 
 
     const number = getNextDecisionNumber(content);
     const entry = renderDecisionEntry(number, form);
+    const review: DecisionReviewData = {
+      number,
+      title: form.title,
+      statusLabel: renderStatusLine(form.status, form.reference),
+      decision: form.decision,
+      context: form.context,
+      consequences: form.consequences,
+      notes,
+      followUps,
+    };
 
-    printDraft(stdout, form, number, notes);
+    if (!process.stdin.isTTY || !process.stdout.isTTY) {
+      printDraft(stdout, form, number, notes);
+    }
 
-    const approved = await deps.promptApproval();
+    const approved = await deps.promptApproval(review);
     if (!approved) {
       writeLine(stderr, "Decision not written.");
       return 0;
@@ -471,14 +473,17 @@ export async function runDecision(argv: string[], options: RunDecisionOptions = 
     const nextContent = insertDecisionEntry(content, entry);
     await deps.writeTextFile(readmePath, nextContent, "utf8");
 
-    writeSection(stdout, "Decision Added");
-    writePair(stdout, "path", readmePath);
-    writePair(stdout, "title", form.title);
+    writeSectionTo(stdout, "Decision Added");
+    writePairTo(stdout, "path", readmePath);
+    writePairTo(stdout, "title", form.title);
+    writeBullet(stdout, statusText("README updated", "success"));
     return 0;
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     stderr.write(`${message}\n`);
     return 1;
+  } finally {
+    endDecisionSession();
   }
 }
 
