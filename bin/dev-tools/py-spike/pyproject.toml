@@ -1,0 +1,36 @@
+[project]
+name = "nht-py-spike"
+version = "0.1.0"
+description = "Python spike for a typed, inline-friendly nht decision workflow"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "pydantic>=2.11.3",
+  "pydantic-settings>=2.8.1",
+  "prompt-toolkit>=3.0.51",
+  "rich>=14.1.0",
+  "textual>=0.55.0",
+]
+
+[dependency-groups]
+dev = [
+  "ruff>=0.11.11",
+  "ty>=0.0.1a14",
+]
+
+[project.scripts]
+decision-spike = "nht_py_spike.__main__:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ty.src]
+include = ["src"]
