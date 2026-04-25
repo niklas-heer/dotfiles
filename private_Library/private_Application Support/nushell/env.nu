@@ -101,6 +101,19 @@ let atuin_dir  = ($env.HOME | path join ".local/share/atuin")
 let atuin_file = ($atuin_dir | path join "init.nu")
 
 if (which atuin | is-not-empty) {
-    mkdir $atuin_dir
-    atuin init nu | save --force $atuin_file
+    if not ($atuin_dir | path exists) {
+        mkdir $atuin_dir
+    }
+
+    let atuin_needs_refresh = if not ($atuin_file | path exists) {
+        true
+    } else {
+        open --raw $atuin_file | str contains "job spawn -t atuin {"
+    }
+
+    if $atuin_needs_refresh {
+        atuin init nu
+        | str replace "job spawn -t atuin {" "job spawn -d atuin {"
+        | save -f $atuin_file
+    }
 }
