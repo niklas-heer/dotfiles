@@ -15,6 +15,7 @@ brew "coreutils"
 
 # CLI apps
 brew "glow" # render markdown in terminal
+brew "hcloud" # hetzner cloud command line interface
 brew "nushell" # structured-data shell for optional use
 brew "xonsh" # Python-powered shell for optional use
 brew "fish" # user-friendly shell for optional use

@@ -70,6 +70,62 @@ alias newproj='np new'
 alias graduateproj='np promote'
 alias ai='codex --dangerously-bypass-approvals-and-sandbox'
 
+HOMELAB_OP_ACCOUNT="my.1password.com"
+HOMELAB_OBJECT_STORAGE_BUCKET="heer-family-homelab"
+HOMELAB_OBJECT_STORAGE_REGION="fsn1"
+HOMELAB_OBJECT_STORAGE_ENDPOINT="https://fsn1.your-objectstorage.com"
+HOMELAB_PULUMI_BACKEND_URL="s3://${HOMELAB_OBJECT_STORAGE_BUCKET}?region=${HOMELAB_OBJECT_STORAGE_REGION}&awssdk=v2&endpoint=${HOMELAB_OBJECT_STORAGE_ENDPOINT}"
+
+homelab-op-signin() {
+  command op signin --account "$HOMELAB_OP_ACCOUNT"
+}
+
+__homelab_op_ensure_signin() {
+  command op whoami >/dev/null 2>&1 && return 0
+  homelab-op-signin >/dev/null || return 1
+}
+
+__homelab_op_read() {
+  local ref="$1"
+  local value
+
+  __homelab_op_ensure_signin || return 1
+
+  if ! value="$(command op read "$ref" 2>/dev/null)"; then
+    __homelab_op_ensure_signin || return 1
+    if ! value="$(command op read "$ref" 2>/dev/null)"; then
+      printf 'Could not read 1Password secret: %s\n' "$ref" >&2
+      return 1
+    fi
+  fi
+
+  if [[ -z "$value" ]]; then
+    printf 'Could not read 1Password secret: %s\n' "$ref" >&2
+    return 1
+  fi
+
+  printf '%s' "$value"
+}
+
+homelab-object-storage-env() {
+  export AWS_ACCESS_KEY_ID="$(__homelab_op_read 'op://homelab/Hetzner Object Storage/access-key-id')" || return 1
+  export AWS_SECRET_ACCESS_KEY="$(__homelab_op_read 'op://homelab/Hetzner Object Storage/secret-access-key')" || return 1
+  export AWS_REGION="$HOMELAB_OBJECT_STORAGE_REGION"
+  export AWS_EC2_METADATA_DISABLED="true"
+}
+
+homelab-pulumi-login() {
+  homelab-object-storage-env || return 1
+  command pulumi login "$HOMELAB_PULUMI_BACKEND_URL"
+}
+
+homelab-pulumi() {
+  homelab-object-storage-env || return 1
+  command pulumi "$@"
+}
+
+alias hp='homelab-pulumi'
+
 __nht_resolve_command() {
   command bun run "$HOME/bin/dev-tools/src/register.ts" --resolve "$1"
 }

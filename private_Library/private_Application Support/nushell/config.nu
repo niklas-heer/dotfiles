@@ -187,6 +187,77 @@ alias newproj = np new
 alias graduateproj = np promote
 alias ai = codex --dangerously-bypass-approvals-and-sandbox
 
+const HOMELAB_OP_ACCOUNT = "my.1password.com"
+const HOMELAB_OBJECT_STORAGE_BUCKET = "heer-family-homelab"
+const HOMELAB_OBJECT_STORAGE_REGION = "fsn1"
+const HOMELAB_OBJECT_STORAGE_ENDPOINT = "https://fsn1.your-objectstorage.com"
+const HOMELAB_PULUMI_BACKEND_URL = $"s3://($HOMELAB_OBJECT_STORAGE_BUCKET)?region=($HOMELAB_OBJECT_STORAGE_REGION)&awssdk=v2&endpoint=($HOMELAB_OBJECT_STORAGE_ENDPOINT)"
+
+def homelab-op-signin [] {
+    ^op signin --account $HOMELAB_OP_ACCOUNT
+}
+
+def homelab-op-ensure-signin [] {
+    let whoami = (^op whoami | complete)
+
+    if ($whoami.exit_code != 0) {
+        homelab-op-signin
+
+        if ($env.LAST_EXIT_CODE != 0) {
+            error make {
+                msg: "Could not sign in to 1Password."
+            }
+        }
+    }
+}
+
+def homelab-op-read [reference: string] {
+    homelab-op-ensure-signin
+
+    mut result = (^op read $reference | complete)
+    if ($result.exit_code != 0) {
+        homelab-op-ensure-signin
+        $result = (^op read $reference | complete)
+    }
+
+    let value = ($result.stdout | str trim)
+
+    if ($result.exit_code != 0) {
+        error make {
+            msg: $"Could not read 1Password secret: ($reference)"
+        }
+    }
+
+    if ($value | is-empty) {
+        error make {
+            msg: $"1Password secret is empty: ($reference)"
+        }
+    }
+
+    $value
+}
+
+def --env homelab-object-storage-env [] {
+    load-env {
+        AWS_ACCESS_KEY_ID: (homelab-op-read "op://homelab/Hetzner Object Storage/access-key-id")
+        AWS_SECRET_ACCESS_KEY: (homelab-op-read "op://homelab/Hetzner Object Storage/secret-access-key")
+        AWS_REGION: $HOMELAB_OBJECT_STORAGE_REGION
+        AWS_EC2_METADATA_DISABLED: "true"
+    }
+}
+
+def --env homelab-pulumi-login [] {
+    homelab-object-storage-env
+    ^pulumi login $HOMELAB_PULUMI_BACKEND_URL
+}
+
+def --env --wrapped homelab-pulumi [...args] {
+    homelab-object-storage-env
+    ^pulumi ...$args
+}
+
+alias hp = homelab-pulumi
+
 # https://ohmyposh.dev/docs/installation/customize#set-the-configuration
 if (which oh-my-posh | is-not-empty) {
     oh-my-posh init nu --config ~/.nheer.omp.yaml
