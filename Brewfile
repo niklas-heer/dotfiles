@@ -38,7 +38,6 @@ brew "sd" # better sed to replace stuff
 brew "eza" # better ls to list stuff
 brew "ripgrep" # better grep -> `rg`
 brew "zoxide" # smarter `cd` command
-brew "opencode" # AI coding agent for the terminal
 brew "uv" # extremely fast Python package installer
 brew "flyctl" # CLI tool for fly.io
 brew "atuin" # better shell history
