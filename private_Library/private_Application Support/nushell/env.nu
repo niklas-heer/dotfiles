@@ -100,7 +100,7 @@ if ($nix_binary | path exists) {
 let atuin_dir  = ($env.HOME | path join ".local/share/atuin")
 let atuin_file = ($atuin_dir | path join "init.nu")
 
-if not ($atuin_file | path exists) {
+if (which atuin | is-not-empty) {
     mkdir $atuin_dir
-    atuin init nu | save $atuin_file
+    atuin init nu | save --force $atuin_file
 }
