@@ -16,6 +16,7 @@ brew "coreutils"
 # CLI apps
 brew "glow" # render markdown in terminal
 brew "nushell" # shell replaces bash/zsh and more
+brew "xonsh" # Python-powered interactive shell
 brew "gitmoji" # getting emojis for commit messages
 brew "lazygit" # cli client for git
 brew "lazydocker" # cli client for docker

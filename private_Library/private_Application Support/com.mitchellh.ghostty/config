@@ -1,4 +1,4 @@
-command = /Users/nheer/.bin/nu-shell
+command = /opt/homebrew/bin/xonsh
 theme = tokyonight
 font-size = 15
 keybind = shift+enter=text:\x1b\r
