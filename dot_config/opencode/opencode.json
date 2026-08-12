@@ -1,0 +1,305 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "autoupdate": true,
+  "permission": "allow",
+  "mcp": {
+    "atlassian": {
+      "type": "remote",
+      "url": "https://mcp.atlassian.com/v1/mcp/authv2",
+      "enabled": true
+    }
+  },
+  "provider": {
+    "zalando-openai": {
+      "npm": "@ai-sdk/openai",
+      "name": "Zalando OpenAI",
+      "options": {
+        "baseURL": "https://zllm.data.zalan.do/v1",
+        "apiKey": "{file:~/.opencode-token}",
+        "includeUsage": true
+      },
+      "models": {
+        "gpt-4o": {
+          "name": "GPT 4O",
+          "id": "openai/gpt-4o",
+          "limit": {
+            "context": 128000,
+            "output": 16384
+          }
+        },
+        "gpt-4.1": {
+          "name": "GPT 4.1",
+          "id": "openai/gpt-4.1",
+          "limit": {
+            "context": 1048576,
+            "output": 32768
+          }
+        },
+        "gpt-4.1-mini": {
+          "name": "GPT 4.1 Mini",
+          "id": "openai/gpt-4.1-mini",
+          "limit": {
+            "context": 1048576,
+            "output": 32768
+          }
+        },
+        "gpt-4.1-nano": {
+          "name": "GPT 4.1 Nano",
+          "id": "openai/gpt-4.1-nano",
+          "limit": {
+            "context": 1048576,
+            "output": 32768
+          }
+        },
+        "gpt-5": {
+          "name": "GPT 5",
+          "id": "openai/gpt-5",
+          "limit": {
+            "context": 400000,
+            "output": 128000
+          }
+        },
+        "gpt-5-mini": {
+          "name": "GPT 5 Mini",
+          "id": "openai/gpt-5-mini",
+          "limit": {
+            "context": 400000,
+            "output": 128000
+          }
+        },
+        "gpt-5-nano": {
+          "name": "GPT 5 Nano",
+          "id": "openai/gpt-5-nano",
+          "limit": {
+            "context": 400000,
+            "output": 128000
+          }
+        },
+        "gpt-5.1": {
+          "name": "GPT 5.1",
+          "id": "openai/gpt-5.1",
+          "limit": {
+            "context": 400000,
+            "output": 128000
+          }
+        },
+        "gpt-5.2": {
+          "name": "GPT 5.2",
+          "id": "openai/gpt-5.2",
+          "limit": {
+            "context": 400000,
+            "output": 128000
+          }
+        },
+        "gpt-5.3-codex": {
+          "name": "GPT 5.3 Codex",
+          "id": "openai/gpt-5.3-codex",
+          "limit": {
+            "context": 400000,
+            "output": 128000
+          }
+        },
+        "gpt-5.4": {
+          "name": "GPT 5.4",
+          "id": "openai/gpt-5.4",
+          "limit": {
+            "context": 400000,
+            "output": 128000
+          }
+        },
+        "gpt-5.4-mini": {
+          "name": "GPT 5.4 Mini",
+          "id": "openai/gpt-5.4-mini",
+          "limit": {
+            "context": 400000,
+            "output": 128000
+          }
+        },
+        "gpt-5.4-nano": {
+          "name": "GPT 5.4 Nano",
+          "id": "openai/gpt-5.4-nano",
+          "limit": {
+            "context": 400000,
+            "output": 128000
+          }
+        },
+        "gpt-5.5": {
+          "name": "GPT 5.5",
+          "id": "openai/gpt-5.5",
+          "limit": {
+            "context": 400000,
+            "output": 128000
+          }
+        },
+        "gpt-5.6-sol": {
+          "name": "GPT 5.6 Sol",
+          "id": "openai/gpt-5.6-sol",
+          "limit": {
+            "context": 400000,
+            "output": 128000
+          }
+        },
+        "gpt-5.6-terra": {
+          "name": "GPT 5.6 Terra",
+          "id": "openai/gpt-5.6-terra",
+          "limit": {
+            "context": 400000,
+            "output": 128000
+          }
+        },
+        "gpt-5.6-luna": {
+          "name": "GPT 5.6 Luna",
+          "id": "openai/gpt-5.6-luna",
+          "limit": {
+            "context": 400000,
+            "output": 128000
+          }
+        },
+        "text-embedding-3-small": {
+          "name": "Text Embedding 3 Small",
+          "id": "openai/text-embedding-3-small"
+        },
+        "text-embedding-3-large": {
+          "name": "Text Embedding 3 Large",
+          "id": "openai/text-embedding-3-large"
+        },
+        "gpt-image-1": {
+          "name": "GPT Image 1",
+          "id": "openai/gpt-image-1"
+        },
+        "gpt-image-2": {
+          "name": "GPT Image 2",
+          "id": "openai/gpt-image-2"
+        },
+        "dall-e-3": {
+          "name": "DALL-E 3",
+          "id": "openai/dall-e-3"
+        }
+      }
+    },
+    "zalando-anthropic": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Zalando Claude",
+      "options": {
+        "baseURL": "https://zllm.data.zalan.do/v1",
+        "apiKey": "{file:~/.opencode-token}",
+        "includeUsage": true
+      },
+      "models": {
+        "claude-4.5-haiku": {
+          "name": "Claude 4.5 Haiku",
+          "id": "bedrock/anthropic.claude-haiku-4-5-20251001-v1:0",
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          }
+        },
+        "claude-sonnet-4.5": {
+          "name": "Claude Sonnet 4.5",
+          "id": "bedrock/anthropic.claude-sonnet-4-5-20250929-v1:0",
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          }
+        },
+        "claude-sonnet-4-6": {
+          "name": "Claude Sonnet 4.6",
+          "id": "bedrock/anthropic.claude-sonnet-4-6",
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          }
+        },
+        "claude-opus-4-6-v1": {
+          "name": "Claude Opus 4.6 V1",
+          "id": "bedrock/anthropic.claude-opus-4-6-v1"
+        },
+        "claude-sonnet-5": {
+          "name": "Claude Sonnet 5",
+          "id": "bedrock/anthropic.claude-sonnet-5"
+        }
+      }
+    },
+    "zalando-google": {
+      "npm": "@ai-sdk/google",
+      "name": "Zalando Gemini",
+      "options": {
+        "baseURL": "https://zllm.data.zalan.do/v1",
+        "apiKey": "{file:~/.opencode-token}",
+        "includeUsage": true
+      },
+      "models": {
+        "gemini-3.5-flash": {
+          "name": "Gemini 3.5 Flash",
+          "id": "gemini/gemini-3.5-flash"
+        },
+        "gemini-flash-latest": {
+          "name": "Gemini Flash Latest",
+          "id": "gemini/gemini-flash-latest",
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          }
+        },
+        "gemini-flash-lite-latest": {
+          "name": "Gemini Flash Lite Latest",
+          "id": "gemini/gemini-flash-lite-latest",
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          }
+        },
+        "gemini-3.1-pro-preview": {
+          "name": "Gemini 3.1 Pro Preview",
+          "id": "gemini/gemini-3.1-pro-preview"
+        },
+        "gemini-3-pro-image-preview": {
+          "name": "Gemini 3 Pro Image Preview",
+          "id": "gemini/gemini-3-pro-image-preview",
+          "limit": {
+            "context": 65536,
+            "output": 8192
+          }
+        },
+        "gemini-3.1-flash-image-preview": {
+          "name": "Gemini 3.1 Flash Image Preview",
+          "id": "gemini/gemini-3.1-flash-image-preview"
+        },
+        "gemini-2.5-flash-image": {
+          "name": "Gemini 2.5 Flash Image",
+          "id": "gemini/gemini-2.5-flash-image",
+          "limit": {
+            "context": 1048576,
+            "output": 65535
+          }
+        }
+      }
+    },
+    "zalando-deepseek": {
+      "npm": "@ai-sdk/deepseek",
+      "name": "Zalando DeepSeek",
+      "options": {
+        "baseURL": "https://zllm.data.zalan.do/v1",
+        "apiKey": "{file:~/.opencode-token}",
+        "includeUsage": true
+      },
+      "models": {
+        "deepseek-r1": {
+          "name": "Deepseek R1",
+          "id": "bedrock/deepseek-r1",
+          "limit": {
+            "context": 128000,
+            "output": 64000
+          }
+        }
+      }
+    }
+  },
+  "agent": {
+    "compaction": {
+      "model": "zalando-openai/gpt-5.2",
+      "options": {},
+      "permission": {}
+    }
+  }
+}
