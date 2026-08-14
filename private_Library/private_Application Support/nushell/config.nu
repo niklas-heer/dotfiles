@@ -188,13 +188,8 @@ alias graduateproj = np promote
 alias ai = codex --dangerously-bypass-approvals-and-sandbox
 
 # https://ohmyposh.dev/docs/installation/customize#set-the-configuration
-const omp_autoload_dir = ($nu.data-dir | path join "vendor/autoload")
-const omp_init_file = ($omp_autoload_dir | path join "oh-my-posh.nu")
-
 if (which oh-my-posh | is-not-empty) {
-    mkdir $omp_autoload_dir
-    oh-my-posh init nu --config ~/.nheer.omp.yaml --print | save --force $omp_init_file
-    source $omp_init_file
+    oh-my-posh init nu --config ~/.nheer.omp.yaml
 }
 
 # https://github.com/ajeetdsouza/zoxide

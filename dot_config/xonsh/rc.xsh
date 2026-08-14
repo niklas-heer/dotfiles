@@ -21,14 +21,23 @@ import tempfile
 
 def _cmd_exists(name):
     """Return True if *name* is found somewhere on PATH."""
-    return any(os.path.isfile(os.path.join(d, name)) for d in $PATH)
+    return _cmd_path(name) is not None
 
 
-def _run(cmd):
-    """Run a shell command string and return stripped stdout, or '' on error."""
+def _cmd_path(name):
+    """Return the executable path for *name* using xonsh's current PATH."""
+    for directory in $PATH:
+        candidate = os.path.join(directory, name)
+        if os.path.isfile(candidate) and os.access(candidate, os.X_OK):
+            return candidate
+    return None
+
+
+def _run(args):
+    """Run an argument vector and return stripped stdout, or '' on error."""
     try:
-        return subprocess.check_output(cmd, shell=True, text=True).strip()
-    except subprocess.CalledProcessError:
+        return subprocess.check_output(args, text=True).strip()
+    except (OSError, subprocess.CalledProcessError):
         return ""
 
 
@@ -222,11 +231,12 @@ if _cmd_exists("carapace"):
 # oh-my-posh  (mirrors config.nu: oh-my-posh init nu --config ~/.nheer.omp.yaml)
 # ---------------------------------------------------------------------------
 
-if _cmd_exists("oh-my-posh"):
+_omp_exe = _cmd_path("oh-my-posh")
+if _omp_exe:
     _omp_cfg    = $HOME + "/.nheer.omp.yaml"
     # --print emits the full xonsh init script (no embedded `source`).
     # execx() is required instead of exec() so that xonsh $VAR syntax is parsed.
-    _omp_script = _run("oh-my-posh init xonsh --config " + _omp_cfg + " --print")
+    _omp_script = _run([_omp_exe, "init", "xonsh", "--config", _omp_cfg, "--print"])
     if _omp_script:
         execx(_omp_script)
 
@@ -248,11 +258,12 @@ if _cmd_exists("atuin"):
 
 
 # ---------------------------------------------------------------------------
-# television shell integration  (mirrors env.nu tv init, optional)
+# television shell integration
 # ---------------------------------------------------------------------------
 
-if _cmd_exists("tv"):
-    source-bash $(tv init bash)
+# Television has no xonsh init target. Its Bash integration uses interactive
+# readline-only builtins such as `bind` and `complete`, which source-bash cannot
+# import safely. The `tv` command itself remains available normally.
 
 
 # ---------------------------------------------------------------------------
