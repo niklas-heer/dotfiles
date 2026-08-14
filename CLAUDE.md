@@ -14,7 +14,7 @@ This is a chezmoi-managed dotfiles repository for macOS.
 ## Key Technologies
 
 - **chezmoi**: Dotfile manager (source of truth is this repo, target is `~`)
-- **nushell**: Primary shell (zsh kept as login shell for compatibility)
+- **zsh**: Primary and login shell; Nushell, Fish, and xonsh remain optional alternatives
 - **Ghostty**: Terminal emulator
 - **Zed**: Primary editor
 - **Hammerspoon**: Keyboard shortcuts and automation (Lua config)

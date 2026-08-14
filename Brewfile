@@ -15,8 +15,9 @@ brew "coreutils"
 
 # CLI apps
 brew "glow" # render markdown in terminal
-brew "nushell" # shell replaces bash/zsh and more
-brew "xonsh" # Python-powered interactive shell
+brew "nushell" # structured-data shell for optional use
+brew "xonsh" # Python-powered shell for optional use
+brew "fish" # user-friendly shell for optional use
 brew "gitmoji" # getting emojis for commit messages
 brew "lazygit" # cli client for git
 brew "lazydocker" # cli client for docker
@@ -24,8 +25,9 @@ brew "ghq" # download and manage git repos Golang style
 brew "fzf" # fuzzy finder
 brew "pulumi" # infrastructure as code platform
 brew "television" # fuzzy finder and search TUI
-brew "oh-my-posh" # prompt engine for nu and zsh
-brew "carapace" # multi-shell completion library (for nushell)
+brew "oh-my-posh" # cross-shell prompt theme engine
+brew "carapace" # multi-shell completion library
+brew "zsh-autocomplete" # real-time IDE-like completion menu for zsh
 brew "just" # better Makefiles
 brew "mask" # task runner defined in markdown files
 brew "nur" # task runner

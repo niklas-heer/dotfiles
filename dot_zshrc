@@ -18,8 +18,13 @@ export PATH
 path+=("$HOME/.config/emacs/bin")
 export LIBRARY_PATH=$LIBRARY_PATH:/opt/homebrew/lib/gcc/current
 
-# Initialize zsh completion system before any evals that use compdef
-autoload -Uz compinit && compinit
+# zsh-autocomplete initializes Zsh's completion system and must load before
+# anything that calls compdef.
+source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+
+# Use Carapace's command metadata in the real-time completion menu.
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
+source <(carapace _carapace)
 
 #---- START oh-my-posh
 export VIRTUAL_ENV_DISABLE_PROMPT=1

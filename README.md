@@ -1,6 +1,6 @@
 # nheer `dotfiles`
 
-![Terminal](https://raw.github.com/niklas-heer/dotfiles/main/.github/img/2025-02-13_terminal.png "Ghostty & Nushell")
+![Terminal](https://raw.github.com/niklas-heer/dotfiles/main/.github/img/2025-02-13_terminal.png "Ghostty & Zsh")
 
 Install [`chezmoi`](https://www.chezmoi.io/) with:
 ```bash
@@ -25,7 +25,7 @@ $HOME/bin/chezmoi init --apply --ssh $GITHUB_USERNAME
 ## Used technology
 * [chezmoi](https://www.chezmoi.io/) - keeps the dotfiles in sync and secure
 * [homebrew](https://brew.sh) - installs mac applications
-* [nushell](https://www.nushell.sh/) - a data first and user-friendly shell
+* [zsh](https://www.zsh.org/) - the macOS-native shell, enhanced with real-time completions
 
 ## Post tasks
 There are some tasks after the install as they cannot be automated.
@@ -38,6 +38,12 @@ There are some tasks after the install as they cannot be automated.
 I want to document my decisions for me so I don't forget and potentially for you so you understand why I use one tool or another or why I remove stuff from time to time.
 
 <!-- DECISION LOG START -->
+
+### 14 Standardizing on zsh
+* **Status**: ⬆️ Supersedes [7 Adopting nushell](#7-adopting-nushell)
+* **Decision**: I will use `zsh` as my standard interactive and login shell.
+* **Context**: Nushell, Fish, and xonsh offer appealing modern features, but their non-POSIX syntax and uneven compatibility mean I still have to return to `zsh` for common commands and macOS workflows. `zsh` is included with macOS, works with the tools I use, and now provides the interactive experience I want through `zsh-autocomplete`, Carapace, and oh-my-posh.
+* **Consequences**: Ghostty and Zed will start `/bin/zsh` by default. I will keep the other shell configurations available for experimentation, while maintaining `zsh` as the reliable primary setup.
 
 ### 13 Sticking with Amethyst
 * **Status**: ✅ Adopted
@@ -76,7 +82,7 @@ I want to document my decisions for me so I don't forget and potentially for you
 * **Consequences**: I have to keep a minimal zsh setup.
 
 ### 7 Adopting nushell
-* **Status**: ✅ Adopted
+* **Status**: ⛔ Deprecated by [14 Standardizing on zsh](#14-standardizing-on-zsh)
 * **Decision**: I will use [`nushell`](https://www.nushell.sh/) instead of zsh, fish or elvish.
 * **Context**: I looked at zsh, fish and elvish as my main shell, but I decided on nushell because it treats command output as structured data rather than plain text, which enables powerful data manipulation and filtering capabilities. I can easily achieve many things with that, for which I would have needed other tools. Thus simplifying my setup. Also, I like the syntax more, as it feels modern and more consistent with great error messages and documentation. For me, I breaking POSIX isn't that big of a deal, as I can still use zsh in those cases, but for my day-to-day use, I want a modern shell syntax.
 * **Consequences**: I will rewrite some zsh functions and configure nushell.
