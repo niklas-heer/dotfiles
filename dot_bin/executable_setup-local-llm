@@ -1,0 +1,268 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+fast_only=0
+force=0
+skip_models=0
+
+usage() {
+  cat <<'EOF'
+Usage: setup-local-llm [--fast-only] [--skip-models] [--force]
+
+Opt this Mac into the local LLM setup. Nothing is installed or downloaded by
+chezmoi until this command is run explicitly.
+
+  --fast-only    Install only the lower-memory 9B Ollama profile
+  --skip-models  Install the apps without downloading Ollama models
+  --force        Override the memory and free-disk safety checks
+EOF
+}
+
+while (($#)); do
+  case "$1" in
+    --fast-only)
+      fast_only=1
+      ;;
+    --skip-models)
+      skip_models=1
+      ;;
+    --force)
+      force=1
+      ;;
+    --help|-h)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $1" >&2
+      usage >&2
+      exit 2
+      ;;
+  esac
+  shift
+done
+
+if [[ "$(uname -s)" != "Darwin" || "$(uname -m)" != "arm64" ]]; then
+  echo "The combined Ollama/oMLX setup requires an Apple-silicon Mac." >&2
+  exit 1
+fi
+
+macos_major="$(sw_vers -productVersion | cut -d. -f1)"
+if ((macos_major < 15)); then
+  echo "oMLX requires macOS 15 or newer." >&2
+  exit 1
+fi
+
+memory_gib="$(( $(sysctl -n hw.memsize) / 1024 / 1024 / 1024 ))"
+minimum_memory_gib=32
+if ((fast_only || skip_models)); then
+  minimum_memory_gib=16
+fi
+if ((memory_gib < minimum_memory_gib && !force)); then
+  echo "This profile expects at least ${minimum_memory_gib} GiB of unified memory; this Mac has ${memory_gib} GiB." >&2
+  echo "Use --fast-only for the 9B profile, --skip-models for apps only, or --force to override." >&2
+  exit 1
+fi
+
+if (( !skip_models )); then
+  free_disk_gib="$(( $(df -Pk "$HOME" | awk 'NR == 2 { print $4 }') / 1024 / 1024 ))"
+  minimum_disk_gib=18
+  if (( !fast_only )); then
+    minimum_disk_gib=40
+  fi
+  if ((free_disk_gib < minimum_disk_gib && !force)); then
+    echo "The selected models need at least ${minimum_disk_gib} GiB free; only ${free_disk_gib} GiB is available." >&2
+    echo "Free some space, select --fast-only, or use --force to override." >&2
+    exit 1
+  fi
+fi
+
+if ! command -v brew >/dev/null 2>&1; then
+  echo "Homebrew is required. Apply the base dotfiles setup first." >&2
+  exit 1
+fi
+
+echo "Installing the optional coding harness and Ollama desktop app..."
+brew install opencode
+
+# The desktop app owns the Ollama server. Migrate away from the formula service
+# so two launchers never contend for localhost:11434. ~/.ollama is preserved.
+if brew list --formula ollama >/dev/null 2>&1; then
+  brew services stop ollama >/dev/null 2>&1 || true
+  brew uninstall ollama
+fi
+ollama_app="$HOME/Applications/Ollama.app"
+brew install --cask --appdir="$HOME/Applications" ollama-app
+codesign --verify --deep --strict "$ollama_app"
+spctl --assess --type execute "$ollama_app"
+# The per-user Applications directory lets this explicitly invoked bootstrap
+# acknowledge the first-open gate without requiring global App Management
+# permission. Signature and notarization checks have already passed above.
+if xattr -p com.apple.quarantine "$ollama_app" >/dev/null 2>&1; then
+  xattr -dr com.apple.quarantine "$ollama_app"
+fi
+
+install_omlx_app() {
+  local release_url tag version asset download_url
+  local temporary_dir mount_dir source_app target_app installed_version
+
+  release_url="$(curl -fsSLI -o /dev/null -w '%{url_effective}' https://github.com/jundot/omlx/releases/latest)"
+  tag="${release_url##*/}"
+  version="${tag#v}"
+  if [[ -z "$version" || "$version" == "$release_url" ]]; then
+    echo "Unable to determine the latest oMLX release." >&2
+    return 1
+  fi
+
+  if ((macos_major >= 26)); then
+    asset="oMLX-${version}-macos26-27.dmg"
+  else
+    asset="oMLX-${version}-macos15-sequoia.dmg"
+  fi
+  download_url="https://github.com/jundot/omlx/releases/download/${tag}/${asset}"
+  target_app="/Applications/oMLX.app"
+
+  installed_version=""
+  if [[ -r "$target_app/Contents/Info.plist" ]]; then
+    installed_version="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$target_app/Contents/Info.plist" 2>/dev/null || true)"
+  fi
+  if [[ "$installed_version" == "$version" ]]; then
+    echo "oMLX ${version} is already installed."
+    codesign --verify --deep --strict "$target_app"
+    spctl --assess --type execute "$target_app"
+    if xattr -p com.apple.quarantine "$target_app" >/dev/null 2>&1; then
+      xattr -dr com.apple.quarantine "$target_app"
+    fi
+    return 0
+  fi
+
+  echo "Installing oMLX ${version} desktop app..."
+  temporary_dir="$(mktemp -d "${TMPDIR:-/tmp}/setup-local-llm.XXXXXX")"
+  mount_dir="$temporary_dir/mount"
+  mkdir "$mount_dir"
+
+  cleanup_omlx_install() {
+    hdiutil detach "$mount_dir" -quiet >/dev/null 2>&1 || true
+    rm -rf "$temporary_dir"
+  }
+  trap cleanup_omlx_install RETURN
+
+  curl -fL --retry 3 --progress-bar "$download_url" -o "$temporary_dir/$asset"
+  hdiutil attach -nobrowse -readonly -mountpoint "$mount_dir" "$temporary_dir/$asset" >/dev/null
+  source_app="$(find "$mount_dir" -maxdepth 1 -name '*.app' -print -quit)"
+  if [[ -z "$source_app" ]]; then
+    echo "The oMLX disk image did not contain an application." >&2
+    return 1
+  fi
+
+  codesign --verify --deep --strict "$source_app"
+  spctl --assess --type execute "$source_app"
+
+  if [[ -e "$target_app" ]]; then
+    mv "$target_app" "$temporary_dir/oMLX.previous.app"
+  fi
+  if ! ditto "$source_app" "$target_app"; then
+    rm -rf "$target_app"
+    if [[ -e "$temporary_dir/oMLX.previous.app" ]]; then
+      mv "$temporary_dir/oMLX.previous.app" "$target_app"
+    fi
+    return 1
+  fi
+  codesign --verify --deep --strict "$target_app"
+  spctl --assess --type execute "$target_app"
+  if xattr -p com.apple.quarantine "$target_app" >/dev/null 2>&1; then
+    xattr -dr com.apple.quarantine "$target_app"
+  fi
+}
+
+install_omlx_app
+
+# Seed the same local-only defaults as oMLX's first-run wizard. This makes the
+# Admin UI usable from an unattended bootstrap without downloading a duplicate
+# model collection. Existing user settings are never overwritten.
+omlx_base="$HOME/.omlx"
+omlx_model_dir="$omlx_base/models"
+omlx_settings="$omlx_base/settings.json"
+omlx_needs_restart=0
+if [[ ! -e "$omlx_settings" ]]; then
+  mkdir -p "$omlx_model_dir"
+  omlx_config_dir="$(mktemp -d "${TMPDIR:-/tmp}/setup-local-llm-config.XXXXXX")"
+  omlx_config_plist="$omlx_config_dir/settings.plist"
+  plutil -create xml1 "$omlx_config_plist"
+  plutil -insert version -string 1.0 "$omlx_config_plist"
+  plutil -insert server -dictionary "$omlx_config_plist"
+  plutil -insert server.host -string 127.0.0.1 "$omlx_config_plist"
+  plutil -insert server.port -integer 8000 "$omlx_config_plist"
+  plutil -insert server.auto_start_on_launch -bool YES "$omlx_config_plist"
+  plutil -insert auth -dictionary "$omlx_config_plist"
+  plutil -insert auth.api_key -string '' "$omlx_config_plist"
+  plutil -insert model -dictionary "$omlx_config_plist"
+  plutil -insert model.model_dirs -array "$omlx_config_plist"
+  plutil -insert model.model_dirs -string "$omlx_model_dir" -append "$omlx_config_plist"
+  plutil -insert model.model_dir -string "$omlx_model_dir" "$omlx_config_plist"
+  plutil -insert huggingface -dictionary "$omlx_config_plist"
+  plutil -insert huggingface.endpoint -string '' "$omlx_config_plist"
+  plutil -convert json -o "$omlx_settings" "$omlx_config_plist"
+  rm "$omlx_config_plist"
+  rmdir "$omlx_config_dir"
+  omlx_needs_restart=1
+fi
+
+open -a "$ollama_app" --args --fast-startup
+for _ in $(seq 1 30); do
+  if curl --fail --silent --output /dev/null http://127.0.0.1:11434/api/tags; then
+    break
+  fi
+  sleep 1
+done
+
+if ! curl --fail --silent --output /dev/null http://127.0.0.1:11434/api/tags; then
+  echo "Ollama Desktop did not become ready on http://127.0.0.1:11434." >&2
+  echo "Open Ollama once, complete any first-launch prompt, then rerun this command." >&2
+  exit 1
+fi
+
+if (( !skip_models )); then
+  if ! ollama show qwen3.5:9b-mlx >/dev/null 2>&1; then
+    ollama pull qwen3.5:9b-mlx
+  fi
+  ollama create local-fast --file "$HOME/.config/ollama/Modelfile.fast"
+
+  if (( !fast_only )); then
+    if ! ollama show qwen3.6:27b-coding-nvfp4 >/dev/null 2>&1; then
+      ollama pull qwen3.6:27b-coding-nvfp4
+    fi
+    ollama create local-quality --file "$HOME/.config/ollama/Modelfile.quality"
+  fi
+fi
+
+if ((omlx_needs_restart)); then
+  pkill -x oMLX >/dev/null 2>&1 || true
+fi
+open -a oMLX
+for _ in $(seq 1 30); do
+  if curl --fail --silent --output /dev/null http://127.0.0.1:8000/admin; then
+    break
+  fi
+  sleep 1
+done
+
+if ! curl --fail --silent --output /dev/null http://127.0.0.1:8000/admin; then
+  echo "oMLX did not make its Admin UI ready on http://127.0.0.1:8000/admin." >&2
+  exit 1
+fi
+
+cat <<'EOF'
+
+Local LLM setup is ready on this Mac.
+
+  Ollama Desktop: local-llm-ui ollama
+  oMLX app:       open -a oMLX
+  oMLX admin:     http://127.0.0.1:8000/admin
+  Ollama status:  llm --status
+
+Ollama and oMLX are separate runtimes. Avoid loading large models in both at
+once. oMLX models can be added from its Admin UI when you want to use that
+runtime; they are intentionally not duplicated by this bootstrap.
+EOF

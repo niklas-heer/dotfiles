@@ -27,6 +27,47 @@ $HOME/bin/chezmoi init --apply --ssh $GITHUB_USERNAME
 * [homebrew](https://brew.sh) - installs mac applications
 * [zsh](https://www.zsh.org/) - the macOS-native shell, enhanced with real-time completions
 
+## Local LLM (optional per machine)
+
+The base dotfiles setup does not install an LLM runtime, start a service, or
+download model weights. On a capable Apple-silicon Mac, opt in explicitly:
+
+```bash
+setup-local-llm             # desktop apps plus 9B and 27B Ollama profiles
+setup-local-llm --fast-only # desktop apps plus only the lower-memory 9B model
+setup-local-llm --skip-models # install the apps without model downloads
+```
+
+The command checks the Mac's architecture, OS version, unified memory, and free
+disk space. It installs [Ollama Desktop](https://ollama.com/) and
+[oMLX](https://github.com/jundot/omlx) as Mac apps, plus OpenCode as the coding
+harness. It also migrates an old Homebrew Ollama service to the desktop app
+without deleting `~/.ollama` or its models.
+
+After opting in:
+
+```bash
+llm                         # Qwen 3.5 9B: fast daily chat
+llm --quality               # Qwen 3.6 27B: best local quality
+llm "Explain this error"    # one-shot prompt
+llm --status                # show loaded model and GPU placement
+llm --stop                  # release unified memory
+local-ai                    # coding agent using the fast local model
+local-ai --quality          # coding agent using the stronger 27B model
+local-llm-ui                # open the oMLX app and its Admin UI
+local-llm-ui ollama         # open Ollama Desktop
+```
+
+The Ollama profiles use its native MLX engine and a 32K context window. Its API
+remains on `http://127.0.0.1:11434`, and cloud features are disabled. oMLX is a
+separate runtime with a local Admin UI at `http://127.0.0.1:8000/admin`; its
+models are selected interactively and are not duplicated automatically. Avoid
+loading large models in both runtimes at once on a unified-memory Mac.
+
+`local-ai` runs the Ollama profiles through OpenCode so it has repository
+context, tools, and an edit/test loop instead of operating as raw chat. Extended
+thinking is disabled in OpenCode to keep agent loops responsive.
+
 ## Post tasks
 There are some tasks after the install as they cannot be automated.
 
@@ -38,6 +79,12 @@ There are some tasks after the install as they cannot be automated.
 I want to document my decisions for me so I don't forget and potentially for you so you understand why I use one tool or another or why I remove stuff from time to time.
 
 <!-- DECISION LOG START -->
+
+### 15 Adopting opt-in native local LLM runtimes
+* **Status**: ✅ Adopted
+* **Decision**: I will use the Ollama desktop app with MLX-optimized Qwen profiles for everyday local inference, oMLX for its native Mac app and detailed Admin UI, and OpenCode as the coding harness. Local LLM support is explicitly enabled per machine with `setup-local-llm`; it is not part of the shared Homebrew rollout.
+* **Context**: The M2 Pro has 32 GB of unified memory and can run a quantized 27B model locally while retaining a smaller 9B profile for low-latency work. Other Macs receiving these dotfiles may lack the memory, disk capacity, OS version, or Apple-silicon support needed for this workload. Ollama provides broad client compatibility and an official desktop experience, while oMLX provides deeper runtime monitoring and model controls on Apple silicon.
+* **Consequences**: A normal `chezmoi apply` only installs inert helper commands and configuration. Running `setup-local-llm` performs hardware checks, installs the apps, and optionally downloads roughly 29 GB of Ollama weights. Ollama remains loopback-only with cloud features disabled. oMLX uses its own model directory and does not receive duplicate model downloads automatically; large models should not be loaded in both runtimes simultaneously.
 
 ### 14 Standardizing on zsh
 * **Status**: ⬆️ Supersedes [7 Adopting nushell](#7-adopting-nushell)

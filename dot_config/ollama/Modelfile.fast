@@ -1,0 +1,5 @@
+FROM qwen3.5:9b-mlx
+
+# Fast daily model: enough context for documents and small repositories while
+# keeping memory use comfortable on a 32 GB Apple silicon Mac.
+PARAMETER num_ctx 32768

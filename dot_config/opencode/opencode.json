@@ -15,7 +15,7 @@
       "name": "Zalando OpenAI",
       "options": {
         "baseURL": "https://zllm.data.zalan.do/v1",
-        "apiKey": "{file:~/.opencode-token}",
+        "apiKey": "{env:OPENCODE_ZALANDO_API_KEY}",
         "includeUsage": true
       },
       "models": {
@@ -182,7 +182,7 @@
       "name": "Zalando Claude",
       "options": {
         "baseURL": "https://zllm.data.zalan.do/v1",
-        "apiKey": "{file:~/.opencode-token}",
+        "apiKey": "{env:OPENCODE_ZALANDO_API_KEY}",
         "includeUsage": true
       },
       "models": {
@@ -225,7 +225,7 @@
       "name": "Zalando Gemini",
       "options": {
         "baseURL": "https://zllm.data.zalan.do/v1",
-        "apiKey": "{file:~/.opencode-token}",
+        "apiKey": "{env:OPENCODE_ZALANDO_API_KEY}",
         "includeUsage": true
       },
       "models": {
@@ -280,7 +280,7 @@
       "name": "Zalando DeepSeek",
       "options": {
         "baseURL": "https://zllm.data.zalan.do/v1",
-        "apiKey": "{file:~/.opencode-token}",
+        "apiKey": "{env:OPENCODE_ZALANDO_API_KEY}",
         "includeUsage": true
       },
       "models": {
@@ -290,6 +290,35 @@
           "limit": {
             "context": 128000,
             "output": 64000
+          }
+        }
+      }
+    },
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://127.0.0.1:11434/v1"
+      },
+      "models": {
+        "local-fast": {
+          "name": "Qwen 3.5 9B MLX (local, fast)",
+          "options": {
+            "reasoningEffort": "none"
+          },
+          "limit": {
+            "context": 32768,
+            "output": 8192
+          }
+        },
+        "local-quality": {
+          "name": "Qwen 3.6 27B MLX (local, quality)",
+          "options": {
+            "reasoningEffort": "none"
+          },
+          "limit": {
+            "context": 32768,
+            "output": 8192
           }
         }
       }

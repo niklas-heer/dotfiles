@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+model="local-fast"
+
+case "${1:-}" in
+  --quality|quality)
+    model="local-quality"
+    shift
+    ;;
+  --fast|fast)
+    shift
+    ;;
+esac
+
+if ! command -v opencode >/dev/null 2>&1; then
+  echo "OpenCode is unavailable on this Mac. Opt in with: setup-local-llm" >&2
+  exit 1
+fi
+
+if ! curl --fail --silent --output /dev/null http://127.0.0.1:11434/api/tags; then
+  echo "Ollama Desktop is not running. Start it with: local-llm-ui ollama" >&2
+  exit 1
+fi
+
+# The harness supplies repository context, tools, and the edit/test loop that a
+# raw chat model does not have. Extra arguments are passed through to OpenCode.
+exec opencode --model "ollama/$model" "$@"

@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+Usage: llm [--fast|--quality] [PROMPT...]
+       llm --list
+       llm --status
+       llm --stop
+
+Run a private local LLM through Ollama.
+
+  --fast       Qwen 3.5 9B: quickest responses, lower memory use
+  --quality    Qwen 3.6 27B: stronger coding and reasoning
+  --list       Show installed models
+  --status     Show models currently loaded in unified memory
+  --stop       Unload both local model profiles
+EOF
+}
+
+model="local-fast"
+
+if ! command -v ollama >/dev/null 2>&1; then
+  echo "Ollama is not installed on this Mac. Opt in with: setup-local-llm" >&2
+  exit 1
+fi
+
+case "${1:-}" in
+  --fast|fast)
+    model="local-fast"
+    shift
+    ;;
+  --quality|quality)
+    model="local-quality"
+    shift
+    ;;
+  --list|list)
+    exec ollama list
+    ;;
+  --status|status)
+    exec ollama ps
+    ;;
+  --stop|stop)
+    ollama stop local-fast 2>/dev/null || true
+    ollama stop local-quality 2>/dev/null || true
+    exit 0
+    ;;
+  --help|-h|help)
+    usage
+    exit 0
+    ;;
+esac
+
+exec ollama run "$model" "$@"

@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+case "${1:-admin}" in
+  admin|omlx)
+    open -a oMLX
+    for _ in $(seq 1 30); do
+      if curl --fail --silent --output /dev/null http://127.0.0.1:8000/admin; then
+        break
+      fi
+      sleep 1
+    done
+    if ! curl --fail --silent --output /dev/null http://127.0.0.1:8000/admin; then
+      echo "oMLX Admin did not become ready on http://127.0.0.1:8000/admin." >&2
+      exit 1
+    fi
+    open http://127.0.0.1:8000/admin
+    ;;
+  ollama)
+    open -a Ollama --args --fast-startup
+    ;;
+  *)
+    echo "Usage: local-llm-ui [admin|omlx|ollama]" >&2
+    exit 2
+    ;;
+esac

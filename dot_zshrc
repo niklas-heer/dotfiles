@@ -185,5 +185,12 @@ nht() {
 
 export PATH="$HOME/.bun/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+
+# Keep the optional work LLM token out of the managed OpenCode config. Local
+# models remain usable when the token file is absent.
+if [[ -r "$HOME/.opencode-token" ]]; then
+  export OPENCODE_ZALANDO_API_KEY="$(<"$HOME/.opencode-token")"
+fi
+
 export EDITOR="nvim"
 export VISUAL="nvim"

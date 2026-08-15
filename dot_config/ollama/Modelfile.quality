@@ -1,0 +1,5 @@
+FROM qwen3.6:27b-coding-nvfp4
+
+# Higher-quality coding/reasoning model. 32K is a practical context ceiling for
+# this quantization on a 32 GB unified-memory Mac.
+PARAMETER num_ctx 32768
