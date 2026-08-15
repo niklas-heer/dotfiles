@@ -33,7 +33,7 @@ eval "$(oh-my-posh init zsh --config ~/.nheer.omp.yaml)"
 #---- END oh-my-posh
 
 # Created by `pipx`
-export PATH="$PATH:/Users/nheer/.local/bin"
+export PATH="$HOME/.local/bin:$PATH"
 
 # zoxide https://github.com/ajeetdsouza/zoxide
 eval "$(zoxide init zsh)"
