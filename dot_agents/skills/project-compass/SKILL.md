@@ -40,6 +40,18 @@ Reconcile relevant issues with observed behavior: an open issue may already be i
 
 Prioritize by contribution to the vision, dependencies, risk, and uncertainty reduced. Identify the bottleneck. Recommend a small next milestone that delivers a coherent user outcome, with observable acceptance criteria. When uncertainty is the bottleneck, recommend a bounded experiment or decision instead. Keep effort estimates coarse and conditional unless there is credible evidence for greater precision.
 
+## Optional Jev judgment
+
+When a bounded semantic judgment could change the assessment or next step, use the shared [jev-oracle skill](../jev-oracle/SKILL.md) through the existing `capture-gate ask` CLI (`mise run oracle` from the hub). Reuse its session, input, and uncertainty handling; no project-specific wrapper is needed. Skip the call when direct evidence settles the question, and continue normal reasoning if the session is unavailable.
+
+Supply a concise, sanitized state containing the relevant vision outcomes, observed evidence and its limits, constraints, and candidate work. Jev cannot inspect the repository itself. Useful questions include:
+
+- **Noul:** Does the supplied evidence support this particular outcome claim? Does this proposed work materially advance a stated outcome?
+- **Choice:** Which of these candidate milestones best addresses the bottleneck under the stated priorities? Include an insufficient-evidence option.
+- **Score:** How strongly does a candidate serve a particular outcome, using explicit ordered descriptions of contribution? Treat the result as a rubric judgment, never a project completion percentage.
+
+Batch independent questions over shared evidence. Jev's answer is advisory evidence about the supplied summary, not independent verification of the project. If it disagrees with the assessment or remains uncertain, inspect the disputed evidence or expose the unresolved tradeoff; do not repeatedly ask for agreement. Report the judgment and how it affected the recommendation when material. User priorities and accepted decisions remain authoritative.
+
 ## Deliver orientation
 
 Lead with a candid plain-language judgment of where the project stands and why. Follow with a compact outcome/evidence/gap table, the few most important remaining items, and the recommended next milestone with its completion criteria. Surface any question that could change that recommendation. Keep the full backlog secondary so the user can act without sorting through everything again.
