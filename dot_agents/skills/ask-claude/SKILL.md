@@ -1,9 +1,14 @@
 ---
 name: ask-claude
-description: Consult or delegate a bounded task to Claude through the installed Claude Code CLI and its subscription login, including follow-ups in a saved conversation. Use when the user asks to use Claude from another agent or continue an earlier Claude consultation.
+description: Guidance for agents using Claude through the installed Claude Code CLI and its subscription login, including saved conversation follow-ups. Load when a task calls for consulting or delegating to Claude, or continuing an earlier Claude consultation.
+user-invocable: false
 ---
 
-# Ask Claude
+# Using Claude from another agent
+
+This is globally available agent guidance, not a user-facing action or command.
+Load it when the current task calls for Claude; the user does not need to invoke
+a skill by name. Its availability does not mean every task should use Claude.
 
 Turn the user's request into a focused Claude brief, obtain the response, and use
 it to complete the requested work. Preserve the audience, voice, constraints,
@@ -18,22 +23,9 @@ brief. For independent critique, avoid priming Claude with your conclusion.
 Workflows such as email triage and GitHub overview have their own skills; they
 do not become Claude subcommands or require Claude as their model.
 
-Examples:
-
-```text
-$ask-claude Help reason through this API design.
-$ask-claude Use Opus to critique this screenshot's hierarchy and spacing.
-$ask-claude Continue our earlier discussion with these new constraints.
-```
-
-In Claude Code use `/ask-claude` with the same arguments. T3 Code supports skill
-selection with `$`; current versions can also show skills in the slash menu.
-Natural-language invocation works when the host discovers this skill. If an
-older host does not list it, ask it to read `~/.agents/skills/ask-claude/SKILL.md`.
-
 ## Choose the execution path
 
-When already running in Claude Code, perform the action in the current session.
+When already running in Claude Code, perform the task in the current session.
 If the user specifically wants an independent second opinion, use a supported
 native subagent within the authorized task. Do not recursively invoke this skill
 or clear Claude's nested-session protection to launch another CLI.

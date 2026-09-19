@@ -1,4 +1,2 @@
-interface:
-  display_name: "Ask Claude"
-  short_description: "General Claude delegation with resumable conversations"
-  default_prompt: "Use $ask-claude to help with this task, continuing the relevant Claude session when available."
+policy:
+  allow_implicit_invocation: true
