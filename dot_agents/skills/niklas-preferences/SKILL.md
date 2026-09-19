@@ -1,6 +1,6 @@
 ---
 name: niklas-preferences
-description: Apply Niklas's development preferences for repository work, tools, Rust, tests, decision records, and agent guidance. Load relevant references when making development choices, finishing work, or maintaining preferences and instructions.
+description: Apply Niklas's development preferences for repository work, tools, Rust, tests, reusable facts, decision records, and agent guidance. Load relevant references when making development choices, finishing work, or preserving useful knowledge and preferences.
 ---
 
 # Niklas's development preferences
@@ -13,7 +13,7 @@ Read only the references that affect the current work:
 | --- | --- |
 | Finding, cloning, or changing a repository; committing, pushing, or opening a PR | [Git and repositories](references/git.md) |
 | Choosing tool installation, versions, project commands, or a task runner | [Tooling and tasks](references/tooling.md) |
-| Making or recording a lasting technical choice, reviewing its rationale, or considering a tool change | [Decision records](references/decisions.md) |
+| Preserving or consulting reusable facts; making or reviewing a lasting technical choice | [Knowledge and decision records](references/decisions.md) |
 | Creating, reviewing, or improving a Rust project, including its API and quality gates | [Rust](references/rust.md) |
 | Implementing behavior or choosing and running tests | [Testing](references/testing.md) |
 | Evaluating long sequences, failures, recovery, or stateful behavior | [Deterministic simulation](references/simulation.md) |
