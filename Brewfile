@@ -11,6 +11,9 @@ tap "satococoa/tap" # https://github.com/satococoa/homebrew-tap
 
 # Basics
 brew "git"
+brew "gh" # GitHub repository discovery and collaboration
+brew "mise" # project tool versions and development tasks
+brew "rtk" # shared agent command-output conventions
 brew "coreutils"
 
 # CLI apps

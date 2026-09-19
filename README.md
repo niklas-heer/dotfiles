@@ -80,6 +80,12 @@ I want to document my decisions for me so I don't forget and potentially for you
 
 <!-- DECISION LOG START -->
 
+### 17 Track tooling requirements and preserve decision rationale
+* **Status**: ✅ Adopted
+* **Decision**: I will declare shared bootstrap commands in dotfiles, retain project-specific tool versions in their own mise manifests, and keep lasting decisions in each repository's existing Markdown log.
+* **Context**: Project usage can outgrow the machine setup: `mise`, `gh`, and `rtk` were installed locally but missing from the Brewfile. A new machine needs installation declarations, not just evidence that commands exist on this machine. Morrow's decision log also demonstrates the value of retaining evidence and measured consequences.
+* **Consequences**: The three missing shared commands are now in the Brewfile. The hub provides a read-only static audit of GHQ root manifests and shared bootstrap requirements; clean-machine installation and project checks remain separate verification. Optional tools stay opt-in, and common project tools are not automatically promoted to global dependencies. Decision guidance is shared with all configured agents; a possible vrdx format expansion remains a proposal.
+
 ### 16 Sharing development preferences across coding agents
 * **Status**: ✅ Adopted
 * **Decision**: I will keep development preferences in [one shared skill](dot_agents/skills/niklas-preferences/SKILL.md), with a [short routing template](.chezmoitemplates/agent-preferences.md) rendered into instruction files for Codex, Claude Code, Cursor CLI, Pi, and OpenCode.
