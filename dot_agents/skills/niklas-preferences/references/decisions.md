@@ -1,14 +1,31 @@
 # Decision records
 
-Niklas wants durable technical decisions and their reasoning kept beside the code. Use the project's existing decision log: dotfiles has a README section, Morrow has `DECISIONS.md`, and the hub uses `decisions/`. Preserve each project's format instead of migrating it just to fit a tool.
+Niklas wants durable technical decisions and their reasoning kept beside the code, recorded with
+[vrdx](https://github.com/niklas-heer/vrdx) (`brew install niklas-heer/tap/vrdx`). Every project of
+his that keeps decisions uses that format: one Markdown file per decision in a flat collection, with
+TOML metadata between `+++` lines and a stable ULID that survives renames. New repositories start
+with `decisions/`; projects that already keep records under `docs/decisions/` stay there and pass
+`--dir docs/decisions`.
 
-- Record choices with lasting consequences: tooling, architecture, workflow, compatibility, or substantial tradeoffs. Routine edits do not each need a decision record.
-- Capture the date, status, decision, context/alternatives, and consequences where the format supports them. Add evidence, verification, measured costs, and limitations when they materially justify the choice, as Morrow does.
-- Distinguish a proposal from an accepted decision and from completed, verified adoption. When the conversation already establishes a decision, record it without asking the same questions again.
-- Preserve historical entries and add explicit supersedes/deprecated links when changing direction. Allocate a new unique ID; do not silently renumber existing records or recycle deleted IDs. Flag ambiguous or duplicate legacy IDs before automated migration.
-- Keep prose, extra fields, links, and surrounding content intact. Do not collapse evidence or custom fields into a fixed schema just to make an editor accept them.
-- Use Markdown and Git as the durable record. Prefer an existing CLI when its installed version supports the document format and preserves content. Keep dated compatibility findings in the hub's investigations rather than turning temporary tool limitations into permanent preferences.
-- Keep records in the repository that owns the decision. Preserve cross-project investigations and proposals in the hub, linking the source evidence. Commit decision records with the coherent change they explain.
+- Run `vrdx guide` before writing; it is the authoritative writing and metadata guidance. Consult
+  existing evidence with `vrdx context "<question>"`, `vrdx show <id>` and `vrdx search`.
+- Record choices with lasting consequences: tooling, architecture, workflow, compatibility, or
+  substantial tradeoffs. Routine edits do not each need a record.
+- Create records with `vrdx new "<title>" --body-file <file>`; it allocates the ID, date and
+  filename. The default status is `proposed`; use `--status accepted` only when the user's decision
+  or existing evidence authorises it. Edit lifecycle and relationships in the Markdown afterwards.
+- Cover decision, context/alternatives, and consequences. Keep evidence, measurements, verification
+  and limitations in the body when they materially justify the choice, as Morrow does; the body is
+  free-form Markdown and nothing needs to be collapsed into a fixed schema.
+- Distinguish a proposal from an accepted decision and from completed, verified adoption. When the
+  conversation already establishes a decision, record it without asking the same questions again.
+- Preserve history. Mark a replaced record `superseded` and point `superseded_by` at its
+  replacement; a superseded record has exactly one replacement. Use `related_to` for partial
+  supersession and keep the qualifying sentence in the body. Never rewrite an existing ID.
+- Verify with `vrdx validate --json`, then `vrdx relations <id>`, `vrdx chain <id>` and the diff.
+  `vrdx dashboard` browses a collection locally; `vrdx suggest <id>` proposes links as hints only.
+- Keep records in the repository that owns the decision. Preserve cross-project investigations and
+  proposals in the hub, linking the source evidence. Commit records with the change they explain.
 
 ## Reusable facts
 

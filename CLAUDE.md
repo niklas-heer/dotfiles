@@ -27,17 +27,20 @@ Use conventional commits: `feat`, `fix`, `docs`, `refactor`, `chore`
 Include scope when relevant: `feat(zed): add new keybinding`
 
 ### Decision Log
-Major tool/approach decisions are documented in `README.md` under "Project decision log".
-Use `/decision` command to add new entries.
+Major tool/approach decisions live in `decisions/` as [vrdx](https://github.com/niklas-heer/vrdx)
+records, one Markdown file each. They are listed in `.chezmoiignore` and not deployed.
+Use the `/decision` command to add one, or:
 
-Format:
-```markdown
-### {number} {Title}
-* **Status**: ✅ Adopted | ⛔ Deprecated by [X] | ⬆️ Supersedes [X]
-* **Decision**: I will...
-* **Context**: Why, what alternatives considered
-* **Consequences**: What follows from this
+```bash
+vrdx list                                  # newest first
+vrdx show <id-or-prefix>
+vrdx new "{Title}" --body-file <file>      # allocates the ID, date and filename
+vrdx validate                              # run after editing status or relationships
 ```
+
+Run `vrdx guide` for the writing conventions. Metadata is TOML between `+++` lines:
+`status` is one of proposed/accepted/rejected/deprecated/superseded, and `supersedes`,
+`superseded_by`, `depends_on` and `related_to` hold full ULIDs. Keep superseded records.
 
 ### Adding New Tools
 1. Add to `Brewfile` if installable via Homebrew

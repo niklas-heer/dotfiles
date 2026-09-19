@@ -1,5 +1,6 @@
 # https://www.chezmoi.io/reference/special-files/chezmoiignore/
 README.md
+decisions/**
 bin/chezmoi
 .githun/**/*
 .luarc.json

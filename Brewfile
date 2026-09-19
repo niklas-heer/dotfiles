@@ -50,6 +50,7 @@ brew "flyctl" # CLI tool for fly.io
 brew "atuin" # better shell history
 brew "marksman" # markdown lsp
 brew "tdx" # better todos for git (my own package)
+brew "vrdx" # decision records in Markdown (my own package)
 brew "satococoa/tap/wtp" # Git worktree management tool
 
 # Desktop apps
