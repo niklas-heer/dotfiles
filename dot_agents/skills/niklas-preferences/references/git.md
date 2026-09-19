@@ -9,6 +9,20 @@
 - Default new shareable projects, especially tooling, to public visibility when publication is requested or part of the authorized repository-creation task. Review files and history for secrets and private personal information first; keep sensitive or personal projects private. This public-first preference was explicitly established on 2026-09-19. A local-only task does not authorize publication, and existing repositories do not become public automatically.
 - For new public tooling, include an appropriate open-source license when licensing is authorized; choose a permissive license when broad reuse is the stated goal, and preserve existing license obligations. The Latchrun license choice is project-specific, not a universal license mandate.
 
+## Licensing
+
+- Default new projects to MIT when an open-source license is appropriate. Niklas
+  stated on 2026-09-19 that MIT is his normal choice, while requesting Kindred's
+  public repository and license. Preserve existing license obligations and honor
+  an explicit project-specific choice; this does not relicense existing projects
+  or change the ownership or license of user data.
+
+## T3 Code handoff
+
+Niklas's preference, established 2026-09-19: when a concrete repository becomes a work target in conversation, or after creating or cloning one, make it ready in T3 Code with a new conversation. This handoff is authorized as part of that workflow; no separate confirmation is needed. Resolve the local checkout first and run `rtk t3 app '<absolute-checkout-path>'` once for that repository/task. Follow-up discussion of the same task should reuse the handoff rather than create more threads. A passing mention or comparison of repositories does not require cloning or opening them.
+
+The [official T3 Code documentation](https://github.com/pingdotgg/t3code/blob/main/docs/user/install.md#open-a-project-from-a-terminal), checked 2026-09-19, documents `t3 app [path]` as adding the directory as a project if needed and opening a new thread. It requires the desktop app running on the same machine; start the installed app if needed. Check the command result before reporting success. If the CLI or desktop app is unavailable or the command fails, continue the repository work and report the specific blocker with the handoff command; do not silently claim the project was added. Recheck `t3 app --help` and the official docs when the installed version behaves differently. Keep this personal integration out of shared project contributor instructions.
+
 ## Commit completed work
 
 - Finish work with atomic local commits by default; no separate request to commit is needed. Each commit should represent one coherent, reversible change, including its directly related tests and documentation. Do not split by file type merely to make more commits.
