@@ -86,6 +86,12 @@ I want to document my decisions for me so I don't forget and potentially for you
 * **Context**: Niklas requested a fast Jev assessment of candidate facts and decisions without repeated credential retrieval. Environment variables belong to processes; a temp file does not provide that lifetime.
 * **Consequences**: Mise receives only `TYPESAFE_API_KEY_REF` from a managed configuration fragment. The actual key stays in the session process environment; the temporary directory contains a private socket and lock. The capture skill can consult the active session, while note verification and writes remain with the agent. The 0.85 threshold is provisional and the initial live examples were conservative; the hub preserves results and limits.
 
+### 20 Prefer Dagger with Dang for CI
+* **Status**: ✅ Adopted
+* **Decision**: I will use Dagger with the Dang SDK as my default for CI and applicable delivery automation, keeping mise for project tool versions and local commands. Local container engines are Apple's native container tooling or Colima.
+* **Context**: Explicit preference on 2026-09-19, primarily for CI. Reproducible local pipeline execution and a reusable setup workflow are the intended benefits.
+* **Consequences**: The shared tooling preference and `dagger-ci` skill guide relevant CI work; this does not migrate unrelated repositories or introduce deployment stages. The hub adopts a Dang Linux pipeline and keeps native macOS coverage. Dagger versions remain project-local, and runtime compatibility must be checked for the selected engine.
+
 ### 19 Capture useful knowledge during ordinary agent work
 * **Status**: ✅ Adopted
 * **Decision**: I will let agents capture reusable facts and accepted decisions without a separate reminder, using a shared `capture-knowledge` skill.
