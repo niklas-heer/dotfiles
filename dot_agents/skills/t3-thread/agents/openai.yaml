@@ -1,0 +1,4 @@
+interface:
+  display_name: "Continue T3 thread"
+  short_description: "Catch up on another T3 thread and finish its work"
+  default_prompt: "Use $t3-thread to catch up on another T3 Code thread and continue the work it left unfinished."
