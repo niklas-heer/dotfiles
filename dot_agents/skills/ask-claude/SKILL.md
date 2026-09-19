@@ -1,6 +1,6 @@
 ---
 name: ask-claude
-description: Use Claude for writing, design feedback, or an independent second opinion through the installed Claude Code CLI and its subscription login. Use when the user asks to consult Claude or invokes this action from Codex, T3 Code, or Claude Code.
+description: Consult or delegate a bounded task to Claude through the installed Claude Code CLI and its subscription login, including follow-ups in a saved conversation. Use when the user asks to use Claude from another agent or continue an earlier Claude consultation.
 ---
 
 # Ask Claude
@@ -9,23 +9,21 @@ Turn the user's request into a focused Claude brief, obtain the response, and us
 it to complete the requested work. Preserve the audience, voice, constraints,
 and requested deliverable. Claude receives only the context you supply.
 
-## Actions
+## General delegation
 
-The first word can select an action; infer it from ordinary language otherwise:
-
-- `write`: draft or revise text, preserving supplied facts and voice examples.
-- `design`: propose or critique layout, hierarchy, interaction, and visual style.
-  Supply the actual screenshot for visual critique, or clearly limit the brief
-  to the supplied description/code. Return actionable changes or requested code.
-- `review`: get an independent critique of a draft, plan, or implementation.
-  Supply the evidence and question without priming Claude with your conclusion.
+Accept the user's task directly; no action keyword is required. This can be
+analysis, planning, code reasoning, writing, design, or another bounded task.
+State the question, relevant evidence, constraints, and desired output in the
+brief. For independent critique, avoid priming Claude with your conclusion.
+Workflows such as email triage and GitHub overview have their own skills; they
+do not become Claude subcommands or require Claude as their model.
 
 Examples:
 
 ```text
-$ask-claude write Make this introduction clearer while keeping my voice.
-$ask-claude design Critique this screenshot's hierarchy and spacing.
-$ask-claude review Find weaknesses in this implementation plan.
+$ask-claude Help reason through this API design.
+$ask-claude Use Opus to critique this screenshot's hierarchy and spacing.
+$ask-claude Continue our earlier discussion with these new constraints.
 ```
 
 In Claude Code use `/ask-claude` with the same arguments. T3 Code supports skill
@@ -74,7 +72,7 @@ rtk env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u ANTHROPIC_BASE_URL \
   -u CLAUDE_CODE_USE_BEDROCK -u CLAUDE_CODE_USE_VERTEX \
   -u CLAUDE_CODE_USE_FOUNDRY -u CLAUDE_CODE_SIMPLE \
   claude --safe-mode --setting-sources '' -p --model sonnet \
-  --tools '' --no-session-persistence --output-format json < /path/to/brief.txt
+  --tools '' --output-format json < /path/to/brief.txt
 ```
 
 `--safe-mode` disables customizations while retaining normal authentication;
@@ -86,9 +84,36 @@ headless usage, or repurpose subscription tokens as general API credentials.
 For a supplied screenshot or necessary local file, replace `--tools ''` with
 `--tools Read --allowedTools Read`, provide its absolute path in the brief, and
 use `--add-dir` for its parent directory when needed. Request reading only the
-named inputs. Keep shell, edit, browser, and MCP tools disabled. For ordinary
+named inputs. For a consultation, keep shell, edit, browser, and MCP tools disabled. For ordinary
 text, include the relevant contents in the brief and keep all tools disabled.
 Do not claim Claude inspected an image if it only received a description.
+
+If the user delegates implementation to Claude, explicitly supply the relevant
+project instructions and authorize only the tools and working directory needed
+for that task. Safe mode does not auto-load project instructions. Use ordinary
+tool permissions, inspect the resulting diff, and run the project's checks.
+Do not use a permission-bypass flag as a convenience.
+
+## Continuing a consultation
+
+Normal print-mode calls save a transcript. Capture `session_id` from a successful
+JSON response and use `--resume <session_id>` with the same invocation settings
+and a new brief for the next turn. Prefer the original working directory and
+account/configuration. Each CLI process may exit between turns; conversation
+history is restored from disk. A keepalive process is unnecessary for this.
+
+Keep the ID and its task association in the active conversation. When continuity
+across parent sessions is useful, also save a small note in the project's ignored
+scratch directory with the ID, task label, working directory, and chosen model;
+do not put transcripts in tracked files. Report the ID when handing a session
+back to the user. Add `--no-session-persistence` for an explicitly stateless call.
+
+Resume only the session associated with the current task. Avoid `--continue` in
+shared directories: it selects the most recent conversation, which may belong
+to another agent. Serialize turns within one session. Use separate sessions for
+independent tasks, and `--fork-session --resume <id>` for a deliberate branch.
+If the ID is unknown or the transcript is missing, explain that and use an
+explicit summary for a fresh session; do not silently substitute another one.
 
 Wait for completion using the host's normal process handling. Check both exit
 status and the JSON's `is_error`, `subtype`, `result`, and `permission_denials`.
@@ -108,5 +133,5 @@ Subscription billing is time-sensitive. Anthropic's June 15 update paused the
 announced headless/SDK billing change; check the current
 [plan notice](https://support.claude.com/en/articles/15036540-use-the-claude-agent-sdk-with-your-claude-plan)
 before making a new billing guarantee. See also
-[programmatic CLI use](https://code.claude.com/docs/en/headless) and
+[programmatic CLI use and resume](https://code.claude.com/docs/en/headless#continue-conversations) and
 [credential rules](https://code.claude.com/docs/en/legal-and-compliance).
