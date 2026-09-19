@@ -80,6 +80,12 @@ I want to document my decisions for me so I don't forget and potentially for you
 
 <!-- DECISION LOG START -->
 
+### 23 Share suitable tooling publicly
+* **Status**: ✅ Adopted
+* **Decision**: New shareable projects, especially tooling, should default to public when repository publication is authorized; projects containing secrets or private personal information should remain private.
+* **Context**: On 2026-09-19, Niklas rejected the previous private-by-default choice for Latchrun and asked to share useful tooling with everyone, with an appropriate license.
+* **Consequences**: The shared Git preferences and hub repository-creation skill now require a content/history review before public publication. Existing repositories are not made public automatically. License selection follows each project's requirements and authorization; the choice for Latchrun is MIT.
+
 ### 22 Use Jev for useful bounded judgments
 * **Status**: ✅ Adopted
 * **Decision**: I will use the existing Jev session as a quick advisory oracle when a semantic evaluation can inform the next step.

@@ -5,7 +5,9 @@
 - Consult the hub's `projects.md` when working through the hub; use `ghq list` to find other local checkouts. Resolve the current root with `ghq root`.
 - Use GitHub CLI to search for or confirm the intended remote when needed. Clarify genuinely ambiguous matches before downloading.
 - Clone with `ghq get <repository-url>` so the checkout lands under `<ghq root>/<host>/<owner>/<repository>`. Use another location or clone method when explicitly requested. Reuse existing checkouts and preserve their work.
-- Keep each project in its own checkout and read its instructions before editing. Update the hub index for projects relevant to hub work. GitHub defaults for new personal repositories are owner `niklas-heer`, private visibility, and branch `main`.
+- Keep each project in its own checkout and read its instructions before editing. Update the hub index for projects relevant to hub work. GitHub defaults are owner `niklas-heer` and branch `main`.
+- Default new shareable projects, especially tooling, to public visibility when publication is requested or part of the authorized repository-creation task. Review files and history for secrets and private personal information first; keep sensitive or personal projects private. This public-first preference was explicitly established on 2026-09-19. A local-only task does not authorize publication, and existing repositories do not become public automatically.
+- For new public tooling, include an appropriate open-source license when licensing is authorized; choose a permissive license when broad reuse is the stated goal, and preserve existing license obligations. The Latchrun license choice is project-specific, not a universal license mandate.
 
 ## Commit completed work
 
