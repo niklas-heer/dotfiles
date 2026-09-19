@@ -1,0 +1,3 @@
+# This is a 1Password reference, not the API key. Resolve only at explicit session startup.
+[env]
+TYPESAFE_API_KEY_REF = "op://fotfl6a76tede2tvu5jidbksay/fmth327hiz5izm5rn42pkijl6a/credential"
