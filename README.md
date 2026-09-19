@@ -80,6 +80,12 @@ I want to document my decisions for me so I don't forget and potentially for you
 
 <!-- DECISION LOG START -->
 
+### 16 Sharing development preferences across coding agents
+* **Status**: ✅ Adopted
+* **Decision**: I will keep development preferences in [one shared skill](dot_agents/skills/niklas-preferences/SKILL.md), with a [short routing template](.chezmoitemplates/agent-preferences.md) rendered into instruction files for Codex, Claude Code, Cursor CLI, Pi, and OpenCode.
+* **Context**: Each agent discovers personal instructions differently. Shared topic references keep Git/GHQ, mise, Rust, and testing preferences consistent while loading detail only when relevant.
+* **Consequences**: Chezmoi installs the entry points and native skill links for Claude Code and Pi; Codex, Cursor, and OpenCode discover the shared skill directly. Edit preference details in `dot_agents/skills/niklas-preferences/`, or edit the routing template and reapply all entry points when routing changes. Cursor's home rule covers workspaces under home; workspaces elsewhere retain global skill discovery. Restart agent sessions after updating global instructions. These are local configurations and must also be installed on other machines or remote environments where needed.
+
 ### 15 Adopting opt-in native local LLM runtimes
 * **Status**: ✅ Adopted
 * **Decision**: I will use the Ollama desktop app with MLX-optimized Qwen profiles for everyday local inference, oMLX for its native Mac app and detailed Admin UI, and OpenCode as the coding harness. Local LLM support is explicitly enabled per machine with `setup-local-llm`; it is not part of the shared Homebrew rollout.
