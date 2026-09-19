@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project status"
+  short_description: "Assess progress and choose the next useful milestone"
+  default_prompt: "Use $project-compass to assess where this project stands and recommend its next milestone."

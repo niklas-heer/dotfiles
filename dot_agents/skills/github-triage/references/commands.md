@@ -26,6 +26,18 @@ The notifications command reads unread threads without marking them read. It can
 
 ## Candidate detail
 
+For a recent-activity overview, replace `YYYY-MM-DD` with the actual start of
+the requested window (seven days before the observation date by default):
+
+```sh
+rtk gh search prs --owner=OWNER --merged --merged-at='>=YYYY-MM-DD' --archived=false --sort=updated --limit=100 --json number,repository,title,url,updatedAt,author
+```
+
+Use `--repo` for a selected repository. The merge-date filter establishes the
+window; `updatedAt` is not the merge timestamp. Fetch PR detail with `mergedAt`
+when the report needs an exact merge time. Apply the same coverage/partitioning
+rules as open-work searches, and inspect default-branch runs below where useful.
+
 ```sh
 rtk gh pr view NUMBER --repo OWNER/REPO --json number,url,title,state,body,author,isDraft,updatedAt,assignees,labels,reviewRequests,reviewDecision,latestReviews,comments,mergeable,mergeStateStatus,statusCheckRollup,headRefOid
 rtk gh issue view NUMBER --repo OWNER/REPO --json number,url,title,state,body,author,updatedAt,assignees,labels,comments,milestone

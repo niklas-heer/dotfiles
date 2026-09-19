@@ -1,0 +1,4 @@
+interface:
+  display_name: "Email overview"
+  short_description: "Find inbox messages that need attention and next steps"
+  default_prompt: "Use $email-triage to show what needs my attention in email and recommend what to do next."

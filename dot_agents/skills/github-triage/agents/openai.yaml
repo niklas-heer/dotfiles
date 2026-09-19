@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub overview"
+  short_description: "See active GitHub work and what needs your attention"
+  default_prompt: "Use $github-triage to show what is happening across my GitHub repositories and what needs my attention."
