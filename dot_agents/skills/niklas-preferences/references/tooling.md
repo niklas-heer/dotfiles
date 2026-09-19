@@ -1,6 +1,6 @@
 # Tooling and tasks
 
-Niklas prefers `mise` for development tool setup and version management, and for project tasks and reusable commands that might otherwise live in a Makefile or Maskfile. The spoken name "Mes" is interpreted as `mise`; correct this reference if Niklas identifies another tool.
+Niklas prefers `mise` for development tool setup and version management, and for project tasks and reusable commands that might otherwise live in a Makefile or Maskfile. He explicitly confirmed `mise` on 2026-09-19.
 
 - For new projects, prefer a project-local mise configuration for required tool versions and common development commands.
 - Inspect existing configuration first and reuse its commands. Do not introduce a competing task runner without a concrete need; do not migrate an established project as an incidental change.
