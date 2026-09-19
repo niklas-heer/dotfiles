@@ -11,7 +11,7 @@ Read only the references that affect the current work:
 
 | When | Reference |
 | --- | --- |
-| Finding, cloning, or changing a repository; committing, pushing, or opening a PR | [Git and repositories](references/git.md) |
+| Discussing a concrete repository for work; finding, creating, cloning, or changing one; handing it off to T3 Code; committing, pushing, or opening a PR | [Git and repositories](references/git.md) |
 | Choosing tool installation, versions, project commands, or a task runner | [Tooling and tasks](references/tooling.md) |
 | Preserving or consulting reusable facts; making or reviewing a lasting technical choice | [Knowledge and decision records](references/decisions.md) |
 | Recognizing a reusable fact or accepted decision worth saving during ordinary work | [Capture knowledge](../capture-knowledge/SKILL.md) |
