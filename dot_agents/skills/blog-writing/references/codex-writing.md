@@ -17,7 +17,9 @@ or fall back to paid API credentials merely to complete a draft.
 
 Niklas authorized Codex CLI drafting as part of this workflow. Prepare a sanitized, self-contained
 brief and a new output path under ignored scratch space. Include exact factual
-constraints, source excerpts, voice guidance, and the requested length. Tell the
+constraints, source excerpts, voice guidance, the reader's assumed knowledge,
+essential project/tool context, and the requested length. Require the article
+to stand alone for that reader without the brief or earlier posts. Tell the
 writer to return only the article, use no tools, make no repository changes, and
 neither publish nor delegate. Do not give it raw inventories or secret-bearing
 logs. One draft and a focused revision are usually enough for an initial trial.

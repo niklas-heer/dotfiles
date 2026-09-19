@@ -33,6 +33,15 @@ or sentence patterns. A voice profile is guidance, not a numerical style score.
 
 ## Establish and write the story
 
+Write for a curious reader who has not followed Niklas's projects or earlier
+posts. Establish what the project/tool does, the practical problem, and why the
+question matters before relying on those details. Introduce unfamiliar names
+and necessary technical terms in plain language when they first become useful.
+For an experiment, explain the input, expected outcome, and what was actually
+tested before interpreting its results. Supply enough context in the article
+itself; links to earlier posts offer depth rather than required homework. Keep
+this proportional to the audience and story, without a long background detour.
+
 Use the supplied evidence brief or inspect relevant history and primary sources.
 Find the central reader question, consequential choice/surprise, and payoff.
 Separate verified observations, source claims, interpretation, and missing
@@ -94,6 +103,9 @@ blog repository. Keep disposable writer output and screenshots in ignored scratc
 Fact-check and edit for flow before rendering. Read the whole article as a reader:
 does the opening earn attention, does every visual teach, does the ending land,
 and does the prose sound like the sampled posts rather than generic promotion?
+Also read it without the source brief or earlier posts: can a newcomer explain
+what is being built/tested, why it matters, and what each figure shows? Repair
+missing context before adding more detail or polish.
 Use Jev only for a bounded unresolved editorial judgment; it cannot establish
 truth, authenticity, or final author approval.
 
