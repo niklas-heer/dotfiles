@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blog Writing"
+  short_description: "Write visual posts in your voice and open a local preview"
+  default_prompt: "Use $blog-writing to study my writing style, turn this idea into a polished visual draft, and open the local blog preview for feedback."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Storytelling"
+  short_description: "Find a fresh repository story, draft it, and open a preview"
+  default_prompt: "Use $storytelling to find a fresh angle across my repositories with Jev, write a visual blog draft in my voice, and open its local preview."
