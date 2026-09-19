@@ -2,6 +2,14 @@
 
 Niklas prefers giving capable agents relevant facts, boundaries, interfaces, and concrete verification procedures, with room to reason. Apply this when authoring or auditing guidance; it is not another checklist for every development task.
 
+## Establish a repository baseline
+
+Niklas's preference, established 2026-09-19: when creating a repository or establishing its stack and workflow, leave a small, self-contained baseline for contributors and agents starting directly from that checkout. Select applicable personal preferences as choices become concrete; do not copy the entire preference collection or prescribe an undecided stack.
+
+Put adopted tool versions, tasks, and quality gates in checked-in configuration where practical. Document setup and verification in the README or existing contributor guide, and keep a concise repository `AGENTS.md` for project context, boundaries, and links to those instructions. Record consequential choices in the project's decision log when warranted. Grow the baseline alongside implementation, keeping commands and guidance consistent with what actually exists.
+
+The baseline must work without Niklas's hub, home-directory skills, or private paths. Translate adopted preferences into project-owned guidance; personal navigation helpers and commit/push authorization stay personal. Verify that a fresh contributor can find prerequisites, setup, and available checks using only the checkout and its documented dependencies. Existing repositories retain their conventions unless the task calls for changing them.
+
 ## Review and update
 
 1. Identify the task scope, current guidance, user-approved preferences, and a concrete failure the change should prevent. Classify each instruction as a fact, boundary, preference, procedure, or obsolete workaround.
