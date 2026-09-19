@@ -1,0 +1,219 @@
+{
+  "actions": [
+    {
+      "actions": [
+        {
+          "key": "t",
+          "label": "💻 Terminal",
+          "type": "application",
+          "value": "/Applications/Ghostty.app"
+        },
+        {
+          "key": "b",
+          "label": "🌐 Browser",
+          "type": "application",
+          "value": "/Applications/Arc.app"
+        },
+        {
+          "key": "c",
+          "label": "⚡ Code editor",
+          "type": "application",
+          "value": "/Applications/Zed.app"
+        },
+        {
+          "key": "f",
+          "label": "📁 Files",
+          "type": "application",
+          "value": "/System/Library/CoreServices/Finder.app"
+        },
+        {
+          "key": "d",
+          "label": "💬 Discord",
+          "type": "application",
+          "value": "/Applications/Discord.app"
+        },
+        {
+          "key": "v",
+          "label": "🔒 VPN",
+          "type": "application",
+          "value": "/Applications/ProtonVPN.app"
+        },
+        {
+          "key": "s",
+          "label": "💼 Slack",
+          "type": "application",
+          "value": "/Applications/Slack.app"
+        },
+        {
+          "key": "m",
+          "label": "🎵 Music",
+          "type": "application",
+          "value": "/Applications/Spotify.app"
+        }
+      ],
+      "iconPath": "app.badge",
+      "key": "g",
+      "label": "🚀 Go to Application",
+      "type": "group"
+    },
+    {
+      "actions": [
+        {
+          "iconPath": "party.popper.fill",
+          "key": "t",
+          "label": "🎉 Tada",
+          "type": "url",
+          "value": "raycast://confetti"
+        },
+        {
+          "iconPath": "face.smiling",
+          "key": "e",
+          "label": "😀 Emoji",
+          "type": "url",
+          "value": "raycast://extensions/raycast/emoji-symbols/search-emoji-symbols"
+        },
+        {
+          "iconPath": "paintpalette.fill",
+          "key": "g",
+          "label": "🎨 Gitmoji",
+          "type": "url",
+          "value": "raycast://extensions/ricoberger/gitmoji/gitmoji"
+        },
+        {
+          "iconPath": "sparkles",
+          "key": "a",
+          "label": "🤖 AI Chat",
+          "type": "url",
+          "value": "raycast://extensions/raycast/raycast-ai/ai-chat"
+        },
+        {
+          "iconPath": "clipboard.fill",
+          "key": "c",
+          "label": "📋 Clipboard history",
+          "type": "url",
+          "value": "raycast://extensions/raycast/clipboard-history/clipboard-history"
+        },
+        {
+          "iconPath": "moon.zzz.fill",
+          "key": "s",
+          "label": "😴 Sleep mode",
+          "type": "url",
+          "value": "raycast://extensions/raycast/system/sleep"
+        },
+        {
+          "iconPath": "books.vertical.fill",
+          "key": "r",
+          "label": "📚 Repos",
+          "type": "url",
+          "value": "raycast://extensions/moored/git-repos/list"
+        },
+        {
+          "iconPath": "timer",
+          "key": "f",
+          "label": "🍅 Focus session",
+          "type": "url",
+          "value": "raycast://extensions/raycast/raycast-focus/start-focus-session?Goal=Pomodoro"
+        },
+        {
+          "iconPath": "xmark.circle.fill",
+          "key": "q",
+          "label": "❌ Quit an application",
+          "type": "url",
+          "value": "raycast://extensions/rolandleth/kill-process/index"
+        }
+      ],
+      "iconPath": "wand.and.stars",
+      "key": "r",
+      "label": "🪄 Raycast Commands",
+      "type": "group"
+    },
+    {
+      "actions": [
+        {
+          "iconPath": "camera.viewfinder",
+          "key": "a",
+          "label": "📸 All-in-one mode",
+          "type": "url",
+          "value": "cleanshot://all-in-one"
+        },
+        {
+          "iconPath": "viewfinder",
+          "key": "c",
+          "label": "✂️ Capture area mode",
+          "type": "url",
+          "value": "cleanshot://capture-area"
+        },
+        {
+          "iconPath": "macwindow",
+          "key": "w",
+          "label": "🪟 Capture window mode",
+          "type": "url",
+          "value": "cleanshot://capture-window"
+        },
+        {
+          "iconPath": "text.viewfinder",
+          "key": "t",
+          "label": "🔍 Text recognition mode",
+          "type": "url",
+          "value": "cleanshot://capture-text"
+        }
+      ],
+      "iconPath": "camera.fill",
+      "key": "s",
+      "label": "📷 CleanShot Capture",
+      "type": "group"
+    },
+    {
+      "actions": [
+        {
+          "iconPath": "plus.circle.fill",
+          "key": "a",
+          "label": "➕ Add task",
+          "type": "url",
+          "value": "todoist://openquickadd"
+        },
+        {
+          "iconPath": "calendar",
+          "key": "t",
+          "label": "📅 Today view",
+          "type": "url",
+          "value": "todoist://today"
+        }
+      ],
+      "iconPath": "checkmark.circle.fill",
+      "key": "t",
+      "label": "✅ Todoist Tasks",
+      "type": "group"
+    },
+    {
+      "actions": [
+        {
+          "iconPath": "speaker.wave.2.fill",
+          "key": "r",
+          "label": "🔊 Read selected text aloud",
+          "type": "command",
+          "value": "\"$HOME/.config/keywink/bin/read-selected-text\""
+        },
+        {
+          "iconPath": "viewfinder",
+          "key": "p",
+          "label": "🎯 Present mode (float & resize)",
+          "type": "command",
+          "value": "\"$HOME/.config/keywink/bin/present-window.jxa\""
+        },
+        {
+          "iconPath": "rectangle.on.rectangle",
+          "key": "f",
+          "label": "🪟 Toggle floating mode",
+          "type": "command",
+          "value": "\"$HOME/.config/keywink/bin/toggle-floating.jxa\""
+        }
+      ],
+      "iconPath": "gearshape.2.fill",
+      "key": "f",
+      "label": "🛠️ Custom Functions",
+      "type": "group"
+    }
+  ],
+  "type": "group"
+}

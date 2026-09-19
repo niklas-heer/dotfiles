@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+selected_text="$(/usr/bin/osascript <<'APPLESCRIPT'
+set selectedText to ""
+
+tell application "System Events"
+  set frontProcess to first application process whose frontmost is true
+  tell frontProcess
+    try
+      set focusedElement to value of attribute "AXFocusedUIElement"
+      set selectedText to value of attribute "AXSelectedText" of focusedElement
+    end try
+  end tell
+
+  if selectedText is missing value or selectedText is "" then
+    keystroke "c" using {command down}
+    delay 0.05
+  end if
+end tell
+
+if selectedText is missing value or selectedText is "" then
+  try
+    set selectedText to the clipboard as text
+  on error
+    set selectedText to ""
+  end try
+end if
+
+return selectedText
+APPLESCRIPT
+)"
+
+if [[ -z "$selected_text" ]]; then
+  echo "No selected text was available." >&2
+  exit 1
+fi
+
+exec /usr/bin/osascript -l JavaScript "$script_dir/tts.jxa" "$selected_text"

@@ -1,0 +1,77 @@
+#!/usr/bin/env -S osascript -l JavaScript
+
+ObjC.import("AppKit");
+
+function intersectionArea(left, right) {
+  const width = Math.max(
+    0,
+    Math.min(left.x + left.width, right.x + right.width) - Math.max(left.x, right.x),
+  );
+  const height = Math.max(
+    0,
+    Math.min(left.y + left.height, right.y + right.height) - Math.max(left.y, right.y),
+  );
+  return width * height;
+}
+
+function accessibilityFrame(screen, primaryHeight) {
+  const visibleFrame = ObjC.deepUnwrap(screen.visibleFrame);
+  return {
+    x: visibleFrame.origin.x,
+    y: primaryHeight - visibleFrame.origin.y - visibleFrame.size.height,
+    width: visibleFrame.size.width,
+    height: visibleFrame.size.height,
+  };
+}
+
+function run() {
+  const systemEvents = Application("System Events");
+  const frontProcesses = systemEvents.applicationProcesses.whose({ frontmost: true })();
+  if (frontProcesses.length === 0) {
+    throw new Error("No application is currently focused.");
+  }
+
+  const frontProcess = frontProcesses[0];
+  const windows = frontProcess.windows();
+  if (windows.length === 0) {
+    throw new Error("The focused application has no window.");
+  }
+
+  const focusedWindow = windows[0];
+  const position = focusedWindow.position();
+  const size = focusedWindow.size();
+  const windowFrame = {
+    x: position[0],
+    y: position[1],
+    width: size[0],
+    height: size[1],
+  };
+
+  systemEvents.keystroke("f", {
+    using: ["control down", "option down", "shift down"],
+  });
+  delay(0.1);
+
+  const screens = $.NSScreen.screens;
+  const primaryFrame = ObjC.deepUnwrap(screens.objectAtIndex(0).frame);
+  const primaryHeight = primaryFrame.size.height;
+  let destination = accessibilityFrame(screens.objectAtIndex(0), primaryHeight);
+  let bestIntersection = -1;
+
+  for (let index = 0; index < Number(screens.count); index += 1) {
+    const candidate = accessibilityFrame(screens.objectAtIndex(index), primaryHeight);
+    const area = intersectionArea(windowFrame, candidate);
+    if (area > bestIntersection) {
+      destination = candidate;
+      bestIntersection = area;
+    }
+  }
+
+  const width = 1400;
+  const height = 960;
+  const x = Math.round(destination.x + (destination.width - width) / 2);
+  const y = Math.round(destination.y + (destination.height - height) / 2);
+
+  focusedWindow.size = [width, height];
+  focusedWindow.position = [x, y];
+}

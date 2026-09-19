@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+domain="de.niklas-heer.Keywink"
+config_dir="$HOME/.config/keywink"
+
+if /usr/bin/pgrep -x "Keywink" >/dev/null || /usr/bin/pgrep -x "Leader Key" >/dev/null; then
+  echo "Quit Keywink before recreating its shortcuts." >&2
+  exit 1
+fi
+
+if [[ ! -f "$config_dir/config.json" ]]; then
+  echo "Missing $config_dir/config.json. Apply the managed Keywink files first." >&2
+  exit 1
+fi
+
+if [[ "$(/usr/bin/plutil -extract type raw "$config_dir/config.json")" != "group" ]]; then
+  echo "$config_dir/config.json is not a Keywink root group." >&2
+  exit 1
+fi
+
+/usr/bin/defaults write "$domain" configDir -string "$config_dir"
+/usr/bin/defaults write "$domain" groupShortcuts -array g r s t f
+/usr/bin/defaults write "$domain" theme -string topEdge
+/usr/bin/defaults write "$domain" KeyboardShortcuts_group-g -string \
+  '{"carbonKeyCode":5,"carbonModifiers":6912}'
+/usr/bin/defaults write "$domain" KeyboardShortcuts_group-r -string \
+  '{"carbonKeyCode":15,"carbonModifiers":6912}'
+/usr/bin/defaults write "$domain" KeyboardShortcuts_group-s -string \
+  '{"carbonKeyCode":1,"carbonModifiers":6912}'
+/usr/bin/defaults write "$domain" KeyboardShortcuts_group-t -string \
+  '{"carbonKeyCode":17,"carbonModifiers":6912}'
+/usr/bin/defaults write "$domain" KeyboardShortcuts_group-f -string \
+  '{"carbonKeyCode":3,"carbonModifiers":6912}'
+
+echo "Configured Keywink's Key Guide theme and Hyper-G/R/S/T/F shortcuts."

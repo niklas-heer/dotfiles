@@ -1,0 +1,8 @@
+#!/usr/bin/env -S osascript -l JavaScript
+
+function run() {
+  const systemEvents = Application("System Events");
+  systemEvents.keystroke("f", {
+    using: ["control down", "option down", "shift down"],
+  });
+}
