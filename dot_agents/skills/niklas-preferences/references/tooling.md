@@ -8,6 +8,8 @@ Niklas prefers `mise` for development tool setup and version management, and for
 - Keep machine-wide configuration and installed helpers in the chezmoi-managed dotfiles repository. Mise's tool/task role does not replace chezmoi's configuration deployment role.
 - Consult the installed version's help or current official documentation before choosing syntax or installation backends. Do not install or upgrade unrelated software merely because this preference was loaded.
 
+Niklas prefers the [Jev oracle](../../jev-oracle/SKILL.md) for quick, bounded semantic evaluations that could inform a next step. Use the existing session when available, with task-specific uncertainty handling; deterministic checks and direct evidence remain preferable when they settle the question. The oracle advises rather than authorizes or executes decisions.
+
 ## CI and delivery
 
 Niklas prefers Dagger with the Dang SDK for CI and, when delivery automation is needed, CD (confirmed 2026-09-19, primarily CI). Use the shared `dagger-ci` skill when setting up or changing pipelines. Keep mise for tool versions and local task shortcuts, with Dagger orchestrating containerized checks. Preserve native platform checks where Linux containers cannot provide equivalent coverage. This is a default for relevant work, not a request to migrate every existing repository or add deployment stages.

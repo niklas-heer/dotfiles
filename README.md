@@ -80,6 +80,12 @@ I want to document my decisions for me so I don't forget and potentially for you
 
 <!-- DECISION LOG START -->
 
+### 22 Use Jev for useful bounded judgments
+* **Status**: ✅ Adopted
+* **Decision**: I will use the existing Jev session as a quick advisory oracle when a semantic evaluation can inform the next step.
+* **Context**: Niklas requested broader use beyond fact and decision capture. Known-option choices, relevance/support judgments, and rubric-based assessments fit the typed interface.
+* **Consequences**: The shared `jev-oracle` skill and routing template make this discoverable across providers. The hub adds a general ask command to the existing credential session. Uncertainty handling is task-specific; the capture threshold is not universal, and model output grants no authority. Direct checks remain preferable where they settle the question.
+
 ### 21 Keep the Jev API key in a boot-scoped capture session
 * **Status**: ✅ Adopted
 * **Decision**: I will keep the TypeSafe credential in 1Password, resolve it only when starting the hub's capture-gate session, and reuse it in that process until stopped or rebooted.
