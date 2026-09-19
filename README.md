@@ -80,6 +80,12 @@ I want to document my decisions for me so I don't forget and potentially for you
 
 <!-- DECISION LOG START -->
 
+### 18 Keep agent guidance focused and evidence-based
+* **Status**: ✅ Adopted
+* **Decision**: I will keep shared agent entry points small, distinguish facts and boundaries from flexible preferences, and load detailed procedures only when relevant.
+* **Context**: Repeating guidance and preserving temporary workarounds increases context use and creates contradictions. Agents need relevant interfaces and evidence for success, with room to reason about implementation.
+* **Consequences**: Shared entry points now state the external-content trust boundary. Instruction-maintenance guidance and representative evaluation cases live behind the preference skill's index. The hub references the shared Git guidance instead of repeating it. Explicit commit/push authorization and conditional Rust recommendations remain intact; comparative agent evaluations are reserved for substantial behavior changes.
+
 ### 17 Track tooling requirements and preserve decision rationale
 * **Status**: ✅ Adopted
 * **Decision**: I will declare shared bootstrap commands in dotfiles, retain project-specific tool versions in their own mise manifests, and keep lasting decisions in each repository's existing Markdown log.

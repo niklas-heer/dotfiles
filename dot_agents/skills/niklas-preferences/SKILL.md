@@ -1,11 +1,11 @@
 ---
 name: niklas-preferences
-description: Apply Niklas's development preferences for repository work, tools, Rust, tests, and decision records. Load relevant references when making development choices, finishing work, checking tooling drift, or recording a durable preference or decision.
+description: Apply Niklas's development preferences for repository work, tools, Rust, tests, decision records, and agent guidance. Load relevant references when making development choices, finishing work, or maintaining preferences and instructions.
 ---
 
 # Niklas's development preferences
 
-These are durable preferences expressed by Niklas, initially captured on 2026-09-19. Apply them within the current task. Explicit current instructions and project constraints take precedence; do not migrate unrelated project infrastructure just to match a preference.
+Use these preferences to make choices within the task. Distinguish observed facts, required boundaries, flexible defaults, and procedures. Explicit current instructions and applicable project constraints take precedence; recommendations do not require unrelated migrations or tool installation.
 
 Read only the references that affect the current work:
 
@@ -17,5 +17,6 @@ Read only the references that affect the current work:
 | Creating, reviewing, or improving a Rust project, including its API and quality gates | [Rust](references/rust.md) |
 | Implementing behavior or choosing and running tests | [Testing](references/testing.md) |
 | Evaluating long sequences, failures, recovery, or stateful behavior | [Deterministic simulation](references/simulation.md) |
+| Creating, reviewing, or simplifying agent instructions, skills, or durable preferences | [Instruction design](references/instruction-design.md) |
 
-When Niklas expresses a lasting preference, update the relevant reference in the dotfiles source repository (resolve it with `chezmoi source-path`) and apply only the changed managed files. Keep one source of truth. Separate what Niklas actually requested from implementation suggestions and unresolved choices. Add a new topic only when the existing topics do not fit; update this routing table with its trigger. Do not store credentials or copy whole conversations. Do not claim to have captured earlier prompts that are unavailable.
+When recording a lasting preference, edit its reference in the dotfiles source (`chezmoi source-path`) and apply the changed managed targets. Preserve user intent and distinguish accepted choices from proposals. Verify changed references resolve and report the concrete result; keep detailed maintenance guidance in the instruction-design reference.
