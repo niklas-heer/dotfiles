@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ask Claude"
+  short_description: "Claude writing, design feedback, and second opinions"
+  default_prompt: "Use $ask-claude to help with this writing, design, or review task."
