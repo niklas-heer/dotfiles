@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hand off to T3 thread"
+  short_description: "Brief a new T3 Code thread for another project"
+  default_prompt: "Use $t3-handoff to open a new T3 Code thread for the project we discussed and hand it a brief of the agreed work."
