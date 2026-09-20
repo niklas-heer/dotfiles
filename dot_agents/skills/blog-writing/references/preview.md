@@ -8,6 +8,8 @@ deployment configuration take precedence.
   `draft: true` and the requested `lang` (`en`/`de`).
 - Local draft route: `/drafts/<content-id>/`, where the ID includes the year and
   filename stem. Confirm the link from `/drafts/` instead of guessing the slug.
+- Published route: `/posts/YYYY/MM/<file-stem>/`. The year-only form 404s, so
+  request every internal `](/posts/` link against the preview before committing.
 - Normal publishing filters exclude drafts. `PREVIEW_DRAFTS=true` enables the
   local draft routes, not normal homepage/post/RSS listings.
 

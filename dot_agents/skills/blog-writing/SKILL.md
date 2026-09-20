@@ -31,6 +31,14 @@ paragraphs, dry humor, and modest claims. This is a starting observation, not a
 fixed formula. Do not mechanically recycle jokes, signature phrases, openings,
 or sentence patterns. A voice profile is guidance, not a numerical style score.
 
+Niklas reads prose as generated when it leans on one-sentence epigrams that
+close a section, headings that state a thesis ("X does not mean Y") instead of
+a subject, two-fragment titles with a period, em-dashes, balanced antitheses,
+disclaimers in model voice ("This illustrates X, not Y"), and a gag repeated
+across posts. State limits in plain first person, allow at most one dry closer
+per post, and use contractions where they sound natural. He asked for all 2026
+posts to be revised along these lines on 2026-09-21.
+
 ## Establish and write the story
 
 Write for a curious reader who has not followed Niklas's projects or earlier
