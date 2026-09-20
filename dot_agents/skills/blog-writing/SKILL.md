@@ -93,6 +93,11 @@ Avoid relying on color alone. A static/no-JavaScript view should remain useful.
 
 ## Verify, open, and leave it ready for feedback
 
+Before opening the preview, check the blog repository's own skills under
+`.agents/skills/` for steps a finished post needs, such as generating Inky's
+per-section lines (`inky-heckles`), and run them; the repository's tests
+enforce some of these once a post is published.
+
 Write the article into the site's existing content collection with `draft: true`
 and valid frontmatter. Preserve existing drafts and choose a noncolliding slug.
 Keep source claims, revisions, factual checks, visual provenance, author questions,
