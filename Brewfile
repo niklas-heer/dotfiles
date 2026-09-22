@@ -38,6 +38,7 @@ brew "nur" # task runner
 brew "bat" # better cat
 brew "xh" # better httpie - interact with APIs (get, post, ...)
 brew "bun" # better nodejs
+brew "go" # Go toolchain; also installs the Gofile globals
 brew "docker" # containers ftw 😅
 brew "colima" # running Docker on MacOS
 brew "fd" # better find

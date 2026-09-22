@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+{{ if eq .chezmoi.os "darwin" }}
+# Install global Go binaries declaratively into ~/go/bin.
+# Same pattern as Bunfile — re-runs when Gofile content changes.
+#
+# Gofile hash: {{ include "Gofile" | sha256sum }}
+while IFS= read -r line || [[ -n "$line" ]]; do
+  # Strip inline comments and trim whitespace
+  pkg="${line%%#*}"
+  pkg="${pkg%%[[:space:]]}"
+  [[ -z "$pkg" ]] && continue
+  go install "$pkg"
+done < ~/Gofile
+{{ else }}
+echo "Unsupported operating system."
+exit 1
+{{ end }}

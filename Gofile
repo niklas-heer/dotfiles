@@ -1,0 +1,6 @@
+# Global Go binaries to install with `go install`
+# One module path per line (with a version), comments and blank lines are ignored
+# `chezmoi apply` will install these when this file changes
+
+# Social
+github.com/mattn/bsky@latest # Bluesky CLI for terminal and agent use

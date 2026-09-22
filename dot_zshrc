@@ -240,6 +240,7 @@ nht() {
 
 export PATH="$HOME/.bun/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
 
 # Keep the optional work LLM token out of the managed OpenCode config. Local
 # models remain usable when the token file is absent.
