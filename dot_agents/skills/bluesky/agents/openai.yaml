@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bluesky"
+  short_description: "Read, post, reply, and edit the profile on Bluesky"
+  default_prompt: "Use $bluesky to check my Bluesky notifications and timeline and tell me what needs a reply."
