@@ -72,7 +72,7 @@ cask "orion" # alternative battery-saving browser
 cask "betterdisplay" # be able to set the right resulotion for every display
 cask "rocket" # slack like emojis everywhere
 cask "mouseless" # vim-like and keyboard focused navigation
-cask "claude-code" # Claude Code AI CLI app
+cask "claude-code@latest" # Claude Code AI CLI app (frequent updates)
 
 # Fonts
 # TODO: Add MonoLisa as my main font
