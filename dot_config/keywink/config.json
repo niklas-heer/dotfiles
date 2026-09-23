@@ -190,9 +190,16 @@
         {
           "iconPath": "speaker.wave.2.fill",
           "key": "r",
-          "label": "🔊 Read selected text aloud",
-          "type": "command",
-          "value": "\"$HOME/.config/keywink/bin/read-selected-text\""
+          "label": "🔊 Read selection in Spokn",
+          "type": "url",
+          "value": "spokn://read-selection"
+        },
+        {
+          "iconPath": "playpause.fill",
+          "key": "s",
+          "label": "⏯ Pause or resume Spokn",
+          "type": "url",
+          "value": "spokn://toggle"
         },
         {
           "iconPath": "viewfinder",
