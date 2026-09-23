@@ -5,6 +5,7 @@
 # -> Looks for ~/Brewfile and installs its contents
 
 tap "oven-sh/bun" # https://github.com/oven-sh/homebrew-bun
+tap "openclaw/tap" # https://github.com/openclaw/homebrew-tap
 tap "niklas-heer/tap" # https://github.com/niklas-heer/homebrew-tap
 tap "nur-taskrunner/homebrew", "https://github.com/nur-taskrunner/homebrew.git" # https://github.com/nur-taskrunner/homebrew
 tap "satococoa/tap" # https://github.com/satococoa/homebrew-tap
@@ -53,6 +54,7 @@ brew "marksman" # markdown lsp
 brew "tdx" # better todos for git (my own package)
 brew "vrdx" # decision records in Markdown (my own package)
 brew "satococoa/tap/wtp" # Git worktree management tool
+brew "wacli" # WhatsApp CLI (linked device) for terminal and agent use
 
 # Desktop apps
 cask "zed" # editor of choice over vscode
