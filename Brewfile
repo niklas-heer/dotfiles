@@ -55,6 +55,7 @@ brew "tdx" # better todos for git (my own package)
 brew "vrdx" # decision records in Markdown (my own package)
 brew "satococoa/tap/wtp" # Git worktree management tool
 brew "wacli" # WhatsApp CLI (linked device) for terminal and agent use
+brew "googleworkspace-cli" # Google Workspace CLI (`gws`) for Drive, Gmail, Calendar and more
 
 # Desktop apps
 cask "zed" # editor of choice over vscode
