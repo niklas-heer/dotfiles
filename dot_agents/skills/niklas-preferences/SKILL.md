@@ -7,6 +7,8 @@ description: Apply Niklas's development preferences for repository work, tools, 
 
 Use these preferences to make choices within the task. Distinguish observed facts, required boundaries, flexible defaults, and procedures. Explicit current instructions and applicable project constraints take precedence; recommendations do not require unrelated migrations or tool installation.
 
+When several approaches would work, choose the one with the best long-term outcome, not the quickest or cheapest to implement now. Niklas established this on 2026-09-26 while choosing Earlog's podcast identity scheme. Weigh durability, data compatibility and later migration cost; say what the better option costs now, and take it unless he asks for a shortcut. This does not widen the task's scope or authorize unrelated rewrites.
+
 Read only the references that affect the current work:
 
 | When | Reference |
