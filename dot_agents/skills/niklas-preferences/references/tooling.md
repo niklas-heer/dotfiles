@@ -16,6 +16,15 @@ Niklas prefers Dagger with the Dang SDK for CI and, when delivery automation is 
 
 For local container engines on macOS, use Apple's native `container` tooling or Colima (confirmed 2026-09-19). Choose between them based on the workload and verified compatibility; do not start or install another engine as a default fallback. Colima provides a Docker-compatible endpoint; Apple's tooling has its own CLI and may require Dagger-specific setup.
 
+## Disk space and generated build output
+
+Niklas's Mac is regularly close to a full disk, and he asked on 2026-09-27 that agents clean up regenerable data they create as they work, especially debug builds. Rust debug builds with tests easily reach several GB per project.
+
+- Check free space (`df -h ~`) before large builds (release, cross-compile, Nix, container) and after test runs. Prefer lean builds when space is short, such as `CARGO_PROFILE_DEV_DEBUG=0`.
+- Remove what you generated once it has served its purpose: debug `target/` output (`cargo clean --profile dev` or the project's clean task), packaged `dist/` files, scratch files in `/tmp`, test data directories, and images or containers you started for a check.
+- Use the project's own cleanup tasks where they exist: Earlog has `tools/clean.rs` behind `mise run clean-cache`, `clean-builds` and `clean-ci`; Sideporch has `mise run clean`, `clean-debug` and `clean-ci`. Add a similar task to a project that lacks one.
+- Only delete data you created or that is clearly regenerable build output of the project you are working on. Other projects' caches, Docker images and volumes, the Colima VM, Homebrew and Nix garbage collection, and `~/.cache` belong to Niklas: report large consumers and ask before removing them.
+
 ## Drift and new-machine readiness
 
 When a workflow gains a tool requirement, check whether it is reproducible from the project's manifests or from dotfiles. Keep project versions and developer tools in project-local mise configuration; keep the shared bootstrap, machine configuration, and installed helpers in dotfiles. Frequent use is a reason to review the baseline, not to install every project's tools globally.
