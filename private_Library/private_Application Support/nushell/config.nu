@@ -154,7 +154,7 @@ $env.FZF_DEFAULT_OPTS = "--color=fg:#c0caf5,bg:#1e1f29,hl:#bb9af7 --color=fg+:#F
 
 # env.nu refreshes the wrapper before this file is parsed.
 source ~/.cache/repot/init.nu
-alias repo = repot jump
+alias repo = repot cd
 
 def --env np [...args] {
     let cd_file = (^mktemp -t np-cd.XXXXXX | str trim)

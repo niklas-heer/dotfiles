@@ -189,7 +189,7 @@ if command -v repot >/dev/null 2>&1; then
   eval "$(command repot shell-init zsh)"
   source <(command repot completions zsh)
 fi
-alias repo='repot jump'
+alias repo='repot cd'
 
 # television shell integration https://alexpasmantier.github.io/television/docs/Users/shell-integration/
 if command -v tv >/dev/null 2>&1; then
