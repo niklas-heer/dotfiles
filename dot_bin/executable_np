@@ -94,7 +94,7 @@ def ask_select(message: str, options: list[str], default_idx: int = 0) -> str:
 
 
 def namespaces_from_dirs(scope: str) -> list[str]:
-    base = ghq_root() / scope
+    base = repository_root() / scope
     if not base.exists() or not base.is_dir():
         return []
 
@@ -160,8 +160,8 @@ def ensure_valid_name(kind: str, raw_value: str) -> str:
     return normalized
 
 
-def ghq_root() -> Path:
-    return Path(run(["ghq", "root"], capture=True)).expanduser().resolve()
+def repository_root() -> Path:
+    return Path(run(["repot", "root"], capture=True)).expanduser().resolve()
 
 
 def ensure_git_repo(path: Path) -> None:
@@ -200,7 +200,7 @@ def cmd_new(name: str | None, namespace: str | None, root: RepoScope | None) -> 
     project_raw = name or ask_input("Project name")
     project = ensure_valid_name("Project name", project_raw)
 
-    dest = ghq_root() / selected_scope / ns / project
+    dest = repository_root() / selected_scope / ns / project
     if dest.exists():
         err(f"Already exists: {dest}")
         emit_destination(dest)
@@ -278,13 +278,13 @@ def cmd_promote(
             run(["git", "remote", "add", "origin", origin], cwd=cwd)
         err(f"Create GitLab project, then push to: {origin}")
 
-    move_choice = move.value if move else ask_select("Move project to remote-host path in ghq?", ["no", "yes"])
+    move_choice = move.value if move else ask_select("Move project to remote-host path in repot?", ["no", "yes"])
     if move_choice != "yes":
         emit_destination(cwd)
         return 0
 
     host = selected_target
-    dst = ghq_root() / host / ns / project
+    dst = repository_root() / host / ns / project
     if dst.exists():
         err(f"Destination already exists: {dst}")
         emit_destination(cwd)

@@ -2,10 +2,12 @@
 
 ## Find and download
 
-- Discover local projects with `rtk ghq list --full-path [query]`. Resolve the current root with `rtk ghq root` and dotfiles with `rtk chezmoi source-path`. Niklas chose live discovery over a maintained hub project index on 2026-09-19; creating, cloning, or relocating a checkout requires no hub registration.
+Niklas adopted repot on 2026-09-27 for repository discovery, cloning and shell navigation. It preserves the ghq directory layout and Git configuration; ghq itself is no longer a default installation.
+
+- Discover local projects with `rtk repot list --full-path [query]`. Resolve the current root with `rtk repot root` and dotfiles with `rtk chezmoi source-path`. Niklas chose live discovery over a maintained hub project index on 2026-09-19; creating, cloning, or relocating a checkout requires no hub registration.
 - Use GitHub CLI to search for or confirm the intended remote when needed. Clarify genuinely ambiguous matches before downloading.
-- Clone with `ghq get <repository-url>` so the checkout lands under `<ghq root>/<host>/<owner>/<repository>`. Use another location or clone method when explicitly requested. Reuse existing checkouts and preserve their work.
-- Keep each project in its own checkout and read its instructions before editing. Confirm GHQ discovers checkouts placed under its roots. GitHub defaults are owner `niklas-heer` and branch `main`.
+- Clone with `repot get <repository-url>` so the checkout lands under `<repot root>/<host>/<owner>/<repository>`. Use another location or clone method when explicitly requested. Reuse existing checkouts and preserve their work.
+- Keep each project in its own checkout and read its instructions before editing. Confirm repot discovers checkouts placed under its roots. GitHub defaults are owner `niklas-heer` and branch `main`.
 - Default new shareable projects, especially tooling, to public visibility when publication is requested or part of the authorized repository-creation task. Review files and history for secrets and private personal information first; keep sensitive or personal projects private. This public-first preference was explicitly established on 2026-09-19. A local-only task does not authorize publication, and existing repositories do not become public automatically.
 - For new public tooling, include an appropriate open-source license when licensing is authorized; choose a permissive license when broad reuse is the stated goal, and preserve existing license obligations. The Latchrun license choice is project-specific, not a universal license mandate.
 

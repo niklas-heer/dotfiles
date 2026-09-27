@@ -1,6 +1,6 @@
 # Optional Jev assessment
 
-Locate the existing hub through GHQ and consult its `docs/capture-gate.md` for current CLI and input details. The executable is `<hub>/target/release/capture-gate`; the `mise run capture -- ...` task from the hub builds/runs it if needed. Prefix commands with `rtk` where installed and use an explicit working directory.
+Locate the existing hub through repot and consult its `docs/capture-gate.md` for current CLI and input details. The executable is `<hub>/target/release/capture-gate`; the `mise run capture -- ...` task from the hub builds/runs it if needed. Prefix commands with `rtk` where installed and use an explicit working directory.
 
 Check `capture-gate status`. When a session is running, pass one concise candidate JSON object on stdin to `capture-gate judge --threshold 0.85`. Include relevant evidence excerpts, acceptance basis for a decision/preference, and matching existing records. Remove credentials and incidental sensitive material before sending anything: the candidate is submitted to the external TypeSafe API. Jev cannot inspect local paths or independently verify claims beyond the supplied state.
 

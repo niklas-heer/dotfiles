@@ -34,7 +34,7 @@ coverage gaps. Do not imply that all accessible repositories were inspected.
 
 ## Discover the material
 
-Use `ghq list --full-path` for local checkouts, `chezmoi source-path` for dotfiles,
+Use `repot list --full-path` for local checkouts, `chezmoi source-path` for dotfiles,
 and GitHub CLI for authenticated remote inventory. Read
 [discovery.md](references/discovery.md) for bounded command examples. Merge
 local and remote entries by normalized remote identity, preserving local-only

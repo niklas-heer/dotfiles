@@ -117,3 +117,14 @@ if (which atuin | is-not-empty) {
         | save -f $atuin_file
     }
 }
+
+# Refresh repot's directory-handoff wrapper on startup, including after upgrades.
+# Keep an empty file when repot is absent so config.nu can always be parsed.
+let repot_dir = ($env.HOME | path join '.cache/repot')
+let repot_init = ($repot_dir | path join 'init.nu')
+mkdir $repot_dir
+if (which repot | is-not-empty) {
+    ^repot shell-init nu | save --force $repot_init
+} else {
+    '' | save --force $repot_init
+}

@@ -19,8 +19,8 @@ is the handoff channel, and the paste is Niklas's review of the brief.
 
 ## 1. Resolve the target checkout
 
-Find it with `rtk ghq list --full-path <query>` and require exactly one match.
-When the repository exists on GitHub but not locally, clone it with `ghq get`
+Find it with `rtk repot list --full-path <query>` and require exactly one match.
+When the repository exists on GitHub but not locally, clone it with `repot get`
 as the git reference of `niklas-preferences` describes. Ask when several
 checkouts match; opening the wrong project wastes the whole handoff.
 

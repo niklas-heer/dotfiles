@@ -7,6 +7,7 @@
 tap "oven-sh/bun" # https://github.com/oven-sh/homebrew-bun
 tap "openclaw/tap" # https://github.com/openclaw/homebrew-tap
 tap "niklas-heer/tap" # https://github.com/niklas-heer/homebrew-tap
+tap "niklas-heer/repot", "https://github.com/niklas-heer/repot" # repository manager
 tap "nur-taskrunner/homebrew", "https://github.com/nur-taskrunner/homebrew.git" # https://github.com/nur-taskrunner/homebrew
 tap "satococoa/tap" # https://github.com/satococoa/homebrew-tap
 
@@ -26,7 +27,7 @@ brew "fish" # user-friendly shell for optional use
 brew "gitmoji" # getting emojis for commit messages
 brew "lazygit" # cli client for git
 brew "lazydocker" # cli client for docker
-brew "ghq" # download and manage git repos Golang style
+brew "niklas-heer/repot/repot" # organise, navigate and safely sync Git repositories
 brew "fzf" # fuzzy finder
 brew "pulumi" # infrastructure as code platform
 brew "television" # fuzzy finder and search TUI

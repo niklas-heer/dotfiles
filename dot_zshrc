@@ -184,18 +184,12 @@ __nht_apply_action_file() {
   return "$exit_code"
 }
 
-repo() {
-  local action_file
-  action_file="$(mktemp -t nht-action.XXXXXX)" || return 1
-
-  export NHT_ACTION_FILE="$action_file"
-  command bun run "$HOME/bin/dev-tools/src/repo/index.ts" "$@"
-  local exit_code=$?
-  unset NHT_ACTION_FILE
-
-  __nht_apply_action_file "$action_file" "$exit_code"
-  return $?
-}
+# repot owns repository navigation and follows successful directory handoffs.
+if command -v repot >/dev/null 2>&1; then
+  eval "$(command repot shell-init zsh)"
+  source <(command repot completions zsh)
+fi
+alias repo='repot jump'
 
 # television shell integration https://alexpasmantier.github.io/television/docs/Users/shell-integration/
 if command -v tv >/dev/null 2>&1; then

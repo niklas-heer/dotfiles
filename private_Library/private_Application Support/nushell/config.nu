@@ -152,17 +152,9 @@ def --env --wrapped wtp [...args] {
 
 $env.FZF_DEFAULT_OPTS = "--color=fg:#c0caf5,bg:#1e1f29,hl:#bb9af7 --color=fg+:#FFFFFF,bg+:#1e1f29,hl+:#7dcfff --color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff --color=marker:#9ece6a,spinner:#9ece6a,header:#9ece6a"
 
-# We have to set --env otherwise the cd won't work
-def --env repo [...query] {
-    let action_file = (^mktemp -t nht-action.XXXXXX | str trim)
-
-    with-env { NHT_ACTION_FILE: $action_file } {
-        ^bun run ~/bin/dev-tools/src/repo/index.ts ...$query
-    }
-
-    let status = $env.LAST_EXIT_CODE
-    __nht_apply_action $action_file $status | ignore
-}
+# env.nu refreshes the wrapper before this file is parsed.
+source ~/.cache/repot/init.nu
+alias repo = repot jump
 
 def --env np [...args] {
     let cd_file = (^mktemp -t np-cd.XXXXXX | str trim)

@@ -5,7 +5,7 @@ description: Generate and compare names for projects, apps, libraries, or tools,
 
 # Find a project name
 
-Resolve the existing hub with `rtk ghq list --full-path hub` (GHQ-relative path `github.com/niklas-heer/hub`). Read `docs/namecheck.md` there for exact CLI interfaces, coverage, setup, and exit semantics. Run project commands with the hub as working directory. If the hub is unavailable, use live search and clearly disclose which automated checks were not run.
+Resolve the existing hub with `rtk repot list --full-path hub` (GHQ-relative path `github.com/niklas-heer/hub`). Read `docs/namecheck.md` there for exact CLI interfaces, coverage, setup, and exit semantics. Run project commands with the hub as working directory. If the hub is unavailable, use live search and clearly disclose which automated checks were not run.
 
 Establish the product's purpose, audience, naming style, relevant ecosystems, desired domain suffixes, and known rejected names from the conversation. Ask only for missing constraints that materially affect selection. Distinguish inventing a name from checking a user-selected one.
 

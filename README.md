@@ -27,6 +27,25 @@ $HOME/bin/chezmoi init --apply --ssh $GITHUB_USERNAME
 * [homebrew](https://brew.sh) - installs mac applications
 * [zsh](https://www.zsh.org/) - the macOS-native shell, enhanced with real-time completions
 
+## Git repositories
+
+[repot](https://github.com/niklas-heer/repot) is installed by the Brewfile. Zsh and
+Nushell load its directory-handoff wrapper, so these work in either shell:
+
+```sh
+repo                         # built-in repository picker
+repo repot                   # jump to a matching checkout
+repot get owner/project      # clone into the existing ghq-compatible tree
+repot status --no-fetch       # inspect local state without fetching
+repot sync --dry-run          # preview safe updates
+```
+
+Existing `ghq.root` Git configuration still determines repository locations.
+Zsh loads native repot completions; Nushell refreshes its wrapper in `env.nu`
+after upgrades. Native Nushell extern completions are deliberately not imported:
+they bypass the directory-handoff wrapper for commands such as `repot jump`.
+The older `np` helper remains available and uses `repot root`.
+
 ## Local LLM (optional per machine)
 
 The base dotfiles setup does not install an LLM runtime, start a service, or
