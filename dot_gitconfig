@@ -36,7 +36,7 @@
     name = Niklas Heer
 	email = me@nheer.io
 
-# ghq settings - https://github.com/motemen/ghq
+# Checkout tree root; repot reads the ghq-compatible setting
 [ghq]
     root = ~/Projects
 

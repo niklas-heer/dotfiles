@@ -13,7 +13,7 @@ Publishing remains separate unless explicitly authorized.
 
 ## Learn the voice before writing
 
-Locate `niklas-heer/nheer.io` through GHQ and read its current instructions,
+Locate `niklas-heer/nheer.io` with `rtk repot list --full-path nheer.io` and read its current instructions,
 content schema, README, and `docs/visual-explainers.md` when present. Read 3–5
 relevant complete published posts, including recent work and a similar genre.
 Check closely related drafts and published articles for repeated arguments.

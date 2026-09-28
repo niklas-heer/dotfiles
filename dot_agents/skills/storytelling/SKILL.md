@@ -42,7 +42,7 @@ and GitHub-only projects. Fetch remote evidence through `gh` without cloning
 every project. Widen to other owners/organizations when requested; access to a
 repository does not establish Niklas's authorship of its changes.
 
-Locate the blog through GHQ; the known repository is `niklas-heer/nheer.io`.
+Locate the blog with `rtk repot list --full-path nheer.io`; the known repository is `niklas-heer/nheer.io`.
 Read its current instructions, content schema, publishing filters, and content.
 As observed in September 2026, posts live under `src/content/posts`, the canonical
 site is `https://nheer.com`, and `docs/blog-post-candidates.md` is an older proposal

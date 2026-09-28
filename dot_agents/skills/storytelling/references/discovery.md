@@ -15,9 +15,9 @@ rtk gh repo list niklas-heer --limit 100 --json nameWithOwner,url,visibility,isF
 account can access. If the limit is reached, widen it or paginate. For a scope
 covering all affiliated repositories, use paginated `gh api user/repos`, with
 appropriate affiliation filters; do not silently broaden an owner-scoped task.
-If GHQ or GitHub authentication is unavailable, use supplied paths/the other
-inventory and report the missing side. Include explicitly supplied non-GHQ
-checkouts. A missing remote or SSH alias needs manual identity resolution.
+If repot or GitHub authentication is unavailable, use supplied paths/the other
+inventory and report the missing side. Include explicitly supplied checkouts
+outside repot's roots. A missing remote or SSH alias needs manual identity resolution.
 
 For shortlisted local projects:
 

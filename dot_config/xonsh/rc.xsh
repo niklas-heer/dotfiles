@@ -373,7 +373,7 @@ aliases["nht"] = nht
 
 
 # ---------------------------------------------------------------------------
-# repo  – ghq-style repo opener  (mirrors def --env repo in config.nu)
+# repo  – repot-tree repo opener  (mirrors def --env repo in config.nu)
 # ---------------------------------------------------------------------------
 
 def repo(*query):
