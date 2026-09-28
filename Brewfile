@@ -27,6 +27,7 @@ brew "gitmoji" # getting emojis for commit messages
 brew "lazygit" # cli client for git
 brew "lazydocker" # cli client for docker
 brew "niklas-heer/tap/repot" # organise, navigate and safely sync Git repositories
+brew "ghq" # kept alongside repot; both read ghq.root
 brew "fzf" # fuzzy finder
 brew "pulumi" # infrastructure as code platform
 brew "television" # fuzzy finder and search TUI
