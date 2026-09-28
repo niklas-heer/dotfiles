@@ -1,0 +1,4 @@
+# Dependencies rarely need debugger info; dropping it keeps debug and test builds
+# about a quarter smaller. Workspace crates keep full debug info.
+[profile.dev.package."*"]
+debug = false

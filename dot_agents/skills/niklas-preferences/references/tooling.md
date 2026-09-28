@@ -23,6 +23,7 @@ Niklas's Mac is regularly close to a full disk, and he asked on 2026-09-27 that 
 - Check free space (`df -h ~`) before large builds (release, cross-compile, Nix, container) and after test runs. Prefer lean builds when space is short, such as `CARGO_PROFILE_DEV_DEBUG=0`.
 - Remove what you generated once it has served its purpose: debug `target/` output (`cargo clean --profile dev` or the project's clean task), packaged `dist/` files, scratch files in `/tmp`, test data directories, and images or containers you started for a check.
 - Use the project's own cleanup tasks where they exist: Earlog has `tools/clean.rs` behind `mise run clean-cache`, `clean-builds` and `clean-ci`; Sideporch has `mise run clean`, `clean-debug` and `clean-ci`. Add a similar task to a project that lacks one.
+- When the disk is nearly full, run the hub's `rtk mise run clean -- --apply`. It empties Rust debug profiles in every checkout, skipping any that a build holds, and reports other regenerable output. Rust debug profiles are the one kind of other projects' output you may remove without asking. The hub's `clean-disk` skill covers proposing the rest. The dotfiles' `~/.cargo/config.toml` builds dependencies without debug info.
 - Only delete data you created or that is clearly regenerable build output of the project you are working on. Other projects' caches, Docker images and volumes, the Colima VM, Homebrew and Nix garbage collection, and `~/.cache` belong to Niklas: report large consumers and ask before removing them.
 
 ## Drift and new-machine readiness
