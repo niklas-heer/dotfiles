@@ -2,7 +2,7 @@
 
 ## Find and download
 
-Niklas adopted repot on 2026-09-27 for repository discovery, cloning and shell navigation. It preserves the ghq directory layout and Git configuration; ghq itself is no longer a default installation.
+Niklas adopted repot on 2026-09-27 for repository discovery, cloning and shell navigation. It preserves the ghq directory layout and Git configuration; ghq itself is no longer a default installation. On 2026-09-29 Niklas chose to keep ghq installed alongside repot: both read `ghq.root`, so they see the same tree. Tooling and agent guidance use repot; do not uninstall ghq or remove the `[ghq]` Git setting.
 
 - Discover local projects with `rtk repot list --full-path [query]`. Resolve the current root with `rtk repot root` and dotfiles with `rtk chezmoi source-path`. Niklas chose live discovery over a maintained hub project index on 2026-09-19; creating, cloning, or relocating a checkout requires no hub registration.
 - Use GitHub CLI to search for or confirm the intended remote when needed. Clarify genuinely ambiguous matches before downloading.
