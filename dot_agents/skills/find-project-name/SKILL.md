@@ -11,7 +11,7 @@ Establish the product's purpose, audience, naming style, relevant ecosystems, de
 
 ## Generate and screen
 
-For fresh candidates, use `rtk mise run names -- find --brief 'Product and preferences' --count 6 --exclude rejected,names --json`. It generates one batch using Codex CLI's saved ChatGPT sign-in and immediately screens it. Use an appropriate profile (`macos`, `rust`, `node`, `python`, `all`), `--sources` override, and `--tlds` when needed. Save reports in the hub's ignored `scratch/` when another step consumes them. Existing candidates only need `check NAME... --json`.
+For fresh candidates, use `rtk mise run names -- find --brief 'Product and preferences' --count 6 --exclude rejected,names --json`. It generates one batch using Codex CLI's saved ChatGPT sign-in and immediately screens it. Use an appropriate profile (`macos`, `rust`, `node`, `python`, `all`), `--sources` override, and `--tlds` when needed. Save reports in the hub's ignored `scratch/` when another step consumes them, redirecting without the `rtk` prefix: rtk condenses long output even when it is redirected, which corrupts the JSON. Existing candidates only need `check NAME... --json`.
 
 No OpenRouter key is needed. Codex subscription limits still apply. Do not silently switch to API billing or another paid provider on failure. A missing CLI/login or a usage limit does not invalidate collision checks; explain the gap and use ordinary brainstorming when appropriate. The tool never buys domains or creates repositories.
 
