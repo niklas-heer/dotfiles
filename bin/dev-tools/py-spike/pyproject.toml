@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
   "pydantic>=2.11.3",
-  "pydantic-settings>=2.8.1",
+  "pydantic-settings>=2.14.2",
   "prompt-toolkit>=3.0.51",
   "rich>=14.1.0",
   "textual>=0.55.0",
