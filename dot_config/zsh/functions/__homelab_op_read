@@ -1,0 +1,20 @@
+# Print a 1Password secret, signing in (again) when the session expired.
+local ref="$1"
+local value
+
+__homelab_op_ensure_signin || return 1
+
+if ! value="$(command op read "$ref" 2>/dev/null)"; then
+  __homelab_op_ensure_signin || return 1
+  if ! value="$(command op read "$ref" 2>/dev/null)"; then
+    printf 'Could not read 1Password secret: %s\n' "$ref" >&2
+    return 1
+  fi
+fi
+
+if [[ -z "$value" ]]; then
+  printf 'Could not read 1Password secret: %s\n' "$ref" >&2
+  return 1
+fi
+
+printf '%s' "$value"

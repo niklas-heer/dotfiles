@@ -1,0 +1,3 @@
+# Read by every zsh, including scripts, so it does no work. PATH and exported
+# variables live in ~/.zprofile; the interactive session is set up in ~/.zshrc.
+# Installers like to append here; chezmoi diff will show it.

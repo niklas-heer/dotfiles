@@ -29,8 +29,8 @@ $HOME/bin/chezmoi init --apply --ssh $GITHUB_USERNAME
 
 ## Git repositories
 
-[repot](https://github.com/niklas-heer/repot) is installed by the Brewfile. Zsh and
-Nushell load its directory-handoff wrapper, so these work in either shell:
+[repot](https://github.com/niklas-heer/repot) is installed by the Brewfile. Zsh loads
+its directory-handoff wrapper, so these work in the shell:
 
 ```sh
 repo                         # built-in repository picker
@@ -41,10 +41,17 @@ repot sync --dry-run          # preview safe updates
 ```
 
 Existing `ghq.root` Git configuration still determines repository locations.
-Zsh loads native repot completions; Nushell refreshes its wrapper in `env.nu`
-after upgrades. Native Nushell extern completions are deliberately not imported:
-they bypass the directory-handoff wrapper for commands such as `repot jump`.
 The older `np` helper remains available and uses `repot root`.
+
+## Shell startup
+
+Zsh is the only shell. `~/.zprofile` sets PATH and environment once per login
+shell, and `~/.zshrc` sources each tool's `init zsh` output from
+`~/.cache/zsh/init/` instead of running the tool. A cache entry is rebuilt when
+the tool's Homebrew path or binary changes; delete the directory to force it.
+Helpers such as `np`, `nht` and `homelab-*` are autoloaded from
+`~/.config/zsh/functions/` on first use. Ghostty and cmux share
+`~/.config/ghostty/config`.
 
 ## Local LLM (optional per machine)
 

@@ -1,74 +1,55 @@
-# Homebrew import
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# Interactive zsh. PATH and environment live in ~/.zprofile; this file only
+# sets up the session and keeps startup cheap: tools that print an init
+# snippet are cached to a file instead of being run at every prompt.
 
-# Find Python binary directories
-bins=$(
-    find "$HOME/Library/Python" -maxdepth 2 -type d -name 'bin' \
-        | tr '\n' ':' \
-        | sed 's/:$//'
-)
-export PATH="$PATH:$bins"
+# A non-login shell started from a bare environment still needs ~/.zprofile.
+(( $path[(I)/opt/homebrew/bin] )) || source ~/.zprofile
 
-# Add chezmoi
-# https://stackoverflow.com/a/18077919
-path+=("$HOME/.bin")
-path+=("$HOME/bin")
-export PATH
+fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
 
-export LIBRARY_PATH=$LIBRARY_PATH:/opt/homebrew/lib/gcc/current
-
-# zsh-autocomplete initializes Zsh's completion system and must load before
-# anything that calls compdef.
+# zsh-autocomplete runs compinit and must load before anything calls compdef.
+# Its recent-dirs history lives in a folder it never creates itself.
+mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/zsh"
 source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
-# Use Carapace's command metadata in the real-time completion menu.
-export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
-source <(carapace _carapace)
-
-#---- START oh-my-posh
-export VIRTUAL_ENV_DISABLE_PROMPT=1
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-eval "$(oh-my-posh init zsh --config ~/.nheer.omp.yaml)"
-
-#---- END oh-my-posh
-
-# Created by `pipx`
-export PATH="$HOME/.local/bin:$PATH"
-
-# zoxide https://github.com/ajeetdsouza/zoxide
-eval "$(zoxide init zsh)"
-
-# atuin https://docs.atuin.sh/guide/installation/
-eval "$(atuin init zsh)"
-
-# wtp shell integration (completion + hook)
-if command -v wtp >/dev/null 2>&1; then
-  eval "$(wtp shell-init zsh)"
-fi
-
-np() {
-  local cd_file
-  cd_file="$(mktemp -t np-cd.XXXXXX)" || return 1
-
-  NP_CD_FILE="$cd_file" command np "$@"
-  local exit_code=$?
-
-  if [[ -f "$cd_file" ]]; then
-    local destination
-    destination="$(<"$cd_file")"
-    rm -f "$cd_file"
-
-    if [[ $exit_code -eq 0 && -n "$destination" && -d "$destination" ]]; then
-      cd "$destination" || return $exit_code
-    fi
+# Source the cached output of `<tool> init zsh`, regenerating it when the
+# binary's resolved path changes (Homebrew upgrade) or the binary is newer.
+#   zsh-init-cache <name> <command> [args...]
+typeset -g ZSH_INIT_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/init"
+zsh-init-cache() {
+  local name=$1; shift
+  local bin=${commands[$1]}
+  [[ -n $bin ]] || return 0
+  local cache=$ZSH_INIT_CACHE_DIR/$name.zsh key="# ${bin:A}" first=
+  [[ -s $cache ]] && read -r first < "$cache"
+  if [[ $first != $key || $bin -nt $cache ]]; then
+    mkdir -p "$ZSH_INIT_CACHE_DIR"
+    { print -r -- "$key"; "$@" } >| "$cache" 2>/dev/null || { rm -f "$cache"; return 1 }
   fi
-
-  return $exit_code
+  source "$cache"
 }
 
-alias newproj='np new'
-alias graduateproj='np promote'
-alias ai='codex --dangerously-bypass-approvals-and-sandbox'
+# Carapace feeds completions for many CLIs into the zsh-autocomplete menu.
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
+zsh-init-cache carapace carapace _carapace
+
+# Prompt
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+zsh-init-cache oh-my-posh oh-my-posh init zsh --config ~/.nheer.omp.yaml --print
+
+zsh-init-cache zoxide zoxide init zsh
+zsh-init-cache atuin atuin init zsh
+zsh-init-cache wtp wtp shell-init zsh
+# repot owns repository navigation and follows successful directory handoffs.
+zsh-init-cache repot repot shell-init zsh
+zsh-init-cache repot-completions repot completions zsh
+# television: Ctrl-T picks from channels, Ctrl-R replaces atuin's history search.
+zsh-init-cache tv tv init zsh
+
+# Workflow helpers (np, nht, homelab-*) are autoloaded on first use.
+fpath=(~/.config/zsh/functions $fpath)
+autoload -Uz ~/.config/zsh/functions/*(.:t)
 
 HOMELAB_OP_ACCOUNT="my.1password.com"
 HOMELAB_OBJECT_STORAGE_BUCKET="heer-family-homelab"
@@ -76,171 +57,8 @@ HOMELAB_OBJECT_STORAGE_REGION="fsn1"
 HOMELAB_OBJECT_STORAGE_ENDPOINT="https://fsn1.your-objectstorage.com"
 HOMELAB_PULUMI_BACKEND_URL="s3://${HOMELAB_OBJECT_STORAGE_BUCKET}?region=${HOMELAB_OBJECT_STORAGE_REGION}&awssdk=v2&endpoint=${HOMELAB_OBJECT_STORAGE_ENDPOINT}"
 
-homelab-op-signin() {
-  command op signin --account "$HOMELAB_OP_ACCOUNT"
-}
-
-__homelab_op_ensure_signin() {
-  command op whoami >/dev/null 2>&1 && return 0
-  homelab-op-signin >/dev/null || return 1
-}
-
-__homelab_op_read() {
-  local ref="$1"
-  local value
-
-  __homelab_op_ensure_signin || return 1
-
-  if ! value="$(command op read "$ref" 2>/dev/null)"; then
-    __homelab_op_ensure_signin || return 1
-    if ! value="$(command op read "$ref" 2>/dev/null)"; then
-      printf 'Could not read 1Password secret: %s\n' "$ref" >&2
-      return 1
-    fi
-  fi
-
-  if [[ -z "$value" ]]; then
-    printf 'Could not read 1Password secret: %s\n' "$ref" >&2
-    return 1
-  fi
-
-  printf '%s' "$value"
-}
-
-homelab-object-storage-env() {
-  export AWS_ACCESS_KEY_ID="$(__homelab_op_read 'op://homelab/Hetzner Object Storage/access-key-id')" || return 1
-  export AWS_SECRET_ACCESS_KEY="$(__homelab_op_read 'op://homelab/Hetzner Object Storage/secret-access-key')" || return 1
-  export AWS_REGION="$HOMELAB_OBJECT_STORAGE_REGION"
-  export AWS_EC2_METADATA_DISABLED="true"
-}
-
-homelab-pulumi-login() {
-  homelab-object-storage-env || return 1
-  command pulumi login "$HOMELAB_PULUMI_BACKEND_URL"
-}
-
-homelab-pulumi() {
-  homelab-object-storage-env || return 1
-  command pulumi "$@"
-}
-
+alias newproj='np new'
+alias graduateproj='np promote'
+alias ai='codex --dangerously-bypass-approvals-and-sandbox'
 alias hp='homelab-pulumi'
-
-__nht_resolve_command() {
-  command bun run "$HOME/bin/dev-tools/src/register.ts" --resolve "$1"
-}
-
-__nht_apply_action_file() {
-  local action_file="$1"
-  local exit_code="$2"
-
-  if [[ ! -f "$action_file" ]]; then
-    return "$exit_code"
-  fi
-
-  local action_line
-  action_line="$(<"$action_file")"
-  rm -f "$action_file"
-
-  if [[ "$exit_code" -ne 0 || -z "$action_line" ]]; then
-    return "$exit_code"
-  fi
-
-  local -a parts
-  parts=("${(@ps:\t:)action_line}")
-  local action="${parts[1]}"
-
-  case "$action" in
-    cd)
-      local value="${parts[2]}"
-      if [[ -n "$value" && -d "$value" ]]; then
-        cd "$value" || return 1
-        return 0
-      fi
-      ;;
-    print)
-      printf '%s\n' "${(j:\t:)parts[2,-1]}"
-      return 0
-      ;;
-    open)
-      local value="${parts[2]}"
-      if [[ -n "$value" ]]; then
-        command open "$value"
-        return $?
-      fi
-      ;;
-    exec)
-      if [[ ${#parts[@]} -ge 2 ]]; then
-        "${parts[2]}" "${parts[@]:3}"
-        return $?
-      fi
-      ;;
-    *)
-      printf 'Unsupported nht shell action: %s\n' "$action" >&2
-      return 1
-      ;;
-  esac
-
-  return "$exit_code"
-}
-
-# repot owns repository navigation and follows successful directory handoffs.
-if command -v repot >/dev/null 2>&1; then
-  eval "$(command repot shell-init zsh)"
-  source <(command repot completions zsh)
-fi
 alias repo='repot cd'
-
-# television shell integration https://alexpasmantier.github.io/television/docs/Users/shell-integration/
-if command -v tv >/dev/null 2>&1; then
-  eval "$(tv init zsh)"
-fi
-
-nht() {
-  local selection
-  local exit_code
-
-  if [[ $# -gt 0 ]]; then
-    selection="$(__nht_resolve_command "$1")"
-    exit_code=$?
-    shift
-  else
-    selection="$(tv nht --inline)"
-    exit_code=$?
-  fi
-
-  if [[ $exit_code -ne 0 || -z "$selection" ]]; then
-    return $exit_code
-  fi
-
-  local action_file
-  action_file="$(mktemp -t nht-action.XXXXXX)" || return 1
-
-  export NHT_ACTION_FILE="$action_file"
-  if [[ $# -gt 0 ]]; then
-    local quoted_args
-    printf -v quoted_args '%q ' "$@"
-    quoted_args="${quoted_args% }"
-    eval "$selection $quoted_args"
-  else
-    eval "$selection"
-  fi
-  exit_code=$?
-  unset NHT_ACTION_FILE
-
-  __nht_apply_action_file "$action_file" "$exit_code"
-  return $?
-}
-
-export PATH="$HOME/.bun/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/go/bin:$PATH"
-
-# Keep the optional work LLM token out of the managed OpenCode config. Local
-# models remain usable when the token file is absent.
-if [[ -r "$HOME/.opencode-token" ]]; then
-  export OPENCODE_ZALANDO_API_KEY="$(<"$HOME/.opencode-token")"
-fi
-
-export EDITOR="nvim"
-export VISUAL="nvim"

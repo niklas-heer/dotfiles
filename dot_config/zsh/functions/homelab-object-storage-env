@@ -1,0 +1,5 @@
+# Export Hetzner Object Storage credentials from 1Password into this shell.
+export AWS_ACCESS_KEY_ID="$(__homelab_op_read 'op://homelab/Hetzner Object Storage/access-key-id')" || return 1
+export AWS_SECRET_ACCESS_KEY="$(__homelab_op_read 'op://homelab/Hetzner Object Storage/secret-access-key')" || return 1
+export AWS_REGION="$HOMELAB_OBJECT_STORAGE_REGION"
+export AWS_EC2_METADATA_DISABLED="true"

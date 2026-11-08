@@ -1,7 +1,32 @@
-# .zprofile
+# Login-shell environment. Ghostty, cmux, Zed and Terminal start login shells,
+# so PATH and exported variables are set once here; ~/.zshrc only configures
+# the interactive session. macOS runs path_helper from /etc/zprofile before
+# this file, so entries prepended here keep their precedence.
 
-# Created by `pipx`
-export PATH="$PATH:/Users/nheer/.local/bin"
+# Homebrew, inlined from `brew shellenv` to save a process per login.
+export HOMEBREW_PREFIX=/opt/homebrew
+export HOMEBREW_CELLAR=/opt/homebrew/Cellar
+export HOMEBREW_REPOSITORY=/opt/homebrew
+export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
+
+typeset -U path
+path=(
+  $HOME/.bin $HOME/bin                          # chezmoi-managed scripts
+  $HOME/.local/bin                              # uv, pipx and t3 installs
+  $HOME/.cargo/bin $HOME/.bun/bin $HOME/go/bin  # language toolchains
+  /opt/homebrew/bin /opt/homebrew/sbin
+  $path
+)
+
+export LIBRARY_PATH="${LIBRARY_PATH:+$LIBRARY_PATH:}/opt/homebrew/lib/gcc/current"
+export EDITOR=nvim
+export VISUAL=nvim
+
+# Keep the optional work LLM token out of the managed OpenCode config. Local
+# models remain usable when the token file is absent.
+if [[ -r "$HOME/.opencode-token" ]]; then
+  export OPENCODE_ZALANDO_API_KEY="$(<"$HOME/.opencode-token")"
+fi
 {{- if stat (joinPath .chezmoi.homeDir ".orbstack/shell/init.zsh") }}
 
 # Added by OrbStack: command-line tools and integration

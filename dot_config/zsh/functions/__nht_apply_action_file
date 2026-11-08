@@ -1,0 +1,52 @@
+# Apply the tab-separated action a dev tool wrote to NHT_ACTION_FILE.
+local action_file="$1"
+local exit_code="$2"
+
+if [[ ! -f "$action_file" ]]; then
+  return "$exit_code"
+fi
+
+local action_line
+action_line="$(<"$action_file")"
+rm -f "$action_file"
+
+if [[ "$exit_code" -ne 0 || -z "$action_line" ]]; then
+  return "$exit_code"
+fi
+
+local -a parts
+parts=("${(@ps:\t:)action_line}")
+local action="${parts[1]}"
+
+case "$action" in
+  cd)
+    local value="${parts[2]}"
+    if [[ -n "$value" && -d "$value" ]]; then
+      cd "$value" || return 1
+      return 0
+    fi
+    ;;
+  print)
+    printf '%s\n' "${(j:\t:)parts[2,-1]}"
+    return 0
+    ;;
+  open)
+    local value="${parts[2]}"
+    if [[ -n "$value" ]]; then
+      command open "$value"
+      return $?
+    fi
+    ;;
+  exec)
+    if [[ ${#parts[@]} -ge 2 ]]; then
+      "${parts[2]}" "${parts[@]:3}"
+      return $?
+    fi
+    ;;
+  *)
+    printf 'Unsupported nht shell action: %s\n' "$action" >&2
+    return 1
+    ;;
+esac
+
+return "$exit_code"

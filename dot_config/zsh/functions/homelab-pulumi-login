@@ -1,0 +1,2 @@
+homelab-object-storage-env || return 1
+command pulumi login "$HOMELAB_PULUMI_BACKEND_URL"

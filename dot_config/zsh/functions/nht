@@ -1,0 +1,35 @@
+# Pick a dev tool (television channel "nht") or resolve one by name, run it,
+# then apply the shell action it hands back.
+local selection
+local exit_code
+
+if [[ $# -gt 0 ]]; then
+  selection="$(__nht_resolve_command "$1")"
+  exit_code=$?
+  shift
+else
+  selection="$(tv nht --inline)"
+  exit_code=$?
+fi
+
+if [[ $exit_code -ne 0 || -z "$selection" ]]; then
+  return $exit_code
+fi
+
+local action_file
+action_file="$(mktemp -t nht-action.XXXXXX)" || return 1
+
+export NHT_ACTION_FILE="$action_file"
+if [[ $# -gt 0 ]]; then
+  local quoted_args
+  printf -v quoted_args '%q ' "$@"
+  quoted_args="${quoted_args% }"
+  eval "$selection $quoted_args"
+else
+  eval "$selection"
+fi
+exit_code=$?
+unset NHT_ACTION_FILE
+
+__nht_apply_action_file "$action_file" "$exit_code"
+return $?

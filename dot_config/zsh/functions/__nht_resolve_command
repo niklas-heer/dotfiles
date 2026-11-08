@@ -1,0 +1,1 @@
+command bun run "$HOME/bin/dev-tools/src/register.ts" --resolve "$1"

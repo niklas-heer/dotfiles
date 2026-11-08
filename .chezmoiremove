@@ -1,0 +1,11 @@
+# Targets removed on apply because their source left the repository.
+# https://www.chezmoi.io/reference/special-files/chezmoiremove/
+Library/Application Support/com.mitchellh.ghostty/config
+Library/Application Support/nushell/config.nu
+Library/Application Support/nushell/env.nu
+.config/fish
+.config/xonsh
+.bin/nu-shell
+bin/adr
+.zoxide.nu
+.cache/carapace/init.nu

@@ -1,0 +1,7 @@
+# Ghostty and cmux both read this file. cmux ignores the Application Support
+# location, so this is the only Ghostty config chezmoi manages.
+command = /bin/zsh
+shell-integration = zsh
+theme = tokyonight
+font-size = 15
+keybind = shift+enter=text:\x1b\r

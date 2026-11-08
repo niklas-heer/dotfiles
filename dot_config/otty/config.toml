@@ -1,7 +1,7 @@
 # font-blending = "linear" (reset to default)
 theme = "Ayu Light"
 theme-dark = "Tokyo Night"
-command = "/opt/homebrew/bin/nu"
+command = "/bin/zsh"
 foreground = "#c0caf5"
 background = "#1a1b26"
 palette-0 = "#15161e"

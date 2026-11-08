@@ -1,5 +1,0 @@
-command = /bin/zsh
-theme = tokyonight
-font-size = 15
-keybind = shift+enter=text:\x1b\r
-shell-integration = zsh

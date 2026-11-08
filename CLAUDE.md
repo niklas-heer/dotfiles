@@ -14,8 +14,8 @@ This is a chezmoi-managed dotfiles repository for macOS.
 ## Key Technologies
 
 - **chezmoi**: Dotfile manager (source of truth is this repo, target is `~`)
-- **zsh**: Primary and login shell; Nushell, Fish, and xonsh remain optional alternatives
-- **Ghostty**: Terminal emulator
+- **zsh**: The only shell. `dot_zprofile.tmpl` holds PATH and environment, `dot_zshrc` the interactive setup with cached tool inits, `dot_config/zsh/functions/` the autoloaded helpers
+- **Ghostty**: Terminal emulator, configured in `dot_config/ghostty/config`, which cmux reads too
 - **Zed**: Primary editor
 - **Hammerspoon**: Keyboard shortcuts and automation (Lua config)
 - **oh-my-posh**: Prompt theme engine

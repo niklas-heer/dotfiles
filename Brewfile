@@ -20,9 +20,6 @@ brew "coreutils"
 # CLI apps
 brew "glow" # render markdown in terminal
 brew "hcloud" # hetzner cloud command line interface
-brew "nushell" # structured-data shell for optional use
-brew "xonsh" # Python-powered shell for optional use
-brew "fish" # user-friendly shell for optional use
 brew "gitmoji" # getting emojis for commit messages
 brew "lazygit" # cli client for git
 brew "lazydocker" # cli client for docker
