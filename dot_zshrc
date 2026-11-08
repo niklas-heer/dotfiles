@@ -12,6 +12,17 @@ fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
 mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/zsh"
 source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
+# IDE-style menu, in the spirit of inshellisense: a compact list with
+# descriptions appears as you type, Tab inserts the top match, arrows enter the
+# menu, Tab inside the menu cycles, Enter accepts. Selection uses the Tokyo
+# Night selection colour.
+zstyle ':autocomplete:*:*' list-lines 10
+zstyle ':autocomplete:history-incremental-search-backward:*' list-lines 16
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:default' list-colors 'di=1;34' 'ln=36' 'ex=32' 'ma=48;2;51;70;124;1'
+bindkey -M menuselect '^I' menu-complete
+bindkey -M menuselect "$terminfo[kcbt]" reverse-menu-complete
+
 # Source the cached output of `<tool> init zsh`, regenerating it when the
 # binary's resolved path changes (Homebrew upgrade) or the binary is newer.
 #   zsh-init-cache <name> <command> [args...]
@@ -32,6 +43,9 @@ zsh-init-cache() {
 # Carapace feeds completions for many CLIs into the zsh-autocomplete menu.
 export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
 zsh-init-cache carapace carapace _carapace
+# Keep zsh's own git completion: it lists common commands first and knows
+# branches and commits, whereas Carapace's groups come out alphabetically.
+compdef _git git
 
 # Prompt
 export VIRTUAL_ENV_DISABLE_PROMPT=1
