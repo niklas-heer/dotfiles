@@ -1,0 +1,11 @@
+#!/bin/bash
+# Loads the cpuflight recorder, and reloads it whenever it or its service changes.
+# service hash: {{ include "Library/LaunchAgents/com.niklasheer.cpuflight.plist.tmpl" | sha256sum }}
+# recorder hash: {{ include "dot_bin/executable_cpuflight" | sha256sum }}
+set -euo pipefail
+
+domain="gui/$(id -u)"
+label="com.niklasheer.cpuflight"
+
+launchctl bootout "$domain/$label" 2>/dev/null || true
+launchctl bootstrap "$domain" "$HOME/Library/LaunchAgents/$label.plist"

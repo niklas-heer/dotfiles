@@ -1,0 +1,579 @@
+#!/usr/bin/python3
+"""cpuflight: a flight recorder for CPU and memory on this Mac.
+
+`cpuflight record` runs under launchd and samples every process. It attributes
+each one to the agent or app that started it, and notes when processes end.
+`cpuflight report` explains a time window afterwards, and `cpuflight status`
+shows whether recording is healthy.
+
+Limits: a process that starts and ends between two samples is not seen, and
+macOS only reveals an exit's cause to unprivileged tools when the system logs
+it, so ended processes appear with kernel and crash events alongside them.
+"""
+import argparse
+import json
+import os
+import queue
+import re
+import sqlite3
+import subprocess
+import sys
+import threading
+import time
+from collections import defaultdict
+from datetime import datetime, timedelta
+
+HOME = os.path.expanduser("~")
+DEFAULT_DB = os.path.join(HOME, "Library/Application Support/cpuflight/flight.sqlite")
+T3_DB = os.path.join(HOME, ".t3/userdata/statev2.sqlite")
+REPORTS = os.path.join(HOME, "Library/Logs/DiagnosticReports")
+RETAIN_DAYS = 3
+MAX_DB_BYTES = 400 * 1024 * 1024
+COMMAND_LIMIT = 500
+MB = 1024  # ps reports RSS in KiB
+
+SESSION_RE = re.compile(r"--(?:session-id|resume)[= ]([0-9a-f]{8}-[0-9a-f-]{27})")
+SCRATCH_RE = re.compile(r"/claude-\d+/[^/ ]+/([0-9a-f]{8}-[0-9a-f-]{27})/")
+SECRET_RE = re.compile(r"(?i)((?:token|secret|password|passwd|api[_-]?key|authorization|bearer)[=: ]+)\S+")
+SECRET_VALUE_RE = re.compile(r"\b(sk-[A-Za-z0-9_-]{10,}|ghp_\w+|github_pat_\w+)\b")
+INTERPRETERS = {"node", "bun", "deno", "python", "python3", "bash", "sh", "zsh", "npm", "npx", "uv", "tsx"}
+KNOWN_TOOLS = [
+    "vitest", "tsc", "wrangler", "workerd", "vite", "esbuild", "playwright", "jscpd", "oxlint",
+    "eslint", "serve.mjs", "driver.mjs", "cargo", "rustc",
+]
+LOG_PREDICATE = (
+    '(process == "kernel" AND eventMessage CONTAINS[c] "memorystatus" AND eventMessage CONTAINS[c] "kill")'
+    ' OR (process == "kernel" AND eventMessage CONTAINS[c] "low swap")'
+    ' OR eventMessage CONTAINS "thermal-pressure"'
+    ' OR eventMessage CONTAINS "EXC_RESOURCE"'
+    ' OR (process == "launchd" AND eventMessage CONTAINS "exited due to SIG")'
+)
+LOG_NOISE = re.compile(r"mdworker|mds_stores|quicklook|SIGTERM", re.I)
+
+SCHEMA = """
+CREATE TABLE IF NOT EXISTS processes (
+  id INTEGER PRIMARY KEY, pid INTEGER, started INTEGER, first_seen INTEGER, last_seen INTEGER,
+  exited INTEGER, ppid INTEGER, name TEXT, label TEXT, owner TEXT, command TEXT, cwd TEXT,
+  cpu_seconds REAL DEFAULT 0, cpu_clock REAL DEFAULT 0, peak_rss_kb INTEGER DEFAULT 0);
+CREATE INDEX IF NOT EXISTS processes_exited ON processes(exited);
+CREATE TABLE IF NOT EXISTS samples (
+  ts INTEGER, proc INTEGER, cpu_ms INTEGER, rss_kb INTEGER, PRIMARY KEY (ts, proc)) WITHOUT ROWID;
+CREATE TABLE IF NOT EXISTS system (
+  ts INTEGER PRIMARY KEY, cpu_ms INTEGER, interval_ms INTEGER, load1 REAL,
+  swap_used_mb INTEGER, disk_free_gb REAL, processes INTEGER);
+CREATE TABLE IF NOT EXISTS events (ts INTEGER, kind TEXT, message TEXT);
+CREATE INDEX IF NOT EXISTS events_ts ON events(ts);
+"""
+
+
+def clean_command(command):
+    command = SECRET_RE.sub(r"\1***", command)
+    command = SECRET_VALUE_RE.sub("***", command)
+    return command[:COMMAND_LIMIT]
+
+
+def clock_seconds(value):
+    total = 0.0
+    for part in value.replace(",", ".").split(":"):
+        total = total * 60 + float(part)
+    return total
+
+
+def elapsed_seconds(value):
+    days = 0
+    if "-" in value:
+        day_part, value = value.split("-", 1)
+        days = int(day_part)
+    total = 0
+    for part in value.split(":"):
+        total = total * 60 + int(part)
+    return days * 86400 + total
+
+
+def label_for(name, command):
+    if name.startswith("Brave") and ("--headless" in command or "--user-data-dir=" in command):
+        return "Brave headless"
+    if name.lower() not in INTERPRETERS:
+        return name
+    for tool in KNOWN_TOOLS:
+        if re.search(r"(^|[/\s])" + re.escape(tool) + r"(\.[cm]?js)?(\s|$|/)", command):
+            return "%s:%s" % (name, tool)
+    for argument in command.split()[1:]:
+        if not argument.startswith("-"):
+            return "%s:%s" % (name, os.path.basename(argument)[:40])
+    return name
+
+
+def read_processes():
+    columns = subprocess.run(
+        ["/bin/ps", "-Aww", "-o", "pid=,ppid=,pgid=,rss=,time=,etime=,command="],
+        capture_output=True, text=True, errors="replace", check=True).stdout
+    names = subprocess.run(
+        ["/bin/ps", "-Aww", "-o", "pid=,comm="],
+        capture_output=True, text=True, errors="replace", check=True).stdout
+    name_by_pid = {}
+    for line in names.splitlines():
+        parts = line.split(None, 1)
+        if len(parts) == 2:
+            name_by_pid[int(parts[0])] = os.path.basename(parts[1].strip())
+    table = {}
+    for line in columns.splitlines():
+        parts = line.split(None, 6)
+        if len(parts) < 7:
+            continue
+        try:
+            pid = int(parts[0])
+            table[pid] = {
+                "pid": pid, "ppid": int(parts[1]), "pgid": int(parts[2]), "rss": int(parts[3]),
+                "cpu": clock_seconds(parts[4]), "age": elapsed_seconds(parts[5]), "command": parts[6],
+                "name": name_by_pid.get(pid, os.path.basename(parts[6].split(" ")[0])),
+            }
+        except ValueError:
+            continue
+    return table
+
+
+def swap_used_mb():
+    out = subprocess.run(["/usr/sbin/sysctl", "-n", "vm.swapusage"], capture_output=True, text=True).stdout
+    match = re.search(r"used = ([\d.,]+)M", out)
+    return int(float(match.group(1).replace(",", "."))) if match else None
+
+
+def disk_free_gb():
+    stat = os.statvfs(HOME)
+    return round(stat.f_bavail * stat.f_frsize / 1e9, 1)
+
+
+def working_directory(pid):
+    out = subprocess.run(["/usr/sbin/lsof", "-a", "-p", str(pid), "-d", "cwd", "-Fn"], capture_output=True, text=True).stdout
+    for line in out.splitlines():
+        if line.startswith("n"):
+            return line[1:]
+    return ""
+
+
+def open_db(path):
+    directory = os.path.dirname(path)
+    os.makedirs(directory, mode=0o700, exist_ok=True)
+    db = sqlite3.connect(path, timeout=30)
+    db.execute("PRAGMA auto_vacuum=INCREMENTAL")
+    db.execute("PRAGMA journal_mode=WAL")
+    db.execute("PRAGMA synchronous=NORMAL")
+    db.executescript(SCHEMA)
+    os.chmod(path, 0o600)
+    return db
+
+
+class Recorder:
+    def __init__(self, db_path, interval):
+        self.db = open_db(db_path)
+        self.path = db_path
+        self.interval = interval
+        self.events = queue.Queue()
+        self.live = {}
+        self.group_owner = {}
+        self.tick = 0
+        self.swap = None
+        self.disk = None
+        self.reports_seen = None
+        self.resume()
+
+    def resume(self):
+        now = int(time.time())
+        self.db.execute("UPDATE processes SET exited = last_seen WHERE exited IS NULL AND last_seen < ?", (now - 600,))
+        rows = self.db.execute(
+            "SELECT id, pid, started, cpu_clock, cpu_seconds, peak_rss_kb, owner, label, cwd FROM processes WHERE exited IS NULL")
+        for row in rows:
+            self.live[row[1]] = {
+                "id": row[0], "started": row[2], "cpu": row[3], "total": row[4], "peak": row[5],
+                "owner": row[6], "label": row[7], "cwd": row[8] or "", "dirty": False,
+            }
+        self.events.put((now, "recorder", "recording started"))
+
+    def owner_for(self, row, table):
+        current, seen = row["pid"], set()
+        top = row
+        while current > 1 and current in table and current not in seen:
+            seen.add(current)
+            parent = table[current]
+            top = parent
+            if parent["name"] == "claude":
+                match = SESSION_RE.search(parent["command"])
+                if match:
+                    return "claude:" + match.group(1)
+            if parent["name"].startswith("codex"):
+                return "codex:%d" % current
+            known = self.live.get(current)
+            if known and current != row["pid"] and known["owner"].startswith(("claude:", "codex:")):
+                return known["owner"]
+            current = parent["ppid"]
+        match = SCRATCH_RE.search(row["command"])
+        if match:
+            return "claude:" + match.group(1)
+        if row["pgid"] in self.group_owner:
+            return self.group_owner[row["pgid"]]
+        command = top["command"]
+        if command.startswith(("/System/", "/usr/libexec/", "/usr/sbin/", "/sbin/")):
+            return "macOS"
+        match = re.search(r"/([^/]+)\.app/", command)
+        if match:
+            return "app:" + match.group(1)
+        return "proc:" + label_for(top["name"], command)
+
+    def add_process(self, row, table, now):
+        owner = self.owner_for(row, table)
+        if owner.startswith(("claude:", "codex:")):
+            self.group_owner[row["pgid"]] = owner
+        label = label_for(row["name"], row["command"])
+        started = now - row["age"]
+        cursor = self.db.execute(
+            "INSERT INTO processes (pid, started, first_seen, last_seen, ppid, name, label, owner, command, peak_rss_kb)"
+            " VALUES (?,?,?,?,?,?,?,?,?,?)",
+            (row["pid"], started, now, now, row["ppid"], row["name"], label, owner, clean_command(row["command"]), row["rss"]))
+        record = {
+            "id": cursor.lastrowid, "started": started, "cpu": row["cpu"], "total": 0.0, "peak": row["rss"],
+            "owner": owner, "label": label, "cwd": "", "dirty": True,
+        }
+        self.live[row["pid"]] = record
+        return record
+
+    def finish(self, record, now):
+        self.db.execute(
+            "UPDATE processes SET exited=?, last_seen=?, cpu_seconds=?, cpu_clock=?, peak_rss_kb=? WHERE id=?",
+            (now, now, record["total"], record["cpu"], record["peak"], record["id"]))
+
+    def sample(self, elapsed_ms):
+        now = int(time.time())
+        table = read_processes()
+        for pid in list(self.live):
+            record = self.live[pid]
+            row = table.get(pid)
+            if row is None or abs((now - row["age"]) - record["started"]) > 3:
+                self.finish(record, now)
+                del self.live[pid]
+        total_ms = 0
+        rows = []
+        lookups = 0
+        for pid, row in table.items():
+            record = self.live.get(pid)
+            if record is None:
+                record = self.add_process(row, table, now)
+                delta = row["cpu"] if row["age"] <= self.interval * 2 else 0.0
+            else:
+                delta = max(0.0, row["cpu"] - record["cpu"])
+            record["cpu"] = row["cpu"]
+            record["total"] += delta
+            cpu_ms = int(delta * 1000)
+            total_ms += cpu_ms
+            if row["rss"] > record["peak"]:
+                record["peak"] = row["rss"]
+                record["dirty"] = True
+            if cpu_ms >= 20 or (self.tick % 15 == 0 and row["rss"] >= 200 * MB):
+                rows.append((now, record["id"], cpu_ms, row["rss"]))
+                record["dirty"] = True
+            if not record["cwd"] and record["total"] >= 3 and lookups < 5:
+                lookups += 1
+                record["cwd"] = working_directory(pid) or "?"
+                self.db.execute("UPDATE processes SET cwd=? WHERE id=?", (record["cwd"], record["id"]))
+            if record["dirty"] or self.tick % 15 == 0:
+                self.db.execute(
+                    "UPDATE processes SET last_seen=?, cpu_seconds=?, cpu_clock=?, peak_rss_kb=? WHERE id=?",
+                    (now, record["total"], record["cpu"], record["peak"], record["id"]))
+                record["dirty"] = False
+        self.db.executemany("INSERT OR REPLACE INTO samples VALUES (?,?,?,?)", rows)
+        if self.tick % 5 == 0:
+            self.swap = swap_used_mb()
+            self.disk = disk_free_gb()
+        self.db.execute(
+            "INSERT OR REPLACE INTO system VALUES (?,?,?,?,?,?,?)",
+            (now, total_ms, elapsed_ms, os.getloadavg()[0], self.swap, self.disk, len(table)))
+
+    def scan_reports(self):
+        try:
+            names = set(os.listdir(REPORTS))
+        except OSError:
+            return
+        if self.reports_seen is not None:
+            now = int(time.time())
+            for name in sorted(names - self.reports_seen):
+                self.events.put((now, "crash-report", name))
+        self.reports_seen = names
+
+    def drain_events(self):
+        rows = []
+        while True:
+            try:
+                rows.append(self.events.get_nowait())
+            except queue.Empty:
+                break
+        self.db.executemany("INSERT INTO events VALUES (?,?,?)", rows)
+
+    def prune(self):
+        cutoff = int(time.time()) - RETAIN_DAYS * 86400
+        self.db.execute("DELETE FROM samples WHERE ts < ?", (cutoff,))
+        self.db.execute("DELETE FROM system WHERE ts < ?", (cutoff,))
+        self.db.execute("DELETE FROM events WHERE ts < ?", (cutoff,))
+        self.db.execute("DELETE FROM processes WHERE exited IS NOT NULL AND last_seen < ?", (cutoff,))
+        size = self.db.execute("PRAGMA page_count").fetchone()[0] * self.db.execute("PRAGMA page_size").fetchone()[0]
+        if size > MAX_DB_BYTES:
+            oldest, newest = self.db.execute("SELECT min(ts), max(ts) FROM system").fetchone()
+            if oldest and newest:
+                self.db.execute("DELETE FROM samples WHERE ts < ?", (oldest + (newest - oldest) // 4,))
+                self.events.put((int(time.time()), "recorder", "pruned oldest quarter: database over size limit"))
+        self.db.commit()
+        self.db.execute("PRAGMA incremental_vacuum(4000)")
+        self.db.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+
+    def stream_logs(self):
+        command = ["/usr/bin/log", "stream", "--style", "ndjson", "--predicate", LOG_PREDICATE]
+        while True:
+            try:
+                process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True, errors="replace")
+                window, count = int(time.time()) // 60, 0
+                for line in process.stdout:
+                    try:
+                        message = json.loads(line).get("eventMessage", "")
+                    except ValueError:
+                        continue
+                    if not message or LOG_NOISE.search(message):
+                        continue
+                    minute = int(time.time()) // 60
+                    if minute != window:
+                        window, count = minute, 0
+                    count += 1
+                    if count <= 120:
+                        self.events.put((int(time.time()), "system-log", message[:400]))
+                self.events.put((int(time.time()), "recorder", "log stream ended; restarting"))
+            except OSError as error:
+                self.events.put((int(time.time()), "recorder", "log stream failed: %s" % error))
+            time.sleep(5)
+
+    def run(self, duration=None):
+        threading.Thread(target=self.stream_logs, daemon=True).start()
+        began = last = time.monotonic()
+        self.scan_reports()
+        while duration is None or time.monotonic() - began < duration:
+            started = time.monotonic()
+            try:
+                self.sample(int((started - last) * 1000))
+                self.drain_events()
+                if self.tick % 15 == 0:
+                    self.scan_reports()
+                if self.tick % 1800 == 1:
+                    self.prune()
+                self.db.commit()
+            except (sqlite3.OperationalError, subprocess.SubprocessError, OSError) as error:
+                print("%s %s" % (datetime.now().isoformat(timespec="seconds"), error), file=sys.stderr, flush=True)
+                self.db.rollback()
+            last = started
+            self.tick += 1
+            time.sleep(max(0.05, self.interval - (time.monotonic() - started)))
+        for record in self.live.values():
+            self.db.execute("UPDATE processes SET last_seen=?, cpu_seconds=?, cpu_clock=? WHERE id=?",
+                            (int(time.time()), record["total"], record["cpu"], record["id"]))
+        self.db.commit()
+
+
+def parse_moment(value):
+    now = datetime.now()
+    for form in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M"):
+        try:
+            return datetime.strptime(value, form).timestamp()
+        except ValueError:
+            pass
+    for form in ("%H:%M:%S", "%H:%M"):
+        try:
+            moment = datetime.strptime(value, form).replace(year=now.year, month=now.month, day=now.day)
+            if moment > now:
+                moment -= timedelta(days=1)
+            return moment.timestamp()
+        except ValueError:
+            pass
+    raise SystemExit("cannot read time %r; use HH:MM, HH:MM:SS or YYYY-MM-DD HH:MM" % value)
+
+
+def parse_span(value):
+    match = re.fullmatch(r"(\d+)([smhd])", value)
+    if not match:
+        raise SystemExit("cannot read duration %r; use for example 90s, 30m, 2h or 1d" % value)
+    return int(match.group(1)) * {"s": 1, "m": 60, "h": 3600, "d": 86400}[match.group(2)]
+
+
+class OwnerNames:
+    """Turns recorded agent session ids into T3 thread titles when T3 knows them."""
+
+    def __init__(self):
+        self.cache = {}
+        self.db = None
+        if os.path.exists(T3_DB):
+            try:
+                self.db = sqlite3.connect("file:%s?mode=ro" % T3_DB, uri=True, timeout=2)
+            except sqlite3.Error:
+                self.db = None
+
+    def title(self, session):
+        if self.db is None:
+            return None
+        pattern = "%" + session + "%"
+        queries = [
+            "SELECT t.title FROM provider_session_runtime p JOIN orchestration_v2_projection_threads t ON t.thread_id = p.thread_id"
+            " WHERE p.resume_cursor_json LIKE ? OR p.runtime_payload_json LIKE ? LIMIT 1",
+            "SELECT t.title FROM orchestration_v2_projection_provider_threads p JOIN orchestration_v2_projection_threads t ON t.thread_id = p.thread_id"
+            " WHERE p.provider_thread_id LIKE ? OR p.payload_json LIKE ? LIMIT 1",
+        ]
+        for query in queries:
+            try:
+                row = self.db.execute(query, (pattern, pattern)).fetchone()
+            except sqlite3.Error:
+                return None
+            if row:
+                return row[0]
+        return None
+
+    def name(self, owner):
+        if owner in self.cache:
+            return self.cache[owner]
+        if owner.startswith("claude:"):
+            session = owner.split(":", 1)[1]
+            title = self.title(session)
+            result = "agent: " + (title if title else session[:8])
+        elif owner.startswith("codex:"):
+            result = "codex agent"
+        else:
+            result = owner.split(":", 1)[-1]
+        self.cache[owner] = result
+        return result
+
+
+def clock(ts):
+    return datetime.fromtimestamp(ts).strftime("%H:%M:%S")
+
+
+def report(args):
+    if not os.path.exists(args.db):
+        raise SystemExit("no recording at %s" % args.db)
+    db = sqlite3.connect("file:%s?mode=ro" % args.db, uri=True, timeout=10)
+    end = parse_moment(args.to) if args.to else time.time()
+    start = parse_moment(args.since) if args.since else end - parse_span(args.last)
+    start, end = int(start), int(end)
+    names = OwnerNames()
+    cores = os.cpu_count() or 1
+    system = db.execute(
+        "SELECT ts, cpu_ms, interval_ms, load1, swap_used_mb, disk_free_gb FROM system WHERE ts BETWEEN ? AND ? ORDER BY ts",
+        (start, end)).fetchall()
+    print("Window %s to %s, %d samples" % (clock(start), clock(end), len(system)))
+    if not system:
+        print("Nothing was recorded in this window.")
+        return
+    gaps = [(a[0], b[0]) for a, b in zip(system, system[1:]) if b[0] - a[0] > 10]
+    capacity = sum(row[2] for row in system) * cores or 1
+    print("CPU %.0f%% of all %d cores on average. Peak load %.1f. Peak swap %s MB. Lowest free disk %s GB." % (
+        100.0 * sum(row[1] for row in system) / capacity, cores, max(row[3] for row in system),
+        max([row[4] for row in system if row[4] is not None] or [0]),
+        min([row[5] for row in system if row[5] is not None] or [0])))
+    for first, second in gaps:
+        print("Recorder gap: nothing recorded from %s to %s" % (clock(first), clock(second)))
+
+    print("\nBy owner")
+    rows = db.execute(
+        "SELECT p.owner, sum(s.cpu_ms)/1000.0 cpu, count(DISTINCT p.id), max(s.rss_kb) FROM samples s JOIN processes p ON p.id = s.proc"
+        " WHERE s.ts BETWEEN ? AND ? GROUP BY p.owner ORDER BY cpu DESC LIMIT ?", (start, end, args.top)).fetchall()
+    for owner, cpu, count, peak in rows:
+        print("  %8.1f CPU-s  %4d procs  peak %6.2f GB  %s" % (cpu, count, (peak or 0) / 1048576.0, names.name(owner)[:80]))
+
+    print("\nBy program")
+    rows = db.execute(
+        "SELECT p.label, p.owner, sum(s.cpu_ms)/1000.0 cpu, count(DISTINCT p.id), max(s.rss_kb) FROM samples s JOIN processes p ON p.id = s.proc"
+        " WHERE s.ts BETWEEN ? AND ? GROUP BY p.label, p.owner ORDER BY cpu DESC LIMIT ?", (start, end, args.top)).fetchall()
+    for label, owner, cpu, count, peak in rows:
+        print("  %8.1f CPU-s  %4d procs  peak %6.2f GB  %-28s %s" % (cpu, count, (peak or 0) / 1048576.0, label[:28], names.name(owner)[:58]))
+
+    step = max(10, (end - start) // 24)
+    step = next((value for value in (10, 30, 60, 120, 300, 600, 1800, 3600, 7200) if value >= step), 14400)
+    print("\nTimeline, every %ds" % step)
+    totals = defaultdict(lambda: [0, 0, 0.0, None])
+    for ts, cpu_ms, interval_ms, load1, swap, _disk in system:
+        bucket = ts // step * step
+        entry = totals[bucket]
+        entry[0] += cpu_ms
+        entry[1] += interval_ms
+        entry[2] = max(entry[2], load1)
+        entry[3] = swap if swap is not None else entry[3]
+    leaders = {}
+    rows = db.execute(
+        "SELECT s.ts / ? * ? bucket, p.label, sum(s.cpu_ms) cpu FROM samples s JOIN processes p ON p.id = s.proc"
+        " WHERE s.ts BETWEEN ? AND ? GROUP BY bucket, p.label ORDER BY bucket, cpu DESC", (step, step, start, end))
+    for bucket, label, cpu in rows:
+        leaders.setdefault(bucket, []).append("%s %.0fs" % (label[:24], cpu / 1000.0))
+    for bucket in sorted(totals):
+        entry = totals[bucket]
+        percent = 100.0 * entry[0] / ((entry[1] or 1) * cores)
+        print("  %s  %3.0f%%  load %5.1f  swap %5s MB  %s" % (
+            clock(bucket), percent, entry[2], entry[3] if entry[3] is not None else "?", ", ".join(leaders.get(bucket, [])[:3])))
+
+    print("\nSignificant processes that ended")
+    rows = db.execute(
+        "SELECT exited, label, started, cpu_seconds, peak_rss_kb, owner, cwd, command FROM processes"
+        " WHERE exited BETWEEN ? AND ? AND (cpu_seconds >= 10 OR peak_rss_kb >= ?) ORDER BY exited LIMIT ?",
+        (start, end, 300 * MB, args.top * 3)).fetchall()
+    if not rows:
+        print("  none")
+    for exited, label, started, cpu, peak, owner, cwd, command in rows:
+        print("  %s  %-24s ran %5ds  %7.1f CPU-s  peak %5.2f GB  %s" % (
+            clock(exited), label[:24], exited - started, cpu, peak / 1048576.0, names.name(owner)[:50]))
+        if args.commands:
+            print("      cwd %s\n      %s" % (cwd or "?", command[:200]))
+
+    print("\nSystem events")
+    rows = db.execute("SELECT ts, kind, message FROM events WHERE ts BETWEEN ? AND ? ORDER BY ts LIMIT ?", (start, end, args.top * 4)).fetchall()
+    if not rows:
+        print("  none")
+    for ts, kind, message in rows:
+        print("  %s  %-12s %s" % (clock(ts), kind, message[:170]))
+
+
+def status(args):
+    if not os.path.exists(args.db):
+        raise SystemExit("no recording at %s" % args.db)
+    db = sqlite3.connect("file:%s?mode=ro" % args.db, uri=True, timeout=10)
+    first, last, count = db.execute("SELECT min(ts), max(ts), count(*) FROM system").fetchone()
+    if not last:
+        raise SystemExit("recording exists but holds no samples yet")
+    age = int(time.time()) - last
+    print("Last sample %ds ago (%s). %s." % (age, clock(last), "Recording" if age <= 15 else "NOT recording"))
+    print("History from %s, %d samples, %d processes." % (
+        datetime.fromtimestamp(first).strftime("%Y-%m-%d %H:%M"), count, db.execute("SELECT count(*) FROM processes").fetchone()[0]))
+    size = sum(os.path.getsize(args.db + suffix) for suffix in ("", "-wal") if os.path.exists(args.db + suffix))
+    print("Database %.1f MB at %s" % (size / 1e6, args.db))
+    if age > 15:
+        raise SystemExit(1)
+
+
+def main():
+    parser = argparse.ArgumentParser(prog="cpuflight", description="Flight recorder for CPU and memory.")
+    parser.add_argument("--db", default=DEFAULT_DB, help=argparse.SUPPRESS)
+    commands = parser.add_subparsers(dest="command", required=True)
+    record = commands.add_parser("record", help="record continuously (run by launchd)")
+    record.add_argument("--interval", type=float, default=2.0)
+    record.add_argument("--duration", type=float, help="stop after this many seconds")
+    explain = commands.add_parser("report", help="explain what happened in a time window")
+    explain.add_argument("--last", default="15m", help="window length, such as 90s, 30m or 2h (default 15m)")
+    explain.add_argument("--from", dest="since", help="start, as HH:MM or YYYY-MM-DD HH:MM")
+    explain.add_argument("--to", help="end, as HH:MM or YYYY-MM-DD HH:MM (default now)")
+    explain.add_argument("--top", type=int, default=12, help="rows per section (default 12)")
+    explain.add_argument("--commands", action="store_true", help="show directory and command for ended processes")
+    commands.add_parser("status", help="check that recording is healthy")
+    args = parser.parse_args()
+    if args.command == "record":
+        Recorder(args.db, args.interval).run(args.duration)
+    elif args.command == "report":
+        report(args)
+    else:
+        status(args)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except BrokenPipeError:
+        sys.exit(0)
