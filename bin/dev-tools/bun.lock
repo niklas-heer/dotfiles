@@ -161,7 +161,7 @@
 
     "@typescript/typescript-win32-x64": ["@typescript/typescript-win32-x64@7.0.2", "", { "os": "win32", "cpu": "x64" }, "sha512-0BQ3HkAHHlKLSp1qRvf3SUhGpGsDuhB/jgFw75guyqbxJqEaS0Cw/VFO8i2nHglJUzQCRtMMR/IBAKE3ETMC4g=="],
 
-    "@varlock/1password-plugin": ["@varlock/1password-plugin@2.0.3", "", { "peerDependencies": { "varlock": "^1.15.0" } }, "sha512-XmhxX9H3ZXbWJlR0g97uqxellKSoeXVwKKTmMPWQov7SxN718RedE2pKRIzO+WB/N8mS14IxiNNwxtRlkTJWow=="],
+    "@varlock/1password-plugin": ["@varlock/1password-plugin@2.0.6", "", { "peerDependencies": { "varlock": "^1.24.0" } }, "sha512-MFW0sWdRy13dvqRZa2Ta8/1my/BhpEAKKd5+8a7yO/HN/XaJVdTb9yJW6Nk7DiCvweKxPsWgooIpK+jFsIOukw=="],
 
     "@vercel/oidc": ["@vercel/oidc@3.2.0", "", {}, "sha512-UycprH3T6n3jH0k44NHMa7pnFHGu/N05MjojYr+Mc6I7obkoLIJujSWwin1pCvdy/eOxrI/l3uDLQsmcrOb4ug=="],
 
