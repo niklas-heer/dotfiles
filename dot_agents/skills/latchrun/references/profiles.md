@@ -24,7 +24,7 @@ A profile is a JSON snapshot loaded at `session start` or explicit `session resu
 
 ## Stopping repeated password-manager prompts
 
-`cache_ttl_seconds` defaults to **0**, meaning a fresh provider lookup for every operation. With 1Password that is one unlock prompt per command, which is the problem worth fixing. Set it to 300–900 seconds; the accepted range is 1–900.
+`cache_ttl_seconds` defaults to **0**, meaning a fresh provider lookup for every operation. With 1Password that is one unlock prompt per command, which is the problem worth fixing. Set it to 300–900 seconds; the accepted range is 1–900. Only the `--unattended` session option can exceed 900 seconds.
 
 The deadline starts when the credential resolves and reuse does not extend it. `session refresh`, `stop`, expiry, `resume` and a service restart all clear the cache. Cached values are never journaled and never appear in inspection output.
 

@@ -27,6 +27,21 @@ Use one session per project and name it after the repository directory, so a lat
 
 Every deliberate execution needs a fresh operation ID. Reusing one fails with `duplicate_operation`. Omitting `--operation` generates an ID and prints it on stderr before submission; prefer that over inventing a scheme.
 
+## Leave agents working while Niklas is away
+
+When he is going to bed or stepping away and agents must keep working, he starts the session himself, or asks you to, with session options on `session start` or `session resume`:
+
+```sh
+latchrun session start <name> --profile <path> --unattended 9h --allow any-args
+```
+
+- `--unattended DURATION` (`45m`, `9h`, at most `24h`) sets the session and credential cache to that duration and resolves credentials before returning. Run it while he can answer the 1Password prompt. If it fails, the session is stopped; fix the provider and use `session resume` with the same options.
+- `--allow any-args` permits any arguments to the profile's listed executables. `--allow any-command` permits any absolute executable, and every such command receives the session's credentials.
+
+Choose the narrowest scope that lets the work finish, and use `--allow` only when he has asked for that latitude. These options cannot be set in a profile. Confirm `unattended`, `command_scope` and `cache_expires_at` in the printed JSON and report them. Do not call `session refresh` during unattended work: the next lookup would need a prompt nobody can answer.
+
+The Mac must stay awake (see the `goodnight` skill). SSH signatures through the 1Password agent are not cached and can still prompt. `timeout_seconds` still limits each command.
+
 ## Widen the allowlist when a command is denied
 
 Editing a profile does not affect a running session, and `session resume` on an active session fails with `session_active`. The loop is:
