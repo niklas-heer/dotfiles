@@ -27,19 +27,9 @@ checkouts match; opening the wrong project wastes the whole handoff.
 ## 2. Identify this thread
 
 The new thread can rebuild this conversation with `t3-thread` if it knows this
-thread's ID. Read it from the state store, never write there:
-
-```bash
-sqlite3 -readonly "file:$HOME/.t3/userdata/state.sqlite?mode=ro" "
-SELECT t.thread_id FROM projection_threads t
-JOIN projection_projects p ON p.project_id = t.project_id
-JOIN projection_thread_sessions s ON s.thread_id = t.thread_id
-WHERE p.workspace_root = '$PWD' AND t.deleted_at IS NULL AND s.status = 'running'
-ORDER BY t.updated_at DESC LIMIT 1;"
-```
-
-Exactly one row is this thread. Zero or several rows: leave the ID out of the
-brief rather than guess.
+thread's ID. Call the T3 `t3_thread_list` tool with `limit: 1` and read
+`currentThreadId` from the result. If the tool is unavailable or the field is
+empty, leave the ID out of the brief rather than guess.
 
 ## 3. Write the brief
 
