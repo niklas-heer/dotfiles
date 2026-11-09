@@ -1,0 +1,4 @@
+interface:
+  display_name: "Goodnight"
+  short_description: "Sleep the Mac once T3 Code agents have finished"
+  default_prompt: "Use $goodnight to sleep this Mac once my T3 Code agent threads have finished."
