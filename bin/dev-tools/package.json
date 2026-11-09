@@ -19,7 +19,7 @@
     "@opentui/react": "^0.1.95",
     "@varlock/1password-plugin": "latest",
     "ai": "latest",
-    "ink": "^7.1.1",
+    "ink": "^8.0.0",
     "react": "^19.2.4",
     "varlock": "latest",
     "ws": "8.21.0",
