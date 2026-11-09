@@ -1,11 +1,18 @@
 #!/bin/bash
-# Loads the cpuflight recorder, and reloads it whenever it or its service changes.
+# Builds the cpuflight recorder and reloads it whenever it or its service changes.
 # service hash: {{ include "Library/LaunchAgents/com.niklasheer.cpuflight.plist.tmpl" | sha256sum }}
-# recorder hash: {{ include "dot_bin/executable_cpuflight" | sha256sum }}
+# source hash: {{ range (glob (joinPath .chezmoi.sourceDir "tools/cpuflight/*")) }}{{ include . | sha256sum }} {{ end }}
 set -euo pipefail
 
 domain="gui/$(id -u)"
 label="com.niklasheer.cpuflight"
+binary="$HOME/.bin/cpuflight"
+
+export PATH="/opt/homebrew/bin:$PATH"
+mkdir -p "$HOME/.bin"
+cd "{{ .chezmoi.sourceDir }}/tools/cpuflight"
+go build -trimpath -ldflags=-s -o "$binary.new" .
+mv -f "$binary.new" "$binary"
 
 launchctl bootout "$domain/$label" 2>/dev/null || true
 launchctl bootstrap "$domain" "$HOME/Library/LaunchAgents/$label.plist"
