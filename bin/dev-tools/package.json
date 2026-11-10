@@ -5,7 +5,6 @@
   "packageManager": "bun@1",
   "scripts": {
     "add-tool": "bun run src/add-tool/index.ts",
-    "decision": "bun run src/decision/index.ts",
     "op-id": "bun run src/op-id/index.ts",
     "register": "bun run src/register.ts",
     "smart-commit": "bun run src/smart-commit/index.ts",
@@ -15,8 +14,6 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "latest",
-    "@opentui/core": "^0.1.95",
-    "@opentui/react": "^0.1.95",
     "@varlock/1password-plugin": "latest",
     "ai": "latest",
     "ink": "^8.0.0",

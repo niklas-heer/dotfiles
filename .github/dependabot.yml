@@ -4,7 +4,3 @@ updates:
     directory: /bin/dev-tools
     schedule:
       interval: monthly
-  - package-ecosystem: uv
-    directory: /bin/dev-tools/py-spike
-    schedule:
-      interval: monthly

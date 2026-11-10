@@ -9,3 +9,7 @@ Library/Application Support/nushell/env.nu
 bin/adr
 .zoxide.nu
 .cache/carapace/init.nu
+bin/dev-tools/src/decision
+bin/dev-tools/src/lib/opentui.tsx
+bin/dev-tools/py-spike
+docs/superpowers
