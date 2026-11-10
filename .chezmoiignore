@@ -8,3 +8,6 @@ bin/dev-tools/node_modules/**
 bin/dev-tools/.env
 tools/**
 .github/dependabot.yml
+CLAUDE.md
+LICENSE
+todo.md
