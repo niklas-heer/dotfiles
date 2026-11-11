@@ -21,12 +21,6 @@ path=(
 export LIBRARY_PATH="${LIBRARY_PATH:+$LIBRARY_PATH:}/opt/homebrew/lib/gcc/current"
 export EDITOR=nvim
 export VISUAL=nvim
-
-# Keep the optional work LLM token out of the managed OpenCode config. Local
-# models remain usable when the token file is absent.
-if [[ -r "$HOME/.opencode-token" ]]; then
-  export OPENCODE_ZALANDO_API_KEY="$(<"$HOME/.opencode-token")"
-fi
 {{- if stat (joinPath .chezmoi.homeDir ".orbstack/shell/init.zsh") }}
 
 # Added by OrbStack: command-line tools and integration
