@@ -1,0 +1,23 @@
+#!/bin/sh
+# Quits DaVinci Resolve's crash reporter a few seconds after it appears.
+#
+# After Resolve crashes, its reporter (`Resolve -reportCrash`) keeps running, and an MCP
+# call that was waiting on Resolve does not time out until the reporter exits: once it
+# waited an hour. The crash is already in Resolve's crash_archive.txt by then, so the
+# reporter's dialog adds nothing. Runs as the com.niklasheer.resolve-crashguard agent.
+
+pattern='MacOS/Resolve -reportCrash'
+archive="$HOME/Library/Application Support/Blackmagic Design/DaVinci Resolve/crash_archive.txt"
+
+while :; do
+  for pid in $(pgrep -f "$pattern"); do
+    sleep 3
+    kill "$pid" 2>/dev/null || continue
+    sleep 2
+    kill -9 "$pid" 2>/dev/null
+    echo "$(date '+%F %T') quit Resolve crash reporter $pid"
+    osascript -e "display notification \"Details in crash_archive.txt\" with title \"DaVinci Resolve crashed\"" \
+      >/dev/null 2>&1
+  done
+  sleep 2
+done

@@ -1,0 +1,11 @@
+#!/bin/bash
+# Reloads the Resolve crash-reporter guard whenever it or its service changes.
+# service hash: {{ include "Library/LaunchAgents/com.niklasheer.resolve-crashguard.plist.tmpl" | sha256sum }}
+# script hash: {{ include "dot_bin/executable_resolve-crashguard" | sha256sum }}
+set -euo pipefail
+
+domain="gui/$(id -u)"
+label="com.niklasheer.resolve-crashguard"
+
+launchctl bootout "$domain/$label" 2>/dev/null || true
+launchctl bootstrap "$domain" "$HOME/Library/LaunchAgents/$label.plist"
