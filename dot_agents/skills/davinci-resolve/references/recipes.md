@@ -160,6 +160,14 @@ a solid `color=c=red` clip for cache tests. Work in an `_mcp-<topic>` project an
   eight WAV lines for new files with their timeline items kept in place.
 - `TimelineItem.SetName` returned False for one of eight identical audio items and that item kept
   showing its media pool clip's name; the cause is unknown. Read names back.
+- After a relaunch Resolve sits on "Untitled Project" with the Project Manager open.
+  `SaveProject()` there opens a modal "Save Current Project" dialog, and every later script call
+  hangs until it times out. `LoadProject` also fails while the dialog is open. Escape closes it
+  (`osascript`: activate DaVinci Resolve, then key code 53); then `LoadProject` works. Always
+  `LoadProject` before anything else after a launch.
+- Twice, Resolve ended without a crash report while a `run_script_unsafe` script raised
+  `SystemExit` (or failed right after an import). The cause is not proven; raise ordinary
+  exceptions (`RuntimeError`) in scripts that run inside Resolve.
 - One script that imported a ProRes MOV into a bin and then renamed it (`MediaPoolItem.SetName`),
   among other edits, crashed Resolve 21.2.0.6 (`UiMpController`, uncaught exception). The MCP call
   then hung with no reply; only the `Resolve -reportCrash` process was left. Force-quit that
