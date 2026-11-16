@@ -149,6 +149,10 @@ a solid `color=c=red` clip for cache tests. Work in an `_mcp-<topic>` project an
   left Resolve quit; the saved project was intact after `launch_resolve` and `LoadProject`. Split
   long jobs into calls that each finish well inside the limit (for example, import first, build
   second), and save after each.
+- Naming: `Timeline.SetTrackName(type, index, name)`, `TimelineItem.SetName`, `MediaPoolItem.SetName`
+  and `SetClipColor` all work. `MediaPoolItem.SetMetadata` accepts `Description`, `Keywords`,
+  `Comments` and `People`; `Characters`, `Cast` and `Subject` return False. `Comments` may already
+  hold the camera's text (for example "Apple iOS").
 - Scalable item properties: `Scaling` (`resolve.SCALE_FIT`, `SCALE_FILL`, ...) and
   `DynamicZoomEnabled`/`DynamicZoomEase` set via `SetProperties`; the default dynamic zoom is a
   zoom-out of roughly 15–20 %. Its start and end rectangles are not exposed.
