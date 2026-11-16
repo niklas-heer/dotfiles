@@ -87,7 +87,8 @@ has V1 and A1.
 | --- | --- |
 | Clip or title landed in the wrong timeline | Appends and inserts go to the current timeline (see step 1) |
 | Append returns `[item]`, track unchanged | The track doesn't exist (`AddTrack` first) or the range overlaps a clip; appends never overwrite |
-| `ImportMedia` returns `[]` | The documented `[{"FilePath": p}]` form returned nothing on 21.2.0.6; plain path strings work. Recheck per build |
+| Resolve aborts a second after an import (`std::out_of_range`) | `MediaPool.ImportMedia` after a timeline was built in the session. Import with `MediaStorage.AddItemListToMediaPool([path])`, one file per call |
+| `launch_resolve` says running, next call says not running | No process yet (after a quit or crash). `pgrep -f 'MacOS/Resolve$'`, else `open -a "DaVinci Resolve"` and wait |
 | Title pushed every clip on V1 later | `Insert*IntoTimeline` is an insert edit on V1 at the playhead. Use the title recipe |
 | Re-rendered graphic shows old frames | Resolve caches decoded frames. New file name plus `ReplaceClip` |
 | Render job stays "Ready" | An earlier preset (e.g. "Audio Only") still governs it. Load the intended preset first |

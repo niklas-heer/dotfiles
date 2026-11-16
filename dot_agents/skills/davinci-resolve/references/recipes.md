@@ -23,8 +23,12 @@ ok = len(placed or []) == len(infos) and all(p.GetDuration() is not None for p i
 result = [(i.GetName(), i.GetStart(), i.GetDuration()) for i in tl.GetItemListInTrack("video", 1)]
 ```
 
-`ImportMedia` imports into the current bin, so call `mp.SetCurrentFolder(bin)` first. Pass plain path
-strings. Use `tl.AddTrack("video")` or `tl.AddTrack("audio", "stereo")` before appending to a track
+Import with `resolve.GetMediaStorage().AddItemListToMediaPool([path])`, one file per call, after
+`mp.SetCurrentFolder(bin)` (it imports into the current bin), and check that exactly one item came
+back. Do not use `MediaPool.ImportMedia` on 21.2.0.6: once a timeline has been built in the session
+it returns None and Resolve aborts a second later (see the crash notes). Several numbered stills in
+one call (`IMG_8946.jpeg`, `IMG_8947.jpeg`) are merged into one image-sequence clip, so never batch
+stills. Use `tl.AddTrack("video")` or `tl.AddTrack("audio", "stereo")` before appending to a track
 that doesn't exist yet.
 
 ### Titles
@@ -172,18 +176,24 @@ a solid `color=c=red` clip for cache tests. Work in an `_mcp-<topic>` project an
   `logs/LogArchive/ResolveDebug_C1.txt` (newest) to `_C4` the sessions before it; their last lines
   show where each stopped. The Resolve symbols in the stacks have offsets of hundreds of KB, so
   names like `UiMpController` are guesses and do not identify the failing call.
-- Resolve 21.2.0.6 crashed (SIGABRT from a queued UI event) four times in one night, each within a
-  second of a `run_script_unsafe` build script starting or finishing its media pool work:
-  `SetCurrentFolder` and `ImportMedia` into bins, renaming, `SaveProject`. Each time, media that
-  Resolve had imported or was importing had just been rewritten on disk (a re-rendered MOV,
-  regenerated JPEGs, rewritten WAVs that were on the open timeline). A controlled test did not
-  reproduce it: rewriting and replacing imported WAV, MOV and JPEG files on the internal disk and
-  on an external APFS SSD, with their timeline open and Resolve in front, then importing more
-  (including large 4K ProRes renders) did not crash. A fifth crash, after 4 h uptime, came during
-  `ImportMedia` of three new JPEGs written 30 s earlier, with no imported file rewritten (the call
-  returned None first); rerunning the import after a relaunch worked. The trigger is unknown. Treat imported media
-  as immutable: write a new versioned file and import it or `ReplaceClip` to it, rather than
-  overwriting in place. The saved project was intact after every crash.
+- **The crash, found (2026-11-16):** `MediaPool.ImportMedia` on 21.2.0.6, in a session where a
+  timeline has been built (`CreateEmptyTimeline`, appends, deletes), returns None for a file, and a
+  second later Resolve aborts on a queued UI event: `libc++abi: terminating due to uncaught exception
+  of type std::out_of_range: vector` in `logs/ResolveDebug.txt`, SIGABRT in `crash_archive.txt`.
+  Reproduced 3 of 3 in a copy of the project (build one chapter, then import another; stills and a
+  MOV), deterministic per file, and not cured by waiting 10 s between the calls or by `time.sleep`
+  inside the script (scripts run on Resolve's UI thread, so sleeping there blocks the queue too). The
+  same sequence through `MediaStorage.AddItemListToMediaPool`, one file per call: 0 of 3, every file
+  imported as one item. A fresh session, a fresh launch or the first call after Resolve's idle "sleep
+  mode" (logged about 10.5 min after the last activity) did not crash on their own. This explains
+  the earlier "rewritten media" crashes too: they all came during imports after builds. Use
+  MediaStorage for every import.
+- The project's live save (`IsProjectLiveSaveEnabled` in `config.user.xml`) saves after every media
+  pool change, over a hundred times a minute during an import stage; harmless, but it fills the log.
+- `launch_resolve` can answer "DaVinci Resolve is running" when no Resolve process exists (right after
+  a quit or a crash), and the next call then fails with "not running". Check with
+  `pgrep -f 'MacOS/Resolve$'`; if it is absent, `open -a "DaVinci Resolve"`, wait about 15 s, then
+  `LoadProject`.
 - After a crash, Resolve's reporter (`Resolve -reportCrash`) stays up, and an MCP call that was
   waiting on Resolve ignores its own timeout until the reporter exits: two calls with a 60 s
   limit returned after 13 and 61 minutes. On this Mac the `com.niklasheer.resolve-crashguard`
