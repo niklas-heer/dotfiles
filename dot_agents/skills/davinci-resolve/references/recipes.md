@@ -153,6 +153,13 @@ a solid `color=c=red` clip for cache tests. Work in an `_mcp-<topic>` project an
   and `SetClipColor` all work. `MediaPoolItem.SetMetadata` accepts `Description`, `Keywords`,
   `Comments` and `People`; `Characters`, `Cast` and `Subject` return False. `Comments` may already
   hold the camera's text (for example "Apple iOS").
+- Imported WAV clips report an empty `Frames` clip property (`FPS` reads 29.97 on a 29.97
+  project). Compute the append range from the file's duration instead.
+- Audio items: `SetProperties({"AudioVolume": dB})` reads back through `GetProperties()`, and
+  `SetFades({"FadeIn": n, "FadeOut": m})` returns True. `MediaPoolItem.ReplaceClip(path)` swapped
+  eight WAV lines for new files with their timeline items kept in place.
+- `TimelineItem.SetName` returned False for one of eight identical audio items and that item kept
+  showing its media pool clip's name; the cause is unknown. Read names back.
 - One script that imported a ProRes MOV into a bin and then renamed it (`MediaPoolItem.SetName`),
   among other edits, crashed Resolve 21.2.0.6 (`UiMpController`, uncaught exception). The MCP call
   then hung with no reply; only the `Resolve -reportCrash` process was left. Force-quit that
