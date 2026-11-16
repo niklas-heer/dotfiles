@@ -145,6 +145,13 @@ a solid `color=c=red` clip for cache tests. Work in an `_mcp-<topic>` project an
 - In a batch, `StartRendering` returned True while one job stayed Ready. Alone, the same job
   returned False.
 - WAV clips report the project frame rate as FPS, and their append frames count in it.
+- Stills (JPEG/HEIC photos) report 24 fps, and `Start`/`End` come from the file name's number
+  (`IMG_8816.jpeg` starts at frame 8816). `AppendToTimeline` reads `startFrame`/`endFrame` at those
+  24 fps, so convert: `end = round(timeline_frames * 24 / timeline_fps)` (a 90-frame hold at 29.97
+  lands at 89 frames).
+- A freshly imported still ignores `startFrame`/`endFrame` when `recordFrame` is given and gets the
+  default still duration (5 s), until its `Out` clip property has been set once:
+  `clip.SetClipProperty("Out", "")` before appending makes the range count.
 - AI analysis (`AnalyzeForIntellisearch`, `AnalyzeForSlate`) returns False when its Extras pack
   is missing.
 - No API creates a project library. `SetCurrentDatabase` only switches, and it closes the open project.
