@@ -145,10 +145,8 @@ a solid `color=c=red` clip for cache tests. Work in an `_mcp-<topic>` project an
 - In a batch, `StartRendering` returned True while one job stayed Ready. Alone, the same job
   returned False.
 - WAV clips report the project frame rate as FPS, and their append frames count in it.
-- A `run_script_unsafe` call that hit the 60 s limit (importing images and appending ~20 items)
-  left Resolve quit; the saved project was intact after `launch_resolve` and `LoadProject`. Split
-  long jobs into calls that each finish well inside the limit (for example, import first, build
-  second), and save after each.
+- Split long jobs into calls that each finish well inside the 60 s limit (for example, import
+  first, build second), and save after each.
 - Naming: `Timeline.SetTrackName(type, index, name)`, `TimelineItem.SetName`, `MediaPoolItem.SetName`
   and `SetClipColor` all work. `MediaPoolItem.SetMetadata` accepts `Description`, `Keywords`,
   `Comments` and `People`; `Characters`, `Cast` and `Subject` return False. `Comments` may already
@@ -165,14 +163,29 @@ a solid `color=c=red` clip for cache tests. Work in an `_mcp-<topic>` project an
   hangs until it times out. `LoadProject` also fails while the dialog is open. Escape closes it
   (`osascript`: activate DaVinci Resolve, then key code 53); then `LoadProject` works. Always
   `LoadProject` before anything else after a launch.
-- Twice, Resolve ended without a crash report while a `run_script_unsafe` script raised
-  `SystemExit` (or failed right after an import). The cause is not proven; raise ordinary
-  exceptions (`RuntimeError`) in scripts that run inside Resolve.
-- One script that imported a ProRes MOV into a bin and then renamed it (`MediaPoolItem.SetName`),
-  among other edits, crashed Resolve 21.2.0.6 (`UiMpController`, uncaught exception). The MCP call
-  then hung with no reply; only the `Resolve -reportCrash` process was left. Force-quit that
-  process, relaunch Resolve, and the MCP answers again. Importing and renaming in separate calls
-  worked. Rename clips in a later call than the one that imported them.
+- `raise SystemExit` in a script does not quit Resolve, but the call hangs until its timeout
+  instead of returning an error. Raise ordinary exceptions (`RuntimeError`).
+- Resolve writes its crashes to `~/Library/Application Support/Blackmagic Design/DaVinci
+  Resolve/crash_archive.txt` (`#TIME` per entry), not to macOS's DiagnosticReports, so an empty
+  DiagnosticReports proves nothing. `logs/ResolveDebug.txt` is the running session and
+  `logs/LogArchive/ResolveDebug_C1.txt` (newest) to `_C4` the sessions before it; their last lines
+  show where each stopped. The Resolve symbols in the stacks have offsets of hundreds of KB, so
+  names like `UiMpController` are guesses and do not identify the failing call.
+- Resolve 21.2.0.6 crashed (SIGABRT from a queued UI event) four times in one night, each within a
+  second of a `run_script_unsafe` build script starting or finishing its media pool work:
+  `SetCurrentFolder` and `ImportMedia` into bins, renaming, `SaveProject`. Each time, media that
+  Resolve had imported or was importing had just been rewritten on disk (a re-rendered MOV,
+  regenerated JPEGs, rewritten WAVs that were on the open timeline). A controlled test did not
+  reproduce it: rewriting and replacing imported WAV, MOV and JPEG files on the internal disk and
+  on an external APFS SSD, with their timeline open and Resolve in front, then importing more
+  (including large 4K ProRes renders) did not crash. The trigger is unknown. Treat imported media
+  as immutable: write a new versioned file and import it or `ReplaceClip` to it, rather than
+  overwriting in place. The saved project was intact after every crash.
+- After a crash, Resolve's reporter (`Resolve -reportCrash`) stays up, and an MCP call that was
+  waiting on Resolve ignores its own timeout until the reporter exits: two calls with a 60 s
+  limit returned after 13 and 61 minutes. On this Mac the `com.niklasheer.resolve-crashguard`
+  launch agent quits the reporter within about 7 s. Without it, `pkill -9 -f 'MacOS/Resolve
+  -reportCrash'`. Then `launch_resolve` and `LoadProject` first (the Untitled Project trap above).
 - Scalable item properties: `Scaling` (`resolve.SCALE_FIT`, `SCALE_FILL`, ...) and
   `DynamicZoomEnabled`/`DynamicZoomEase` set via `SetProperties`; the default dynamic zoom is a
   zoom-out of roughly 15–20 %. Its start and end rectangles are not exposed.
