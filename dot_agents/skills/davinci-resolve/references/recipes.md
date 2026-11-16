@@ -153,6 +153,11 @@ a solid `color=c=red` clip for cache tests. Work in an `_mcp-<topic>` project an
   and `SetClipColor` all work. `MediaPoolItem.SetMetadata` accepts `Description`, `Keywords`,
   `Comments` and `People`; `Characters`, `Cast` and `Subject` return False. `Comments` may already
   hold the camera's text (for example "Apple iOS").
+- One script that imported a ProRes MOV into a bin and then renamed it (`MediaPoolItem.SetName`),
+  among other edits, crashed Resolve 21.2.0.6 (`UiMpController`, uncaught exception). The MCP call
+  then hung with no reply; only the `Resolve -reportCrash` process was left. Force-quit that
+  process, relaunch Resolve, and the MCP answers again. Importing and renaming in separate calls
+  worked. Rename clips in a later call than the one that imported them.
 - Scalable item properties: `Scaling` (`resolve.SCALE_FIT`, `SCALE_FILL`, ...) and
   `DynamicZoomEnabled`/`DynamicZoomEase` set via `SetProperties`; the default dynamic zoom is a
   zoom-out of roughly 15–20 %. Its start and end rectangles are not exposed.
