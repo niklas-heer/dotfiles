@@ -145,6 +145,13 @@ a solid `color=c=red` clip for cache tests. Work in an `_mcp-<topic>` project an
 - In a batch, `StartRendering` returned True while one job stayed Ready. Alone, the same job
   returned False.
 - WAV clips report the project frame rate as FPS, and their append frames count in it.
+- A `run_script_unsafe` call that hit the 60 s limit (importing images and appending ~20 items)
+  left Resolve quit; the saved project was intact after `launch_resolve` and `LoadProject`. Split
+  long jobs into calls that each finish well inside the limit (for example, import first, build
+  second), and save after each.
+- Scalable item properties: `Scaling` (`resolve.SCALE_FIT`, `SCALE_FILL`, ...) and
+  `DynamicZoomEnabled`/`DynamicZoomEase` set via `SetProperties`; the default dynamic zoom is a
+  zoom-out of roughly 15–20 %. Its start and end rectangles are not exposed.
 - Stills (JPEG/HEIC photos) report 24 fps, and `Start`/`End` come from the file name's number
   (`IMG_8816.jpeg` starts at frame 8816). `AppendToTimeline` reads `startFrame`/`endFrame` at those
   24 fps, so convert: `end = round(timeline_frames * 24 / timeline_fps)` (a 90-frame hold at 29.97
