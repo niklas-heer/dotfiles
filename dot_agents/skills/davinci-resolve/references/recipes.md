@@ -179,7 +179,9 @@ a solid `color=c=red` clip for cache tests. Work in an `_mcp-<topic>` project an
   regenerated JPEGs, rewritten WAVs that were on the open timeline). A controlled test did not
   reproduce it: rewriting and replacing imported WAV, MOV and JPEG files on the internal disk and
   on an external APFS SSD, with their timeline open and Resolve in front, then importing more
-  (including large 4K ProRes renders) did not crash. The trigger is unknown. Treat imported media
+  (including large 4K ProRes renders) did not crash. A fifth crash, after 4 h uptime, came during
+  `ImportMedia` of three new JPEGs written 30 s earlier, with no imported file rewritten (the call
+  returned None first); rerunning the import after a relaunch worked. The trigger is unknown. Treat imported media
   as immutable: write a new versioned file and import it or `ReplaceClip` to it, rather than
   overwriting in place. The saved project was intact after every crash.
 - After a crash, Resolve's reporter (`Resolve -reportCrash`) stays up, and an MCP call that was
