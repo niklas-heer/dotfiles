@@ -151,6 +151,7 @@ a solid `color=c=red` clip for cache tests. Work in an `_mcp-<topic>` project an
   and `SetClipColor` all work. `MediaPoolItem.SetMetadata` accepts `Description`, `Keywords`,
   `Comments` and `People`; `Characters`, `Cast` and `Subject` return False. `Comments` may already
   hold the camera's text (for example "Apple iOS").
+- `Timeline.SetName` returns False for a name containing ":" ("… 12:30"); "… 1230" works.
 - Imported WAV clips report an empty `Frames` clip property (`FPS` reads 29.97 on a 29.97
   project). Compute the append range from the file's duration instead.
 - Audio items: `SetProperties({"AudioVolume": dB})` reads back through `GetProperties()`, and
