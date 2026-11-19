@@ -98,7 +98,7 @@
           "key": "s",
           "label": "😴 Sleep mode",
           "type": "url",
-          "value": "raycast://extensions/raycast/system/sleep"
+          "value": "raycast://extensions/raycast/system-actions/sleep"
         },
         {
           "iconPath": "books.vertical.fill",
