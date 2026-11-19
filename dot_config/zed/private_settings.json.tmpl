@@ -7,18 +7,61 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "project_panel": {
+    "dock": "right"
+  },
+  "outline_panel": {
+    "dock": "right"
+  },
+  "collaboration_panel": {
+    "dock": "right"
+  },
+  "git_panel": {
+    "dock": "right"
+  },
   "agent_servers": {
-    "claude": {
-      "favorite_models": [
-        "opus"
-      ]
+    "claude-acp": {
+      "default_config_options": {
+        "model": "default",
+        "effort": "high",
+        "mode": "bypassPermissions"
+      },
+      "favorite_config_option_values": {
+        "mode": [
+          "bypassPermissions"
+        ],
+        "effort": [
+          "high"
+        ]
+      },
+      "type": "registry"
+    },
+    "cursor": {
+      "default_config_options": {
+        "model": "grok-4.5"
+      },
+      "type": "registry"
+    },
+    "codex-acp": {
+      "default_config_options": {
+        "mode": "agent-full-access",
+        "model": "gpt-5.6-sol"
+      },
+      "favorite_config_option_values": {
+        "mode": [
+          "full-access"
+        ]
+      },
+      "type": "registry"
     }
   },
   "agent": {
+    "flexible": true,
+    "dock": "left",
     "always_allow_tool_actions": true,
     "model_parameters": []
   },
-  "theme": "Tokyo Night",
+  "theme": "Kanagawa",
   "soft_wrap": "editor_width",
   "buffer_font_size": 16,
   "buffer_font_family": "MonoLisa Variable",
