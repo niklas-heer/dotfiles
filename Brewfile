@@ -48,7 +48,6 @@ brew "zoxide" # smarter `cd` command
 brew "uv" # extremely fast Python package installer
 brew "flyctl" # CLI tool for fly.io
 brew "atuin" # better shell history
-brew "marksman" # markdown lsp
 brew "tdx" # better todos for git (my own package)
 brew "vrdx" # decision records in Markdown (my own package)
 brew "satococoa/tap/wtp" # Git worktree management tool
@@ -57,7 +56,6 @@ brew "googleworkspace-cli" # Google Workspace CLI (`gws`) for Drive, Gmail, Cale
 
 # Desktop apps
 cask "zed" # editor of choice over vscode
-cask "arc" # browser
 cask "ghostty" # terminal
 cask "1password" # password manager
 cask "1password-cli" # to use password manager in cli
