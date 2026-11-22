@@ -10,4 +10,4 @@ Before running shell commands, read `~/.codex/RTK.md` for the shared command con
 
 When a repository's own instructions adopt Latchrun for its credentialed commands, read `~/.agents/skills/latchrun/SKILL.md` before running them. Repositories that declare no Latchrun profile are unaffected.
 
-For the tstack `council` and `sol-loop` skills: the council has two members, the latest Claude Opus (Claude provider) and the latest GPT Sol (Codex provider). This replaces the skill's three-provider requirement; do not wait for or ask about a third. Resolve both with `orchestrator_capabilities`.
+For the tstack `council` and `sol-loop` skills: the council has two members, the latest Claude Fable (Claude provider) and the latest GPT Sol (Codex provider). This replaces the skill's three-provider requirement; do not wait for or ask about a third. Resolve both with `orchestrator_capabilities`.
