@@ -1,0 +1,4 @@
+interface:
+  display_name: "X (Twitter)"
+  short_description: "Post, reply and read on X as @niklas_heer through the Ardia browser"
+  default_prompt: "Use $x-twitter to post this approved text on X and send me the link."

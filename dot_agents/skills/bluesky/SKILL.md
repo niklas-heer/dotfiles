@@ -63,6 +63,8 @@ Post identity is the `at://did/app.bsky.feed.post/<rkey>` URI. Web link:
 Likes (`vote`), reposts, follows, mutes, and blocks are one-off commands on an
 explicit request; do not batch them.
 
+To announce a launch on Bluesky and X together, use the `launch-post` skill; X itself is the `x-twitter` skill.
+
 ## Profile
 
 `bsky update-profile` cannot be used: it fails with `RecordNotFound` on an

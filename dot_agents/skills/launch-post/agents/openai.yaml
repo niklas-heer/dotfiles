@@ -1,0 +1,4 @@
+interface:
+  display_name: "Launch post"
+  short_description: "Announce a launch on Bluesky and X with one approved post"
+  default_prompt: "Use $launch-post to draft an announcement of this on Bluesky and X, show it to me, and post it once I approve."

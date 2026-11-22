@@ -17,7 +17,7 @@ checkout (`thumbnail/`, `narrated/captions.en.srt`), and the research behind the
 
 - The request itself covers uploading, the details, the thumbnail and the video's settings. Choose them; don't ask.
 - **Ask first** for:
-  - the text of every social post, which is published in Niklas's name;
+  - the text of every social post, which is published in Niklas's name (see `launch-post`);
   - channel-wide settings such as upload defaults, which are a standing rule, so the browser tooling refuses them
     unless he asked;
   - deleting anything.
@@ -89,23 +89,9 @@ Download `https://i.ytimg.com/vi/<id>/maxresdefault.jpg` and look at it.
 
 ## 6. Announce
 
-1. Draft **one** post that fits both networks:
-   - X allows 280 characters, and every URL counts as 23. Count with
-     `re.sub(r"https?://\S+", "x"*23, text)`.
-   - Bluesky allows 300 graphemes, and the URL counts in full.
-   - Write in Niklas's voice: first person, plain, a concrete hook (the problem), what it does, "free, open source,
-     self-hosted", the length, then the link.
-2. Show the draft and get a yes. Post the approved text unchanged.
-3. **Bluesky:** use the `bluesky` skill. Run `bsky post --image thumb.jpg --image-alt '…' "$(cat post.txt)"`; the
-   image is the thumbnail as a JPEG under 1 MB. Verify with `getPostThread`: the text is identical and there is a link
-   facet and an image.
-4. **X:** use Claude in Chrome on Ardia, which is signed in as `@niklas_heer`.
-   - Open `https://x.com/compose/post`, click `[role=dialog] [data-testid=tweetTextarea_0]`, and type the text.
-     Newlines work.
-   - Zoom in on the counter: it must not be negative.
-   - Click `Posten`. Don't attach an image: X shows the YouTube card by itself.
-   - Verify on `https://x.com/niklas_heer` from the newest `article`: its text and `card.wrapper`.
-5. Report both links.
+Use the `launch-post` skill: one post in Niklas's voice, approved once, then posted unchanged on Bluesky (with the
+thumbnail as a JPEG under 1 MB, since the `bsky` CLI makes no link card) and on X (no image; the YouTube link makes a
+playable card). Report both links.
 
 ## 7. Link it from the project
 
