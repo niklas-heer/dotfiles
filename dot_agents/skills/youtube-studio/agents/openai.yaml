@@ -1,0 +1,4 @@
+interface:
+  display_name: "YouTube Studio"
+  short_description: "Upload videos and update the YouTube channel in Studio"
+  default_prompt: "Use $youtube-studio to upload this video to my YouTube channel as unlisted and send me the link."
