@@ -95,6 +95,7 @@ has V1 and A1.
 | UI jumped to Deliver | Render setters switch pages. Return with `OpenPage` |
 | `AddTransition` returns None | The clip has no handles at that edge |
 | Track list indices shifted | Transitions are items in `GetItemListInTrack` |
+| `SetSettings`, `SetSetting` and `SaveProject` return None and change nothing right after `CreateProject` | Seen on 21.2.0.6 while the new project sat on the Cut page; after `resolve.OpenPage("edit")` the same calls returned True. Open a page first, then read the settings back |
 
 Before placing titles or graphics, copying grades, setting audio levels or rendering, read
 [references/recipes.md](references/recipes.md): tested recipes and the full trap list.
