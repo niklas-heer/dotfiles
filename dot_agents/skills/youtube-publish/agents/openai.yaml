@@ -1,0 +1,4 @@
+interface:
+  display_name: "YouTube Publish"
+  short_description: "Launch a video: title, tags, thumbnail, captions, settings, posts and README link"
+  default_prompt: "Use $youtube-publish to put this render on my YouTube channel with a good title, description, tags, thumbnail and captions, then draft the Bluesky and X post."
