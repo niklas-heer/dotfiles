@@ -19,7 +19,8 @@ X's UI is in **German** here (`Posten`, `Startseite`, `Entwürfe`).
 
 1. Open your own tab (`tabs_context_mcp` with `createIfEmpty`), then navigate to `https://x.com/compose/post`. The
    composer opens as a dialog over the timeline.
-2. Check the account: `[data-testid=SideNav_AccountSwitcher_Button]` should read "Niklas Heer | @niklas_heer".
+2. Check the account: `[data-testid=SideNav_AccountSwitcher_Button]` should read "Niklas Heer | @niklas_heer". On
+   2026-11-23 its text was empty; `a[data-testid=AppTabBar_Profile_Link]` with `href="/niklas_heer"` confirms it too.
 3. Click `[role=dialog] [data-testid=tweetTextarea_0]` (use `find` for its ref), then `type` the text. Newlines in the
    text become line breaks. The editor's `innerText` shows an extra `\n` per blank line; that is how it renders
    paragraphs, not a typo.
@@ -29,6 +30,8 @@ X's UI is in **German** here (`Posten`, `Startseite`, `Entwürfe`).
 5. Click `Posten` (`[role=dialog] [data-testid=tweetButton]`).
 6. Verify on `https://x.com/niklas_heer`. The newest `article` should have the text (`[data-testid=tweetText]`), a
    `time` and a link `a[href*="/status/"]`. That link is the post's address: `https://x.com<href>`.
+   The profile can lag by minutes (the Focal post was missing there right after posting): before posting again,
+   search `https://x.com/search?q=from%3Aniklas_heer%20<word>&f=live`, which showed it at once.
 
 A link at the end of the text becomes a **card**. A YouTube link shows the video's thumbnail and plays inline, and the
 URL itself is hidden from the text. Don't attach an image when the link has a good card.
