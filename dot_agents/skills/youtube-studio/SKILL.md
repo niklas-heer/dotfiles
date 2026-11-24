@@ -71,7 +71,7 @@ Use `https://studio.youtube.com/video/<id>/edit`, click `#toggle-button` ("Mehr 
 | Field | How | Value for Niklas's videos |
 | --- | --- | --- |
 | Thumbnail | `upload`/`file_upload` into `input#file-loader` (no picker) | 16:9 PNG/JPG under 2 MB |
-| Tags | `ytcp-free-text-chip-bar`: `#clear-button` ("Alle löschen") empties it. Click the `Tags` textbox and type the list comma-separated, ending with a comma. | see `youtube-publish` |
+| Tags | `ytcp-free-text-chip-bar`: `#clear-button` ("Alle löschen") empties it. Click the `Tags` textbox and type the list comma-separated, ending with a comma, then press Enter: on 2026-11-24 typing alone left the text in the box with no chips. Read the chips back: a one-letter tag ("C") is silently dropped. | see `youtube-publish` |
 | Videosprache, Sprache von Titel und Beschreibung | `ytcp-form-select` with that label. Open it and click the `tp-yt-paper-item` whose text is exactly `Englisch` (there are 239 options and no search box). | Englisch |
 | Untertitelzertifizierung | the same kind of select | "Dieser Inhalt wurde noch nie im US-amerikanischen Fernsehen ausgestrahlt." |
 | Bezahlte Werbung | radio `VIDEO_PAID_PRODUCT_PLACEMENT_NO` | No |
@@ -82,7 +82,7 @@ Use `https://studio.youtube.com/video/<id>/edit`, click `#toggle-button` ("Mehr 
 
 **Captions:**
 1. Open `…/video/<id>/translations`; the video language must be set first. Click `Untertitel bearbeiten`.
-2. The editor opens prefilled with auto-captions. Click `Optionen` (⋮), then `Datei hochladen`, and keep "Mit Zeitangabe".
+2. The editor opens prefilled with auto-captions, or (2026-11-24, a fresh upload) on an "Untertitel hinzufügen" chooser. Click `Optionen` (⋮) → `Datei hochladen`, or the chooser's `Datei hochladen` row, and keep "Mit Zeitangabe". Two `#captions-file-loader` inputs exist then; use `ytve-captions-editor-upload-dialog #captions-file-loader`.
 3. Don't press `Weiter`, which opens the native picker. Set the file directly on `#captions-file-loader` (a hidden
    input that exists while that dialog is open).
 4. Check the cues and click `Veröffentlichen`.
@@ -90,6 +90,15 @@ Use `https://studio.youtube.com/video/<id>/edit`, click `#toggle-button` ("Mehr 
 **Upload defaults** (Einstellungen → `Upload-Standardeinstellungen`) are a channel-wide standing setting, so change
 them only when Niklas asks. Since 2026-11-23 they have no tags, and visibility is **Privat**. The tags field there is
 the same chip bar.
+
+**Comments:** on the watch page (signed in as the channel), scroll until `#simplebox-placeholder` exists, click it,
+`type` into `#contenteditable-root` (newlines become one blank line each), click `#submit-button button`. To pin: the
+comment's `#action-menu button` → `Anpinnen` → the confirm dialog's `Anpinnen`. Click that last button with
+`preview_act`, not a JS `.click()`, which closed the dialog without pinning (2026-11-24). Verify with "Von @NiklasHeer
+angepinnt" at the top of the thread.
+
+**Set the video language before or right after upload:** a video uploaded without one got automatic *German*
+captions (`de`, `asr`) next to the uploaded English track (2026-11-24).
 
 ## Change the channel
 
