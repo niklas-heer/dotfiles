@@ -1,0 +1,4 @@
+interface:
+  display_name: "Promo Video"
+  short_description: "Make a ~1-minute narrated promo film for a tool: council pick, capture, cut, voiceover, publish"
+  default_prompt: "Use $promo-video to make a promo film for the next tool: let the council pick it, build it with promo-kit, set up Takewise for my voiceover, and get it ready to publish."
